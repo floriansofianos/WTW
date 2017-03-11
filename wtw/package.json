@@ -1,0 +1,19 @@
+{
+  "name": "wtw",
+  "version": "0.0.0",
+  "description": "wtw",
+  "main": "lib/server.js",
+  "author": {
+    "name": "Florian"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.4",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1"
+  }
+}
