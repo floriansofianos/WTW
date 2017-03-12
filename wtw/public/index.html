@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!-- bower:css -->
+    <!-- endbower -->
+
+    <!-- bower:js -->
+    <script src="../bower_components/zone.js/dist/zone.min.js"></script>
+    <script src="../bower_components/systemjs/build/system.min.js"></script>
+    <script src="../bower_components/core.js/client/shim.min.js"></script>
+    <!-- endbower -->
+
+    <script src="js/systemjs.config.js"></script>
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>

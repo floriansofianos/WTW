@@ -28,11 +28,15 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="public\js\systemjs.config.js" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
     <Compile Include="gulpfile.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
+    <Content Include="lib\index.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +48,7 @@
     <Folder Include="app\" />
     <Folder Include="bin\" />
     <Folder Include="lib\" />
+    <Folder Include="public\js\" />
     <Folder Include="tests\" />
     <Folder Include="public\" />
   </ItemGroup>

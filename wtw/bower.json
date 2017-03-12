@@ -1,0 +1,23 @@
+{
+  "name": "wtw",
+  "description": "wtw",
+  "main": "server.js",
+  "authors": [
+    "[object Object]"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/floriansofianos/NodeJSBlankProject",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zone.js": "^0.5.8",
+    "systemjs": "*",
+    "core.js": "^2.4.1"
+  }
+}
