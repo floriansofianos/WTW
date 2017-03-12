@@ -18,7 +18,6 @@ gulp.task('style-server-code', function() {
 });
 
 gulp.task('inject-front-end-dependancies', function () {
-    console.log(config.index);
     gulp.src(config.index)
         .pipe(wiredep({}))
         .pipe(gulp.dest(config.publicFolder))
