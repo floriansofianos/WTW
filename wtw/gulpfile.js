@@ -22,3 +22,11 @@ gulp.task('inject-front-end-dependancies', function () {
         .pipe(wiredep({}))
         .pipe(gulp.dest(config.publicFolder))
 });
+
+gulp.task('compile-ts', function () {
+    var ts = require('gulp-typescript');
+    var tsProject = ts.createProject('./app/tsconfig.json');
+    gulp.src('./app/*.ts')
+        .pipe(tsProject())
+        .pipe(gulp.dest(config.publicFolder));
+});

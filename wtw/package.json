@@ -7,7 +7,14 @@
     "name": "Florian"
   },
   "dependencies": {
-    "express": "^4.15.2"
+    "@angular/common": "^2.4.9",
+    "@angular/compiler": "^2.4.9",
+    "@angular/core": "^2.4.9",
+    "@angular/platform-browser": "^2.4.9",
+    "@angular/platform-browser-dynamic": "^2.4.9",
+    "express": "^4.15.2",
+    "rxjs": "^5.2.0",
+    "zone.js": "^0.7.8"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -15,9 +22,10 @@
     "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.4",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-typescript": "^3.1.5",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
-    "typescript1.9": "^2.0.0",
+    "typescript": "^2.2.1",
     "wiredep": "^4.0.0"
   }
 }

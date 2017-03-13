@@ -11,12 +11,13 @@
     <!-- bower:js -->
     <!-- endbower -->
 
+    <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="js/systemjs.config.js"></script>
     <script>
       System.import('main.js').catch(function(err){ console.error(err); });
     </script>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <main-app></main-app>
 </body>
 </html>

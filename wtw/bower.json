@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "zone.js": "^0.5.8",
     "core.js": "^2.4.1",
     "systemjs": "https://github.com/systemjs/systemjs.git#^0.20.9"
   }
