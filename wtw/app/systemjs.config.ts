@@ -2,6 +2,7 @@
  * System configuration for Angular samples
  * Adjust as necessary for your application needs.
  */
+var System: any
 (function (global) {
     System.config({
         paths: {

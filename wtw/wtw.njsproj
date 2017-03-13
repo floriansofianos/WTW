@@ -31,7 +31,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="public\js\systemjs.config.js" />
+    <Compile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
     <Compile Include="gulpfile.js" />
