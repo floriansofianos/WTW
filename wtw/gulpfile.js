@@ -1,7 +1,9 @@
+/// <binding BeforeBuild='lint-front-end-code, lint-server-code, style-server-code, compile-ts, inject-front-end-dependancies' />
 var gulp = require('gulp');
 var config = require('./config/gulp.config')();
 var $ = require('gulp-load-plugins');
 var wiredep = require('wiredep').stream;
+var tslint = require('gulp-tslint')
 
 
 
@@ -9,6 +11,14 @@ gulp.task('lint-server-code', function() {
     gulp.src(config.alljs)
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish', { verbose: true }));
+});
+
+gulp.task('lint-front-end-code', function () {
+    gulp.src(config.allts)
+        .pipe(tslint({
+            configuration: require(config.configFolder + 'tslint.json')
+        }))
+        .pipe(tslint.report({ verbose: true }));
 });
 
 gulp.task('style-server-code', function() {

@@ -40,6 +40,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="app\tsconfig.json" />
+    <Content Include="config\tslint.json" />
     <Content Include="package.json" />
     <Content Include="lib\index.html">
       <SubType>Code</SubType>
