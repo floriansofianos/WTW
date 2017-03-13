@@ -193,6 +193,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
+public/
 bower_components/
 orleans.codegen.cs
 
