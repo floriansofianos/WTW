@@ -28,5 +28,5 @@ gulp.task('compile-ts', function () {
     var tsProject = ts.createProject('./app/tsconfig.json');
     gulp.src('./app/*.ts')
         .pipe(tsProject())
-        .pipe(gulp.dest(config.publicFolder));
+        .pipe(gulp.dest(config.publicFolder + 'js/'));
 });
