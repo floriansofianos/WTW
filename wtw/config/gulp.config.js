@@ -7,7 +7,9 @@ module.exports = function () {
         configFolder: './config/',
         publicFolder: './public/',
         index: lib + 'index.html',
-        allts: [app + '*.ts']
+        allts: [app + '*.ts'],
+        tsConfig: app + 'tsconfig.json',
+        allLess: [app + 'less/*.less']
     };
 
     return config;

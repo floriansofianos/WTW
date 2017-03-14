@@ -39,6 +39,9 @@
     <Content Include="app\app.module.ts">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="app\less\styles.less">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app\tsconfig.json" />
     <Content Include="config\tslint.json" />
     <Content Include="package.json" />
@@ -48,6 +51,7 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\less\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />
     <Folder Include="lib\middlewares\" />

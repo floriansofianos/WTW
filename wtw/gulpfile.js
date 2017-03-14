@@ -3,8 +3,9 @@ var gulp = require('gulp');
 var config = require('./config/gulp.config')();
 var $ = require('gulp-load-plugins');
 var wiredep = require('wiredep').stream;
-var tslint = require('gulp-tslint')
-
+var tslint = require('gulp-tslint');
+var ts = require('gulp-typescript');
+var less = require('gulp-less');
 
 
 gulp.task('lint-server-code', function() {
@@ -34,9 +35,15 @@ gulp.task('inject-front-end-dependancies', function () {
 });
 
 gulp.task('compile-ts', function () {
-    var ts = require('gulp-typescript');
-    var tsProject = ts.createProject('./app/tsconfig.json');
-    gulp.src('./app/*.ts')
+
+    var tsProject = ts.createProject(config.tsConfig);
+    gulp.src(config.allts)
         .pipe(tsProject())
         .pipe(gulp.dest(config.publicFolder + 'js/'));
+});
+
+gulp.task('compile-less', function () {
+    return gulp.src(config.allLess)
+        .pipe(less({}))
+        .pipe(gulp.dest(config.publicFolder + 'css'));
 });
