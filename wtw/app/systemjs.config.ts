@@ -2,7 +2,7 @@
  * System configuration for Angular samples
  * Adjust as necessary for your application needs.
  */
-const System: any
+let System: any
 (function (global) {
     System.config({
         paths: {
