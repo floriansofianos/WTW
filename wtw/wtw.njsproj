@@ -35,6 +35,7 @@
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
     <Compile Include="gulpfile.js" />
+    <Compile Include="lib\routes\testRoutes.js" />
     <Compile Include="server.js" />
     <Content Include="app\app.module.ts">
       <SubType>Code</SubType>
