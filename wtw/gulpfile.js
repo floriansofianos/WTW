@@ -58,7 +58,7 @@ gulp.task('clean', function (done) {
 
 gulp.task('server-tests', function () {
     return gulp.src(config.allTests)
-        .pipe(mocha({ reporter: 'nyan' }));
+        .pipe(mocha({ }));
 });
 
 gulp.task('serve-dev', function () {
