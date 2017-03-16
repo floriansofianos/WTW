@@ -9,6 +9,8 @@ var $ = require('gulp-load-plugins')({
 });
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
+var gulp = require('gulp');
+var mocha = require('gulp-mocha');
 
 gulp.task('lint-server-code', function() {
     return gulp.src(config.alljs)
@@ -52,6 +54,11 @@ gulp.task('compile-less', function () {
 gulp.task('clean', function (done) {
     return gulp.src(config.publicFolder + '*', { read: false })
         .pipe($.clean());
+});
+
+gulp.task('server-tests', function () {
+    return gulp.src(config.allTests)
+        .pipe(mocha({ reporter: 'nyan' }));
 });
 
 gulp.task('serve-dev', function () {
