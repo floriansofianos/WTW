@@ -3,4 +3,4 @@ describe('first test', function () {
         expect(true).toBe(true);
     });
 });
-//# sourceMappingURL=test.specs.js.map
+//# sourceMappingURL=test.spec.js.map

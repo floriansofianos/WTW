@@ -72,9 +72,9 @@ gulp.task('serve-dev', function () {
         'inject-front-end-dependancies');
 });
 
-/*gulp.task('front-end-test', function (done) {
+gulp.task('front-end-test', function (done) {
     new karmaServer({
-        configFile: __dirname + '/config/karma.config.js',
+        configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done).start();
-});*/
+});

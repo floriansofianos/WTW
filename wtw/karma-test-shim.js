@@ -8,7 +8,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
 // builtPaths: root paths for output ("built") files
 // get from karma.config.js, then prefix with '/base/' (default is 'src/')
-var builtPaths = (__karma__.config.builtPaths || ['src/'])
+var builtPaths = (__karma__.config.builtPaths || ['app/'])
     .map(function (p) { return '/base/' + p; });
 
 __karma__.loaded = function () { };
@@ -35,7 +35,7 @@ var allSpecFiles = Object.keys(window.__karma__.files)
 
 System.config({
     // Base URL for System.js calls. 'base/' is where Karma serves files from.
-    baseURL: 'base/src',
+    baseURL: 'base/',
     // Extend usual application package list with test folder
     packages: { 'testing': { main: 'index.js', defaultExtension: 'js' } },
 
@@ -53,7 +53,7 @@ System.config({
     },
 });
 
-System.import('systemjs.config.js')
+System.import('app/systemjs.config.js')
     .then(importSystemJsExtras)
     .then(initTestBed)
     .then(initTesting);

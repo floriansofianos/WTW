@@ -1,7 +1,7 @@
 module.exports = function (config) {
     var appBase = 'app/';       // transpiled app JS and map files
     var appSrcBase = 'app/';       // app source TS files
-    var appAssets = '/app/'; // component assets fetched by Angular's compiler. all assets served up at http://localhost/base/
+    var appAssets = '/base/app/'; // component assets fetched by Angular's compiler. all assets served up at http://localhost/base/
 
     config.set({
         basePath: '',
@@ -37,7 +37,7 @@ module.exports = function (config) {
             // Angular itself
             { pattern: 'node_modules/@angular/**/*.js', included: false, watched: false },
             { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
-            { pattern: 'systemjs.config.js', included: false, watched: false },
+            { pattern: '/app/systemjs.config.js', included: false, watched: false },
             'karma-test-shim.js',
 
             // transpiled application & spec code paths loaded via module imports
