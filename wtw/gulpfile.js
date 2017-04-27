@@ -11,6 +11,7 @@ var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
+var karmaServer = require('karma').Server;
 
 gulp.task('lint-server-code', function() {
     return gulp.src(config.alljs)
@@ -70,3 +71,10 @@ gulp.task('serve-dev', function () {
         'compile-less',
         'inject-front-end-dependancies');
 });
+
+/*gulp.task('front-end-test', function (done) {
+    new karmaServer({
+        configFile: __dirname + '/config/karma.config.js',
+        singleRun: true
+    }, done).start();
+});*/
