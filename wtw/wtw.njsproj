@@ -32,7 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\systemjs.config.ts" />
+    <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
     <Compile Include="karma.conf.js" />
@@ -72,13 +72,13 @@
     <Folder Include="public\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\main-app.component.spec.ts" />
     <TypeScriptCompile Include="app\main-app.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\main.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="app\test.spec.ts" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
