@@ -39,6 +39,12 @@ gulp.task('inject-front-end-dependancies', function () {
         .pipe(gulp.dest(config.publicFolder));
 });
 
+gulp.task('serve-prod', function () {
+    return gulp.src(config.indexAOT)
+        .pipe(wiredep({}))
+        .pipe(gulp.dest(config.publicFolder));
+});
+
 gulp.task('compile-ts', function () {
     var tsProject = $.typescript.createProject(config.tsConfig);
     return gulp.src(config.allts)

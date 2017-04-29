@@ -1,4 +1,6 @@
-var main_app_component_1 = require('./main-app.component');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var main_app_component_1 = require("./main-app.component");
 describe('Main App Component', function () {
     var component;
     beforeEach(function () {

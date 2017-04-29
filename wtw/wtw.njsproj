@@ -32,6 +32,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="lib\index-aot.html" />
+    <Content Include="tsconfig-aot.json" />
+    <TypeScriptCompile Include="app\main-aot.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
@@ -39,6 +42,9 @@
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
     <Compile Include="lib\routes\testRoutes.js" />
+    <Compile Include="rollup-config.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server.js" />
     <Compile Include="tests\testRoutes.specs.js">
       <SubType>Code</SubType>
@@ -67,6 +73,7 @@
     <Folder Include="app\" />
     <Folder Include="bin\" />
     <Folder Include="lib\" />
+    <Folder Include="public\dist\" />
     <Folder Include="public\js\" />
     <Folder Include="tests\" />
     <Folder Include="public\" />
