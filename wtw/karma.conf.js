@@ -55,7 +55,7 @@ module.exports = function (config) {
 
         proxies: {
             // required for component assets fetched by Angular's compiler
-            "/base/src/": appAssets
+            '/base/src/': appAssets
         },
 
         exclude: [
@@ -72,5 +72,5 @@ module.exports = function (config) {
         browsers: ['Chrome'],
         singleRun: false,
         concurrency: Infinity
-    })
-}
+    });
+};

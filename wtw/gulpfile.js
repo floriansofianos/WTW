@@ -13,7 +13,7 @@ var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var karmaServer = require('karma').Server;
 var exec = require('child_process').exec;
-var rename = require("gulp-rename");
+var rename = require('gulp-rename');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var filter = require('gulp-filter');
@@ -67,18 +67,18 @@ gulp.task('assets-revision-css', function () {
         .pipe(gulp.dest(config.publicFolder + 'css'));
 });
 
-gulp.task("assets-revision-js-replace", function () {
-    var manifest = gulp.src(config.publicFolder + "dist/rev-manifest.json");
+gulp.task('assets-revision-js-replace', function () {
+    var manifest = gulp.src(config.publicFolder + 'dist/rev-manifest.json');
 
-    return gulp.src(config.publicFolder + "/index.html")
+    return gulp.src(config.publicFolder + '/index.html')
         .pipe(revReplace({ manifest: manifest }))
         .pipe(gulp.dest(config.publicFolder));
 });
 
-gulp.task("assets-revision-css-replace", function () {
-    var manifest = gulp.src(config.publicFolder + "css/rev-manifest.json");
+gulp.task('assets-revision-css-replace', function () {
+    var manifest = gulp.src(config.publicFolder + 'css/rev-manifest.json');
 
-    return gulp.src(config.publicFolder + "/index.html")
+    return gulp.src(config.publicFolder + '/index.html')
         .pipe(revReplace({ manifest: manifest }))
         .pipe(gulp.dest(config.publicFolder));
 });

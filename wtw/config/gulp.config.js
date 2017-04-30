@@ -6,7 +6,7 @@ module.exports = function () {
     var public = './public/';
 
     var config = {
-        alljs: [lib + '*.js', './*.js', configFolder + '*.js'],
+        alljs: [lib + '*.js', './*.js', configFolder + '*.js', '!rollup-config.js'],
         allJSAssets: public + 'dist/*.js',
         allCSSAssets: public + 'css/*.css',
         configFolder: configFolder,

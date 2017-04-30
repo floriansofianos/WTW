@@ -82,7 +82,7 @@ function initTestBed() {
             coreTesting.TestBed.initTestEnvironment(
                 browserTesting.BrowserDynamicTestingModule,
                 browserTesting.platformBrowserDynamicTesting());
-        })
+        });
 }
 
 // Import all spec files and start karma

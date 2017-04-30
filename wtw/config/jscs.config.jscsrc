@@ -3,5 +3,8 @@
   "disallowSpacesInsideObjectBrackets": null,
   "disallowSpacesInFunctionExpression": null,
   "disallowSpacesInAnonymousFunctionExpression": null,
-  "validateIndentation": 4
+  "validateIndentation": 4,
+  "maximumLineLength": 200,
+  "requireLineFeedAtFileEnd": false,
+  "requireCapitalizedConstructors":  false
 }
