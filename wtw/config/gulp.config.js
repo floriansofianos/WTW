@@ -7,6 +7,7 @@ module.exports = function () {
     var config = {
         alljs: [lib + '*.js', './*.js', configFolder + '*.js'],
         configFolder: configFolder,
+        appFolder: app,
         publicFolder: './public/',
         index: lib + 'index.html',
         indexAOT: lib + 'index-aot.html',

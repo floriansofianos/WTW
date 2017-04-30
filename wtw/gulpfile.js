@@ -52,6 +52,13 @@ gulp.task('compile-ts', function () {
         .pipe(gulp.dest(config.publicFolder + 'js/'));
 });
 
+gulp.task('compile-ts-in-app', function () {
+    var tsProject = $.typescript.createProject(config.tsConfig);
+    return gulp.src(config.allts)
+        .pipe(tsProject())
+        .pipe(gulp.dest(config.appFolder));
+});
+
 gulp.task('compile-less', function () {
     return gulp.src(config.allLess)
         .pipe($.less({}))
@@ -74,13 +81,15 @@ gulp.task('serve-dev', function () {
         'style-server-code',
         'lint-front-end-code',
         'compile-ts',
+        'compile-ts-in-app',
+        'front-end-test',
         'compile-less',
         'inject-front-end-dependancies');
 });
 
-gulp.task('front-end-test', function (done) {
+gulp.task('front-end-test', function () {
     new karmaServer({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
-    }, done).start();
+    }).start();
 });
