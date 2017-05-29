@@ -1,5 +1,6 @@
 var express = require('express');
 var testRouter = require('./lib/routes/testRoutes')();
+var authRouter = require('./lib/routes/authRoutes')();
 
 var port = process.env.port || 1337;
 
@@ -16,6 +17,7 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // set up the API routers
 app.use('/api/test', testRouter);
+app.use('/auth', testRouter);
 
 app.get('/', function (req, res) {
     res.render('index');

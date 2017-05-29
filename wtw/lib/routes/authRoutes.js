@@ -3,12 +3,12 @@ var express = require('express');
 var authRoutes = function () {
     var authRouter = express.Router();
 
-    authRouter.route('/auth/signin')
+    authRouter.route('/signin')
         .post(function (req, res) {
             
         });
 
-    authRouter.route('/auth/signup')
+    authRouter.route('/signup')
         .post(function (req, res) {
 
         });
