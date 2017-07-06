@@ -15,6 +15,9 @@ let System: any
             app: 'js',
             // karma server files
             karma: 'app',
+            // ngx-translate
+            '@ngx-translate/core': 'npm:@ngx-translate/core/bundles/core.umd.js',
+            '@ngx-translate/http-loader': 'npm:@ngx-translate/http-loader/bundles/http-loader.umd.js',
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',

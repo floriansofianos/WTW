@@ -32,6 +32,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="lib\i18n\fr.json" />
+    <Content Include="lib\i18n\en.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\main-aot.ts" />
@@ -66,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\less\" />
+    <Folder Include="lib\i18n\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />
     <Folder Include="lib\middlewares\" />
