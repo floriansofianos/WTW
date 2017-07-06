@@ -13,7 +13,7 @@ var authRoutes = function () {
 
         });
 
-    return testRouter;
+    return authRouter;
 }
 
 module.exports = authRoutes;
