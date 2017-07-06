@@ -17,7 +17,7 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // set up the API routers
 app.use('/api/test', testRouter);
-app.use('/auth', testRouter);
+app.use('/auth', authRouter);
 
 app.get('/', function (req, res) {
     res.render('index');
