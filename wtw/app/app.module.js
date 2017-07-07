@@ -13,10 +13,10 @@ var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var main_app_component_1 = require("./main-app.component");
 // AoT requires an exported function for factories
-function HttpLoaderFactory(http) {
-    return new http_loader_1.TranslateHttpLoader(http, "i18n/", ".json");
+function createTranslateLoader(http) {
+    return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
-exports.HttpLoaderFactory = HttpLoaderFactory;
+exports.createTranslateLoader = createTranslateLoader;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -29,7 +29,7 @@ AppModule = __decorate([
             core_2.TranslateModule.forRoot({
                 loader: {
                     provide: core_2.TranslateLoader,
-                    useFactory: HttpLoaderFactory,
+                    useFactory: (createTranslateLoader),
                     deps: [http_1.Http]
                 }
             })],

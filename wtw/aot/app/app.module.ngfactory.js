@@ -13,7 +13,7 @@ import * as import1 from '../../app/app.module';
 import * as import2 from '@angular/common/src/common_module';
 import * as import3 from '@angular/core/src/application_module';
 import * as import4 from '@angular/platform-browser/src/browser';
-import * as import5 from '@angular/http/http';
+import * as import5 from '@angular/http/src/http_module';
 import * as import6 from '@ngx-translate/core/index';
 import * as import7 from '@angular/common/src/localization';
 import * as import8 from '@angular/core/src/application_init';
@@ -28,35 +28,41 @@ import * as import16 from '@angular/platform-browser/src/security/dom_sanitizati
 import * as import17 from '@angular/core/src/animation/animation_queue';
 import * as import18 from '@angular/core/src/linker/view_utils';
 import * as import19 from '@angular/platform-browser/src/browser/title';
-import * as import20 from '@ngx-translate/core/src/translate.parser';
-import * as import21 from '@ngx-translate/core/src/missing-translation-handler';
-import * as import22 from '@ngx-translate/core/src/translate.store';
-import * as import23 from '@ngx-translate/core/src/translate.service';
-import * as import25 from './main-app.component.ngfactory';
-import * as import26 from '@angular/core/src/i18n/tokens';
-import * as import27 from '@angular/core/src/application_tokens';
-import * as import28 from '@angular/platform-browser/src/dom/events/dom_events';
-import * as import29 from '@angular/platform-browser/src/dom/events/key_events';
-import * as import30 from '@angular/core/src/zone/ng_zone';
-import * as import31 from '@angular/platform-browser/src/dom/debug/ng_probe';
-import * as import32 from '@angular/core/src/console';
-import * as import33 from '@angular/core/src/error_handler';
-import * as import34 from '@angular/platform-browser/src/dom/dom_tokens';
-import * as import35 from '@angular/platform-browser/src/dom/animation_driver';
-import * as import36 from '@angular/core/src/render/api';
-import * as import37 from '@angular/core/src/security';
-import * as import38 from '@angular/core/src/change_detection/differs/iterable_differs';
-import * as import39 from '@angular/core/src/change_detection/differs/keyvalue_differs';
-import * as import40 from '@ngx-translate/core/src/translate.loader';
+import * as import20 from '@angular/http/src/backends/browser_xhr';
+import * as import21 from '@angular/http/src/base_response_options';
+import * as import22 from '@angular/http/src/backends/xhr_backend';
+import * as import23 from '@angular/http/src/base_request_options';
+import * as import24 from '@ngx-translate/core/src/translate.parser';
+import * as import25 from '@ngx-translate/core/src/missing-translation-handler';
+import * as import26 from '@ngx-translate/core/src/translate.store';
+import * as import27 from '@ngx-translate/core/src/translate.service';
+import * as import29 from './main-app.component.ngfactory';
+import * as import30 from '@angular/core/src/i18n/tokens';
+import * as import31 from '@angular/core/src/application_tokens';
+import * as import32 from '@angular/platform-browser/src/dom/events/dom_events';
+import * as import33 from '@angular/platform-browser/src/dom/events/key_events';
+import * as import34 from '@angular/core/src/zone/ng_zone';
+import * as import35 from '@angular/platform-browser/src/dom/debug/ng_probe';
+import * as import36 from '@angular/core/src/console';
+import * as import37 from '@angular/core/src/error_handler';
+import * as import38 from '@angular/platform-browser/src/dom/dom_tokens';
+import * as import39 from '@angular/platform-browser/src/dom/animation_driver';
+import * as import40 from '@angular/core/src/render/api';
+import * as import41 from '@angular/core/src/security';
+import * as import42 from '@angular/core/src/change_detection/differs/iterable_differs';
+import * as import43 from '@angular/core/src/change_detection/differs/keyvalue_differs';
+import * as import44 from '@angular/http/src/interfaces';
+import * as import45 from '@angular/http/src/http';
+import * as import46 from '@ngx-translate/core/src/translate.loader';
 var AppModuleInjector = (function (_super) {
     __extends(AppModuleInjector, _super);
     function AppModuleInjector(parent) {
-        return _super.call(this, parent, [import25.MainAppComponentNgFactory], [import25.MainAppComponentNgFactory]) || this;
+        return _super.call(this, parent, [import29.MainAppComponentNgFactory], [import29.MainAppComponentNgFactory]) || this;
     }
     Object.defineProperty(AppModuleInjector.prototype, "_LOCALE_ID_6", {
         get: function () {
             if ((this.__LOCALE_ID_6 == null)) {
-                (this.__LOCALE_ID_6 = import3._localeFactory(this.parent.get(import26.LOCALE_ID, null)));
+                (this.__LOCALE_ID_6 = import3._localeFactory(this.parent.get(import30.LOCALE_ID, null)));
             }
             return this.__LOCALE_ID_6;
         },
@@ -96,7 +102,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_APP_ID_14", {
         get: function () {
             if ((this.__APP_ID_14 == null)) {
-                (this.__APP_ID_14 = import27._appIdRandomProviderFactory());
+                (this.__APP_ID_14 = import31._appIdRandomProviderFactory());
             }
             return this.__APP_ID_14;
         },
@@ -127,8 +133,8 @@ var AppModuleInjector = (function (_super) {
         get: function () {
             if ((this.__EVENT_MANAGER_PLUGINS_17 == null)) {
                 (this.__EVENT_MANAGER_PLUGINS_17 = [
-                    new import28.DomEventsPlugin(),
-                    new import29.KeyEventsPlugin(),
+                    new import32.DomEventsPlugin(),
+                    new import33.KeyEventsPlugin(),
                     new import12.HammerGesturesPlugin(this._HAMMER_GESTURE_CONFIG_16)
                 ]);
             }
@@ -140,7 +146,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_EventManager_18", {
         get: function () {
             if ((this.__EventManager_18 == null)) {
-                (this.__EventManager_18 = new import13.EventManager(this._EVENT_MANAGER_PLUGINS_17, this.parent.get(import30.NgZone)));
+                (this.__EventManager_18 = new import13.EventManager(this._EVENT_MANAGER_PLUGINS_17, this.parent.get(import34.NgZone)));
             }
             return this.__EventManager_18;
         },
@@ -170,7 +176,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_RootRenderer_22", {
         get: function () {
             if ((this.__RootRenderer_22 == null)) {
-                (this.__RootRenderer_22 = import31._createConditionalRootRenderer(this._DomRootRenderer_21, this.parent.get(import31.NgProbeToken, null), this.parent.get(import10.NgProbeToken, null)));
+                (this.__RootRenderer_22 = import35._createConditionalRootRenderer(this._DomRootRenderer_21, this.parent.get(import35.NgProbeToken, null), this.parent.get(import10.NgProbeToken, null)));
             }
             return this.__RootRenderer_22;
         },
@@ -200,7 +206,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_AnimationQueue_25", {
         get: function () {
             if ((this.__AnimationQueue_25 == null)) {
-                (this.__AnimationQueue_25 = new import17.AnimationQueue(this.parent.get(import30.NgZone)));
+                (this.__AnimationQueue_25 = new import17.AnimationQueue(this.parent.get(import34.NgZone)));
             }
             return this.__AnimationQueue_25;
         },
@@ -260,7 +266,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_BrowserXhr_31", {
         get: function () {
             if ((this.__BrowserXhr_31 == null)) {
-                (this.__BrowserXhr_31 = new import5.BrowserXhr());
+                (this.__BrowserXhr_31 = new import20.BrowserXhr());
             }
             return this.__BrowserXhr_31;
         },
@@ -270,7 +276,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_ResponseOptions_32", {
         get: function () {
             if ((this.__ResponseOptions_32 == null)) {
-                (this.__ResponseOptions_32 = new import5.BaseResponseOptions());
+                (this.__ResponseOptions_32 = new import21.BaseResponseOptions());
             }
             return this.__ResponseOptions_32;
         },
@@ -280,7 +286,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_XSRFStrategy_33", {
         get: function () {
             if ((this.__XSRFStrategy_33 == null)) {
-                (this.__XSRFStrategy_33 = import5.ɵb());
+                (this.__XSRFStrategy_33 = import5._createDefaultCookieXSRFStrategy());
             }
             return this.__XSRFStrategy_33;
         },
@@ -290,7 +296,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_XHRBackend_34", {
         get: function () {
             if ((this.__XHRBackend_34 == null)) {
-                (this.__XHRBackend_34 = new import5.XHRBackend(this._BrowserXhr_31, this._ResponseOptions_32, this._XSRFStrategy_33));
+                (this.__XHRBackend_34 = new import22.XHRBackend(this._BrowserXhr_31, this._ResponseOptions_32, this._XSRFStrategy_33));
             }
             return this.__XHRBackend_34;
         },
@@ -300,7 +306,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_RequestOptions_35", {
         get: function () {
             if ((this.__RequestOptions_35 == null)) {
-                (this.__RequestOptions_35 = new import5.BaseRequestOptions());
+                (this.__RequestOptions_35 = new import23.BaseRequestOptions());
             }
             return this.__RequestOptions_35;
         },
@@ -310,7 +316,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_Http_36", {
         get: function () {
             if ((this.__Http_36 == null)) {
-                (this.__Http_36 = import5.ɵc(this._XHRBackend_34, this._RequestOptions_35));
+                (this.__Http_36 = import5.httpFactory(this._XHRBackend_34, this._RequestOptions_35));
             }
             return this.__Http_36;
         },
@@ -320,7 +326,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_TranslateLoader_37", {
         get: function () {
             if ((this.__TranslateLoader_37 == null)) {
-                (this.__TranslateLoader_37 = import1.HttpLoaderFactory(this._Http_36));
+                (this.__TranslateLoader_37 = import1.createTranslateLoader(this._Http_36));
             }
             return this.__TranslateLoader_37;
         },
@@ -330,7 +336,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_TranslateParser_38", {
         get: function () {
             if ((this.__TranslateParser_38 == null)) {
-                (this.__TranslateParser_38 = new import20.TranslateDefaultParser());
+                (this.__TranslateParser_38 = new import24.TranslateDefaultParser());
             }
             return this.__TranslateParser_38;
         },
@@ -340,7 +346,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_MissingTranslationHandler_39", {
         get: function () {
             if ((this.__MissingTranslationHandler_39 == null)) {
-                (this.__MissingTranslationHandler_39 = new import21.FakeMissingTranslationHandler());
+                (this.__MissingTranslationHandler_39 = new import25.FakeMissingTranslationHandler());
             }
             return this.__MissingTranslationHandler_39;
         },
@@ -350,7 +356,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_TranslateStore_40", {
         get: function () {
             if ((this.__TranslateStore_40 == null)) {
-                (this.__TranslateStore_40 = new import22.TranslateStore());
+                (this.__TranslateStore_40 = new import26.TranslateStore());
             }
             return this.__TranslateStore_40;
         },
@@ -370,7 +376,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_TranslateService_42", {
         get: function () {
             if ((this.__TranslateService_42 == null)) {
-                (this.__TranslateService_42 = new import23.TranslateService(this._TranslateStore_40, this._TranslateLoader_37, this._TranslateParser_38, this._MissingTranslationHandler_39, this._USE_STORE_41));
+                (this.__TranslateService_42 = new import27.TranslateService(this._TranslateStore_40, this._TranslateLoader_37, this._TranslateParser_38, this._MissingTranslationHandler_39, this._USE_STORE_41));
             }
             return this.__TranslateService_42;
         },
@@ -386,8 +392,8 @@ var AppModuleInjector = (function (_super) {
         this._AppModule_5 = new import1.AppModule();
         this._ErrorHandler_8 = import4.errorHandler();
         this._ApplicationInitStatus_9 = new import8.ApplicationInitStatus(this.parent.get(import8.APP_INITIALIZER, null));
-        this._Testability_10 = new import9.Testability(this.parent.get(import30.NgZone));
-        this._ApplicationRef__11 = new import10.ApplicationRef_(this.parent.get(import30.NgZone), this.parent.get(import32.Console), this, this._ErrorHandler_8, this, this._ApplicationInitStatus_9, this.parent.get(import9.TestabilityRegistry, null), this._Testability_10);
+        this._Testability_10 = new import9.Testability(this.parent.get(import34.NgZone));
+        this._ApplicationRef__11 = new import10.ApplicationRef_(this.parent.get(import34.NgZone), this.parent.get(import36.Console), this, this._ErrorHandler_8, this, this._ApplicationInitStatus_9, this.parent.get(import9.TestabilityRegistry, null), this._Testability_10);
         this._DomSharedStylesHost_19 = new import14.DomSharedStylesHost(this._DOCUMENT_15);
         return this._AppModule_5;
     };
@@ -410,13 +416,13 @@ var AppModuleInjector = (function (_super) {
         if ((token === import1.AppModule)) {
             return this._AppModule_5;
         }
-        if ((token === import26.LOCALE_ID)) {
+        if ((token === import30.LOCALE_ID)) {
             return this._LOCALE_ID_6;
         }
         if ((token === import7.NgLocalization)) {
             return this._NgLocalization_7;
         }
-        if ((token === import33.ErrorHandler)) {
+        if ((token === import37.ErrorHandler)) {
             return this._ErrorHandler_8;
         }
         if ((token === import8.ApplicationInitStatus)) {
@@ -434,10 +440,10 @@ var AppModuleInjector = (function (_super) {
         if ((token === import11.Compiler)) {
             return this._Compiler_13;
         }
-        if ((token === import27.APP_ID)) {
+        if ((token === import31.APP_ID)) {
             return this._APP_ID_14;
         }
-        if ((token === import34.DOCUMENT)) {
+        if ((token === import38.DOCUMENT)) {
             return this._DOCUMENT_15;
         }
         if ((token === import12.HAMMER_GESTURE_CONFIG)) {
@@ -452,19 +458,19 @@ var AppModuleInjector = (function (_super) {
         if ((token === import14.DomSharedStylesHost)) {
             return this._DomSharedStylesHost_19;
         }
-        if ((token === import35.AnimationDriver)) {
+        if ((token === import39.AnimationDriver)) {
             return this._AnimationDriver_20;
         }
         if ((token === import15.DomRootRenderer)) {
             return this._DomRootRenderer_21;
         }
-        if ((token === import36.RootRenderer)) {
+        if ((token === import40.RootRenderer)) {
             return this._RootRenderer_22;
         }
         if ((token === import16.DomSanitizer)) {
             return this._DomSanitizer_23;
         }
-        if ((token === import37.Sanitizer)) {
+        if ((token === import41.Sanitizer)) {
             return this._Sanitizer_24;
         }
         if ((token === import17.AnimationQueue)) {
@@ -473,10 +479,10 @@ var AppModuleInjector = (function (_super) {
         if ((token === import18.ViewUtils)) {
             return this._ViewUtils_26;
         }
-        if ((token === import38.IterableDiffers)) {
+        if ((token === import42.IterableDiffers)) {
             return this._IterableDiffers_27;
         }
-        if ((token === import39.KeyValueDiffers)) {
+        if ((token === import43.KeyValueDiffers)) {
             return this._KeyValueDiffers_28;
         }
         if ((token === import14.SharedStylesHost)) {
@@ -485,40 +491,40 @@ var AppModuleInjector = (function (_super) {
         if ((token === import19.Title)) {
             return this._Title_30;
         }
-        if ((token === import5.BrowserXhr)) {
+        if ((token === import20.BrowserXhr)) {
             return this._BrowserXhr_31;
         }
-        if ((token === import5.ResponseOptions)) {
+        if ((token === import21.ResponseOptions)) {
             return this._ResponseOptions_32;
         }
-        if ((token === import5.XSRFStrategy)) {
+        if ((token === import44.XSRFStrategy)) {
             return this._XSRFStrategy_33;
         }
-        if ((token === import5.XHRBackend)) {
+        if ((token === import22.XHRBackend)) {
             return this._XHRBackend_34;
         }
-        if ((token === import5.RequestOptions)) {
+        if ((token === import23.RequestOptions)) {
             return this._RequestOptions_35;
         }
-        if ((token === import5.Http)) {
+        if ((token === import45.Http)) {
             return this._Http_36;
         }
-        if ((token === import40.TranslateLoader)) {
+        if ((token === import46.TranslateLoader)) {
             return this._TranslateLoader_37;
         }
-        if ((token === import20.TranslateParser)) {
+        if ((token === import24.TranslateParser)) {
             return this._TranslateParser_38;
         }
-        if ((token === import21.MissingTranslationHandler)) {
+        if ((token === import25.MissingTranslationHandler)) {
             return this._MissingTranslationHandler_39;
         }
-        if ((token === import22.TranslateStore)) {
+        if ((token === import26.TranslateStore)) {
             return this._TranslateStore_40;
         }
-        if ((token === import23.USE_STORE)) {
+        if ((token === import27.USE_STORE)) {
             return this._USE_STORE_41;
         }
-        if ((token === import23.TranslateService)) {
+        if ((token === import27.TranslateService)) {
             return this._TranslateService_42;
         }
         return notFoundResult;
