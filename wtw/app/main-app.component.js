@@ -14,7 +14,6 @@ var core_2 = require("@ngx-translate/core");
 var MainAppComponent = (function () {
     function MainAppComponent(translate) {
         this.translate = translate;
-        this.testVariable = 'Test Var';
         var browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     }
@@ -23,7 +22,7 @@ var MainAppComponent = (function () {
 MainAppComponent = __decorate([
     core_1.Component({
         selector: 'main-app',
-        template: "\n<h2>Hello World From Angular 2</h2>\n<h3>{{ 'HOME.TITLE' | translate }}</h3>\n<div>{{ testVariable }}</div>\n"
+        template: "\n<router-outlet></router-outlet>\n"
     }),
     __metadata("design:paramtypes", [core_2.TranslateService])
 ], MainAppComponent);

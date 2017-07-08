@@ -13,6 +13,7 @@
     "@angular/http": "^2.4.10",
     "@angular/platform-browser": "^2.4.9",
     "@angular/platform-browser-dynamic": "^2.4.9",
+    "@angular/router": "^3.4.1",
     "@ngx-translate/core": "^7.0.0",
     "@ngx-translate/http-loader": "^0.1.0",
     "express": "^4.15.2",

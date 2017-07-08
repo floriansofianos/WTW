@@ -16,8 +16,11 @@ import * as import5 from '@angular/core/src/linker/view_type';
 import * as import6 from '@angular/core/src/change_detection/constants';
 import * as import7 from '@angular/core/src/linker/component_factory';
 import * as import8 from '@ngx-translate/core/src/translate.service';
-import * as import9 from '@ngx-translate/core/src/translate.pipe';
-import * as import10 from '@angular/core/src/change_detection/change_detection_util';
+import * as import9 from '@angular/core/src/linker/view_container';
+import * as import10 from '../node_modules/@angular/router/src/directives/router_outlet.ngfactory';
+import * as import11 from '@angular/router/src/router_outlet_map';
+import * as import12 from '@angular/core/src/linker/component_factory_resolver';
+import * as import13 from '@angular/router/src/directives/router_outlet';
 var Wrapper_MainAppComponent = (function () {
     function Wrapper_MainAppComponent(p0) {
         this._changed = false;
@@ -82,54 +85,35 @@ var renderType_MainAppComponent = import3.createRenderComponentType('', 0, impor
 var View_MainAppComponent0 = (function (_super) {
     __extends(View_MainAppComponent0, _super);
     function View_MainAppComponent0(viewUtils, parentView, parentIndex, parentElement) {
-        var _this = _super.call(this, View_MainAppComponent0, renderType_MainAppComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_10 = import10.UNINITIALIZED;
-        _this._expr_12 = import10.UNINITIALIZED;
-        return _this;
+        return _super.call(this, View_MainAppComponent0, renderType_MainAppComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
     }
     View_MainAppComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
         this._text_0 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_1 = import3.createRenderElement(this.renderer, parentRenderNode, 'h2', import3.EMPTY_INLINE_ARRAY, null);
-        this._text_2 = this.renderer.createText(this._el_1, 'Hello World From Angular 2', null);
-        this._text_3 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_4 = import3.createRenderElement(this.renderer, parentRenderNode, 'h3', import3.EMPTY_INLINE_ARRAY, null);
-        this._text_5 = this.renderer.createText(this._el_4, '', null);
-        this._text_6 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_7 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', import3.EMPTY_INLINE_ARRAY, null);
-        this._text_8 = this.renderer.createText(this._el_7, '', null);
-        this._text_9 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._pipe_translate_0 = new import9.TranslatePipe(this.parentView.injectorGet(import8.TranslateService, this.parentIndex), this.ref);
+        this._el_1 = import3.createRenderElement(this.renderer, parentRenderNode, 'router-outlet', import3.EMPTY_INLINE_ARRAY, null);
+        this._vc_1 = new import9.ViewContainer(1, null, this, this._el_1);
+        this._RouterOutlet_1_5 = new import10.Wrapper_RouterOutlet(this.parentView.injectorGet(import11.RouterOutletMap, this.parentIndex), this._vc_1.vcRef, this.parentView.injectorGet(import12.ComponentFactoryResolver, this.parentIndex), null);
+        this._text_2 = this.renderer.createText(parentRenderNode, '\n', null);
         this.init(null, (this.renderer.directRenderer ? null : [
             this._text_0,
             this._el_1,
-            this._text_2,
-            this._text_3,
-            this._el_4,
-            this._text_5,
-            this._text_6,
-            this._el_7,
-            this._text_8,
-            this._text_9
+            this._text_2
         ]), null);
         return null;
     };
+    View_MainAppComponent0.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+        if (((token === import13.RouterOutlet) && (1 === requestNodeIndex))) {
+            return this._RouterOutlet_1_5.context;
+        }
+        return notFoundResult;
+    };
     View_MainAppComponent0.prototype.detectChangesInternal = function (throwOnChange) {
-        var valUnwrapper = new import10.ValueUnwrapper();
-        valUnwrapper.reset();
-        var currVal_10 = import3.inlineInterpolate(1, '', valUnwrapper.unwrap(this._pipe_translate_0.transform('HOME.TITLE')), '');
-        if ((valUnwrapper.hasWrappedValue || import3.checkBinding(throwOnChange, this._expr_10, currVal_10))) {
-            this.renderer.setText(this._text_5, currVal_10);
-            this._expr_10 = currVal_10;
-        }
-        var currVal_12 = import3.inlineInterpolate(1, '', this.context.testVariable, '');
-        if (import3.checkBinding(throwOnChange, this._expr_12, currVal_12)) {
-            this.renderer.setText(this._text_8, currVal_12);
-            this._expr_12 = currVal_12;
-        }
+        this._RouterOutlet_1_5.ngDoCheck(this, this._el_1, throwOnChange);
+        this._vc_1.detectChangesInNestedViews(throwOnChange);
     };
     View_MainAppComponent0.prototype.destroyInternal = function () {
-        this._pipe_translate_0.ngOnDestroy();
+        this._vc_1.destroyNestedViews();
+        this._RouterOutlet_1_5.ngOnDestroy();
     };
     return View_MainAppComponent0;
 }(import1.AppView));

@@ -38,7 +38,16 @@
     </Content>
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
+    <TypeScriptCompile Include="app\home\home-page.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="app\login\login-page.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\main-aot.ts" />
+    <TypeScriptCompile Include="app\routes.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />
@@ -70,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\less\" />
+    <Folder Include="app\login\" />
+    <Folder Include="app\home\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />

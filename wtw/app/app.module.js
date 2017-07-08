@@ -11,7 +11,11 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
+var router_1 = require("@angular/router");
+var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
+var home_page_component_1 = require("./home/home-page.component");
+var login_page_component_1 = require("./login/login-page.component");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
@@ -25,6 +29,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule,
+            router_1.RouterModule.forRoot(routes_1.appRoutes),
             http_1.HttpModule,
             core_2.TranslateModule.forRoot({
                 loader: {
@@ -33,7 +38,9 @@ AppModule = __decorate([
                     deps: [http_1.Http]
                 }
             })],
-        declarations: [main_app_component_1.MainAppComponent],
+        declarations: [main_app_component_1.MainAppComponent,
+            home_page_component_1.HomePageComponent,
+            login_page_component_1.LoginPageComponent],
         bootstrap: [main_app_component_1.MainAppComponent]
     })
 ], AppModule);

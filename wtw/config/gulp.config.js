@@ -14,7 +14,7 @@ module.exports = function () {
         publicFolder: public,
         index: lib + 'index.html',
         indexAOT: lib + 'index-aot.html',
-        allts: [app + '*.ts'],
+        allts: [app + '*.ts', app + '**/*.ts'],
         tsConfig: app + 'tsconfig.json',
         allLess: [app + 'less/*.less'],
         allTests: [tests + '*.js']
