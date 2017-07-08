@@ -23,11 +23,11 @@ app.use('/api/test', testRouter);
 app.use('/auth', authRouter);
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.sendFile('index.html');
 });
 
 app.get('/login', function (req, res) {
-    res.render('index');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.listen(port);
