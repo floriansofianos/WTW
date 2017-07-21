@@ -3,6 +3,7 @@
 @Component({
     template: `
 <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+<login-form></login-form>
 `
 })
 

@@ -4,12 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { appRoutes } from './routes';
 
 import { MainAppComponent } from './main-app.component';
 import { HomePageComponent } from './home/home-page.component';
 import { LoginPageComponent } from './login/login-page.component';
+import { LoginFormComponent } from './login/login-form/login-form.component';
+
+import { AuthService } from './auth/auth.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -18,6 +22,7 @@ export function createTranslateLoader(http: Http) {
 
 @NgModule({
     imports: [BrowserModule,
+            ReactiveFormsModule,
             RouterModule.forRoot(appRoutes),
             HttpModule,
             TranslateModule.forRoot({
@@ -29,7 +34,9 @@ export function createTranslateLoader(http: Http) {
             })],
     declarations: [MainAppComponent,
         HomePageComponent,
-        LoginPageComponent],
+        LoginPageComponent,
+        LoginFormComponent],
+    providers: [AuthService],
     bootstrap: [MainAppComponent]
 })
 

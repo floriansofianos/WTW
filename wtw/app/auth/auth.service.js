@@ -7,14 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LoginPageComponent = (function () {
-    function LoginPageComponent() {
+var AuthService = (function () {
+    function AuthService() {
     }
-    LoginPageComponent = __decorate([
-        core_1.Component({
-            template: "\n<h2>{{ 'LOGIN.TITLE' | translate }}</h2>\n<login-form></login-form>\n"
-        })
-    ], LoginPageComponent);
-    return LoginPageComponent;
+    AuthService.prototype.loginUser = function (login, password) {
+        this.currentUser = {
+            firstName: 'Flo',
+            lastName: 'Test'
+        };
+    };
+    AuthService.prototype.getCurrentUser = function () {
+        return this.currentUser;
+    };
+    AuthService = __decorate([
+        core_1.Injectable()
+    ], AuthService);
+    return AuthService;
 }());
-exports.LoginPageComponent = LoginPageComponent;
+exports.AuthService = AuthService;

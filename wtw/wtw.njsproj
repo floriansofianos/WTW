@@ -32,15 +32,18 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
+    <TypeScriptCompile Include="app\auth\auth.service.ts" />
     <TypeScriptCompile Include="app\home\home-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\login\login-form\login-form.component.ts" />
     <TypeScriptCompile Include="app\login\login-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -78,9 +81,11 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\auth\" />
     <Folder Include="app\less\" />
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
+    <Folder Include="app\login\login-form\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />

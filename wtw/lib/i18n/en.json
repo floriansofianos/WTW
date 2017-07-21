@@ -3,6 +3,14 @@
     "TITLE": "Hello Angular with ngx-translate!"
   },
   "LOGIN": {
-    "TITLE": "Login Page" 
+    "TITLE": "Login Page",
+    "FORM": {
+      "LOGIN": "Login",
+      "PASSWORD": "Password"
+    }
+  },
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Cancel"
   }
 }

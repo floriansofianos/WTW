@@ -10,11 +10,11 @@ var core_1 = require("@angular/core");
 var HomePageComponent = (function () {
     function HomePageComponent() {
     }
+    HomePageComponent = __decorate([
+        core_1.Component({
+            template: "\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n"
+        })
+    ], HomePageComponent);
     return HomePageComponent;
 }());
-HomePageComponent = __decorate([
-    core_1.Component({
-        template: "\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n"
-    })
-], HomePageComponent);
 exports.HomePageComponent = HomePageComponent;

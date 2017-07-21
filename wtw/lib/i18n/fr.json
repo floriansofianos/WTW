@@ -3,6 +3,14 @@
     "TITLE": "Bienvenue sur Angular avec le module de traduction !"
   },
   "LOGIN": {
-    "TITLE": "Page de login"
+    "TITLE": "Page de login",
+    "FORM": {
+      "LOGIN": "Nom d'utilisateur",
+      "PASSWORD": "Mot de passe"
+    }
+  },
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Annuler"
   }
 }
