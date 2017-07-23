@@ -31,6 +31,7 @@ var LoginFormComponent = (function () {
     };
     LoginFormComponent.prototype.login = function (formValues) {
         this.authService.loginUser(formValues.login, formValues.password);
+        this.router.navigate(['']);
     };
     LoginFormComponent = __decorate([
         core_1.Component({

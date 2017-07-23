@@ -41,5 +41,6 @@ export class LoginFormComponent implements OnInit {
 
     login(formValues: any) {
         this.authService.loginUser(formValues.login, formValues.password)
+        this.router.navigate(['']);
     }
 }

@@ -1,6 +1,7 @@
 ﻿{
   "HOME": {
-    "TITLE": "Bienvenue sur Angular avec le module de traduction !"
+    "TITLE": "Bienvenue sur Angular avec le module de traduction !",
+    "WELCOME": "Bienvenue"
   },
   "LOGIN": {
     "TITLE": "Page de login",
