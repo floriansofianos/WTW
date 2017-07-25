@@ -15,9 +15,13 @@ import * as import4 from '@angular/core/src/metadata/view';
 import * as import5 from '@angular/core/src/linker/view_type';
 import * as import6 from '@angular/core/src/change_detection/constants';
 import * as import7 from '@angular/core/src/linker/component_factory';
-import * as import8 from '@ngx-translate/core/src/translate.pipe';
-import * as import9 from '@angular/core/src/change_detection/change_detection_util';
-import * as import10 from '@ngx-translate/core/src/translate.service';
+import * as import8 from '../../../app/login/login-form/login-form.component';
+import * as import9 from './login-form/login-form.component.ngfactory';
+import * as import10 from '@ngx-translate/core/src/translate.pipe';
+import * as import11 from '@angular/core/src/change_detection/change_detection_util';
+import * as import12 from '@angular/router/src/router';
+import * as import13 from '../../../app/auth/auth.service';
+import * as import14 from '@ngx-translate/core/src/translate.service';
 var Wrapper_LoginPageComponent = (function () {
     function Wrapper_LoginPageComponent() {
         this._changed = false;
@@ -83,7 +87,7 @@ var View_LoginPageComponent0 = (function (_super) {
     __extends(View_LoginPageComponent0, _super);
     function View_LoginPageComponent0(viewUtils, parentView, parentIndex, parentElement) {
         var _this = _super.call(this, View_LoginPageComponent0, renderType_LoginPageComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_4 = import9.UNINITIALIZED;
+        _this._expr_8 = import11.UNINITIALIZED;
         return _this;
     }
     View_LoginPageComponent0.prototype.createInternal = function (rootSelector) {
@@ -92,25 +96,41 @@ var View_LoginPageComponent0 = (function (_super) {
         this._el_1 = import3.createRenderElement(this.renderer, parentRenderNode, 'h2', import3.EMPTY_INLINE_ARRAY, null);
         this._text_2 = this.renderer.createText(this._el_1, '', null);
         this._text_3 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._pipe_translate_0 = new import8.TranslatePipe(this.parentView.injectorGet(import10.TranslateService, this.parentIndex), this.ref);
+        this._el_4 = import3.createRenderElement(this.renderer, parentRenderNode, 'login-form', import3.EMPTY_INLINE_ARRAY, null);
+        this.compView_4 = new import9.View_LoginFormComponent0(this.viewUtils, this, 4, this._el_4);
+        this._LoginFormComponent_4_3 = new import9.Wrapper_LoginFormComponent(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import13.AuthService, this.parentIndex));
+        this.compView_4.create(this._LoginFormComponent_4_3.context);
+        this._text_5 = this.renderer.createText(parentRenderNode, '\n', null);
+        this._pipe_translate_0 = new import10.TranslatePipe(this.parentView.injectorGet(import14.TranslateService, this.parentIndex), this.ref);
         this.init(null, (this.renderer.directRenderer ? null : [
             this._text_0,
             this._el_1,
             this._text_2,
-            this._text_3
+            this._text_3,
+            this._el_4,
+            this._text_5
         ]), null);
         return null;
     };
-    View_LoginPageComponent0.prototype.detectChangesInternal = function (throwOnChange) {
-        var valUnwrapper = new import9.ValueUnwrapper();
-        valUnwrapper.reset();
-        var currVal_4 = import3.inlineInterpolate(1, '', valUnwrapper.unwrap(this._pipe_translate_0.transform('LOGIN.TITLE')), '');
-        if ((valUnwrapper.hasWrappedValue || import3.checkBinding(throwOnChange, this._expr_4, currVal_4))) {
-            this.renderer.setText(this._text_2, currVal_4);
-            this._expr_4 = currVal_4;
+    View_LoginPageComponent0.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+        if (((token === import8.LoginFormComponent) && (4 === requestNodeIndex))) {
+            return this._LoginFormComponent_4_3.context;
         }
+        return notFoundResult;
+    };
+    View_LoginPageComponent0.prototype.detectChangesInternal = function (throwOnChange) {
+        var valUnwrapper = new import11.ValueUnwrapper();
+        this._LoginFormComponent_4_3.ngDoCheck(this, this._el_4, throwOnChange);
+        valUnwrapper.reset();
+        var currVal_8 = import3.inlineInterpolate(1, '', valUnwrapper.unwrap(this._pipe_translate_0.transform('LOGIN.TITLE')), '');
+        if ((valUnwrapper.hasWrappedValue || import3.checkBinding(throwOnChange, this._expr_8, currVal_8))) {
+            this.renderer.setText(this._text_2, currVal_8);
+            this._expr_8 = currVal_8;
+        }
+        this.compView_4.internalDetectChanges(throwOnChange);
     };
     View_LoginPageComponent0.prototype.destroyInternal = function () {
+        this.compView_4.destroy();
         this._pipe_translate_0.ngOnDestroy();
     };
     return View_LoginPageComponent0;

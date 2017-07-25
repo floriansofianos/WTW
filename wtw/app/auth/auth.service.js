@@ -19,9 +19,9 @@ var AuthService = (function () {
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
     };
-    AuthService = __decorate([
-        core_1.Injectable()
-    ], AuthService);
     return AuthService;
 }());
+AuthService = __decorate([
+    core_1.Injectable()
+], AuthService);
 exports.AuthService = AuthService;
