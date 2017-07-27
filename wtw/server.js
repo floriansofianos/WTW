@@ -1,10 +1,25 @@
 var express = require('express');
 var testRouter = require('./lib/routes/testRoutes')();
 var authRouter = require('./lib/routes/authRoutes')();
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var expressSession = require('express-session');
+var bodyParser = require('body-parser');
 
 var port = process.env.port || 1337;
 
 var app = express();
+
+// Configuring Passport
+app.use(expressSession({ secret: 'b5a263ca-4f42-4ab5-9103-27f7daef3ff3' }));
+app.use(cookieParser());
+require('./lib/middlewares/passport')(app);
+
+//Body-parser
+app.use(bodyParser.json()); //for parsing application/json
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // set up the static html views
 app.use(express.static(__dirname + '/public'));
