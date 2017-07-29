@@ -17,11 +17,13 @@ import { AuthService } from '../../auth/auth.service'
     <button type="submit" class="button-submit">{{ 'FORM.OK' | translate }}</button>
     <button type="submit" class="button-cancel" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</button>
 </form>
+<div *ngIf="showError">An error occured while login</div>
 `
 })
 
 export class LoginFormComponent implements OnInit {
     loginForm: FormGroup;
+    showError: boolean;
 
     constructor(private router: Router, private authService: AuthService) { }
 
@@ -40,7 +42,12 @@ export class LoginFormComponent implements OnInit {
     }
 
     login(formValues: any) {
-        this.authService.loginUser(formValues.login, formValues.password)
-        this.router.navigate(['']);
+        this.authService.loginUser(formValues.login, formValues.password).subscribe(response => {
+            this.authService.setCurrentUser(response.json());
+            this.router.navigate(['']);
+        },
+        error => {
+            this.showError = true;
+        });
     }
 }

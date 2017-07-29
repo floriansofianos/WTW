@@ -30,16 +30,21 @@ var LoginFormComponent = (function () {
         this.router.navigate(['']);
     };
     LoginFormComponent.prototype.login = function (formValues) {
-        this.authService.loginUser(formValues.login, formValues.password);
-        this.router.navigate(['']);
+        var _this = this;
+        this.authService.loginUser(formValues.login, formValues.password).subscribe(function (response) {
+            _this.authService.setCurrentUser(response.json());
+            _this.router.navigate(['']);
+        }, function (error) {
+            _this.showError = true;
+        });
     };
+    LoginFormComponent = __decorate([
+        core_1.Component({
+            selector: 'login-form',
+            template: "\n<form [formGroup]=\"loginForm\" (ngSubmit)=\"login(loginForm.value)\"\n      autocomplete=\"off\" novalidate>\n    <p class=\"form-group\">\n        <input id=\"login\" formControlName=\"login\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.LOGIN' | translate }}\" />\n    </p>\n    <p class=\"form-group\">\n        <input id=\"password\" formControlName=\"password\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.PASSWORD' | translate }}\" />\n    </p>\n    <button type=\"submit\" class=\"button-submit\">{{ 'FORM.OK' | translate }}</button>\n    <button type=\"submit\" class=\"button-cancel\" (click)=\"cancel()\">{{ 'FORM.CANCEL' | translate }}</button>\n</form>\n<div *ngIf=\"showError\">An error occured while login</div>\n"
+        }),
+        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+    ], LoginFormComponent);
     return LoginFormComponent;
 }());
-LoginFormComponent = __decorate([
-    core_1.Component({
-        selector: 'login-form',
-        template: "\n<form [formGroup]=\"loginForm\" (ngSubmit)=\"login(loginForm.value)\"\n      autocomplete=\"off\" novalidate>\n    <p class=\"form-group\">\n        <input id=\"login\" formControlName=\"login\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.LOGIN' | translate }}\" />\n    </p>\n    <p class=\"form-group\">\n        <input id=\"password\" formControlName=\"password\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.PASSWORD' | translate }}\" />\n    </p>\n    <button type=\"submit\" class=\"button-submit\">{{ 'FORM.OK' | translate }}</button>\n    <button type=\"submit\" class=\"button-cancel\" (click)=\"cancel()\">{{ 'FORM.CANCEL' | translate }}</button>\n</form>\n"
-    }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], LoginFormComponent);
 exports.LoginFormComponent = LoginFormComponent;
