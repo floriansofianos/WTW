@@ -4,6 +4,7 @@ module.exports = function () {
     var tests = './tests/';
     var configFolder = './config/';
     var public = './public/';
+    var aot = './aot/';
 
     var config = {
         alljs: [lib + '*.js', './*.js', configFolder + '*.js', '!rollup-config.js'],
@@ -17,7 +18,8 @@ module.exports = function () {
         allts: [app + '*.ts', app + '**/*.ts'],
         tsConfig: app + 'tsconfig.json',
         allLess: [app + 'less/*.less'],
-        allTests: [tests + '*.js']
+        allTests: [tests + '*.js'],
+        allAOT: aot + '**/*'
     };
 
     return config;

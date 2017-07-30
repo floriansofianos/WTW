@@ -14,10 +14,10 @@ import { AuthService } from '../../auth/auth.service'
     <p class="form-group">
         <input id="password" formControlName="password" type="text" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
     </p>
+    <div *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
     <button type="submit" class="button-submit">{{ 'FORM.OK' | translate }}</button>
     <button type="submit" class="button-cancel" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</button>
 </form>
-<div *ngIf="showError">An error occured while login</div>
 `
 })
 
