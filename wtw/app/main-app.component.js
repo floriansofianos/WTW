@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,22 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var core_2 = require("@ngx-translate/core");
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 var MainAppComponent = (function () {
     function MainAppComponent(translate) {
         this.translate = translate;
         var browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     }
-    MainAppComponent = __decorate([
-        core_1.Component({
-            selector: 'main-app',
-            template: "\n<router-outlet></router-outlet>\n"
-        }),
-        __metadata("design:paramtypes", [core_2.TranslateService])
-    ], MainAppComponent);
     return MainAppComponent;
 }());
-exports.MainAppComponent = MainAppComponent;
+MainAppComponent = __decorate([
+    Component({
+        selector: 'main-app',
+        template: "\n<router-outlet></router-outlet>\n"
+    }),
+    __metadata("design:paramtypes", [TranslateService])
+], MainAppComponent);
+export { MainAppComponent };
+//# sourceMappingURL=main-app.component.js.map

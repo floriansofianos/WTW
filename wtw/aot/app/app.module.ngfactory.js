@@ -573,7 +573,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_AuthService_67", {
         get: function () {
             if ((this.__AuthService_67 == null)) {
-                (this.__AuthService_67 = new import38.AuthService());
+                (this.__AuthService_67 = new import38.AuthService(this._Http_45));
             }
             return this.__AuthService_67;
         },

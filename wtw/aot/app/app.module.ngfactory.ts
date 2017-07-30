@@ -351,7 +351,7 @@ class AppModuleInjector extends import0.NgModuleInjector<import1.AppModule> {
     return this.__TranslateService_66;
   }
   get _AuthService_67():import38.AuthService {
-    if ((this.__AuthService_67 == null)) { (this.__AuthService_67 = new import38.AuthService()); }
+    if ((this.__AuthService_67 == null)) { (this.__AuthService_67 = new import38.AuthService(this._Http_45)); }
     return this.__AuthService_67;
   }
   createInternal():import1.AppModule {

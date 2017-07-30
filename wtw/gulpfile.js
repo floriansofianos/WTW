@@ -147,11 +147,6 @@ gulp.task('clean', function (done) {
         .pipe($.clean());
 });
 
-gulp.task('clean-aot', function (done) {
-    return gulp.src(config.allAOT, { read: false })
-        .pipe($.clean());
-});
-
 gulp.task('server-tests', function () {
     return gulp.src(config.allTests)
         .pipe(mocha({ }));
@@ -159,7 +154,6 @@ gulp.task('server-tests', function () {
 
 gulp.task('serve-dev', function () {
     return runSequence('clean',
-        'clean-aot',
         'lint-server-code',
         'style-server-code',
         'lint-front-end-code',
