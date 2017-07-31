@@ -4,9 +4,9 @@
     "WELCOME":  "Welcome"
   },
   "LOGIN": {
-    "TITLE": "Login Page",
+    "TITLE": "Login",
     "FORM": {
-      "LOGIN": "Login",
+      "LOGIN": "Email",
       "PASSWORD": "Password",
       "WRONGPASSWORD":  "Your email or password is incorrect."
     }

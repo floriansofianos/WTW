@@ -6,17 +6,19 @@ import { AuthService } from '../../auth/auth.service'
 @Component({
     selector: 'login-form',
     template: `
-<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)"
-      autocomplete="off" novalidate>
-    <p class="form-group">
+<form id="login-form" [formGroup]="loginForm" autocomplete="off" novalidate>
+    <div class="login-line">
         <input id="login" formControlName="login" type="text" placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" />
-    </p>
-    <p class="form-group">
-        <input id="password" formControlName="password" type="text" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
-    </p>
-    <div *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
-    <button type="submit" class="button-submit">{{ 'FORM.OK' | translate }}</button>
-    <button type="submit" class="button-cancel" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</button>
+    </div>
+    <div class="login-line">
+        <input id="password" formControlName="password" type="password" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
+    </div>
+    <div class="login-line login-error" *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
+    <div class="login-line button-line" *ngIf="!showSpinner">
+        <a class="button button-ok" (click)="login(loginForm.value)">{{ 'FORM.OK' | translate }}</a>
+        <a class="button" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</a>
+    </div>
+    <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
 </form>
 `
 })
@@ -24,6 +26,7 @@ import { AuthService } from '../../auth/auth.service'
 export class LoginFormComponent implements OnInit {
     loginForm: FormGroup;
     showError: boolean;
+    showSpinner: boolean;
 
     constructor(private router: Router, private authService: AuthService) { }
 
@@ -42,12 +45,14 @@ export class LoginFormComponent implements OnInit {
     }
 
     login(formValues: any) {
+        this.showSpinner = true;
         this.authService.loginUser(formValues.login, formValues.password).subscribe(response => {
             this.authService.setCurrentUser(response.json());
             this.router.navigate(['']);
         },
         error => {
             this.showError = true;
+            this.showSpinner = false;
         });
     }
 }

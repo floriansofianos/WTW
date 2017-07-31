@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,19 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var auth_service_1 = require("../../auth/auth.service");
 var LoginFormComponent = (function () {
     function LoginFormComponent(router, authService) {
         this.router = router;
         this.authService = authService;
     }
     LoginFormComponent.prototype.ngOnInit = function () {
-        var login = new FormControl();
-        var password = new FormControl();
-        this.loginForm = new FormGroup({
+        var login = new forms_1.FormControl();
+        var password = new forms_1.FormControl();
+        this.loginForm = new forms_1.FormGroup({
             login: login,
             password: password
         });
@@ -29,21 +31,22 @@ var LoginFormComponent = (function () {
     };
     LoginFormComponent.prototype.login = function (formValues) {
         var _this = this;
+        this.showSpinner = true;
         this.authService.loginUser(formValues.login, formValues.password).subscribe(function (response) {
             _this.authService.setCurrentUser(response.json());
             _this.router.navigate(['']);
         }, function (error) {
             _this.showError = true;
+            _this.showSpinner = false;
         });
     };
     return LoginFormComponent;
 }());
 LoginFormComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'login-form',
-        template: "\n<form [formGroup]=\"loginForm\" (ngSubmit)=\"login(loginForm.value)\"\n      autocomplete=\"off\" novalidate>\n    <p class=\"form-group\">\n        <input id=\"login\" formControlName=\"login\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.LOGIN' | translate }}\" />\n    </p>\n    <p class=\"form-group\">\n        <input id=\"password\" formControlName=\"password\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.PASSWORD' | translate }}\" />\n    </p>\n    <div *ngIf=\"showError\">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>\n    <button type=\"submit\" class=\"button-submit\">{{ 'FORM.OK' | translate }}</button>\n    <button type=\"submit\" class=\"button-cancel\" (click)=\"cancel()\">{{ 'FORM.CANCEL' | translate }}</button>\n</form>\n"
+        template: "\n<form id=\"login-form\" [formGroup]=\"loginForm\" autocomplete=\"off\" novalidate>\n    <div class=\"login-line\">\n        <input id=\"login\" formControlName=\"login\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.LOGIN' | translate }}\" />\n    </div>\n    <div class=\"login-line\">\n        <input id=\"password\" formControlName=\"password\" type=\"password\" placeholder=\"{{ 'LOGIN.FORM.PASSWORD' | translate }}\" />\n    </div>\n    <div class=\"login-line login-error\" *ngIf=\"showError\">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>\n    <div class=\"login-line button-line\" *ngIf=\"!showSpinner\">\n        <a class=\"button button-ok\" (click)=\"login(loginForm.value)\">{{ 'FORM.OK' | translate }}</a>\n        <a class=\"button\" (click)=\"cancel()\">{{ 'FORM.CANCEL' | translate }}</a>\n    </div>\n    <div class=\"login-line button-line\" *ngIf=\"showSpinner\"><spinner></spinner></div>\n</form>\n"
     }),
-    __metadata("design:paramtypes", [Router, AuthService])
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
 ], LoginFormComponent);
-export { LoginFormComponent };
-//# sourceMappingURL=login-form.component.js.map
+exports.LoginFormComponent = LoginFormComponent;

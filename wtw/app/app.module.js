@@ -1,51 +1,55 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { HttpModule, Http } from "@angular/http";
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import { appRoutes } from './routes';
-import { MainAppComponent } from './main-app.component';
-import { HomePageComponent } from './home/home-page.component';
-import { LoginPageComponent } from './login/login-page.component';
-import { LoginFormComponent } from './login/login-form/login-form.component';
-import { AuthService } from './auth/auth.service';
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var core_2 = require("@ngx-translate/core");
+var http_loader_1 = require("@ngx-translate/http-loader");
+var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
+var routes_1 = require("./routes");
+var main_app_component_1 = require("./main-app.component");
+var home_page_component_1 = require("./home/home-page.component");
+var login_page_component_1 = require("./login/login-page.component");
+var login_form_component_1 = require("./login/login-form/login-form.component");
+var angular2_spinner_1 = require("angular2-spinner");
+var auth_service_1 = require("./auth/auth.service");
 // AoT requires an exported function for factories
-export function createTranslateLoader(http) {
-    return new TranslateHttpLoader(http, './i18n/', '.json');
+function createTranslateLoader(http) {
+    return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
+exports.createTranslateLoader = createTranslateLoader;
 var AppModule = (function () {
     function AppModule() {
     }
     return AppModule;
 }());
 AppModule = __decorate([
-    NgModule({
-        imports: [BrowserModule,
-            ReactiveFormsModule,
-            RouterModule.forRoot(appRoutes),
-            HttpModule,
-            TranslateModule.forRoot({
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule,
+            forms_1.ReactiveFormsModule,
+            router_1.RouterModule.forRoot(routes_1.appRoutes),
+            http_1.HttpModule,
+            angular2_spinner_1.SpinnerModule,
+            core_2.TranslateModule.forRoot({
                 loader: {
-                    provide: TranslateLoader,
+                    provide: core_2.TranslateLoader,
                     useFactory: (createTranslateLoader),
-                    deps: [Http]
+                    deps: [http_1.Http]
                 }
             })],
-        declarations: [MainAppComponent,
-            HomePageComponent,
-            LoginPageComponent,
-            LoginFormComponent],
-        providers: [AuthService],
-        bootstrap: [MainAppComponent]
+        declarations: [main_app_component_1.MainAppComponent,
+            home_page_component_1.HomePageComponent,
+            login_page_component_1.LoginPageComponent,
+            login_form_component_1.LoginFormComponent],
+        providers: [auth_service_1.AuthService],
+        bootstrap: [main_app_component_1.MainAppComponent]
     })
 ], AppModule);
-export { AppModule };
-//# sourceMappingURL=app.module.js.map
+exports.AppModule = AppModule;

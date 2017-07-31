@@ -1,90 +1,85 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import * as import0 from '@angular/core/src/linker/ng_module_factory';
-import * as import1 from '../../app/app.module';
-import * as import2 from '@angular/common/src/common_module';
-import * as import3 from '@angular/core/src/application_module';
-import * as import4 from '@angular/platform-browser/src/browser';
-import * as import5 from '@angular/forms/src/directives';
-import * as import6 from '@angular/forms/src/form_providers';
-import * as import7 from '@angular/router/src/router_module';
-import * as import8 from '@angular/http/src/http_module';
-import * as import9 from '@ngx-translate/core/index';
-import * as import10 from '@angular/common/src/localization';
-import * as import11 from '@angular/core/src/application_init';
-import * as import12 from '@angular/core/src/testability/testability';
-import * as import13 from '@angular/core/src/application_ref';
-import * as import14 from '@angular/core/src/linker/compiler';
-import * as import15 from '@angular/platform-browser/src/dom/events/hammer_gestures';
-import * as import16 from '@angular/platform-browser/src/dom/events/event_manager';
-import * as import17 from '@angular/platform-browser/src/dom/shared_styles_host';
-import * as import18 from '@angular/platform-browser/src/dom/dom_renderer';
-import * as import19 from '@angular/platform-browser/src/security/dom_sanitization_service';
-import * as import20 from '@angular/core/src/animation/animation_queue';
-import * as import21 from '@angular/core/src/linker/view_utils';
-import * as import22 from '@angular/platform-browser/src/browser/title';
-import * as import23 from '@angular/forms/src/form_builder';
-import * as import24 from '@angular/forms/src/directives/radio_control_value_accessor';
-import * as import25 from '@angular/http/src/backends/browser_xhr';
-import * as import26 from '@angular/http/src/base_response_options';
-import * as import27 from '@angular/http/src/backends/xhr_backend';
-import * as import28 from '@angular/http/src/base_request_options';
-import * as import29 from '@angular/common/src/location/location';
-import * as import30 from '@angular/router/src/url_tree';
-import * as import31 from '@angular/router/src/router_outlet_map';
-import * as import32 from '@angular/core/src/linker/system_js_ng_module_factory_loader';
-import * as import33 from '@angular/router/src/router_preloader';
-import * as import34 from '@ngx-translate/core/src/translate.parser';
-import * as import35 from '@ngx-translate/core/src/missing-translation-handler';
-import * as import36 from '@ngx-translate/core/src/translate.store';
-import * as import37 from '@ngx-translate/core/src/translate.service';
-import * as import38 from '../../app/auth/auth.service';
-import * as import40 from './login/login-page.component.ngfactory';
-import * as import41 from './home/home-page.component.ngfactory';
-import * as import42 from './main-app.component.ngfactory';
-import * as import43 from '@angular/core/src/i18n/tokens';
-import * as import44 from '@angular/core/src/application_tokens';
-import * as import45 from '@angular/platform-browser/src/dom/events/dom_events';
-import * as import46 from '@angular/platform-browser/src/dom/events/key_events';
-import * as import47 from '@angular/core/src/zone/ng_zone';
-import * as import48 from '@angular/platform-browser/src/dom/debug/ng_probe';
-import * as import49 from '@angular/common/src/location/platform_location';
-import * as import50 from '@angular/common/src/location/location_strategy';
-import * as import51 from '../../app/login/login-page.component';
-import * as import52 from '../../app/home/home-page.component';
-import * as import53 from '@angular/router/src/url_handling_strategy';
-import * as import54 from '@angular/router/src/route_reuse_strategy';
-import * as import55 from '@angular/router/src/router';
-import * as import56 from '@angular/core/src/console';
-import * as import57 from '@angular/core/src/error_handler';
-import * as import58 from '@angular/platform-browser/src/dom/dom_tokens';
-import * as import59 from '@angular/platform-browser/src/dom/animation_driver';
-import * as import60 from '@angular/core/src/render/api';
-import * as import61 from '@angular/core/src/security';
-import * as import62 from '@angular/core/src/change_detection/differs/iterable_differs';
-import * as import63 from '@angular/core/src/change_detection/differs/keyvalue_differs';
-import * as import64 from '@angular/http/src/interfaces';
-import * as import65 from '@angular/http/src/http';
-import * as import66 from '@angular/core/src/linker/ng_module_factory_loader';
-import * as import67 from '@angular/router/src/router_config_loader';
-import * as import68 from '@angular/router/src/router_state';
-import * as import69 from '@ngx-translate/core/src/translate.loader';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var import0 = require('@angular/core/src/linker/ng_module_factory');
+var import1 = require('../../app/app.module');
+var import2 = require('@angular/common/src/common_module');
+var import3 = require('@angular/core/src/application_module');
+var import4 = require('@angular/platform-browser/src/browser');
+var import5 = require('@angular/forms/src/directives');
+var import6 = require('@angular/forms/src/form_providers');
+var import7 = require('@angular/router/src/router_module');
+var import8 = require('@angular/http/src/http_module');
+var import9 = require('@ngx-translate/core/index');
+var import10 = require('@angular/common/src/localization');
+var import11 = require('@angular/core/src/application_init');
+var import12 = require('@angular/core/src/testability/testability');
+var import13 = require('@angular/core/src/application_ref');
+var import14 = require('@angular/core/src/linker/compiler');
+var import15 = require('@angular/platform-browser/src/dom/events/hammer_gestures');
+var import16 = require('@angular/platform-browser/src/dom/events/event_manager');
+var import17 = require('@angular/platform-browser/src/dom/shared_styles_host');
+var import18 = require('@angular/platform-browser/src/dom/dom_renderer');
+var import19 = require('@angular/platform-browser/src/security/dom_sanitization_service');
+var import20 = require('@angular/core/src/animation/animation_queue');
+var import21 = require('@angular/core/src/linker/view_utils');
+var import22 = require('@angular/platform-browser/src/browser/title');
+var import23 = require('@angular/forms/src/form_builder');
+var import24 = require('@angular/forms/src/directives/radio_control_value_accessor');
+var import25 = require('@angular/http/src/backends/browser_xhr');
+var import26 = require('@angular/http/src/base_response_options');
+var import27 = require('@angular/http/src/backends/xhr_backend');
+var import28 = require('@angular/http/src/base_request_options');
+var import29 = require('@angular/common/src/location/location');
+var import30 = require('@angular/router/src/url_tree');
+var import31 = require('@angular/router/src/router_outlet_map');
+var import32 = require('@angular/core/src/linker/system_js_ng_module_factory_loader');
+var import33 = require('@angular/router/src/router_preloader');
+var import34 = require('@ngx-translate/core/src/translate.parser');
+var import35 = require('@ngx-translate/core/src/missing-translation-handler');
+var import36 = require('@ngx-translate/core/src/translate.store');
+var import37 = require('@ngx-translate/core/src/translate.service');
+var import38 = require('../../app/auth/auth.service');
+var import40 = require('./login/login-page.component.ngfactory');
+var import41 = require('./home/home-page.component.ngfactory');
+var import42 = require('./main-app.component.ngfactory');
+var import43 = require('@angular/core/src/i18n/tokens');
+var import44 = require('@angular/core/src/application_tokens');
+var import45 = require('@angular/platform-browser/src/dom/events/dom_events');
+var import46 = require('@angular/platform-browser/src/dom/events/key_events');
+var import47 = require('@angular/core/src/zone/ng_zone');
+var import48 = require('@angular/platform-browser/src/dom/debug/ng_probe');
+var import49 = require('@angular/common/src/location/platform_location');
+var import50 = require('@angular/common/src/location/location_strategy');
+var import51 = require('../../app/login/login-page.component');
+var import52 = require('../../app/home/home-page.component');
+var import53 = require('@angular/router/src/url_handling_strategy');
+var import54 = require('@angular/router/src/route_reuse_strategy');
+var import55 = require('@angular/router/src/router');
+var import56 = require('@angular/core/src/console');
+var import57 = require('@angular/core/src/error_handler');
+var import58 = require('@angular/platform-browser/src/dom/dom_tokens');
+var import59 = require('@angular/platform-browser/src/dom/animation_driver');
+var import60 = require('@angular/core/src/render/api');
+var import61 = require('@angular/core/src/security');
+var import62 = require('@angular/core/src/change_detection/differs/iterable_differs');
+var import63 = require('@angular/core/src/change_detection/differs/keyvalue_differs');
+var import64 = require('@angular/http/src/interfaces');
+var import65 = require('@angular/http/src/http');
+var import66 = require('@angular/core/src/linker/ng_module_factory_loader');
+var import67 = require('@angular/router/src/router_config_loader');
+var import68 = require('@angular/router/src/router_state');
+var import69 = require('@ngx-translate/core/src/translate.loader');
 var AppModuleInjector = (function (_super) {
     __extends(AppModuleInjector, _super);
     function AppModuleInjector(parent) {
-        return _super.call(this, parent, [
+        _super.call(this, parent, [
             import40.LoginPageComponentNgFactory,
             import41.HomePageComponentNgFactory,
             import42.MainAppComponentNgFactory
-        ], [import42.MainAppComponentNgFactory]) || this;
+        ], [import42.MainAppComponentNgFactory]);
     }
     Object.defineProperty(AppModuleInjector.prototype, "_LOCALE_ID_10", {
         get: function () {
@@ -816,6 +811,6 @@ var AppModuleInjector = (function (_super) {
         this._RouterPreloader_57.ngOnDestroy();
     };
     return AppModuleInjector;
-}(import0.NgModuleInjector));
-export var AppModuleNgFactory = new import0.NgModuleFactory(AppModuleInjector, import1.AppModule);
+})(import0.NgModuleInjector);
+exports.AppModuleNgFactory = new import0.NgModuleFactory(AppModuleInjector, import1.AppModule);
 //# sourceMappingURL=app.module.ngfactory.js.map

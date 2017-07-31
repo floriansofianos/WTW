@@ -32,6 +32,7 @@ var System;
             '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
             // other libraries
             'rxjs': 'npm:rxjs',
+            'angular2-spinner': 'npm:angular2-spinner/dist'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -44,6 +45,10 @@ var System;
             },
             rxjs: {
                 defaultExtension: 'js'
+            },
+            'angular2-spinner': {
+                defaultExtension: 'js',
+                main: 'index.js'
             }
         }
     });

@@ -1,41 +1,36 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import * as import0 from '../../../../app/login/login-form/login-form.component';
-import * as import1 from '@angular/core/src/linker/view';
-import * as import3 from '@angular/core/src/linker/view_utils';
-import * as import4 from '@angular/core/src/metadata/view';
-import * as import5 from '@angular/core/src/linker/view_type';
-import * as import6 from '@angular/core/src/change_detection/constants';
-import * as import7 from '@angular/core/src/linker/component_factory';
-import * as import8 from '@angular/router/src/router';
-import * as import9 from '../../../../app/auth/auth.service';
-import * as import10 from '@ngx-translate/core/src/translate.pipe';
-import * as import11 from '@angular/core/src/linker/view_container';
-import * as import12 from '@angular/core/src/change_detection/change_detection_util';
-import * as import13 from '@ngx-translate/core/src/translate.service';
-import * as import14 from '../../../node_modules/@angular/forms/src/directives/reactive_directives/form_group_directive.ngfactory';
-import * as import15 from '../../../node_modules/@angular/forms/src/directives/ng_control_status.ngfactory';
-import * as import16 from '../../../node_modules/@angular/forms/src/directives/default_value_accessor.ngfactory';
-import * as import17 from '../../../node_modules/@angular/forms/src/directives/reactive_directives/form_control_name.ngfactory';
-import * as import18 from '../../../node_modules/@angular/common/src/directives/ng_if.ngfactory';
-import * as import19 from '@angular/core/src/linker/element_ref';
-import * as import20 from '@angular/core/src/linker/template_ref';
-import * as import21 from '@angular/forms/src/directives/default_value_accessor';
-import * as import22 from '@angular/forms/src/directives/control_value_accessor';
-import * as import23 from '@angular/forms/src/directives/reactive_directives/form_control_name';
-import * as import24 from '@angular/forms/src/directives/ng_control';
-import * as import25 from '@angular/forms/src/directives/ng_control_status';
-import * as import26 from '@angular/common/src/directives/ng_if';
-import * as import27 from '@angular/forms/src/directives/reactive_directives/form_group_directive';
-import * as import28 from '@angular/forms/src/directives/control_container';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var import0 = require('../../../../app/login/login-form/login-form.component');
+var import1 = require('@angular/core/src/linker/view');
+var import3 = require('@angular/core/src/linker/view_utils');
+var import4 = require('@angular/core/src/metadata/view');
+var import5 = require('@angular/core/src/linker/view_type');
+var import6 = require('@angular/core/src/change_detection/constants');
+var import7 = require('@angular/core/src/linker/component_factory');
+var import8 = require('@angular/router/src/router');
+var import9 = require('../../../../app/auth/auth.service');
+var import10 = require('@ngx-translate/core/src/translate.pipe');
+var import11 = require('@angular/core/src/linker/view_container');
+var import12 = require('@angular/core/src/change_detection/change_detection_util');
+var import13 = require('@ngx-translate/core/src/translate.service');
+var import14 = require('../../../node_modules/@angular/forms/src/directives/reactive_directives/form_group_directive.ngfactory');
+var import15 = require('../../../node_modules/@angular/forms/src/directives/ng_control_status.ngfactory');
+var import16 = require('../../../node_modules/@angular/forms/src/directives/default_value_accessor.ngfactory');
+var import17 = require('../../../node_modules/@angular/forms/src/directives/reactive_directives/form_control_name.ngfactory');
+var import18 = require('../../../node_modules/@angular/common/src/directives/ng_if.ngfactory');
+var import19 = require('@angular/core/src/linker/element_ref');
+var import20 = require('@angular/core/src/linker/template_ref');
+var import21 = require('@angular/forms/src/directives/default_value_accessor');
+var import22 = require('@angular/forms/src/directives/control_value_accessor');
+var import23 = require('@angular/forms/src/directives/reactive_directives/form_control_name');
+var import24 = require('@angular/forms/src/directives/ng_control');
+var import25 = require('@angular/forms/src/directives/ng_control_status');
+var import26 = require('@angular/common/src/directives/ng_if');
+var import27 = require('@angular/forms/src/directives/reactive_directives/form_group_directive');
+var import28 = require('@angular/forms/src/directives/control_container');
 var Wrapper_LoginFormComponent = (function () {
     function Wrapper_LoginFormComponent(p0, p1) {
         this._changed = false;
@@ -65,13 +60,13 @@ var Wrapper_LoginFormComponent = (function () {
         this._eventHandler = _eventHandler;
     };
     return Wrapper_LoginFormComponent;
-}());
-export { Wrapper_LoginFormComponent };
+})();
+exports.Wrapper_LoginFormComponent = Wrapper_LoginFormComponent;
 var renderType_LoginFormComponent_Host = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, [], {});
 var View_LoginFormComponent_Host0 = (function (_super) {
     __extends(View_LoginFormComponent_Host0, _super);
     function View_LoginFormComponent_Host0(viewUtils, parentView, parentIndex, parentElement) {
-        return _super.call(this, View_LoginFormComponent_Host0, renderType_LoginFormComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
+        _super.call(this, View_LoginFormComponent_Host0, renderType_LoginFormComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
     }
     View_LoginFormComponent_Host0.prototype.createInternal = function (rootSelector) {
         this._el_0 = import3.selectOrCreateRenderHostElement(this.renderer, 'login-form', import3.EMPTY_INLINE_ARRAY, rootSelector, null);
@@ -98,15 +93,14 @@ var View_LoginFormComponent_Host0 = (function (_super) {
         cb(this._el_0, ctx);
     };
     return View_LoginFormComponent_Host0;
-}(import1.AppView));
-export var LoginFormComponentNgFactory = new import7.ComponentFactory('login-form', View_LoginFormComponent_Host0, import0.LoginFormComponent);
+})(import1.AppView);
+exports.LoginFormComponentNgFactory = new import7.ComponentFactory('login-form', View_LoginFormComponent_Host0, import0.LoginFormComponent);
 var styles_LoginFormComponent = [];
 var View_LoginFormComponent1 = (function (_super) {
     __extends(View_LoginFormComponent1, _super);
     function View_LoginFormComponent1(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_LoginFormComponent1, renderType_LoginFormComponent, import5.ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = import12.UNINITIALIZED;
-        return _this;
+        _super.call(this, View_LoginFormComponent1, renderType_LoginFormComponent, import5.ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways, declaredViewContainer);
+        this._expr_2 = import12.UNINITIALIZED;
     }
     View_LoginFormComponent1.prototype.createInternal = function (rootSelector) {
         this._el_0 = import3.createRenderElement(this.renderer, null, 'div', import3.EMPTY_INLINE_ARRAY, null);
@@ -134,17 +128,16 @@ var View_LoginFormComponent1 = (function (_super) {
         cb(this._el_0, ctx);
     };
     return View_LoginFormComponent1;
-}(import1.AppView));
+})(import1.AppView);
 var renderType_LoginFormComponent = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, styles_LoginFormComponent, {});
 var View_LoginFormComponent0 = (function (_super) {
     __extends(View_LoginFormComponent0, _super);
     function View_LoginFormComponent0(viewUtils, parentView, parentIndex, parentElement) {
-        var _this = _super.call(this, View_LoginFormComponent0, renderType_LoginFormComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_38 = import12.UNINITIALIZED;
-        _this._expr_40 = import12.UNINITIALIZED;
-        _this._expr_42 = import12.UNINITIALIZED;
-        _this._expr_44 = import12.UNINITIALIZED;
-        return _this;
+        _super.call(this, View_LoginFormComponent0, renderType_LoginFormComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
+        this._expr_38 = import12.UNINITIALIZED;
+        this._expr_40 = import12.UNINITIALIZED;
+        this._expr_42 = import12.UNINITIALIZED;
+        this._expr_44 = import12.UNINITIALIZED;
     }
     View_LoginFormComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
@@ -370,6 +363,6 @@ var View_LoginFormComponent0 = (function (_super) {
         return result;
     };
     return View_LoginFormComponent0;
-}(import1.AppView));
-export { View_LoginFormComponent0 };
+})(import1.AppView);
+exports.View_LoginFormComponent0 = View_LoginFormComponent0;
 //# sourceMappingURL=login-form.component.ngfactory.js.map

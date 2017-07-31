@@ -1,26 +1,21 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import * as import0 from '../../app/main-app.component';
-import * as import1 from '@angular/core/src/linker/view';
-import * as import3 from '@angular/core/src/linker/view_utils';
-import * as import4 from '@angular/core/src/metadata/view';
-import * as import5 from '@angular/core/src/linker/view_type';
-import * as import6 from '@angular/core/src/change_detection/constants';
-import * as import7 from '@angular/core/src/linker/component_factory';
-import * as import8 from '@ngx-translate/core/src/translate.service';
-import * as import9 from '@angular/core/src/linker/view_container';
-import * as import10 from '../node_modules/@angular/router/src/directives/router_outlet.ngfactory';
-import * as import11 from '@angular/router/src/router_outlet_map';
-import * as import12 from '@angular/core/src/linker/component_factory_resolver';
-import * as import13 from '@angular/router/src/directives/router_outlet';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var import0 = require('../../app/main-app.component');
+var import1 = require('@angular/core/src/linker/view');
+var import3 = require('@angular/core/src/linker/view_utils');
+var import4 = require('@angular/core/src/metadata/view');
+var import5 = require('@angular/core/src/linker/view_type');
+var import6 = require('@angular/core/src/change_detection/constants');
+var import7 = require('@angular/core/src/linker/component_factory');
+var import8 = require('@ngx-translate/core/src/translate.service');
+var import9 = require('@angular/core/src/linker/view_container');
+var import10 = require('../node_modules/@angular/router/src/directives/router_outlet.ngfactory');
+var import11 = require('@angular/router/src/router_outlet_map');
+var import12 = require('@angular/core/src/linker/component_factory_resolver');
+var import13 = require('@angular/router/src/directives/router_outlet');
 var Wrapper_MainAppComponent = (function () {
     function Wrapper_MainAppComponent(p0) {
         this._changed = false;
@@ -45,13 +40,13 @@ var Wrapper_MainAppComponent = (function () {
         this._eventHandler = _eventHandler;
     };
     return Wrapper_MainAppComponent;
-}());
-export { Wrapper_MainAppComponent };
+})();
+exports.Wrapper_MainAppComponent = Wrapper_MainAppComponent;
 var renderType_MainAppComponent_Host = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, [], {});
 var View_MainAppComponent_Host0 = (function (_super) {
     __extends(View_MainAppComponent_Host0, _super);
     function View_MainAppComponent_Host0(viewUtils, parentView, parentIndex, parentElement) {
-        return _super.call(this, View_MainAppComponent_Host0, renderType_MainAppComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
+        _super.call(this, View_MainAppComponent_Host0, renderType_MainAppComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
     }
     View_MainAppComponent_Host0.prototype.createInternal = function (rootSelector) {
         this._el_0 = import3.selectOrCreateRenderHostElement(this.renderer, 'main-app', import3.EMPTY_INLINE_ARRAY, rootSelector, null);
@@ -78,14 +73,14 @@ var View_MainAppComponent_Host0 = (function (_super) {
         cb(this._el_0, ctx);
     };
     return View_MainAppComponent_Host0;
-}(import1.AppView));
-export var MainAppComponentNgFactory = new import7.ComponentFactory('main-app', View_MainAppComponent_Host0, import0.MainAppComponent);
+})(import1.AppView);
+exports.MainAppComponentNgFactory = new import7.ComponentFactory('main-app', View_MainAppComponent_Host0, import0.MainAppComponent);
 var styles_MainAppComponent = [];
 var renderType_MainAppComponent = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, styles_MainAppComponent, {});
 var View_MainAppComponent0 = (function (_super) {
     __extends(View_MainAppComponent0, _super);
     function View_MainAppComponent0(viewUtils, parentView, parentIndex, parentElement) {
-        return _super.call(this, View_MainAppComponent0, renderType_MainAppComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
+        _super.call(this, View_MainAppComponent0, renderType_MainAppComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
     }
     View_MainAppComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
@@ -116,6 +111,6 @@ var View_MainAppComponent0 = (function (_super) {
         this._RouterOutlet_1_5.ngOnDestroy();
     };
     return View_MainAppComponent0;
-}(import1.AppView));
-export { View_MainAppComponent0 };
+})(import1.AppView);
+exports.View_MainAppComponent0 = View_MainAppComponent0;
 //# sourceMappingURL=main-app.component.ngfactory.js.map

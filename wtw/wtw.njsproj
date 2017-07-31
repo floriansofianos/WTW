@@ -52,6 +52,7 @@
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\spinner\spinner.component.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
     <Compile Include="config\jscs.config.jscsrc" />

@@ -1,27 +1,22 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import * as import0 from '../../../app/login/login-page.component';
-import * as import1 from '@angular/core/src/linker/view';
-import * as import3 from '@angular/core/src/linker/view_utils';
-import * as import4 from '@angular/core/src/metadata/view';
-import * as import5 from '@angular/core/src/linker/view_type';
-import * as import6 from '@angular/core/src/change_detection/constants';
-import * as import7 from '@angular/core/src/linker/component_factory';
-import * as import8 from '../../../app/login/login-form/login-form.component';
-import * as import9 from './login-form/login-form.component.ngfactory';
-import * as import10 from '@ngx-translate/core/src/translate.pipe';
-import * as import11 from '@angular/core/src/change_detection/change_detection_util';
-import * as import12 from '@angular/router/src/router';
-import * as import13 from '../../../app/auth/auth.service';
-import * as import14 from '@ngx-translate/core/src/translate.service';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var import0 = require('../../../app/login/login-page.component');
+var import1 = require('@angular/core/src/linker/view');
+var import3 = require('@angular/core/src/linker/view_utils');
+var import4 = require('@angular/core/src/metadata/view');
+var import5 = require('@angular/core/src/linker/view_type');
+var import6 = require('@angular/core/src/change_detection/constants');
+var import7 = require('@angular/core/src/linker/component_factory');
+var import8 = require('../../../app/login/login-form/login-form.component');
+var import9 = require('./login-form/login-form.component.ngfactory');
+var import10 = require('@ngx-translate/core/src/translate.pipe');
+var import11 = require('@angular/core/src/change_detection/change_detection_util');
+var import12 = require('@angular/router/src/router');
+var import13 = require('../../../app/auth/auth.service');
+var import14 = require('@ngx-translate/core/src/translate.service');
 var Wrapper_LoginPageComponent = (function () {
     function Wrapper_LoginPageComponent() {
         this._changed = false;
@@ -46,13 +41,13 @@ var Wrapper_LoginPageComponent = (function () {
         this._eventHandler = _eventHandler;
     };
     return Wrapper_LoginPageComponent;
-}());
-export { Wrapper_LoginPageComponent };
+})();
+exports.Wrapper_LoginPageComponent = Wrapper_LoginPageComponent;
 var renderType_LoginPageComponent_Host = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, [], {});
 var View_LoginPageComponent_Host0 = (function (_super) {
     __extends(View_LoginPageComponent_Host0, _super);
     function View_LoginPageComponent_Host0(viewUtils, parentView, parentIndex, parentElement) {
-        return _super.call(this, View_LoginPageComponent_Host0, renderType_LoginPageComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
+        _super.call(this, View_LoginPageComponent_Host0, renderType_LoginPageComponent_Host, import5.ViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
     }
     View_LoginPageComponent_Host0.prototype.createInternal = function (rootSelector) {
         this._el_0 = import3.selectOrCreateRenderHostElement(this.renderer, 'ng-component', import3.EMPTY_INLINE_ARRAY, rootSelector, null);
@@ -79,16 +74,15 @@ var View_LoginPageComponent_Host0 = (function (_super) {
         cb(this._el_0, ctx);
     };
     return View_LoginPageComponent_Host0;
-}(import1.AppView));
-export var LoginPageComponentNgFactory = new import7.ComponentFactory('ng-component', View_LoginPageComponent_Host0, import0.LoginPageComponent);
+})(import1.AppView);
+exports.LoginPageComponentNgFactory = new import7.ComponentFactory('ng-component', View_LoginPageComponent_Host0, import0.LoginPageComponent);
 var styles_LoginPageComponent = [];
 var renderType_LoginPageComponent = import3.createRenderComponentType('', 0, import4.ViewEncapsulation.None, styles_LoginPageComponent, {});
 var View_LoginPageComponent0 = (function (_super) {
     __extends(View_LoginPageComponent0, _super);
     function View_LoginPageComponent0(viewUtils, parentView, parentIndex, parentElement) {
-        var _this = _super.call(this, View_LoginPageComponent0, renderType_LoginPageComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_8 = import11.UNINITIALIZED;
-        return _this;
+        _super.call(this, View_LoginPageComponent0, renderType_LoginPageComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways);
+        this._expr_8 = import11.UNINITIALIZED;
     }
     View_LoginPageComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
@@ -134,6 +128,6 @@ var View_LoginPageComponent0 = (function (_super) {
         this._pipe_translate_0.ngOnDestroy();
     };
     return View_LoginPageComponent0;
-}(import1.AppView));
-export { View_LoginPageComponent0 };
+})(import1.AppView);
+exports.View_LoginPageComponent0 = View_LoginPageComponent0;
 //# sourceMappingURL=login-page.component.ngfactory.js.map

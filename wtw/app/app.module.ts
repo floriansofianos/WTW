@@ -12,6 +12,8 @@ import { MainAppComponent } from './main-app.component';
 import { HomePageComponent } from './home/home-page.component';
 import { LoginPageComponent } from './login/login-page.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
+import { SpinnerModule } from 'angular2-spinner';
+
 
 import { AuthService } from './auth/auth.service';
 
@@ -25,6 +27,7 @@ export function createTranslateLoader(http: Http) {
             ReactiveFormsModule,
             RouterModule.forRoot(appRoutes),
             HttpModule,
+            SpinnerModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
