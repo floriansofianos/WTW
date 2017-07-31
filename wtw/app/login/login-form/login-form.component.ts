@@ -4,23 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service'
 
 @Component({
+    moduleId: module.id,
     selector: 'login-form',
-    template: `
-<form id="login-form" [formGroup]="loginForm" autocomplete="off" novalidate>
-    <div class="login-line">
-        <input id="login" formControlName="login" type="text" placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" />
-    </div>
-    <div class="login-line">
-        <input id="password" formControlName="password" type="password" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
-    </div>
-    <div class="login-line login-error" *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
-    <div class="login-line button-line" *ngIf="!showSpinner">
-        <a class="button button-ok" (click)="login(loginForm.value)">{{ 'FORM.OK' | translate }}</a>
-        <a class="button" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</a>
-    </div>
-    <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
-</form>
-`
+    templateUrl: 'login-form.component.html'
 })
 
 export class LoginFormComponent implements OnInit {

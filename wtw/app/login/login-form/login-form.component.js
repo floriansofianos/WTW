@@ -44,8 +44,9 @@ var LoginFormComponent = (function () {
 }());
 LoginFormComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'login-form',
-        template: "\n<form id=\"login-form\" [formGroup]=\"loginForm\" autocomplete=\"off\" novalidate>\n    <div class=\"login-line\">\n        <input id=\"login\" formControlName=\"login\" type=\"text\" placeholder=\"{{ 'LOGIN.FORM.LOGIN' | translate }}\" />\n    </div>\n    <div class=\"login-line\">\n        <input id=\"password\" formControlName=\"password\" type=\"password\" placeholder=\"{{ 'LOGIN.FORM.PASSWORD' | translate }}\" />\n    </div>\n    <div class=\"login-line login-error\" *ngIf=\"showError\">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>\n    <div class=\"login-line button-line\" *ngIf=\"!showSpinner\">\n        <a class=\"button button-ok\" (click)=\"login(loginForm.value)\">{{ 'FORM.OK' | translate }}</a>\n        <a class=\"button\" (click)=\"cancel()\">{{ 'FORM.CANCEL' | translate }}</a>\n    </div>\n    <div class=\"login-line button-line\" *ngIf=\"showSpinner\"><spinner></spinner></div>\n</form>\n"
+        templateUrl: 'login-form.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
 ], LoginFormComponent);

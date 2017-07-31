@@ -19,7 +19,8 @@ module.exports = function () {
         tsConfig: app + 'tsconfig.json',
         allLess: [app + 'less/*.less'],
         allTests: [tests + '*.js'],
-        allAOT: aot + '**/*'
+        allAOT: aot + '**/*',
+        angularHTML: app + '**/*.html'
     };
 
     return config;

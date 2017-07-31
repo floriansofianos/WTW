@@ -17,6 +17,7 @@ var rename = require('gulp-rename');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var filter = require('gulp-filter');
+var gulpCopy = require('gulp-copy');
 
 gulp.task('lint-server-code', function() {
     return gulp.src(config.alljs)
@@ -159,6 +160,7 @@ gulp.task('serve-dev', function () {
         'lint-front-end-code',
         'compile-ts',
         'compile-ts-in-app',
+        'copy-angular-html',
         'front-end-test',
         'compile-less',
         'inject-front-end-dependancies-dev');
@@ -169,4 +171,9 @@ gulp.task('front-end-test', function () {
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }).start();
+});
+
+gulp.task('copy-angular-html', function (done) {
+    return gulp.src(config.angularHTML)
+        .pipe(gulpCopy(config.publicFolder + 'js/', { prefix: 1 }));
 });
