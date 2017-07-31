@@ -7,14 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LoginPageComponent = (function () {
-    function LoginPageComponent() {
+var SignUpPageComponent = (function () {
+    function SignUpPageComponent() {
     }
-    LoginPageComponent = __decorate([
-        core_1.Component({
-            template: "\n<h2 class=\"login-title\">{{ 'LOGIN.TITLE' | translate }}</h2>\n<login-form></login-form>\n"
-        })
-    ], LoginPageComponent);
-    return LoginPageComponent;
+    return SignUpPageComponent;
 }());
-exports.LoginPageComponent = LoginPageComponent;
+SignUpPageComponent = __decorate([
+    core_1.Component({
+        template: "\n<h2 class=\"sign-up-title\">{{ 'SIGNUP.TITLE' | translate }}</h2>\n<sign-up-form></sign-up-form>\n"
+    })
+], SignUpPageComponent);
+exports.SignUpPageComponent = SignUpPageComponent;
+//# sourceMappingURL=signup-page.component.js.map

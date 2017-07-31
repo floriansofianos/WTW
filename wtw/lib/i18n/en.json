@@ -1,15 +1,18 @@
 ﻿{
   "HOME": {
     "TITLE": "Hello Angular with ngx-translate!",
-    "WELCOME":  "Welcome"
+    "WELCOME": "Welcome"
   },
   "LOGIN": {
     "TITLE": "Login",
     "FORM": {
       "LOGIN": "Email",
       "PASSWORD": "Password",
-      "WRONGPASSWORD":  "Your email or password is incorrect."
+      "WRONGPASSWORD": "Your email or password is incorrect."
     }
+  },
+  "SIGNUP": {
+    "TITLE": "Sign Up"
   },
   "FORM": {
     "OK": "OK",

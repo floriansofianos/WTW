@@ -52,6 +52,7 @@
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\signup\signup-page.component.ts" />
     <TypeScriptCompile Include="app\spinner\spinner.component.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
@@ -94,6 +95,9 @@
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
+    <Folder Include="app\signup\" />
+    <Folder Include="app\signup\signup-form\" />
+    <Folder Include="app\spinner\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />

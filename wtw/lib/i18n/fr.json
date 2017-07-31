@@ -11,6 +11,9 @@
       "WRONGPASSWORD": "Votre email ou mot de passe est incorrect."
     }
   },
+  "SIGNUP": {
+    "TITLE": "Inscription"
+  },
   "FORM": {
     "OK": "OK",
     "CANCEL": "Annuler"
