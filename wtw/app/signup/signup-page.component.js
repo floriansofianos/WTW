@@ -14,8 +14,7 @@ var SignUpPageComponent = (function () {
 }());
 SignUpPageComponent = __decorate([
     core_1.Component({
-        template: "\n<h2 class=\"sign-up-title\">{{ 'SIGNUP.TITLE' | translate }}</h2>\n<sign-up-form></sign-up-form>\n"
+        template: "\n<h2 class=\"sign-up-title\">{{ 'SIGNUP.TITLE' | translate }}</h2>\n<signup-form></signup-form>\n"
     })
 ], SignUpPageComponent);
 exports.SignUpPageComponent = SignUpPageComponent;
-//# sourceMappingURL=signup-page.component.js.map

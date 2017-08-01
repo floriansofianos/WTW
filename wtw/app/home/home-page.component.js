@@ -20,12 +20,12 @@ var HomePageComponent = (function () {
         if (currentUser)
             this.name = currentUser.firstName + ' ' + currentUser.lastName;
     };
-    HomePageComponent = __decorate([
-        core_1.Component({
-            template: "\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService])
-    ], HomePageComponent);
     return HomePageComponent;
 }());
+HomePageComponent = __decorate([
+    core_1.Component({
+        template: "\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], HomePageComponent);
 exports.HomePageComponent = HomePageComponent;

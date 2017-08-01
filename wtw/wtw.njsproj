@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\login\login-form\login-form.component.html" />
+    <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
@@ -52,6 +53,7 @@
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\signup\signup-form\signup-form.component.ts" />
     <TypeScriptCompile Include="app\signup\signup-page.component.ts" />
     <TypeScriptCompile Include="app\spinner\spinner.component.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
@@ -60,6 +62,8 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\userController.js" />
+    <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
@@ -99,6 +103,7 @@
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
     <Folder Include="lib\i18n\" />
+    <Folder Include="lib\controllers\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />
     <Folder Include="lib\middlewares\" />

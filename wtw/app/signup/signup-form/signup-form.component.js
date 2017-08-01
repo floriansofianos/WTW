@@ -13,41 +13,33 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
-var LoginFormComponent = (function () {
-    function LoginFormComponent(router, authService) {
+var SignupFormComponent = (function () {
+    function SignupFormComponent(router, authService) {
         this.router = router;
         this.authService = authService;
     }
-    LoginFormComponent.prototype.ngOnInit = function () {
+    SignupFormComponent.prototype.ngOnInit = function () {
         var login = new forms_1.FormControl();
         var password = new forms_1.FormControl();
-        this.loginForm = new forms_1.FormGroup({
+        this.signupForm = new forms_1.FormGroup({
             login: login,
             password: password
         });
     };
-    LoginFormComponent.prototype.cancel = function () {
+    SignupFormComponent.prototype.cancel = function () {
         this.router.navigate(['']);
     };
-    LoginFormComponent.prototype.login = function (formValues) {
-        var _this = this;
+    SignupFormComponent.prototype.signup = function (formValues) {
         this.showSpinner = true;
-        this.authService.loginUser(formValues.login, formValues.password).subscribe(function (response) {
-            _this.authService.setCurrentUser(response.json());
-            _this.router.navigate(['']);
-        }, function (error) {
-            _this.showError = true;
-            _this.showSpinner = false;
-        });
     };
-    return LoginFormComponent;
+    return SignupFormComponent;
 }());
-LoginFormComponent = __decorate([
+SignupFormComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'login-form',
-        templateUrl: 'login-form.component.html'
+        selector: 'signup-form',
+        templateUrl: 'signup-form.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], LoginFormComponent);
-exports.LoginFormComponent = LoginFormComponent;
+], SignupFormComponent);
+exports.SignupFormComponent = SignupFormComponent;
