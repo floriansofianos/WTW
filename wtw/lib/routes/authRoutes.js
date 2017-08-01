@@ -14,6 +14,9 @@ var authRoutes = function () {
     authRouter.route('/checkUsername')
         .get(userController.isUsernameAlreadyUsed);
 
+    authRouter.route('/checkEmail')
+        .get(userController.isEmailAlreadyUsed);
+
     authRouter.route('/signup')
         .post(function (req, res) {
             req.username
