@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service'
 
@@ -18,7 +18,7 @@ export class SignUpFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.signupForm = new FormGroup({
-            email: new FormControl(),
+            email: new FormControl(null, Validators.required),
             password: new FormControl(),
             confirmPassword: new FormControl(),
             username: new FormControl(),
@@ -32,14 +32,16 @@ export class SignUpFormComponent implements OnInit {
     }
 
     signup(formValues: any) {
-        this.showSpinner = true;
-        this.authService.signUp(formValues).subscribe(response => {
-            this.authService.setCurrentUser(response.json());
-            this.router.navigate(['']);
-        },
-            error => {
-                this.backendError = error;
-                this.showSpinner = false;
-            });
+        if (this.signupForm.valid) {
+            this.showSpinner = true;
+            this.authService.signUp(formValues).subscribe(response => {
+                this.authService.setCurrentUser(response.json());
+                this.router.navigate(['']);
+            },
+                error => {
+                    this.backendError = error;
+                    this.showSpinner = false;
+                });
+        }
     }
 }

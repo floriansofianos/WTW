@@ -20,7 +20,7 @@ var SignUpFormComponent = (function () {
     }
     SignUpFormComponent.prototype.ngOnInit = function () {
         this.signupForm = new forms_1.FormGroup({
-            email: new forms_1.FormControl(),
+            email: new forms_1.FormControl(null, forms_1.Validators.required),
             password: new forms_1.FormControl(),
             confirmPassword: new forms_1.FormControl(),
             username: new forms_1.FormControl(),
@@ -33,14 +33,16 @@ var SignUpFormComponent = (function () {
     };
     SignUpFormComponent.prototype.signup = function (formValues) {
         var _this = this;
-        this.showSpinner = true;
-        this.authService.signUp(formValues).subscribe(function (response) {
-            _this.authService.setCurrentUser(response.json());
-            _this.router.navigate(['']);
-        }, function (error) {
-            _this.backendError = error;
-            _this.showSpinner = false;
-        });
+        if (this.signupForm.valid) {
+            this.showSpinner = true;
+            this.authService.signUp(formValues).subscribe(function (response) {
+                _this.authService.setCurrentUser(response.json());
+                _this.router.navigate(['']);
+            }, function (error) {
+                _this.backendError = error;
+                _this.showSpinner = false;
+            });
+        }
     };
     return SignUpFormComponent;
 }());
