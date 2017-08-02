@@ -13,11 +13,19 @@
   },
   "SIGNUP": {
     "TITLE": "Inscription",
-    "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
-    "EMAIL_NOT_NULL": "L'adresse mail est obligatoire.",
-    "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
-    "EMAIL_TAKEN": "Cette adresse mail est déjà utilisée.",
-    "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
+    "FORM": {
+        "EMAIL": "Email",
+        "PASSWORD": "Mot de passe",
+        "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
+        "USERNAME": "Pseudo",
+        "FIRST_NAME": "Prénom",
+        "LAST_NAME":  "Nom de famille",
+        "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
+        "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
+        "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
+        "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
+        "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
+    }
   },
   "FORM": {
     "OK": "OK",

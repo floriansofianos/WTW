@@ -13,33 +13,43 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
-var SignupFormComponent = (function () {
-    function SignupFormComponent(router, authService) {
+var SignUpFormComponent = (function () {
+    function SignUpFormComponent(router, authService) {
         this.router = router;
         this.authService = authService;
     }
-    SignupFormComponent.prototype.ngOnInit = function () {
-        var login = new forms_1.FormControl();
-        var password = new forms_1.FormControl();
+    SignUpFormComponent.prototype.ngOnInit = function () {
         this.signupForm = new forms_1.FormGroup({
-            login: login,
-            password: password
+            email: new forms_1.FormControl(),
+            password: new forms_1.FormControl(),
+            confirmPassword: new forms_1.FormControl(),
+            username: new forms_1.FormControl(),
+            firstName: new forms_1.FormControl(),
+            lastName: new forms_1.FormControl()
         });
     };
-    SignupFormComponent.prototype.cancel = function () {
+    SignUpFormComponent.prototype.cancel = function () {
         this.router.navigate(['']);
     };
-    SignupFormComponent.prototype.signup = function (formValues) {
+    SignUpFormComponent.prototype.signup = function (formValues) {
+        var _this = this;
         this.showSpinner = true;
+        this.authService.signUp(formValues).subscribe(function (response) {
+            _this.authService.setCurrentUser(response.json());
+            _this.router.navigate(['']);
+        }, function (error) {
+            _this.backendError = error;
+            _this.showSpinner = false;
+        });
     };
-    return SignupFormComponent;
+    return SignUpFormComponent;
 }());
-SignupFormComponent = __decorate([
+SignUpFormComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'signup-form',
         templateUrl: 'signup-form.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], SignupFormComponent);
-exports.SignupFormComponent = SignupFormComponent;
+], SignUpFormComponent);
+exports.SignUpFormComponent = SignUpFormComponent;

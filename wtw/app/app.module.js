@@ -18,6 +18,8 @@ var main_app_component_1 = require("./main-app.component");
 var home_page_component_1 = require("./home/home-page.component");
 var login_page_component_1 = require("./login/login-page.component");
 var login_form_component_1 = require("./login/login-form/login-form.component");
+var signup_page_component_1 = require("./signup/signup-page.component");
+var signup_form_component_1 = require("./signup/signup-form/signup-form.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
 // AoT requires an exported function for factories
@@ -47,7 +49,9 @@ AppModule = __decorate([
         declarations: [main_app_component_1.MainAppComponent,
             home_page_component_1.HomePageComponent,
             login_page_component_1.LoginPageComponent,
-            login_form_component_1.LoginFormComponent],
+            login_form_component_1.LoginFormComponent,
+            signup_page_component_1.SignUpPageComponent,
+            signup_form_component_1.SignUpFormComponent],
         providers: [auth_service_1.AuthService],
         bootstrap: [main_app_component_1.MainAppComponent]
     })

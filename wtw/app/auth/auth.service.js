@@ -20,6 +20,10 @@ var AuthService = (function () {
         return this.http.post('/auth/signin', { email: login, password: password })
             .catch(this.handleErrors);
     };
+    AuthService.prototype.signUp = function (newUserForm) {
+        return this.http.post('/auth/signup', newUserForm)
+            .catch(this.handleSignUpErrors);
+    };
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
     };
@@ -28,6 +32,9 @@ var AuthService = (function () {
     };
     AuthService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
+    };
+    AuthService.prototype.handleSignUpErrors = function (error) {
+        return Rx_1.Observable.throw(error.text());
     };
     return AuthService;
 }());

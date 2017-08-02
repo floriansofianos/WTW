@@ -12,6 +12,8 @@ import { MainAppComponent } from './main-app.component';
 import { HomePageComponent } from './home/home-page.component';
 import { LoginPageComponent } from './login/login-page.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
+import { SignUpPageComponent } from './signup/signup-page.component';
+import { SignUpFormComponent } from './signup/signup-form/signup-form.component';
 import { SpinnerModule } from 'angular2-spinner';
 
 
@@ -38,7 +40,9 @@ export function createTranslateLoader(http: Http) {
     declarations: [MainAppComponent,
         HomePageComponent,
         LoginPageComponent,
-        LoginFormComponent],
+        LoginFormComponent,
+        SignUpPageComponent,
+        SignUpFormComponent],
     providers: [AuthService],
     bootstrap: [MainAppComponent]
 })

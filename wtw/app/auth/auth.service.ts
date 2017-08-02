@@ -14,6 +14,11 @@ export class AuthService {
             .catch(this.handleErrors);
     }
 
+    signUp(newUserForm: any): Observable<any> {
+        return this.http.post('/auth/signup', newUserForm)
+            .catch(this.handleSignUpErrors);
+    }
+
     getCurrentUser() {
         return this.currentUser;
     }
@@ -24,5 +29,9 @@ export class AuthService {
 
     handleErrors(error: Response) {
         return Observable.throw(error.status);
+    }
+
+    handleSignUpErrors(error: Response) {
+        return Observable.throw(error.text());
     }
 }

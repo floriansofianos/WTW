@@ -15,16 +15,16 @@ var userService = function () {
     }
 
     var validateUser = function (user, done) {
-        if (!user.username) done('USERNAME_NOT_NULL', null);
-        if (!user.email) done('EMAIL_NOT_NULL', null);
-        if (!user.password) done('PASSWORD_NOT_NULL', null);
+        if (!user.username) done('SIGNUP.FORM.USERNAME_NOT_NULL', null);
+        if (!user.email) done('SIGNUP.FORM.EMAIL_NOT_NULL', null);
+        if (!user.password) done('SIGNUP.FORM.PASSWORD_NOT_NULL', null);
 
         // Check that the username or email has not already been used
         getUserByEmail(user.email, function (err, u) {
-            if (u) done('EMAIL_TAKEN', null);
+            if (u) done('SIGNUP.FORM.EMAIL_TAKEN', null);
             else if (err) done(err, null);
             else getUserByUsername(user.username, function (err, u) {
-                if (u) done('USERNAME_TAKEN', null);
+                if (u) done('SIGNUP.FORM.USERNAME_TAKEN', null);
                 else if (err) done(err, null);
                 else done(null, true);
             });

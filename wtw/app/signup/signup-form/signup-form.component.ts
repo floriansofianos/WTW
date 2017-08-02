@@ -9,20 +9,21 @@ import { AuthService } from '../../auth/auth.service'
     templateUrl: 'signup-form.component.html'
 })
 
-export class SignupFormComponent implements OnInit {
+export class SignUpFormComponent implements OnInit {
     signupForm: FormGroup;
-    showError: boolean;
+    backendError: string;
     showSpinner: boolean;
 
     constructor(private router: Router, private authService: AuthService) { }
 
     ngOnInit(): void {
-        let login = new FormControl();
-        let password = new FormControl();
-
         this.signupForm = new FormGroup({
-            login: login,
-            password: password
+            email: new FormControl(),
+            password: new FormControl(),
+            confirmPassword: new FormControl(),
+            username: new FormControl(),
+            firstName: new FormControl(),
+            lastName: new FormControl()
         });
     }
 
@@ -32,5 +33,13 @@ export class SignupFormComponent implements OnInit {
 
     signup(formValues: any) {
         this.showSpinner = true;
+        this.authService.signUp(formValues).subscribe(response => {
+            this.authService.setCurrentUser(response.json());
+            this.router.navigate(['']);
+        },
+            error => {
+                this.backendError = error;
+                this.showSpinner = false;
+            });
     }
 }

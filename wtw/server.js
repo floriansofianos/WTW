@@ -46,6 +46,9 @@ app.get('/', function (req, res) {
 app.get('/login', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/signup', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 app.listen(port);
 
