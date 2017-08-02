@@ -1,42 +1,53 @@
 ﻿var models = require('../models');
 
-var userService = {
-    getUserByUsername: function (username, done) {
+var userService = function () {
+
+    var getUserByUsername = function (username, done) {
         models.User.findOne({ where: { username: username } }).then(user => {
             done(null, user);
         });
-    },
-    getUserByEmail: function (email, done) {
+    }
+
+    var getUserByEmail = function (email, done) {
         models.User.findOne({ where: { email: email } }).then(user => {
             done(null, user);
         });
-    },
-    validateUser: function (user) {
-        if (!user.username) return { isValid: false, error: 'USERNAME_NOT_NULL' };
-        if (!user.email) return { isValid: false, error: 'EMAIL_NOT_NULL' };
-        if (!user.password) return { isValid: false, error: 'PASSWORD_NOT_NULL' };
+    }
+
+    var validateUser = function (user, done) {
+        if (!user.username) done('USERNAME_NOT_NULL', null);
+        if (!user.email) done('EMAIL_NOT_NULL', null);
+        if (!user.password) done('PASSWORD_NOT_NULL', null);
 
         // Check that the username or email has not already been used
-        getUserByEmail(user.email, function (err, user) {
-            if (user) return { isValid: false, error: 'EMAIL_TAKEN' };
-            else if (err) return { isValid: false, error: err }
-            else getUserByUsername(user.username, function (err, user) {
-                if (user) return { isValid: false, error: 'USERNAME_TAKEN' };
-                else if (err) return { isValid: false, error: err }
-                else return { isValid: true };
+        getUserByEmail(user.email, function (err, u) {
+            if (u) done('EMAIL_TAKEN', null);
+            else if (err) done(err, null);
+            else getUserByUsername(user.username, function (err, u) {
+                if (u) done('USERNAME_TAKEN', null);
+                else if (err) done(err, null);
+                else done(null, true);
             });
         });
-    },
-    createUser: function (user, done) {
+    }
+
+    var createUser = function (user, done) {
         models.User.create({
             username: user.username,
             email: user.email,
-            password: models.User.generateHash(user.password),
+            password: models.User.prototype.generateHash(user.password),
             firstName: user.firstName,
             lastName: user.lastName
         }).then(user => {
             done(null, user);
         });
+    }
+
+    return {
+        getUserByUsername: getUserByUsername,
+        getUserByEmail: getUserByEmail,
+        validateUser: validateUser,
+        createUser: createUser
     }
 }
 

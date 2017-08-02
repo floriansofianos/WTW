@@ -1,6 +1,6 @@
 var express = require('express');
 var passport = require('passport');
-var userService = require('../helpers/userService');
+var userService = require('../helpers/userService')();
 var userController = require('../controllers/userController')(userService);
 
 var authRoutes = function () {
@@ -18,9 +18,7 @@ var authRoutes = function () {
         .get(userController.isEmailAlreadyUsed);
 
     authRouter.route('/signup')
-        .post(function (req, res) {
-            req.username
-        });
+        .post(userController.createUser);
 
     return authRouter;
 }

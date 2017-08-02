@@ -20,19 +20,21 @@
     }
 
     var createUser = function (req, res) {
-        var userValidation = userService.validateUser(req.body);
-        if (userValidation.isValid) {
-            userService.createUser(req.body, function (err, user) {
-                if (user) res.json(user);
-                else res.send(500);
-            });
-        }
-        else res.status(400).send(userValidation.error)
+        var userValidation = userService.validateUser(req.body, function (err, valid) {
+            if (valid) {
+                userService.createUser(req.body, function (err, user) {
+                    if (user) res.json(user);
+                    else res.send(500);
+                });
+            }
+            else res.status(400).send(err)
+        });
     }
 
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
-        isEmailAlreadyUsed: isEmailAlreadyUsed
+        isEmailAlreadyUsed: isEmailAlreadyUsed,
+        createUser: createUser
     }
 }
 
