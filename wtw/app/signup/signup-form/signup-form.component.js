@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
+var ng2_validation_1 = require("ng2-validation");
 var SignUpFormComponent = (function () {
     function SignUpFormComponent(router, authService) {
         this.router = router;
@@ -20,7 +21,7 @@ var SignUpFormComponent = (function () {
     }
     SignUpFormComponent.prototype.ngOnInit = function () {
         this.signupForm = new forms_1.FormGroup({
-            email: new forms_1.FormControl(null, forms_1.Validators.required),
+            email: new forms_1.FormControl(null, [forms_1.Validators.required, ng2_validation_1.CustomValidators.email]),
             password: new forms_1.FormControl(),
             confirmPassword: new forms_1.FormControl(),
             username: new forms_1.FormControl(),
@@ -44,14 +45,14 @@ var SignUpFormComponent = (function () {
             });
         }
     };
+    SignUpFormComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'signup-form',
+            templateUrl: 'signup-form.component.html'
+        }),
+        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+    ], SignUpFormComponent);
     return SignUpFormComponent;
 }());
-SignUpFormComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'signup-form',
-        templateUrl: 'signup-form.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], SignUpFormComponent);
 exports.SignUpFormComponent = SignUpFormComponent;

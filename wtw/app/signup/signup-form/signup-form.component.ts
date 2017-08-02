@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service'
+import { AuthService } from '../../auth/auth.service';
+import { CustomValidators } from 'ng2-validation';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +19,7 @@ export class SignUpFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.signupForm = new FormGroup({
-            email: new FormControl(null, Validators.required),
+            email: new FormControl(null, [Validators.required, CustomValidators.email]),
             password: new FormControl(),
             confirmPassword: new FormControl(),
             username: new FormControl(),
