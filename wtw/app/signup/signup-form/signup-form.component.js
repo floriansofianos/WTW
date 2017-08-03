@@ -45,14 +45,14 @@ var SignUpFormComponent = (function () {
             });
         }
     };
-    SignUpFormComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'signup-form',
-            templateUrl: 'signup-form.component.html'
-        }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-    ], SignUpFormComponent);
     return SignUpFormComponent;
 }());
+SignUpFormComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'signup-form',
+        templateUrl: 'signup-form.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+], SignUpFormComponent);
 exports.SignUpFormComponent = SignUpFormComponent;

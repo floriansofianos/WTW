@@ -17,13 +17,13 @@ var MainAppComponent = (function () {
         var browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     }
-    MainAppComponent = __decorate([
-        core_1.Component({
-            selector: 'main-app',
-            template: "\n<router-outlet></router-outlet>\n"
-        }),
-        __metadata("design:paramtypes", [core_2.TranslateService])
-    ], MainAppComponent);
     return MainAppComponent;
 }());
+MainAppComponent = __decorate([
+    core_1.Component({
+        selector: 'main-app',
+        template: "\n<router-outlet></router-outlet>\n"
+    }),
+    __metadata("design:paramtypes", [core_2.TranslateService])
+], MainAppComponent);
 exports.MainAppComponent = MainAppComponent;

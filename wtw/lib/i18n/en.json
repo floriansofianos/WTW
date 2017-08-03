@@ -15,6 +15,7 @@
     "TITLE": "Sign Up",
     "FORM": {
         "EMAIL": "Email",
+        "EMAIL_INVALID": "The email entered is invalid.",
         "PASSWORD": "Password",
         "CONFIRM_PASSWORD": "Confirm Password",
         "USERNAME": "Username",

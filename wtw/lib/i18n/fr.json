@@ -15,6 +15,7 @@
     "TITLE": "Inscription",
     "FORM": {
         "EMAIL": "Email",
+        "EMAIL_INVALID": "L'adresse email est invalide.",
         "PASSWORD": "Mot de passe",
         "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
         "USERNAME": "Pseudo",

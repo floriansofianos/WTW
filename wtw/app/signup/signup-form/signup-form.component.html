@@ -1,5 +1,6 @@
 <form id="signup-form" class="login-form" [formGroup]="signupForm" autocomplete="off" novalidate>
     <div class="login-line">
+        <em *ngIf="signupForm.controls.email.errors?.email && signupForm.controls.email.touched && signupForm.controls.email.dirty">{{ 'SIGNUP.FORM.EMAIL_INVALID' | translate }}</em>
         <input id="email" formControlName="email" type="text" placeholder="{{ 'SIGNUP.FORM.EMAIL' | translate }}" />
     </div>
     <div class="login-line">
