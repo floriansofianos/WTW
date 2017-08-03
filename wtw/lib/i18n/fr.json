@@ -30,6 +30,7 @@
   },
   "FORM": {
     "OK": "OK",
-    "CANCEL": "Annuler"
+    "CANCEL": "Annuler",
+    "REQUIRED": "Obligatoire"
   }
 }
