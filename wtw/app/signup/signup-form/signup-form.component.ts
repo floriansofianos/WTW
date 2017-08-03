@@ -45,4 +45,12 @@ export class SignUpFormComponent implements OnInit {
                 });
         }
     }
+
+    isEmailInvalid(): boolean {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty
+    }
+
+    isEmailEmpty(): boolean {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty
+    }
 }

@@ -45,6 +45,12 @@ var SignUpFormComponent = (function () {
             });
         }
     };
+    SignUpFormComponent.prototype.isEmailInvalid = function () {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+    };
+    SignUpFormComponent.prototype.isEmailEmpty = function () {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+    };
     return SignUpFormComponent;
 }());
 SignUpFormComponent = __decorate([
@@ -56,3 +62,4 @@ SignUpFormComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
 ], SignUpFormComponent);
 exports.SignUpFormComponent = SignUpFormComponent;
+//# sourceMappingURL=signup-form.component.js.map

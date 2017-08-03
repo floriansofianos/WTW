@@ -14,22 +14,23 @@
   "SIGNUP": {
     "TITLE": "Sign Up",
     "FORM": {
-        "EMAIL": "Email",
-        "EMAIL_INVALID": "The email entered is invalid.",
-        "PASSWORD": "Password",
-        "CONFIRM_PASSWORD": "Confirm Password",
-        "USERNAME": "Username",
-        "FIRST_NAME": "First Name",
-        "LAST_NAME":  "Last Name",
-        "USERNAME_NOT_NULL": "The username is mandatory.",
-        "EMAIL_NOT_NULL": "The email is mandatory.",
-        "PASSWORD_NOT_NULL": "The password is mandatory.",
-        "EMAIL_TAKEN": "This email address is already used.",
-        "USERNAME_TAKEN": "This username has already been taken."
+      "EMAIL": "Email",
+      "EMAIL_INVALID": "The email entered is invalid.",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "USERNAME": "Username",
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "USERNAME_NOT_NULL": "The username is mandatory.",
+      "EMAIL_NOT_NULL": "The email is mandatory.",
+      "PASSWORD_NOT_NULL": "The password is mandatory.",
+      "EMAIL_TAKEN": "This email address is already used.",
+      "USERNAME_TAKEN": "This username has already been taken."
     }
   },
   "FORM": {
     "OK": "OK",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "REQUIRED": "Required"
   }
 }
