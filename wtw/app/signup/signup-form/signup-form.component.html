@@ -4,11 +4,14 @@
         <em *ngIf="isEmailEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
         <input id="email" formControlName="email" type="text" placeholder="{{ 'SIGNUP.FORM.EMAIL' | translate }}" />
     </div>
-    <div class="login-line">
-        <input id="password" formControlName="password" type="password" placeholder="{{ 'SIGNUP.FORM.PASSWORD' | translate }}" />
-    </div>
-    <div class="login-line">
-        <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="{{ 'SIGNUP.FORM.CONFIRM_PASSWORD' | translate }}" />
+    <div class="form-group" [formGroup]="passwordGroup" validateConfirmPassword>
+        <div class="login-line">
+            <input id="password" formControlName="password" type="password" placeholder="{{ 'SIGNUP.FORM.PASSWORD' | translate }}" />
+        </div>
+        <div class="login-line">
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="{{ 'SIGNUP.FORM.CONFIRM_PASSWORD' | translate }}" />
+            <em *ngIf="isConfirmPasswordInvalid()">{{ 'SIGNUP.FORM.CONFIRM_PASSWORD_INVALID' | translate }}</em>
+        </div>
     </div>
     <div class="login-line">
         <input id="username" formControlName="username" type="text" placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}" />

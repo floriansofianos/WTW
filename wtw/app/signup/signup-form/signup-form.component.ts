@@ -12,16 +12,21 @@ import { CustomValidators } from 'ng2-validation';
 
 export class SignUpFormComponent implements OnInit {
     signupForm: FormGroup;
+    passwordGroup: FormGroup;
     backendError: string;
     showSpinner: boolean;
 
     constructor(private router: Router, private authService: AuthService) { }
 
     ngOnInit(): void {
+        this.passwordGroup = new FormGroup({
+            password: new FormControl(),
+            confirmPassword: new FormControl()
+        })
+
         this.signupForm = new FormGroup({
             email: new FormControl(null, [Validators.required, CustomValidators.email]),
-            password: new FormControl(),
-            confirmPassword: new FormControl(),
+            passwordGroup: this.passwordGroup,
             username: new FormControl(),
             firstName: new FormControl(),
             lastName: new FormControl()
@@ -47,10 +52,15 @@ export class SignUpFormComponent implements OnInit {
     }
 
     isEmailInvalid(): boolean {
-        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     }
 
     isEmailEmpty(): boolean {
-        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+    }
+
+    isConfirmPasswordInvalid(): boolean {
+        return this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty
+            && this.passwordGroup.errors != null;
     }
 }

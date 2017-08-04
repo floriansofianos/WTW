@@ -20,10 +20,13 @@ var SignUpFormComponent = (function () {
         this.authService = authService;
     }
     SignUpFormComponent.prototype.ngOnInit = function () {
+        this.passwordGroup = new forms_1.FormGroup({
+            password: new forms_1.FormControl(),
+            confirmPassword: new forms_1.FormControl()
+        });
         this.signupForm = new forms_1.FormGroup({
             email: new forms_1.FormControl(null, [forms_1.Validators.required, ng2_validation_1.CustomValidators.email]),
-            password: new forms_1.FormControl(),
-            confirmPassword: new forms_1.FormControl(),
+            passwordGroup: this.passwordGroup,
             username: new forms_1.FormControl(),
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl()
@@ -51,6 +54,10 @@ var SignUpFormComponent = (function () {
     SignUpFormComponent.prototype.isEmailEmpty = function () {
         return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     };
+    SignUpFormComponent.prototype.isConfirmPasswordInvalid = function () {
+        return this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty
+            && this.passwordGroup.errors != null;
+    };
     return SignUpFormComponent;
 }());
 SignUpFormComponent = __decorate([
@@ -62,4 +69,3 @@ SignUpFormComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
 ], SignUpFormComponent);
 exports.SignUpFormComponent = SignUpFormComponent;
-//# sourceMappingURL=signup-form.component.js.map

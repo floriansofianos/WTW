@@ -18,6 +18,7 @@
         "EMAIL_INVALID": "L'adresse email est invalide.",
         "PASSWORD": "Mot de passe",
         "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
+        "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
         "USERNAME": "Pseudo",
         "FIRST_NAME": "Prénom",
         "LAST_NAME":  "Nom de famille",

@@ -20,6 +20,7 @@ var login_page_component_1 = require("./login/login-page.component");
 var login_form_component_1 = require("./login/login-form/login-form.component");
 var signup_page_component_1 = require("./signup/signup-page.component");
 var signup_form_component_1 = require("./signup/signup-form/signup-form.component");
+var confirm_password_validator_directive_1 = require("./signup/signup-form/confirm-password-validator.directive");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
 // AoT requires an exported function for factories
@@ -51,10 +52,10 @@ AppModule = __decorate([
             login_page_component_1.LoginPageComponent,
             login_form_component_1.LoginFormComponent,
             signup_page_component_1.SignUpPageComponent,
-            signup_form_component_1.SignUpFormComponent],
+            signup_form_component_1.SignUpFormComponent,
+            confirm_password_validator_directive_1.ConfirmPasswordValidator],
         providers: [auth_service_1.AuthService],
         bootstrap: [main_app_component_1.MainAppComponent]
     })
 ], AppModule);
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

@@ -40,14 +40,14 @@ var LoginFormComponent = (function () {
             _this.showSpinner = false;
         });
     };
-    LoginFormComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'login-form',
-            templateUrl: 'login-form.component.html'
-        }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-    ], LoginFormComponent);
     return LoginFormComponent;
 }());
+LoginFormComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'login-form',
+        templateUrl: 'login-form.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+], LoginFormComponent);
 exports.LoginFormComponent = LoginFormComponent;
