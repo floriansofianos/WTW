@@ -15,8 +15,14 @@ export class AuthService {
     }
 
     signUp(newUserForm: any): Observable<any> {
+        newUserForm.password = newUserForm.passwordGroup.password;
         return this.http.post('/auth/signup', newUserForm)
             .catch(this.handleSignUpErrors);
+    }
+
+    verifyEmail(email: string): Observable<any> {
+        return this.http.get('/auth/checkEmail?email=' + email)
+            .catch(this.handleErrors);
     }
 
     getCurrentUser() {

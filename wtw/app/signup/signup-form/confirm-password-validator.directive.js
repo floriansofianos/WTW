@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var ConfirmPasswordValidator = ConfirmPasswordValidator_1 = (function () {
+var ConfirmPasswordValidator = (function () {
     function ConfirmPasswordValidator() {
     }
+    ConfirmPasswordValidator_1 = ConfirmPasswordValidator;
     ConfirmPasswordValidator.prototype.validate = function (formGroup) {
         var passwordControl = formGroup.controls['password'];
         var confirmPasswordControl = formGroup.controls['confirmPassword'];
@@ -23,13 +24,13 @@ var ConfirmPasswordValidator = ConfirmPasswordValidator_1 = (function () {
             return { validateConfirmPassword: false };
         }
     };
+    ConfirmPasswordValidator = ConfirmPasswordValidator_1 = __decorate([
+        core_1.Directive({
+            selector: '[validateConfirmPassword]',
+            providers: [{ provide: forms_1.NG_VALIDATORS, useExisting: ConfirmPasswordValidator_1, multi: true }]
+        })
+    ], ConfirmPasswordValidator);
     return ConfirmPasswordValidator;
+    var ConfirmPasswordValidator_1;
 }());
-ConfirmPasswordValidator = ConfirmPasswordValidator_1 = __decorate([
-    core_1.Directive({
-        selector: '[validateConfirmPassword]',
-        providers: [{ provide: forms_1.NG_VALIDATORS, useExisting: ConfirmPasswordValidator_1, multi: true }]
-    })
-], ConfirmPasswordValidator);
 exports.ConfirmPasswordValidator = ConfirmPasswordValidator;
-var ConfirmPasswordValidator_1;

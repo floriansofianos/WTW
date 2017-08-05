@@ -21,8 +21,13 @@ var AuthService = (function () {
             .catch(this.handleErrors);
     };
     AuthService.prototype.signUp = function (newUserForm) {
+        newUserForm.password = newUserForm.passwordGroup.password;
         return this.http.post('/auth/signup', newUserForm)
             .catch(this.handleSignUpErrors);
+    };
+    AuthService.prototype.verifyEmail = function (email) {
+        return this.http.get('/auth/checkEmail?email=' + email)
+            .catch(this.handleErrors);
     };
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
@@ -36,10 +41,10 @@ var AuthService = (function () {
     AuthService.prototype.handleSignUpErrors = function (error) {
         return Rx_1.Observable.throw(error.text());
     };
+    AuthService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], AuthService);
     return AuthService;
 }());
-AuthService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], AuthService);
 exports.AuthService = AuthService;

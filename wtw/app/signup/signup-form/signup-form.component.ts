@@ -27,7 +27,7 @@ export class SignUpFormComponent implements OnInit {
         this.signupForm = new FormGroup({
             email: new FormControl(null, [Validators.required, CustomValidators.email]),
             passwordGroup: this.passwordGroup,
-            username: new FormControl(),
+            username: new FormControl(null, Validators.required),
             firstName: new FormControl(),
             lastName: new FormControl()
         });
@@ -59,8 +59,16 @@ export class SignUpFormComponent implements OnInit {
         return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     }
 
+    isUsernameEmpty(): boolean {
+        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.required && this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty;
+    }
+
     isConfirmPasswordInvalid(): boolean {
         return this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty
             && this.passwordGroup.errors != null;
+    }
+
+    isEmailTaken(): boolean {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.validateEmail && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     }
 }

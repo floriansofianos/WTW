@@ -27,7 +27,7 @@ var SignUpFormComponent = (function () {
         this.signupForm = new forms_1.FormGroup({
             email: new forms_1.FormControl(null, [forms_1.Validators.required, ng2_validation_1.CustomValidators.email]),
             passwordGroup: this.passwordGroup,
-            username: new forms_1.FormControl(),
+            username: new forms_1.FormControl(null, forms_1.Validators.required),
             firstName: new forms_1.FormControl(),
             lastName: new forms_1.FormControl()
         });
@@ -54,18 +54,24 @@ var SignUpFormComponent = (function () {
     SignUpFormComponent.prototype.isEmailEmpty = function () {
         return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     };
+    SignUpFormComponent.prototype.isUsernameEmpty = function () {
+        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.required && this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty;
+    };
     SignUpFormComponent.prototype.isConfirmPasswordInvalid = function () {
         return this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty
             && this.passwordGroup.errors != null;
     };
+    SignUpFormComponent.prototype.isEmailTaken = function () {
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.validateEmail && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+    };
+    SignUpFormComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'signup-form',
+            templateUrl: 'signup-form.component.html'
+        }),
+        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+    ], SignUpFormComponent);
     return SignUpFormComponent;
 }());
-SignUpFormComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'signup-form',
-        templateUrl: 'signup-form.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
-], SignUpFormComponent);
 exports.SignUpFormComponent = SignUpFormComponent;

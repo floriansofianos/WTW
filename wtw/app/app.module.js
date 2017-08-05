@@ -21,6 +21,7 @@ var login_form_component_1 = require("./login/login-form/login-form.component");
 var signup_page_component_1 = require("./signup/signup-page.component");
 var signup_form_component_1 = require("./signup/signup-form/signup-form.component");
 var confirm_password_validator_directive_1 = require("./signup/signup-form/confirm-password-validator.directive");
+var email_validator_directive_1 = require("./signup/signup-form/email-validator.directive");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
 // AoT requires an exported function for factories
@@ -31,31 +32,32 @@ exports.createTranslateLoader = createTranslateLoader;
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule,
+                forms_1.ReactiveFormsModule,
+                router_1.RouterModule.forRoot(routes_1.appRoutes),
+                http_1.HttpModule,
+                angular2_spinner_1.SpinnerModule,
+                core_2.TranslateModule.forRoot({
+                    loader: {
+                        provide: core_2.TranslateLoader,
+                        useFactory: (createTranslateLoader),
+                        deps: [http_1.Http]
+                    }
+                })],
+            declarations: [main_app_component_1.MainAppComponent,
+                home_page_component_1.HomePageComponent,
+                login_page_component_1.LoginPageComponent,
+                login_form_component_1.LoginFormComponent,
+                signup_page_component_1.SignUpPageComponent,
+                signup_form_component_1.SignUpFormComponent,
+                confirm_password_validator_directive_1.ConfirmPasswordValidator,
+                email_validator_directive_1.EmailValidator],
+            providers: [auth_service_1.AuthService],
+            bootstrap: [main_app_component_1.MainAppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule,
-            forms_1.ReactiveFormsModule,
-            router_1.RouterModule.forRoot(routes_1.appRoutes),
-            http_1.HttpModule,
-            angular2_spinner_1.SpinnerModule,
-            core_2.TranslateModule.forRoot({
-                loader: {
-                    provide: core_2.TranslateLoader,
-                    useFactory: (createTranslateLoader),
-                    deps: [http_1.Http]
-                }
-            })],
-        declarations: [main_app_component_1.MainAppComponent,
-            home_page_component_1.HomePageComponent,
-            login_page_component_1.LoginPageComponent,
-            login_form_component_1.LoginFormComponent,
-            signup_page_component_1.SignUpPageComponent,
-            signup_form_component_1.SignUpFormComponent,
-            confirm_password_validator_directive_1.ConfirmPasswordValidator],
-        providers: [auth_service_1.AuthService],
-        bootstrap: [main_app_component_1.MainAppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
