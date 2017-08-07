@@ -71,4 +71,8 @@ export class SignUpFormComponent implements OnInit {
     isEmailTaken(): boolean {
         return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.validateEmail && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
     }
+
+    isUsernameTaken(): boolean {
+        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.validateUsername && this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty;
+    }
 }

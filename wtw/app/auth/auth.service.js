@@ -29,6 +29,10 @@ var AuthService = (function () {
         return this.http.get('/auth/checkEmail?email=' + email)
             .catch(this.handleErrors);
     };
+    AuthService.prototype.verifyUsername = function (username) {
+        return this.http.get('/auth/checkUsername?username=' + username)
+            .catch(this.handleErrors);
+    };
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
     };

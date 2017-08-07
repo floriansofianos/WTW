@@ -16,7 +16,8 @@
     </div>
     <div class="login-line">
         <em *ngIf="isUsernameEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
-        <input id="username" formControlName="username" type="text" placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}" />
+        <em *ngIf="isUsernameTaken()">{{ 'SIGNUP.FORM.USERNAME_TAKEN' | translate }}</em>
+        <input id="username" formControlName="username" type="text" placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}" validateUsername />
     </div>
     <div class="login-line">
         <input id="firstName" formControlName="firstName" type="text" placeholder="{{ 'SIGNUP.FORM.FIRST_NAME' | translate }}" />

@@ -25,6 +25,11 @@ export class AuthService {
             .catch(this.handleErrors);
     }
 
+    verifyUsername(username: string): Observable<any> {
+        return this.http.get('/auth/checkUsername?username=' + username)
+            .catch(this.handleErrors);
+    }
+
     getCurrentUser() {
         return this.currentUser;
     }
