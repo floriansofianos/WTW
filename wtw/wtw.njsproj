@@ -66,6 +66,7 @@
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
     <Compile Include="lib\controllers\userController.js" />
+    <Compile Include="lib\helpers\movieDBService.js" />
     <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\passport.js" />
