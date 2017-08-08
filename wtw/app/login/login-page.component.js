@@ -10,11 +10,11 @@ var core_1 = require("@angular/core");
 var LoginPageComponent = (function () {
     function LoginPageComponent() {
     }
-    LoginPageComponent = __decorate([
-        core_1.Component({
-            template: "\n<h2 class=\"login-title\">{{ 'LOGIN.TITLE' | translate }}</h2>\n<login-form></login-form>\n"
-        })
-    ], LoginPageComponent);
     return LoginPageComponent;
 }());
+LoginPageComponent = __decorate([
+    core_1.Component({
+        template: "\n<h2 class=\"login-title\">{{ 'LOGIN.TITLE' | translate }}</h2>\n<login-form></login-form>\n"
+    })
+], LoginPageComponent);
 exports.LoginPageComponent = LoginPageComponent;

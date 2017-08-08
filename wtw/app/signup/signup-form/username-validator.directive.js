@@ -12,11 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../../auth/auth.service");
-var UsernameValidator = (function () {
+var UsernameValidator = UsernameValidator_1 = (function () {
     function UsernameValidator(authService) {
         this.authService = authService;
     }
-    UsernameValidator_1 = UsernameValidator;
     UsernameValidator.prototype.validate = function (formControl) {
         var _this = this;
         return new Promise(function (resolve) {
@@ -35,14 +34,14 @@ var UsernameValidator = (function () {
             }
         });
     };
-    UsernameValidator = UsernameValidator_1 = __decorate([
-        core_1.Directive({
-            selector: '[validateUsername]',
-            providers: [{ provide: forms_1.NG_ASYNC_VALIDATORS, useExisting: UsernameValidator_1, multi: true }]
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService])
-    ], UsernameValidator);
     return UsernameValidator;
-    var UsernameValidator_1;
 }());
+UsernameValidator = UsernameValidator_1 = __decorate([
+    core_1.Directive({
+        selector: '[validateUsername]',
+        providers: [{ provide: forms_1.NG_ASYNC_VALIDATORS, useExisting: UsernameValidator_1, multi: true }]
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], UsernameValidator);
 exports.UsernameValidator = UsernameValidator;
+var UsernameValidator_1;
