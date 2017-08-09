@@ -65,7 +65,9 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\firstQuestionnaireController.js" />
     <Compile Include="lib\controllers\userController.js" />
+    <Compile Include="lib\helpers\library.js" />
     <Compile Include="lib\helpers\movieDBService.js" />
     <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
@@ -75,6 +77,7 @@
     <Compile Include="lib\models\user.js" />
     <Compile Include="lib\routes\adminRoutes.js" />
     <Compile Include="lib\routes\authRoutes.js" />
+    <Compile Include="lib\routes\firstQuestionnaireRoutes.js" />
     <Compile Include="lib\routes\testRoutes.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>

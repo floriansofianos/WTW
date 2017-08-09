@@ -2,6 +2,7 @@ var express = require('express');
 var testRouter = require('./lib/routes/testRoutes')();
 var adminRouter = require('./lib/routes/adminRoutes')();
 var authRouter = require('./lib/routes/authRoutes')();
+var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -38,6 +39,7 @@ app.use('/i18n', express.static(__dirname + '/lib/i18n'));
 app.use('/api/test', testRouter);
 app.use('/api/admin', adminRouter);
 app.use('/auth', authRouter);
+app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');
