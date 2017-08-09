@@ -17,6 +17,7 @@ import { SignUpFormComponent } from './signup/signup-form/signup-form.component'
 import { ConfirmPasswordValidator } from './signup/signup-form/confirm-password-validator.directive';
 import { EmailValidator } from './signup/signup-form/email-validator.directive';
 import { UsernameValidator } from './signup/signup-form/username-validator.directive';
+import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { SpinnerModule } from 'angular2-spinner';
 
 
@@ -48,7 +49,8 @@ export function createTranslateLoader(http: Http) {
         SignUpFormComponent,
         ConfirmPasswordValidator,
         EmailValidator,
-        UsernameValidator],
+        UsernameValidator,
+        UserHomePageComponent],
     providers: [AuthService],
     bootstrap: [MainAppComponent]
 })

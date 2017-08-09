@@ -5,21 +5,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('@angular/core');
-var HomePageComponent = (function () {
-    function HomePageComponent(authService) {
+var UserHomePageComponent = (function () {
+    function UserHomePageComponent(authService) {
         this.authService = authService;
     }
-    HomePageComponent.prototype.ngOnInit = function () {
+    UserHomePageComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
         if (currentUser)
-            this.name = currentUser.firstName + ' ' + currentUser.lastName;
+            this.username = currentUser.username;
     };
-    HomePageComponent = __decorate([
+    UserHomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+            template: "\n<h2>{{ 'HOME.WELCOME' | translate }} {{ name }}</h2>\n<first-questionnaire></first-questionnaire>\n"
         })
-    ], HomePageComponent);
-    return HomePageComponent;
+    ], UserHomePageComponent);
+    return UserHomePageComponent;
 })();
-exports.HomePageComponent = HomePageComponent;
-//# sourceMappingURL=home-page.component.js.map
+exports.UserHomePageComponent = UserHomePageComponent;
+//# sourceMappingURL=user-home-page.component.js.map

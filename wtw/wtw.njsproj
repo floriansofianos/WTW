@@ -99,6 +99,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />
+    <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
@@ -106,6 +107,7 @@
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
+    <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
