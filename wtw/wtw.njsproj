@@ -33,6 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\first-questionnaire\first-questionnaire.component.html" />
     <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="lib\i18n\fr.json" />
@@ -42,6 +43,9 @@
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
+    <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\home\home-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -107,6 +111,7 @@
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
+    <Folder Include="app\first-questionnaire\" />
     <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />
     <Folder Include="app\signup\signup-form\" />
