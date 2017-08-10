@@ -11,21 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
-var UserHomePageComponent = (function () {
-    function UserHomePageComponent(authService) {
+var core_2 = require("@ngx-translate/core");
+var FirstQuestionnaireComponent = (function () {
+    function FirstQuestionnaireComponent(authService, translate) {
         this.authService = authService;
+        this.translate = translate;
     }
-    UserHomePageComponent.prototype.ngOnInit = function () {
-        var currentUser = this.authService.getCurrentUser();
-        if (currentUser)
-            this.username = currentUser.username;
+    FirstQuestionnaireComponent.prototype.ngOnInit = function () {
     };
-    return UserHomePageComponent;
+    FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
+        this.translate.use(lang);
+    };
+    return FirstQuestionnaireComponent;
 }());
-UserHomePageComponent = __decorate([
+FirstQuestionnaireComponent = __decorate([
     core_1.Component({
-        template: "\n<h2>{{ 'HOME.WELCOME' | translate }} {{ name }}</h2>\n<first-questionnaire></first-questionnaire>\n"
+        moduleId: module.id,
+        selector: 'first-questionnaire',
+        templateUrl: 'first-questionnaire.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], UserHomePageComponent);
-exports.UserHomePageComponent = UserHomePageComponent;
+    __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService])
+], FirstQuestionnaireComponent);
+exports.FirstQuestionnaireComponent = FirstQuestionnaireComponent;
