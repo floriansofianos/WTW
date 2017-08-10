@@ -29,6 +29,10 @@
         "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
     }
   },
+  "FIRST_QUESTIONNAIRE": {
+      "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
+      "AGE_QUESTION": "Quel est votre âge ?"
+  },
   "FORM": {
     "OK": "OK",
     "CANCEL": "Annuler",

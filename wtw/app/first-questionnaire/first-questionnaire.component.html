@@ -2,4 +2,11 @@
     <div>{{ 'FIRST_QUESTIONNAIRE.LANGUAGE_QUESTION' | translate }}</div>
     <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr"></span></div>
     <div class="flag-container" (click)="setTranslation('en')"><span class="flag-icon flag-icon-gb"></span></div>
+    <a class="button">{{ 'FORM.NEXT' | translate }}</a>
+</div>
+<div class="question-block">
+    <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
+    <input type="number" min="1" max="130" value="30" />
+    <a class="button">{{ 'FORM.PREVIOUS' | translate }}</a>
+    <a class="button">{{ 'FORM.NEXT' | translate }}</a>
 </div>
