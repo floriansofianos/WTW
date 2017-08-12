@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var animations_1 = require("@angular/platform-browser/animations");
 var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var router_1 = require("@angular/router");
@@ -25,6 +26,7 @@ var email_validator_directive_1 = require("./signup/signup-form/email-validator.
 var username_validator_directive_1 = require("./signup/signup-form/username-validator.directive");
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
 var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
+var wtw_button_component_1 = require("./button/wtw.button.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
 // AoT requires an exported function for factories
@@ -35,35 +37,37 @@ exports.createTranslateLoader = createTranslateLoader;
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule,
+                animations_1.BrowserAnimationsModule,
+                forms_1.ReactiveFormsModule,
+                router_1.RouterModule.forRoot(routes_1.appRoutes),
+                http_1.HttpModule,
+                angular2_spinner_1.SpinnerModule,
+                core_2.TranslateModule.forRoot({
+                    loader: {
+                        provide: core_2.TranslateLoader,
+                        useFactory: (createTranslateLoader),
+                        deps: [http_1.Http]
+                    }
+                })],
+            declarations: [main_app_component_1.MainAppComponent,
+                home_page_component_1.HomePageComponent,
+                login_page_component_1.LoginPageComponent,
+                login_form_component_1.LoginFormComponent,
+                signup_page_component_1.SignUpPageComponent,
+                signup_form_component_1.SignUpFormComponent,
+                confirm_password_validator_directive_1.ConfirmPasswordValidator,
+                email_validator_directive_1.EmailValidator,
+                username_validator_directive_1.UsernameValidator,
+                user_home_page_component_1.UserHomePageComponent,
+                first_questionnaire_component_1.FirstQuestionnaireComponent,
+                wtw_button_component_1.WtwButtonComponent],
+            providers: [auth_service_1.AuthService],
+            bootstrap: [main_app_component_1.MainAppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule,
-            forms_1.ReactiveFormsModule,
-            router_1.RouterModule.forRoot(routes_1.appRoutes),
-            http_1.HttpModule,
-            angular2_spinner_1.SpinnerModule,
-            core_2.TranslateModule.forRoot({
-                loader: {
-                    provide: core_2.TranslateLoader,
-                    useFactory: (createTranslateLoader),
-                    deps: [http_1.Http]
-                }
-            })],
-        declarations: [main_app_component_1.MainAppComponent,
-            home_page_component_1.HomePageComponent,
-            login_page_component_1.LoginPageComponent,
-            login_form_component_1.LoginFormComponent,
-            signup_page_component_1.SignUpPageComponent,
-            signup_form_component_1.SignUpFormComponent,
-            confirm_password_validator_directive_1.ConfirmPasswordValidator,
-            email_validator_directive_1.EmailValidator,
-            username_validator_directive_1.UsernameValidator,
-            user_home_page_component_1.UserHomePageComponent,
-            first_questionnaire_component_1.FirstQuestionnaireComponent],
-        providers: [auth_service_1.AuthService],
-        bootstrap: [main_app_component_1.MainAppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;

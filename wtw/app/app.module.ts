@@ -1,6 +1,7 @@
 ﻿import { HttpModule, Http } from "@angular/http";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
@@ -19,6 +20,7 @@ import { EmailValidator } from './signup/signup-form/email-validator.directive';
 import { UsernameValidator } from './signup/signup-form/username-validator.directive';
 import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { FirstQuestionnaireComponent } from './first-questionnaire/first-questionnaire.component';
+import { WtwButtonComponent } from './button/wtw.button.component';
 import { SpinnerModule } from 'angular2-spinner';
 
 
@@ -31,6 +33,7 @@ export function createTranslateLoader(http: Http) {
 
 @NgModule({
     imports: [BrowserModule,
+            BrowserAnimationsModule,
             ReactiveFormsModule,
             RouterModule.forRoot(appRoutes),
             HttpModule,
@@ -52,7 +55,8 @@ export function createTranslateLoader(http: Http) {
         EmailValidator,
         UsernameValidator,
         UserHomePageComponent,
-        FirstQuestionnaireComponent],
+        FirstQuestionnaireComponent,
+        WtwButtonComponent],
     providers: [AuthService],
     bootstrap: [MainAppComponent]
 })

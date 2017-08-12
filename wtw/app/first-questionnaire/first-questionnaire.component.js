@@ -12,24 +12,53 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
+var animations_1 = require("@angular/animations");
 var FirstQuestionnaireComponent = (function () {
     function FirstQuestionnaireComponent(authService, translate) {
         this.authService = authService;
         this.translate = translate;
+        this.states = ['active', null];
     }
-    FirstQuestionnaireComponent.prototype.ngOnInit = function () {
-    };
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
     };
+    FirstQuestionnaireComponent.prototype.langConfirm = function () {
+        this.resetAllStates();
+        this.states[1] = 'active';
+    };
+    FirstQuestionnaireComponent.prototype.agePrevious = function () {
+        this.resetAllStates();
+        this.states[0] = 'active';
+    };
+    FirstQuestionnaireComponent.prototype.ageConfirm = function () {
+        this.resetAllStates();
+    };
+    FirstQuestionnaireComponent.prototype.resetAllStates = function () {
+        this.states[0] = null;
+        this.states[1] = null;
+    };
+    FirstQuestionnaireComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'first-questionnaire',
+            templateUrl: 'first-questionnaire.component.html',
+            animations: [
+                animations_1.trigger('areaState', [
+                    animations_1.state('active', animations_1.style({
+                        transform: 'translateX(0)'
+                    })),
+                    animations_1.transition('void => *', [
+                        animations_1.style({ transform: 'translateX(-100%)' }),
+                        animations_1.animate(200)
+                    ]),
+                    animations_1.transition('* => void', [
+                        animations_1.animate(200, animations_1.style({ transform: 'translateX(100%)' }))
+                    ])
+                ])
+            ]
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService])
+    ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
 }());
-FirstQuestionnaireComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'first-questionnaire',
-        templateUrl: 'first-questionnaire.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService])
-], FirstQuestionnaireComponent);
 exports.FirstQuestionnaireComponent = FirstQuestionnaireComponent;

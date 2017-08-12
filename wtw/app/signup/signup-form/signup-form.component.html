@@ -27,8 +27,8 @@
     </div>
     <div class="login-line login-error" *ngIf="backendError">{{ backendError | translate }}</div>
     <div class="login-line button-line" *ngIf="!showSpinner">
-        <a class="button button-ok" (click)="signup(signupForm.value)">{{ 'FORM.OK' | translate }}</a>
-        <a class="button" (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</a>
+        <wtw-button class="button-ok" (click)="signup(signupForm.value)">{{ 'FORM.OK' | translate }}</wtw-button>
+        <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
     </div>
     <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
 </form>

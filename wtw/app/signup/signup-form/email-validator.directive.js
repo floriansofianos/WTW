@@ -12,10 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../../auth/auth.service");
-var EmailValidator = EmailValidator_1 = (function () {
+var EmailValidator = (function () {
     function EmailValidator(authService) {
         this.authService = authService;
     }
+    EmailValidator_1 = EmailValidator;
     EmailValidator.prototype.validate = function (formControl) {
         var _this = this;
         return new Promise(function (resolve) {
@@ -34,14 +35,14 @@ var EmailValidator = EmailValidator_1 = (function () {
             }
         });
     };
+    EmailValidator = EmailValidator_1 = __decorate([
+        core_1.Directive({
+            selector: '[validateEmail]',
+            providers: [{ provide: forms_1.NG_ASYNC_VALIDATORS, useExisting: EmailValidator_1, multi: true }]
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService])
+    ], EmailValidator);
     return EmailValidator;
+    var EmailValidator_1;
 }());
-EmailValidator = EmailValidator_1 = __decorate([
-    core_1.Directive({
-        selector: '[validateEmail]',
-        providers: [{ provide: forms_1.NG_ASYNC_VALIDATORS, useExisting: EmailValidator_1, multi: true }]
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], EmailValidator);
 exports.EmailValidator = EmailValidator;
-var EmailValidator_1;

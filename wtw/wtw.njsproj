@@ -43,6 +43,9 @@
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
+    <TypeScriptCompile Include="app\button\wtw.button.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -112,6 +115,7 @@
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
     <Folder Include="app\first-questionnaire\" />
+    <Folder Include="app\button\" />
     <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />
     <Folder Include="app\signup\signup-form\" />

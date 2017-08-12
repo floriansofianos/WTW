@@ -45,10 +45,10 @@ var AuthService = (function () {
     AuthService.prototype.handleSignUpErrors = function (error) {
         return Rx_1.Observable.throw(error.text());
     };
+    AuthService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], AuthService);
     return AuthService;
 }());
-AuthService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], AuthService);
 exports.AuthService = AuthService;
