@@ -1,12 +1,19 @@
-<div class="question-block" [@areaState]="'active'" *ngIf="states[0]">
-    <div>{{ 'FIRST_QUESTIONNAIRE.LANGUAGE_QUESTION' | translate }}</div>
-    <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr"></span></div>
-    <div class="flag-container" (click)="setTranslation('en')"><span class="flag-icon flag-icon-gb"></span></div>
-    <wtw-button (click)="langConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+<div class="questionnaire-container">
+    <div class="question-block" [@areaState]="'active'" *ngIf="states[0]">
+        <div>{{ 'FIRST_QUESTIONNAIRE.LANGUAGE_QUESTION' | translate }}</div>
+        <div class="flags-container">
+            <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr"></span></div>
+            <div class="flag-container" (click)="setTranslation('en')"><span class="flag-icon flag-icon-gb"></span></div>
+        </div>
+        <wtw-button class="button-right" (click)="langConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+    </div>
+    <div class="question-block" [@areaState]="'active'" *ngIf="states[1]">
+        <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
+        <input class="input-invert-color" type="number" min="1" max="130" value="30" />
+        <div>
+            <wtw-button class="button-left" (click)="agePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
+            <wtw-button class="button-right" (click)="ageConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+        </div>
+    </div>
 </div>
-<div class="question-block" [@areaState]="'active'" *ngIf="states[1]">
-    <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
-    <input type="number" min="1" max="130" value="30" />
-    <wtw-button (click)="agePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
-    <wtw-button (click)="ageConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
-</div>
+

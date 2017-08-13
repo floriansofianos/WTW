@@ -36,6 +36,8 @@
   "FORM": {
     "OK": "OK",
     "CANCEL": "Annuler",
-    "REQUIRED": "Obligatoire"
+    "REQUIRED": "Obligatoire",
+    "NEXT": "Suivant",
+    "PREVIOUS": "Précédent"
   }
 }

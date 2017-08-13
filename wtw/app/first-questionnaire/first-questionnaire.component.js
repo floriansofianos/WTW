@@ -45,14 +45,22 @@ var FirstQuestionnaireComponent = (function () {
             animations: [
                 animations_1.trigger('areaState', [
                     animations_1.state('active', animations_1.style({
-                        transform: 'translateX(0)'
+                        opacity: 1,
+                        transform: 'translateX(-50%)'
                     })),
                     animations_1.transition('void => *', [
-                        animations_1.style({ transform: 'translateX(-100%)' }),
-                        animations_1.animate(200)
+                        animations_1.style({
+                            transform: 'translateX(-150%)',
+                            opacity: 0
+                        }),
+                        animations_1.animate('100ms 300ms ease-in')
                     ]),
                     animations_1.transition('* => void', [
-                        animations_1.animate(200, animations_1.style({ transform: 'translateX(100%)' }))
+                        animations_1.animate(300, animations_1.keyframes([
+                            animations_1.style({ opacity: 1, transform: 'translateX(-50%)', offset: 0 }),
+                            animations_1.style({ opacity: 1, transform: 'translateX(-15px)', offset: 0.7 }),
+                            animations_1.style({ opacity: 0, transform: 'translateX(150%)', offset: 1.0 })
+                        ]))
                     ])
                 ])
             ]
