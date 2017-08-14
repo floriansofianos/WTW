@@ -34,6 +34,15 @@ export class AuthService {
         return this.currentUser;
     }
 
+    isLoggedIn() {
+        return this.currentUser != null;
+    }
+
+    verifyCurrentUser() {
+        return this.http.get('/auth/current')
+            .catch(this.handleErrors);
+    }
+
     setCurrentUser(user: any) {
         this.currentUser = user;
     }
@@ -44,5 +53,13 @@ export class AuthService {
 
     handleSignUpErrors(error: Response) {
         return Observable.throw(error.text());
+    }
+
+    load() {
+        let promise = this.http.get('/auth/current').toPromise();
+        promise.then((response: any) => {
+            if (response._body !== '') this.setCurrentUser(response.json());
+        });
+        return promise;
     }
 }

@@ -11,6 +11,11 @@ var authRoutes = function () {
             res.json(req.user);
         });
 
+    authRouter.route('/current')
+        .get(function (req, res) {
+            res.json(req.user);
+        });
+
     authRouter.route('/checkUsername')
         .get(userController.isUsernameAlreadyUsed);
 

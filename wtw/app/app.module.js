@@ -14,6 +14,7 @@ var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
+var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
 var home_page_component_1 = require("./home/home-page.component");
@@ -29,6 +30,7 @@ var first_questionnaire_component_1 = require("./first-questionnaire/first-quest
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
+var can_activate_auth_1 = require("./auth/can-activate.auth");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
@@ -64,7 +66,14 @@ var AppModule = (function () {
                 user_home_page_component_1.UserHomePageComponent,
                 first_questionnaire_component_1.FirstQuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent],
-            providers: [auth_service_1.AuthService],
+            providers: [auth_service_1.AuthService,
+                can_activate_auth_1.CanActivateAuthGuard,
+                {
+                    provide: core_3.APP_INITIALIZER,
+                    useFactory: function (authService) { return function () { return authService.load(); }; },
+                    deps: [auth_service_1.AuthService],
+                    multi: true
+                }],
             bootstrap: [main_app_component_1.MainAppComponent]
         })
     ], AppModule);

@@ -6,6 +6,7 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { APP_INITIALIZER } from '@angular/core';
 
 import { appRoutes } from './routes';
 
@@ -25,6 +26,7 @@ import { SpinnerModule } from 'angular2-spinner';
 
 
 import { AuthService } from './auth/auth.service';
+import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -57,7 +59,14 @@ export function createTranslateLoader(http: Http) {
         UserHomePageComponent,
         FirstQuestionnaireComponent,
         WtwButtonComponent],
-    providers: [AuthService],
+    providers: [AuthService,
+        CanActivateAuthGuard,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (authService: AuthService) => function () { return authService.load() },
+            deps: [AuthService],
+            multi: true
+        }],
     bootstrap: [MainAppComponent]
 })
 

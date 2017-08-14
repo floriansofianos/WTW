@@ -43,6 +43,7 @@
     <Content Include="lib\index-aot.html" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
+    <TypeScriptCompile Include="app\auth\can-activate.auth.ts" />
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

@@ -36,6 +36,13 @@ var AuthService = (function () {
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
     };
+    AuthService.prototype.isLoggedIn = function () {
+        return this.currentUser != null;
+    };
+    AuthService.prototype.verifyCurrentUser = function () {
+        return this.http.get('/auth/current')
+            .catch(this.handleErrors);
+    };
     AuthService.prototype.setCurrentUser = function (user) {
         this.currentUser = user;
     };
@@ -44,6 +51,15 @@ var AuthService = (function () {
     };
     AuthService.prototype.handleSignUpErrors = function (error) {
         return Rx_1.Observable.throw(error.text());
+    };
+    AuthService.prototype.load = function () {
+        var _this = this;
+        var promise = this.http.get('/auth/current').toPromise();
+        promise.then(function (response) {
+            if (response._body !== '')
+                _this.setCurrentUser(response.json());
+        });
+        return promise;
     };
     AuthService = __decorate([
         core_1.Injectable(),

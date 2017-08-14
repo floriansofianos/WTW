@@ -10,22 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var core_2 = require("@ngx-translate/core");
-var auth_service_1 = require("./auth/auth.service");
-var MainAppComponent = (function () {
-    function MainAppComponent(translate, authService) {
-        this.translate = translate;
+var router_1 = require("@angular/router");
+var auth_service_1 = require("./auth.service");
+var CanActivateAuthGuard = (function () {
+    function CanActivateAuthGuard(authService, router) {
         this.authService = authService;
-        var browserLang = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+        this.router = router;
     }
-    MainAppComponent = __decorate([
-        core_1.Component({
-            selector: 'main-app',
-            template: "\n<router-outlet></router-outlet>\n"
-        }),
-        __metadata("design:paramtypes", [core_2.TranslateService, auth_service_1.AuthService])
-    ], MainAppComponent);
-    return MainAppComponent;
+    CanActivateAuthGuard.prototype.canActivate = function () {
+        if (this.authService.isLoggedIn())
+            return true;
+        else {
+            this.router.navigate(['/login']);
+            return false;
+        }
+    };
+    CanActivateAuthGuard = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    ], CanActivateAuthGuard);
+    return CanActivateAuthGuard;
 }());
-exports.MainAppComponent = MainAppComponent;
+exports.CanActivateAuthGuard = CanActivateAuthGuard;
