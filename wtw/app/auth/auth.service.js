@@ -36,6 +36,11 @@ var AuthService = (function () {
     AuthService.prototype.getCurrentUser = function () {
         return this.currentUser;
     };
+    AuthService.prototype.setUserProperty = function (prop, value) {
+        this.currentUser[prop] = value;
+        return this.http.put('/auth/current', { prop: value })
+            .catch(this.handleErrors);
+    };
     AuthService.prototype.isLoggedIn = function () {
         return this.currentUser != null;
     };

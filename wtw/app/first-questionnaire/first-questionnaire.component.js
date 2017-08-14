@@ -22,20 +22,26 @@ var FirstQuestionnaireComponent = (function () {
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
     };
+    FirstQuestionnaireComponent.prototype.isTranslation = function (lang) {
+        return this.translate.currentLang === lang;
+    };
     FirstQuestionnaireComponent.prototype.langConfirm = function () {
-        this.resetAllStates();
-        this.states[1] = 'active';
+        // Save data in DB
+        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe();
+        this.setStateActive(1);
     };
     FirstQuestionnaireComponent.prototype.agePrevious = function () {
-        this.resetAllStates();
-        this.states[0] = 'active';
+        this.setStateActive(0);
     };
     FirstQuestionnaireComponent.prototype.ageConfirm = function () {
         this.resetAllStates();
     };
+    FirstQuestionnaireComponent.prototype.setStateActive = function (i) {
+        this.resetAllStates();
+        this.states[i] = 'active';
+    };
     FirstQuestionnaireComponent.prototype.resetAllStates = function () {
-        this.states[0] = null;
-        this.states[1] = null;
+        this.states.forEach(function (o, i, a) { return a[i] = null; });
     };
     FirstQuestionnaireComponent = __decorate([
         core_1.Component({

@@ -22,7 +22,7 @@ var UserHomePageComponent = (function () {
     };
     UserHomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<h2>{{ 'HOME.WELCOME' | translate }} {{ name }}</h2>\n<first-questionnaire></first-questionnaire>\n"
+            template: "\n<h2>{{ 'HOME.WELCOME' | translate }} {{ username }}</h2>\n<first-questionnaire></first-questionnaire>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService])
     ], UserHomePageComponent);

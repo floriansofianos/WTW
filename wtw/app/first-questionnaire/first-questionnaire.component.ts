@@ -44,22 +44,30 @@ export class FirstQuestionnaireComponent {
         this.translate.use(lang);
     }
 
+    isTranslation(lang: string) {
+        return this.translate.currentLang === lang;
+    }
+
     langConfirm() {
-        this.resetAllStates();
-        this.states[1] = 'active';
+        // Save data in DB
+        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe();
+        this.setStateActive(1);
     }
 
     agePrevious() {
-        this.resetAllStates();
-        this.states[0] = 'active';
+        this.setStateActive(0);
     }
 
     ageConfirm() {
         this.resetAllStates();
     }
 
+    private setStateActive(i: number) {
+        this.resetAllStates();
+        this.states[i] = 'active';
+    }
+
     resetAllStates() {
-        this.states[0] = null;
-        this.states[1] = null;
+        this.states.forEach((o, i, a) => a[i] = null);
     }
 }

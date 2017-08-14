@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var userService = require('../helpers/userService')();
 var userController = require('../controllers/userController')(userService);
+var isAuthenticated = require('../middlewares/isAuthenticated')
 
 var authRoutes = function () {
     var authRouter = express.Router();
@@ -14,7 +15,8 @@ var authRoutes = function () {
     authRouter.route('/current')
         .get(function (req, res) {
             res.json(req.user);
-        });
+        })
+        .put(isAuthenticated, userController.updateUser);
 
     authRouter.route('/checkUsername')
         .get(userController.isUsernameAlreadyUsed);

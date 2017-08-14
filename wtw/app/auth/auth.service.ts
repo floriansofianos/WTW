@@ -34,6 +34,12 @@ export class AuthService {
         return this.currentUser;
     }
 
+    setUserProperty(prop: string, value: any) {
+        this.currentUser[prop] = value;
+        return this.http.put('/auth/current', { prop: value })
+            .catch(this.handleErrors);
+    }
+
     isLoggedIn() {
         return this.currentUser != null;
     }

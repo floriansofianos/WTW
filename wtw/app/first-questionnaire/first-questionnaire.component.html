@@ -2,8 +2,8 @@
     <div class="question-block" [@areaState]="'active'" *ngIf="states[0]">
         <div>{{ 'FIRST_QUESTIONNAIRE.LANGUAGE_QUESTION' | translate }}</div>
         <div class="flags-container">
-            <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr"></span></div>
-            <div class="flag-container" (click)="setTranslation('en')"><span class="flag-icon flag-icon-gb"></span></div>
+            <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr" [ngClass]="{'flag-selected' : isTranslation('fr')}"></span></div>
+            <div class="flag-container" (click)="setTranslation('en')"><span class="flag-icon flag-icon-gb"[ngClass]="{'flag-selected' : isTranslation('en')}"></span></div>
         </div>
         <wtw-button class="button-right" (click)="langConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
     </div>

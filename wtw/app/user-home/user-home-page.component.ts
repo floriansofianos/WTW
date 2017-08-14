@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Component({
     template: `
-<h2>{{ 'HOME.WELCOME' | translate }} {{ name }}</h2>
+<h2>{{ 'HOME.WELCOME' | translate }} {{ username }}</h2>
 <first-questionnaire></first-questionnaire>
 `
 })

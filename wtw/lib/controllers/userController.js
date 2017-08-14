@@ -31,10 +31,19 @@
         });
     }
 
+    var updateUser = function (req, res) {
+        if (req.lang) req.user.lang = req.lang;
+        req.user.save().then(function (user, err) {
+            if (!err) res.json(req.user);
+            else res.send(500);
+        });
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
-        createUser: createUser
+        createUser: createUser,
+        updateUser: updateUser
     }
 }
 
