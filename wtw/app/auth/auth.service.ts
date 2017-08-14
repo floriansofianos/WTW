@@ -36,7 +36,9 @@ export class AuthService {
 
     setUserProperty(prop: string, value: any) {
         this.currentUser[prop] = value;
-        return this.http.put('/auth/current', { prop: value })
+        let requestBody = {}
+        requestBody[prop] = value
+        return this.http.put('/auth/current', requestBody)
             .catch(this.handleErrors);
     }
 

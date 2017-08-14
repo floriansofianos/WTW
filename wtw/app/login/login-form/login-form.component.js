@@ -13,10 +13,12 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
+var core_2 = require("@ngx-translate/core");
 var LoginFormComponent = (function () {
-    function LoginFormComponent(router, authService) {
+    function LoginFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
+        this.translate = translate;
     }
     LoginFormComponent.prototype.ngOnInit = function () {
         var login = new forms_1.FormControl();
@@ -33,7 +35,10 @@ var LoginFormComponent = (function () {
         var _this = this;
         this.showSpinner = true;
         this.authService.loginUser(formValues.login, formValues.password).subscribe(function (response) {
-            _this.authService.setCurrentUser(response.json());
+            var currentUser = response.json();
+            _this.authService.setCurrentUser(currentUser);
+            if (currentUser.lang)
+                _this.translate.use(currentUser.lang);
             _this.router.navigate(['']);
         }, function (error) {
             _this.showError = true;
@@ -46,7 +51,7 @@ var LoginFormComponent = (function () {
             selector: 'login-form',
             templateUrl: 'login-form.component.html'
         }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
     ], LoginFormComponent);
     return LoginFormComponent;
 }());

@@ -12,8 +12,7 @@
     var isEmailAlreadyUsed = function (req, res) {
         if (req.query.email) {
             userService.getUserByEmail(req.query.email, function (err, user) {
-                if (!err) res.json({ email: req.query.email, isTaken: user != undefined });
-                else res.send(500);
+                
             });
         }
         else res.send(400);
@@ -32,9 +31,14 @@
     }
 
     var updateUser = function (req, res) {
-        if (req.lang) req.user.lang = req.lang;
-        req.user.save().then(function (user, err) {
-            if (!err) res.json(req.user);
+        userService.getUserById(req.user.id, function (err, user) {
+            if (!err) {
+                if (req.body.lang) user.lang = req.body.lang;
+                user.save().then(function (user, err) {
+                    if (!err) res.json(req.user);
+                    else res.send(500);
+                });
+            }
             else res.send(500);
         });
     }

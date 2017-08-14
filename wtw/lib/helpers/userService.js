@@ -43,11 +43,18 @@ var userService = function () {
         });
     }
 
+    var getUserById = function (id, done) {
+        models.User.findOne({ where: { id: id } }).then(user => {
+            done(null, user);
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
         validateUser: validateUser,
-        createUser: createUser
+        createUser: createUser,
+        getUserById: getUserById
     }
 }
 

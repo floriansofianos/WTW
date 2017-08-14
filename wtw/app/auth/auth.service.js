@@ -38,7 +38,9 @@ var AuthService = (function () {
     };
     AuthService.prototype.setUserProperty = function (prop, value) {
         this.currentUser[prop] = value;
-        return this.http.put('/auth/current', { prop: value })
+        var requestBody = {};
+        requestBody[prop] = value;
+        return this.http.put('/auth/current', requestBody)
             .catch(this.handleErrors);
     };
     AuthService.prototype.isLoggedIn = function () {

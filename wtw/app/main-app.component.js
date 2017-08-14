@@ -16,8 +16,13 @@ var MainAppComponent = (function () {
     function MainAppComponent(translate, authService) {
         this.translate = translate;
         this.authService = authService;
-        var browserLang = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+        var currentUser = this.authService.getCurrentUser();
+        if (currentUser)
+            translate.use(currentUser.lang);
+        else {
+            var browserLang = translate.getBrowserLang();
+            translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+        }
     }
     MainAppComponent = __decorate([
         core_1.Component({
