@@ -7,10 +7,24 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
 var bodyParser = require('body-parser');
+var logErrors = require('./lib/middlewares/logErrors');
+var clientErrorHandler = require('./lib/middlewares/clientErrorHandler');
+var winston = require('winston');
+var favicon = require('serve-favicon');
+var path = require('path');
 
 var port = process.env.port || 1337;
 
+winston.configure({
+    transports: [
+        new (winston.transports.File)({ filename: 'logFile.log' })
+    ]
+});
+
 var app = express();
+
+// favicon
+app.use(favicon(path.join(__dirname, 'config', 'favicon.ico')))
 
 // Configuring Passport
 app.use(expressSession({ secret: 'b5a263ca-4f42-4ab5-9103-27f7daef3ff3' }));
@@ -54,6 +68,10 @@ app.get('/signup', function (req, res) {
 app.get('/user/home', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+
+// Error handling
+app.use(logErrors);
+app.use(clientErrorHandler);
 
 app.listen(port);
 

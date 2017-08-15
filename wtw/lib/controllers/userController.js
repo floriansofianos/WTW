@@ -30,13 +30,17 @@
         });
     }
 
-    var updateUser = function (req, res) {
+    var updateUser = function (req, res, next) {
         userService.getUserById(req.user.id, function (err, user) {
             if (!err) {
                 if (req.body.lang) user.lang = req.body.lang;
+                if (req.body.age) user.age = req.body.age;
                 user.save().then(function (user, err) {
                     if (!err) res.json(req.user);
                     else res.send(500);
+                })
+                .catch(function (err) {
+                    next(err);
                 });
             }
             else res.send(500);

@@ -38,7 +38,14 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
 export class FirstQuestionnaireComponent {
     constructor(private authService: AuthService, private translate: TranslateService) { }
 
+    ngOnInit() {
+        let currentUser = this.authService.getCurrentUser();
+        if (currentUser.age) this.age = currentUser.age;
+        else this.age = 30;
+    }
+
     states: string[] = ['active', null];
+    age: number;
 
     setTranslation(lang: string) {
         this.translate.use(lang);
@@ -59,6 +66,8 @@ export class FirstQuestionnaireComponent {
     }
 
     ageConfirm() {
+        // Save data in DB
+        if (this.age) this.authService.setUserProperty('age', this.age).subscribe();
         this.resetAllStates();
     }
 

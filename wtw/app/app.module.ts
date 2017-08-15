@@ -6,6 +6,7 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { APP_INITIALIZER } from '@angular/core';
 
 import { appRoutes } from './routes';
@@ -36,6 +37,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
     imports: [BrowserModule,
             BrowserAnimationsModule,
+            FormsModule,
             ReactiveFormsModule,
             RouterModule.forRoot(appRoutes),
             HttpModule,

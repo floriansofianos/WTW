@@ -19,6 +19,13 @@ var FirstQuestionnaireComponent = (function () {
         this.translate = translate;
         this.states = ['active', null];
     }
+    FirstQuestionnaireComponent.prototype.ngOnInit = function () {
+        var currentUser = this.authService.getCurrentUser();
+        if (currentUser.age)
+            this.age = currentUser.age;
+        else
+            this.age = 30;
+    };
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
     };
@@ -34,6 +41,9 @@ var FirstQuestionnaireComponent = (function () {
         this.setStateActive(0);
     };
     FirstQuestionnaireComponent.prototype.ageConfirm = function () {
+        // Save data in DB
+        if (this.age)
+            this.authService.setUserProperty('age', this.age).subscribe();
         this.resetAllStates();
     };
     FirstQuestionnaireComponent.prototype.setStateActive = function (i) {

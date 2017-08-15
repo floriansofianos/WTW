@@ -78,7 +78,9 @@
     <Compile Include="lib\helpers\library.js" />
     <Compile Include="lib\helpers\movieDBService.js" />
     <Compile Include="lib\helpers\userService.js" />
+    <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
+    <Compile Include="lib\middlewares\logErrors.js" />
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
     <Compile Include="lib\models\index.js" />

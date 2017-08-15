@@ -14,6 +14,7 @@ var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
+var forms_2 = require("@angular/forms");
 var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
@@ -43,6 +44,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
+                forms_2.FormsModule,
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(routes_1.appRoutes),
                 http_1.HttpModule,

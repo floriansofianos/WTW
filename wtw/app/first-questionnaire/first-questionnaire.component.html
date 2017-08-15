@@ -9,7 +9,7 @@
     </div>
     <div class="question-block" [@areaState]="'active'" *ngIf="states[1]">
         <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
-        <input class="input-invert-color" type="number" min="1" max="130" value="30" />
+        <input class="input-invert-color" type="number" min="1" max="130" [(ngModel)]="age" />
         <div>
             <wtw-button class="button-left" (click)="agePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
             <wtw-button class="button-right" (click)="ageConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
