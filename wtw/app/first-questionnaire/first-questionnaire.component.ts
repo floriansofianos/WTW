@@ -57,6 +57,14 @@ export class FirstQuestionnaireComponent {
         return this.translate.currentLang === lang;
     }
 
+    langSkip() {
+        this.setStateActive(1);
+    }
+
+    ageSkip() {
+        this.resetAllStates();
+    }
+
     langConfirm() {
         this.showSpinner = true;
         // Save data in DB

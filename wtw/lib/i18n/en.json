@@ -38,6 +38,7 @@
     "CANCEL": "Cancel",
     "REQUIRED": "Required",
     "NEXT": "Next",
-    "PREVIOUS":  "Previous"
+    "SKIP": "Skip",
+    "PREVIOUS": "Previous"
   }
 }

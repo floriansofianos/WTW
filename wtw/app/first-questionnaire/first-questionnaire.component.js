@@ -34,6 +34,12 @@ var FirstQuestionnaireComponent = (function () {
     FirstQuestionnaireComponent.prototype.isTranslation = function (lang) {
         return this.translate.currentLang === lang;
     };
+    FirstQuestionnaireComponent.prototype.langSkip = function () {
+        this.setStateActive(1);
+    };
+    FirstQuestionnaireComponent.prototype.ageSkip = function () {
+        this.resetAllStates();
+    };
     FirstQuestionnaireComponent.prototype.langConfirm = function () {
         var _this = this;
         this.showSpinner = true;

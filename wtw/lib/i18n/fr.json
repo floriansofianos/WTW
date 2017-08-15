@@ -38,6 +38,7 @@
     "CANCEL": "Annuler",
     "REQUIRED": "Obligatoire",
     "NEXT": "Suivant",
+    "SKIP": "Passer",
     "PREVIOUS": "Précédent"
   }
 }
