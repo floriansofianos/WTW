@@ -13,10 +13,12 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
+var router_1 = require("@angular/router");
 var FirstQuestionnaireComponent = (function () {
-    function FirstQuestionnaireComponent(authService, translate) {
+    function FirstQuestionnaireComponent(authService, translate, router) {
         this.authService = authService;
         this.translate = translate;
+        this.router = router;
         this.states = ['active', null];
     }
     FirstQuestionnaireComponent.prototype.ngOnInit = function () {
@@ -33,18 +35,30 @@ var FirstQuestionnaireComponent = (function () {
         return this.translate.currentLang === lang;
     };
     FirstQuestionnaireComponent.prototype.langConfirm = function () {
+        var _this = this;
+        this.showSpinner = true;
         // Save data in DB
-        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe();
-        this.setStateActive(1);
+        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(function (response) {
+            _this.setStateActive(1);
+            _this.showSpinner = false;
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
     };
     FirstQuestionnaireComponent.prototype.agePrevious = function () {
         this.setStateActive(0);
     };
     FirstQuestionnaireComponent.prototype.ageConfirm = function () {
+        var _this = this;
+        this.showSpinner = true;
         // Save data in DB
         if (this.age)
-            this.authService.setUserProperty('age', this.age).subscribe();
-        this.resetAllStates();
+            this.authService.setUserProperty('age', this.age).subscribe(function (response) {
+                _this.resetAllStates();
+                _this.showSpinner = false;
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
     };
     FirstQuestionnaireComponent.prototype.setStateActive = function (i) {
         this.resetAllStates();
@@ -81,7 +95,7 @@ var FirstQuestionnaireComponent = (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router])
     ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
 }());

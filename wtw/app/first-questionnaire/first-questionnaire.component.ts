@@ -2,6 +2,7 @@
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -36,7 +37,7 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
 })
 
 export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService) { }
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -46,6 +47,7 @@ export class FirstQuestionnaireComponent {
 
     states: string[] = ['active', null];
     age: number;
+    showSpinner: boolean;
 
     setTranslation(lang: string) {
         this.translate.use(lang);
@@ -56,9 +58,15 @@ export class FirstQuestionnaireComponent {
     }
 
     langConfirm() {
+        this.showSpinner = true;
         // Save data in DB
-        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe();
-        this.setStateActive(1);
+        this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(response => {
+            this.setStateActive(1);
+            this.showSpinner = false;
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
     }
 
     agePrevious() {
@@ -66,9 +74,15 @@ export class FirstQuestionnaireComponent {
     }
 
     ageConfirm() {
+        this.showSpinner = true;
         // Save data in DB
-        if (this.age) this.authService.setUserProperty('age', this.age).subscribe();
-        this.resetAllStates();
+        if (this.age) this.authService.setUserProperty('age', this.age).subscribe(response => {
+            this.resetAllStates();
+            this.showSpinner = false;
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
     }
 
     private setStateActive(i: number) {

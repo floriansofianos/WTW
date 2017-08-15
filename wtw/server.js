@@ -24,7 +24,7 @@ winston.configure({
 var app = express();
 
 // favicon
-app.use(favicon(path.join(__dirname, 'config', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, 'config', 'favicon.ico')));
 
 // Configuring Passport
 app.use(expressSession({ secret: 'b5a263ca-4f42-4ab5-9103-27f7daef3ff3' }));
