@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FirstQuestionnaireService } from '../first-questionnaire/first-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 
@@ -37,7 +38,10 @@ import { Router } from '@angular/router';
 })
 
 export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router) { }
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService) { }
+
+    movie: any;
+    configuration: any;
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -45,7 +49,7 @@ export class FirstQuestionnaireComponent {
         else this.age = 30;
     }
 
-    states: string[] = ['active', null];
+    states: string[] = ['active', null, null];
     age: number;
     showSpinner: boolean;
 
@@ -85,12 +89,24 @@ export class FirstQuestionnaireComponent {
         this.showSpinner = true;
         // Save data in DB
         if (this.age) this.authService.setUserProperty('age', this.age).subscribe(response => {
-            this.resetAllStates();
-            this.showSpinner = false;
-        },
+            this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(response => {
+                this.configuration = response.json();
+                this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
+                    this.movie = response.json();
+                    this.setStateActive(2);
+                    this.showSpinner = false;
+                },
+                error => {
+                    this.router.navigate(['error']);
+                });
+            },
             error => {
                 this.router.navigate(['error']);
             });
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
     }
 
     private setStateActive(i: number) {

@@ -29,8 +29,10 @@ var username_validator_directive_1 = require("./signup/signup-form/username-vali
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
 var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
+var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var auth_service_1 = require("./auth/auth.service");
+var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
@@ -67,8 +69,10 @@ var AppModule = (function () {
                 username_validator_directive_1.UsernameValidator,
                 user_home_page_component_1.UserHomePageComponent,
                 first_questionnaire_component_1.FirstQuestionnaireComponent,
-                wtw_button_component_1.WtwButtonComponent],
+                wtw_button_component_1.WtwButtonComponent,
+                movie_questionnaire_component_1.MovieQuestionnaireComponent],
             providers: [auth_service_1.AuthService,
+                first_questionnaire_service_1.FirstQuestionnaireService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,

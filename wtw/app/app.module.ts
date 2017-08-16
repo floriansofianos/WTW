@@ -23,10 +23,12 @@ import { UsernameValidator } from './signup/signup-form/username-validator.direc
 import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { FirstQuestionnaireComponent } from './first-questionnaire/first-questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
+import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { SpinnerModule } from 'angular2-spinner';
 
 
 import { AuthService } from './auth/auth.service';
+import { FirstQuestionnaireService } from './first-questionnaire/first-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 // AoT requires an exported function for factories
@@ -60,8 +62,10 @@ export function createTranslateLoader(http: Http) {
         UsernameValidator,
         UserHomePageComponent,
         FirstQuestionnaireComponent,
-        WtwButtonComponent],
+        WtwButtonComponent,
+        MovieQuestionnaireComponent],
     providers: [AuthService,
+        FirstQuestionnaireService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

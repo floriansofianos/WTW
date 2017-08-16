@@ -27,6 +27,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.4",
     "libphonenumber-js": "^0.4.24",
+    "memory-cache": "^0.2.0",
     "moviedb": "^0.2.8",
     "ng2-validation": "^4.2.0",
     "passport": "^0.3.2",

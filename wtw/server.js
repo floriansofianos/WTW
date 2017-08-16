@@ -3,6 +3,7 @@ var testRouter = require('./lib/routes/testRoutes')();
 var adminRouter = require('./lib/routes/adminRoutes')();
 var authRouter = require('./lib/routes/authRoutes')();
 var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')();
+var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -12,6 +13,7 @@ var clientErrorHandler = require('./lib/middlewares/clientErrorHandler');
 var winston = require('winston');
 var favicon = require('serve-favicon');
 var path = require('path');
+var movieDbService = require('./lib/helpers/movieDBService')();
 
 var port = process.env.port || 1337;
 
@@ -54,6 +56,7 @@ app.use('/api/test', testRouter);
 app.use('/api/admin', adminRouter);
 app.use('/auth', authRouter);
 app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
+app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');
@@ -73,6 +76,10 @@ app.get('/user/home', function (req, res) {
 app.use(logErrors);
 app.use(clientErrorHandler);
 
-app.listen(port);
+movieDbService.loadConfiguration(function (err, data) {
+    if (!err) {
+        app.listen(port);
+    }
+});
 
 module.exports = app;

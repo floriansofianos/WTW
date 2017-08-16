@@ -1,5 +1,7 @@
 ﻿var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
 var library = require('../helpers/library')();
+var cache = require('memory-cache');
+
 
 module.exports = function () {
     var getFirstTenMovies = function (lang, done) {
@@ -24,7 +26,23 @@ module.exports = function () {
         'release_date.gte': new Date('1980-01-01')
     }
 
+    var loadConfiguration = function (done) {
+        mdb.configuration({}, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                cache.put('movieDBConfiguration', data);
+                return done(null, data);
+            }
+        });
+    }
+
+    var getConfiguration = function () {
+        return cache.get('movieDBConfiguration');
+    }
+
     return {
-        getFirstTenMovies: getFirstTenMovies
+        getFirstTenMovies: getFirstTenMovies,
+        loadConfiguration: loadConfiguration,
+        getConfiguration: getConfiguration
     }
 }

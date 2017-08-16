@@ -12,14 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
+var first_questionnaire_service_1 = require("../first-questionnaire/first-questionnaire.service");
 var animations_1 = require("@angular/animations");
 var router_1 = require("@angular/router");
 var FirstQuestionnaireComponent = (function () {
-    function FirstQuestionnaireComponent(authService, translate, router) {
+    function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService) {
         this.authService = authService;
         this.translate = translate;
         this.router = router;
-        this.states = ['active', null];
+        this.firstQuestionnaireService = firstQuestionnaireService;
+        this.states = ['active', null, null];
     }
     FirstQuestionnaireComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
@@ -60,8 +62,18 @@ var FirstQuestionnaireComponent = (function () {
         // Save data in DB
         if (this.age)
             this.authService.setUserProperty('age', this.age).subscribe(function (response) {
-                _this.resetAllStates();
-                _this.showSpinner = false;
+                _this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(function (response) {
+                    _this.configuration = response.json();
+                    _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
+                        _this.movie = response.json();
+                        _this.setStateActive(2);
+                        _this.showSpinner = false;
+                    }, function (error) {
+                        _this.router.navigate(['error']);
+                    });
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
             }, function (error) {
                 _this.router.navigate(['error']);
             });
@@ -101,7 +113,7 @@ var FirstQuestionnaireComponent = (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService])
     ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
 }());
