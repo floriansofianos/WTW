@@ -13,7 +13,13 @@ module.exports = function () {
             // Retrieve all the information about this movie
             mdb.movieInfo({ id: movieId, language: lang }, (err, data) => {
                 if (err) return done(err, null);
-                return done(null, data);
+                // Retrieve the trailer if available
+                var movie = data;
+                mdb.movieVideos({ id: movieId }, (err, data) => {
+                    if (!err) movie.trailers = data.results;
+                    return done(null, movie);
+                });
+                
             })
         });
     };

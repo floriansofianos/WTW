@@ -10,9 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
 var MovieQuestionnaireComponent = (function () {
-    function MovieQuestionnaireComponent() {
+    function MovieQuestionnaireComponent(domSanitizer) {
+        this.domSanitizer = domSanitizer;
     }
+    MovieQuestionnaireComponent.prototype.ngOnInit = function () {
+        this.trailerUrl = this.getMovieVideo();
+    };
+    MovieQuestionnaireComponent.prototype.getAllTrailers = function () {
+        if (this.movie.trailers) {
+            var trailers = this.movie.trailers.filter(function (t) { return t.type === 'Trailer' && t.site === 'YouTube'; });
+            return trailers;
+        }
+        else
+            return null;
+    };
+    MovieQuestionnaireComponent.prototype.isVideoPlayerDisplayed = function () {
+        var trailers = this.getAllTrailers();
+        if (trailers) {
+            return trailers.length > 0;
+        }
+        else
+            return false;
+    };
+    MovieQuestionnaireComponent.prototype.getMovieVideo = function () {
+        var trailers = this.getAllTrailers();
+        if (trailers && trailers.length > 0) {
+            return this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + trailers[0].key + '?ecver=2');
+        }
+        else
+            return null;
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
@@ -26,7 +55,8 @@ var MovieQuestionnaireComponent = (function () {
             moduleId: module.id,
             selector: 'movie-questionnaire',
             templateUrl: 'movie-questionnaire.component.html'
-        })
+        }),
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
     ], MovieQuestionnaireComponent);
     return MovieQuestionnaireComponent;
 }());

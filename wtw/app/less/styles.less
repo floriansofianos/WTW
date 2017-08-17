@@ -157,7 +157,7 @@ html, hmtl a {
 
 body {
     background: #2F3238;
-    color: #7F8289;
+    color: #d2d2d2;
     font-weight: 300;
     font-size: 16px;
     font-family: 'Titillium Web', sans-serif;
@@ -276,12 +276,14 @@ em {
 
 .question-block {
     display: inline-block;
-    position: fixed;
+    position: relative;
     left: 50%;
     padding: 30px 50px;
     background-color: #26292E;
     .border-radius(5px);
     min-width: 450px;
+    overflow: hidden;
+    max-width: 95%;
 
     .button-line {
         text-align: center;
@@ -331,4 +333,36 @@ em {
     .border-radius(5px);
     padding-left: 6px;
     padding-right: 6px;
+}
+
+.movie-header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .col-md-3 {
+        width: 210px;
+        img {
+          .border-radius(5px);
+        }
+    }
+    .movie-content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .movie-title {
+        font-size: 21px;
+        width: 100%;
+        border-bottom: 1px solid #FFF;
+    }
+    .movie-summary {
+        line-height: normal;
+        padding-top: 10px;
+    }
+    .backdrop-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        opacity: 0.1;
+        z-index: -1;
+    }
 }

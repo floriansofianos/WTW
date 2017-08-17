@@ -93,10 +93,10 @@
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
     <Compile Include="lib\models\index.js" />
     <Compile Include="lib\models\user.js" />
-    <Compile Include="lib\routes\adminRoutes.js" />
-    <Compile Include="lib\routes\authRoutes.js" />
-    <Compile Include="lib\routes\firstQuestionnaireRoutes.js" />
-    <Compile Include="lib\routes\testRoutes.js" />
+    <Content Include="lib\routes\adminRoutes.js" />
+    <Content Include="lib\routes\authRoutes.js" />
+    <Content Include="lib\routes\firstQuestionnaireRoutes.js" />
+    <Content Include="lib\routes\testRoutes.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>

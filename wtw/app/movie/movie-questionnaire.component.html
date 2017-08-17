@@ -1,3 +1,22 @@
-<div><img src="{{ config.images.base_url }}{{ config.images.poster_sizes[4] }}{{ movie?.poster_path }}" /></div>
-<div>{{ movie?.title }}</div>
-<div>{{ movie?.overview }}</div>
+<div class="movie-header">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="movie-poster-container"><img width="200" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie?.poster_path }}" /></div>
+        </div>
+        <div class="col-md-9">
+            <div class="movie-content">
+                <div class="movie-title">{{ movie?.title }}</div>
+                <div class="movie-summary">{{ movie?.overview }}</div>
+                <div class="movie-player">
+                    <div *ngIf="isVideoPlayerDisplayed()">
+                        <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="backdrop-img" src="{{ config.images.base_url }}{{ config.images.backdrop_sizes[3] }}{{ movie?.backdrop_path }}" />
+</div>
+<div class="movie-answers">
+
+</div>
