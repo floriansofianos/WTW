@@ -11,11 +11,14 @@ export class MovieQuestionnaireComponent {
     @Input() movie: any
     @Input() config: any;
     trailerUrl: any;
+    genres: string;
+    releaseYear: string;
 
     constructor(private domSanitizer: DomSanitizer) { }
 
     ngOnInit() {
         this.trailerUrl = this.getMovieVideo();
+        this.genres = this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b);
     }
 
     getAllTrailers() {

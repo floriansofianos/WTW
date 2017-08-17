@@ -5,7 +5,10 @@
         </div>
         <div class="col-right">
             <div class="movie-content">
-                <div class="movie-title">{{ movie?.title }}</div>
+                <div class="movie-title">
+                <span>{{ movie?.title }} ({{ movie?.release_date?.substring(0, 4) }})</span>
+                <span class="movie-title-right">{{ genres }}</span>
+                </div>
                 <div class="movie-summary">{{ movie?.overview }}</div>
                 <div class="movie-player">
                     <div *ngIf="isVideoPlayerDisplayed()">

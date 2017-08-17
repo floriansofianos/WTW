@@ -17,6 +17,7 @@ var MovieQuestionnaireComponent = (function () {
     }
     MovieQuestionnaireComponent.prototype.ngOnInit = function () {
         this.trailerUrl = this.getMovieVideo();
+        this.genres = this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; });
     };
     MovieQuestionnaireComponent.prototype.getAllTrailers = function () {
         if (this.movie.trailers) {
