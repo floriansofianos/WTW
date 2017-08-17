@@ -338,7 +338,10 @@ em {
 .movie-header {
     margin-top: 10px;
     margin-bottom: 10px;
-    .col-md-3 {
+    .row {
+        display: flex;
+    }
+    .col-left {
         width: 210px;
         img {
           .border-radius(5px);
@@ -364,5 +367,10 @@ em {
         width: 100%;
         opacity: 0.1;
         z-index: -1;
+    }
+    .movie-player {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 }

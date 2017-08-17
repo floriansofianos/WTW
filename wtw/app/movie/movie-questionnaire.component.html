@@ -1,9 +1,9 @@
 <div class="movie-header">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-left">
             <div class="movie-poster-container"><img width="200" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie?.poster_path }}" /></div>
         </div>
-        <div class="col-md-9">
+        <div class="col-right">
             <div class="movie-content">
                 <div class="movie-title">{{ movie?.title }}</div>
                 <div class="movie-summary">{{ movie?.overview }}</div>
