@@ -15,6 +15,14 @@
                         <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
+                <div>
+                    <span>{{ 'MOVIE_QUESTIONNAIRE.NOT_SEEN' | translate }}</span>
+                    <ui-switch switchColor="#2f3238" [checked]="movieSeen"></ui-switch>
+                    <span>{{ 'MOVIE_QUESTIONNAIRE.SEEN' | translate }}</span>
+                </div>
+                <div>
+                    <nouislider [min]="0" [max]="3" [step]="1" [(ngModel)]="seenValue" [config]="sliderConfiguration"></nouislider>
+                </div>
             </div>
         </div>
     </div>

@@ -25,6 +25,8 @@ import { FirstQuestionnaireComponent } from './first-questionnaire/first-questio
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { SpinnerModule } from 'angular2-spinner';
+import { UiSwitchModule } from 'angular2-ui-switch';
+import { NouisliderModule } from 'ng2-nouislider';
 
 
 import { AuthService } from './auth/auth.service';
@@ -44,6 +46,8 @@ export function createTranslateLoader(http: Http) {
             RouterModule.forRoot(appRoutes),
             HttpModule,
             SpinnerModule,
+            UiSwitchModule,
+            NouisliderModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,

@@ -36,6 +36,9 @@ var System;
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-spinner': 'npm:angular2-spinner/dist',
+            'angular2-ui-switch': 'npm:angular2-ui-switch/dist',
+            'nouislider': 'npm:nouislider',
+            'ng2-nouislider': 'npm:ng2-nouislider',
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'libphonenumber-js': 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js'
         },
@@ -54,7 +57,14 @@ var System;
             'angular2-spinner': {
                 defaultExtension: 'js',
                 main: 'index.js'
-            }
+            },
+            'angular2-ui-switch': {
+                defaultExtension: 'js',
+                main: 'index.js'
+            },
+            'nouislider': { main: 'distribute/nouislider.js', defaultExtension: 'js' },
+            'ng2-nouislider': { main: 'src/nouislider.js', defaultExtension: 'js' }
         }
     });
 })(this);
+//# sourceMappingURL=systemjs.config.js.map

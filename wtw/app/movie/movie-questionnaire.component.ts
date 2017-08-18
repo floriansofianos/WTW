@@ -13,12 +13,34 @@ export class MovieQuestionnaireComponent {
     trailerUrl: any;
     genres: string;
     releaseYear: string;
+    movieSeen: boolean;
+    seenValue: number;
+    sliderConfiguration: any;
 
     constructor(private domSanitizer: DomSanitizer) { }
 
     ngOnInit() {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b);
+        this.movieSeen = false;
+        this.seenValue = 1;
+        this.sliderConfiguration = {
+            pips: {
+                mode: 'steps',
+                density: 1,
+                format: {
+                    to: this.updatePips
+                }
+            }
+        };
+    }
+
+    updatePips(value) {
+        if (value === 0) value = 'Poor';
+        if (value === 1) value = 'Average';
+        if (value === 2) value = 'Good';
+        if (value === 3) value = 'Very Good';
+        return value;
     }
 
     getAllTrailers() {
