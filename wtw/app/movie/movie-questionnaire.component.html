@@ -10,9 +10,38 @@
                 <span class="movie-title-right">{{ genres }}</span>
                 </div>
                 <div class="movie-summary">{{ movie?.overview }}</div>
-                <div class="movie-player">
-                    <div *ngIf="isVideoPlayerDisplayed()">
-                        <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-6">
+                        <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
+                        <div class="cast-row">
+                            <div class="cast-card" *ngFor="let director of movie.directors">
+                                <img width="90" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ director.profile_path }}" />
+                                <div class="main-name">{{ director.name }}</div>
+                                <div class="name-sub">{{ 'MOVIE_QUESTIONNAIRE.DIRECTOR' | translate }}</div>
+                            </div>
+                        </div>
+                        <div class="cast-row">
+                            <div class="cast-card" *ngFor="let writer of movie.writers">
+                                <img width="90" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ writer.profile_path }}" />
+                                <div class="main-name">{{ writer.name }}</div>
+                                <div class="name-sub">{{ 'MOVIE_QUESTIONNAIRE.WRITER' | translate }}</div>
+                            </div>
+                        </div>
+                        <div class="cast-row">
+                            <div class="cast-card" *ngFor="let actor of movie.actors">
+                                <img width="90" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ actor.profile_path }}" />
+                                <div class="main-name">{{ actor.name }}</div>
+                                <div class="name-sub">{{ actor.character }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.TRAILER' | translate }}</div>
+                        <div class="movie-player">
+                            <div *ngIf="isVideoPlayerDisplayed()">
+                                <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div>

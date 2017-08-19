@@ -1,6 +1,7 @@
 ﻿var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
 var library = require('../helpers/library')();
 var cache = require('memory-cache');
+var _ = require('underscore');
 
 
 module.exports = function () {
@@ -16,13 +17,35 @@ module.exports = function () {
                 // Retrieve the trailer if available
                 var movie = data;
                 mdb.movieVideos({ id: movieId }, (err, data) => {
-                    if (!err) movie.trailers = data.results;
-                    return done(null, movie);
+                    if (!err) {
+                        movie.trailers = data.results;
+                        // Retrieve the cast if available
+                        mdb.movieCredits({ id: movieId }, (err, data) => {
+                            if (!err) {
+                                movie.actors = getActors(data);
+                                movie.directors = getDirectors(data);
+                                movie.writers = getWriters(data);
+                            }
+                            return done(null, movie);
+                        });
+                    }
+                    else return done(null, movie);
                 });
-                
             })
         });
     };
+
+    var getActors = function (credits) {
+        return credits.cast.slice(0, Math.min(5, credits.cast.length));
+    };
+
+    var getDirectors = function (credits) {
+        return _.filter(credits.crew, function (c) { return c.job == 'Director' });
+    }
+
+    var getWriters = function (credits) {
+        return _.filter(credits.crew, function (c) { return c.job == 'Writer' || c.job == 'Screenplay' });
+    }
 
     var firstTenQuery = {
         'include_adult': false,

@@ -1,39 +1,41 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = require("@angular/http");
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var animations_1 = require('@angular/platform-browser/animations');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var animations_1 = require("@angular/platform-browser/animations");
 var core_2 = require("@ngx-translate/core");
 var http_loader_1 = require("@ngx-translate/http-loader");
-var router_1 = require('@angular/router');
-var forms_1 = require('@angular/forms');
-var forms_2 = require('@angular/forms');
-var core_3 = require('@angular/core');
-var routes_1 = require('./routes');
-var main_app_component_1 = require('./main-app.component');
-var home_page_component_1 = require('./home/home-page.component');
-var login_page_component_1 = require('./login/login-page.component');
-var login_form_component_1 = require('./login/login-form/login-form.component');
-var signup_page_component_1 = require('./signup/signup-page.component');
-var signup_form_component_1 = require('./signup/signup-form/signup-form.component');
-var confirm_password_validator_directive_1 = require('./signup/signup-form/confirm-password-validator.directive');
-var email_validator_directive_1 = require('./signup/signup-form/email-validator.directive');
-var username_validator_directive_1 = require('./signup/signup-form/username-validator.directive');
-var user_home_page_component_1 = require('./user-home/user-home-page.component');
-var first_questionnaire_component_1 = require('./first-questionnaire/first-questionnaire.component');
-var wtw_button_component_1 = require('./button/wtw.button.component');
-var movie_questionnaire_component_1 = require('./movie/movie-questionnaire.component');
-var angular2_spinner_1 = require('angular2-spinner');
-var angular2_ui_switch_1 = require('angular2-ui-switch');
-var ng2_nouislider_1 = require('ng2-nouislider');
-var auth_service_1 = require('./auth/auth.service');
-var first_questionnaire_service_1 = require('./first-questionnaire/first-questionnaire.service');
-var can_activate_auth_1 = require('./auth/can-activate.auth');
+var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
+var forms_2 = require("@angular/forms");
+var core_3 = require("@angular/core");
+var routes_1 = require("./routes");
+var main_app_component_1 = require("./main-app.component");
+var home_page_component_1 = require("./home/home-page.component");
+var login_page_component_1 = require("./login/login-page.component");
+var login_form_component_1 = require("./login/login-form/login-form.component");
+var signup_page_component_1 = require("./signup/signup-page.component");
+var signup_form_component_1 = require("./signup/signup-form/signup-form.component");
+var confirm_password_validator_directive_1 = require("./signup/signup-form/confirm-password-validator.directive");
+var email_validator_directive_1 = require("./signup/signup-form/email-validator.directive");
+var username_validator_directive_1 = require("./signup/signup-form/username-validator.directive");
+var user_home_page_component_1 = require("./user-home/user-home-page.component");
+var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
+var wtw_button_component_1 = require("./button/wtw.button.component");
+var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
+var angular2_spinner_1 = require("angular2-spinner");
+var angular2_ui_switch_1 = require("angular2-ui-switch");
+var ng2_nouislider_1 = require("ng2-nouislider");
+var auth_service_1 = require("./auth/auth.service");
+var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
+var can_activate_auth_1 = require("./auth/can-activate.auth");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
@@ -86,6 +88,5 @@ var AppModule = (function () {
         })
     ], AppModule);
     return AppModule;
-})();
+}());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
