@@ -16,6 +16,7 @@ export class MovieQuestionnaireComponent {
     movieSeen: boolean;
     seenValue: number;
     sliderConfiguration: any;
+    wantToWatch: boolean;
 
     constructor(private domSanitizer: DomSanitizer) { }
 
@@ -33,6 +34,7 @@ export class MovieQuestionnaireComponent {
                 }
             }
         };
+        this.wantToWatch = false;
     }
 
     updatePips(value) {
@@ -66,5 +68,10 @@ export class MovieQuestionnaireComponent {
             return this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + trailers[0].key + '?ecver=2');
         }
         else return null;
+    }
+
+    isImgProfile(file: string) {
+        if (file === null || file === '') return false;
+        else return true;
     }
 }

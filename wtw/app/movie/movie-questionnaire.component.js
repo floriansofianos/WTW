@@ -29,6 +29,7 @@ var MovieQuestionnaireComponent = (function () {
                 }
             }
         };
+        this.wantToWatch = false;
     };
     MovieQuestionnaireComponent.prototype.updatePips = function (value) {
         if (value === 0)
@@ -64,6 +65,12 @@ var MovieQuestionnaireComponent = (function () {
         }
         else
             return null;
+    };
+    MovieQuestionnaireComponent.prototype.isImgProfile = function (file) {
+        if (file === null || file === '')
+            return false;
+        else
+            return true;
     };
     __decorate([
         core_1.Input(),
