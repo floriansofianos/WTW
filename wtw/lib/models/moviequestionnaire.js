@@ -2,6 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var MovieQuestionnaire = sequelize.define('MovieQuestionnaire', {
       movieDBId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       isSeen: DataTypes.BOOLEAN,
       rating: DataTypes.INTEGER,
       wantToSee: DataTypes.BOOLEAN,

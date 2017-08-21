@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -21,6 +21,12 @@ export class MovieQuestionnaireComponent {
 
     constructor(private domSanitizer: DomSanitizer) { }
 
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.movie) {
+            this.ngOnInit();
+        }
+    }
+
     ngOnInit() {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b);
@@ -36,6 +42,7 @@ export class MovieQuestionnaireComponent {
             }
         };
         this.wantToWatch = false;
+        this.onChange();
     }
 
     updatePips(value) {

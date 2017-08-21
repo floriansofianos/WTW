@@ -16,6 +16,11 @@ var MovieQuestionnaireComponent = (function () {
         this.domSanitizer = domSanitizer;
         this.notify = new core_1.EventEmitter();
     }
+    MovieQuestionnaireComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.movie) {
+            this.ngOnInit();
+        }
+    };
     MovieQuestionnaireComponent.prototype.ngOnInit = function () {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; });
@@ -31,6 +36,7 @@ var MovieQuestionnaireComponent = (function () {
             }
         };
         this.wantToWatch = false;
+        this.onChange();
     };
     MovieQuestionnaireComponent.prototype.updatePips = function (value) {
         if (value === 0)
