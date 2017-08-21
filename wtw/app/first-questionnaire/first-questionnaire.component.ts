@@ -42,6 +42,7 @@ export class FirstQuestionnaireComponent {
 
     movie: any;
     configuration: any;
+    movieQuestionnaire: any
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -107,6 +108,16 @@ export class FirstQuestionnaireComponent {
         error => {
             this.router.navigate(['error']);
         });
+    }
+
+    movieQuestionnaireChange(data) {
+        this.movieQuestionnaire = data;
+    }
+
+    movieConfirm() {
+        this.showSpinner = true;
+        // Save data in DB
+
     }
 
     private setStateActive(i: number) {

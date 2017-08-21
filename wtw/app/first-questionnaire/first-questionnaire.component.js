@@ -1,20 +1,11 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var auth_service_1 = require("../auth/auth.service");
-var core_2 = require("@ngx-translate/core");
-var first_questionnaire_service_1 = require("../first-questionnaire/first-questionnaire.service");
-var animations_1 = require("@angular/animations");
-var router_1 = require("@angular/router");
+var core_1 = require('@angular/core');
+var animations_1 = require('@angular/animations');
 var FirstQuestionnaireComponent = (function () {
     function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService) {
         this.authService = authService;
@@ -78,6 +69,13 @@ var FirstQuestionnaireComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
+    FirstQuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
+        this.movieQuestionnaire = data;
+    };
+    FirstQuestionnaireComponent.prototype.movieConfirm = function () {
+        this.showSpinner = true;
+        // Save data in DB
+    };
     FirstQuestionnaireComponent.prototype.setStateActive = function (i) {
         this.resetAllStates();
         this.states[i] = 'active';
@@ -112,9 +110,9 @@ var FirstQuestionnaireComponent = (function () {
                     ])
                 ])
             ]
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService])
+        })
     ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
-}());
+})();
 exports.FirstQuestionnaireComponent = FirstQuestionnaireComponent;
+//# sourceMappingURL=first-questionnaire.component.js.map

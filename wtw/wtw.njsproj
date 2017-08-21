@@ -83,10 +83,12 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\movieQuestionnaireController.js" />
     <Compile Include="lib\controllers\firstQuestionnaireController.js" />
     <Compile Include="lib\controllers\userController.js" />
     <Compile Include="lib\helpers\library.js" />
     <Compile Include="lib\helpers\movieDBService.js" />
+    <Compile Include="lib\helpers\movieQuestionnaireService.js" />
     <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
@@ -94,11 +96,13 @@
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
     <Compile Include="lib\models\index.js" />
+    <Compile Include="lib\models\moviequestionnaire.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />
     <Content Include="lib\routes\firstQuestionnaireRoutes.js" />
     <Content Include="lib\routes\testRoutes.js" />
+    <Content Include="lib\routes\movieQuestionnaireRoutes.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>

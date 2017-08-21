@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MovieQuestionnaireComponent {
     @Input() movie: any
     @Input() config: any;
+    @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;
     genres: string;
     releaseYear: string;
@@ -73,5 +74,14 @@ export class MovieQuestionnaireComponent {
     isImgProfile(file: string) {
         if (file === null || file === '') return false;
         else return true;
+    }
+
+    onchange() {
+        this.notify.emit({
+            isSeen: this.movieSeen,
+            movieDBId: this.movie.id,
+            rating: this.seenValue,
+            wantToSee: this.wantToWatch
+        });
     }
 }
