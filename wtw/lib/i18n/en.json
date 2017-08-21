@@ -33,12 +33,22 @@
       "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
       "AGE_QUESTION": "What is your age?"
   },
+  "MOVIE_QUESTIONNAIRE": {
+      "CAST": "Cast",
+      "DIRECTOR": "Director",
+      "WRITER": "Writer",
+      "QUESTION_SEEN": "Have you seen that movie?",
+      "WOULD_LIKE_SEE": "Would you like to see this movie?",
+      "HOW_RATE": "How would you rate this movie?"
+  },
   "FORM": {
     "OK": "OK",
     "CANCEL": "Cancel",
     "REQUIRED": "Required",
     "NEXT": "Next",
     "SKIP": "Skip",
-    "PREVIOUS": "Previous"
+    "PREVIOUS": "Previous",
+    "YES": "Yes",
+    "NO": "No"
   }
 }

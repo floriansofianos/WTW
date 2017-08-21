@@ -46,9 +46,9 @@
                         </div>
                         <div class="movie-question">
                             <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.QUESTION_SEEN' | translate }}</div>
-                            <span class="switch-answer">{{ 'MOVIE_QUESTIONNAIRE.NO' | translate }}</span>
-                            <ui-switch switchColor="#2f3238" [(ngModel)]="movieSeen"></ui-switch>
-                            <span class="switch-answer">{{ 'MOVIE_QUESTIONNAIRE.YES' | translate }}</span>
+                            <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                            <ui-switch switchColor="#2f3238" color="#DE5E60" [(ngModel)]="movieSeen"></ui-switch>
+                            <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
                         </div>
                         <div *ngIf="movieSeen" class="movie-question">
                             <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
@@ -56,9 +56,9 @@
                         </div>
                         <div *ngIf="!movieSeen" class="movie-question">
                             <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>
-                            <span class="switch-answer">{{ 'MOVIE_QUESTIONNAIRE.NO' | translate }}</span>
-                            <ui-switch switchColor="#2f3238" [(ngModel)]="wantToWatch"></ui-switch>
-                            <span class="switch-answer">{{ 'MOVIE_QUESTIONNAIRE.YES' | translate }}</span>
+                            <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                            <ui-switch switchColor="#2f3238" color="#DE5E60" [(ngModel)]="wantToWatch"></ui-switch>
+                            <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,6 @@
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
     <div class="question-block width95" [@areaState]="'active'" *ngIf="states[2]">
-        <div>{{ 'FIRST_QUESTIONNAIRE.MOVIE' | translate }}</div>
         <movie-questionnaire [movie]="movie" [config]="configuration"></movie-questionnaire>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>

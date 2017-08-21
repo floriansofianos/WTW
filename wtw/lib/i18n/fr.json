@@ -33,12 +33,22 @@
       "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
       "AGE_QUESTION": "Quel est votre âge ?"
   },
+  "MOVIE_QUESTIONNAIRE": {
+      "CAST": "Casting",
+      "DIRECTOR": "Réalisateur",
+      "WRITER": "Scénariste",
+      "QUESTION_SEEN": "Avez-vous vu ce film?",
+      "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
+      "HOW_RATE": "Comment avez-vous trouvé ce film?"
+  },
   "FORM": {
     "OK": "OK",
     "CANCEL": "Annuler",
     "REQUIRED": "Obligatoire",
     "NEXT": "Suivant",
     "SKIP": "Passer",
-    "PREVIOUS": "Précédent"
+    "PREVIOUS": "Précédent",
+    "YES": "Oui",
+    "NO": "Non"
   }
 }
