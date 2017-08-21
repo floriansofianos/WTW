@@ -68,6 +68,9 @@
     <TypeScriptCompile Include="app\movie\movie-questionnaire.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\movie\movie-questionnaire.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

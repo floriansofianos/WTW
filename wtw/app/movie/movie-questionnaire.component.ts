@@ -76,7 +76,7 @@ export class MovieQuestionnaireComponent {
         else return true;
     }
 
-    onchange() {
+    onChange() {
         this.notify.emit({
             isSeen: this.movieSeen,
             movieDBId: this.movie.id,

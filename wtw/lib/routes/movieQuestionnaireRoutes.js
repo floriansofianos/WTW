@@ -1,6 +1,6 @@
 ﻿var express = require('express');
 var isAuthenticated = require('../middlewares/isAuthenticated');
-var movieQuestionnaireService = require('../helpers/userService')();
+var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
 var movieQuestionnaireController = require('../controllers/movieQuestionnaireController')(movieQuestionnaireService);
 
 var movieQuestionnaireRoutes = function () {

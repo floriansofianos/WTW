@@ -30,5 +30,14 @@
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
+    <div class="question-block width95" [@areaState]="'active'" *ngIf="states[3]">
+        <movie-questionnaire [movie]="movie" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
+        <div class="button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
+            <wtw-button class="button-center" (click)="movieSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
+            <wtw-button class="button-right" (click)="movieConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </div>
 </div>
 

@@ -31,6 +31,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { AuthService } from './auth/auth.service';
 import { FirstQuestionnaireService } from './first-questionnaire/first-questionnaire.service';
+import { MovieQuestionnaireService } from './movie/movie-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 // AoT requires an exported function for factories
@@ -70,6 +71,7 @@ export function createTranslateLoader(http: Http) {
         MovieQuestionnaireComponent],
     providers: [AuthService,
         FirstQuestionnaireService,
+        MovieQuestionnaireService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

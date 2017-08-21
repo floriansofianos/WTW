@@ -2,6 +2,7 @@
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FirstQuestionnaireService } from '../first-questionnaire/first-questionnaire.service';
+import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 
@@ -38,7 +39,7 @@ import { Router } from '@angular/router';
 })
 
 export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService) { }
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService) { }
 
     movie: any;
     configuration: any;
@@ -50,7 +51,7 @@ export class FirstQuestionnaireComponent {
         else this.age = 30;
     }
 
-    states: string[] = ['active', null, null];
+    states: string[] = ['active', null, null, null];
     age: number;
     showSpinner: boolean;
 
@@ -117,6 +118,19 @@ export class FirstQuestionnaireComponent {
     movieConfirm() {
         this.showSpinner = true;
         // Save data in DB
+        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
+            this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
+                this.movie = response.json();
+                this.setStateActive(3);
+                this.showSpinner = false;
+            },
+            error => {
+                this.router.navigate(['error']);
+            });
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
 
     }
 

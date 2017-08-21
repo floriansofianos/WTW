@@ -12,25 +12,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var FirstQuestionnaireService = (function () {
-    function FirstQuestionnaireService(http) {
+var MovieQuestionnaireService = (function () {
+    function MovieQuestionnaireService(http) {
         this.http = http;
     }
-    FirstQuestionnaireService.prototype.getFirstQuestionnaireMovie = function (lang) {
-        return this.http.get('/api/firstQuestionnaire?lang=' + lang)
+    MovieQuestionnaireService.prototype.create = function (movieQuestionnaire) {
+        return this.http.post('/api/movieQuestionnaire', movieQuestionnaire)
             .catch(this.handleErrors);
     };
-    FirstQuestionnaireService.prototype.getMovieDBConfiguration = function () {
-        return this.http.get('/api/movieDBConfiguration')
+    MovieQuestionnaireService.prototype.getAll = function () {
+        return this.http.get('/api/movieQuestionnaire')
             .catch(this.handleErrors);
     };
-    FirstQuestionnaireService.prototype.handleErrors = function (error) {
+    MovieQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    FirstQuestionnaireService = __decorate([
+    MovieQuestionnaireService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
-    ], FirstQuestionnaireService);
-    return FirstQuestionnaireService;
+    ], MovieQuestionnaireService);
+    return MovieQuestionnaireService;
 }());
-exports.FirstQuestionnaireService = FirstQuestionnaireService;
+exports.MovieQuestionnaireService = MovieQuestionnaireService;

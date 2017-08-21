@@ -67,4 +67,3 @@ var System;
         }
     });
 })(this);
-//# sourceMappingURL=systemjs.config.js.map
