@@ -23,7 +23,7 @@ var FirstQuestionnaireComponent = (function () {
         this.router = router;
         this.firstQuestionnaireService = firstQuestionnaireService;
         this.movieQuestionnaireService = movieQuestionnaireService;
-        this.states = ['active', null, null, null];
+        this.states = ['active', null, null];
     }
     FirstQuestionnaireComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
@@ -31,6 +31,7 @@ var FirstQuestionnaireComponent = (function () {
             this.age = currentUser.age;
         else
             this.age = 30;
+        this.movieIndex = 0;
     };
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
@@ -91,7 +92,7 @@ var FirstQuestionnaireComponent = (function () {
             this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
                 _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
                     _this.movie = response.json();
-                    _this.setStateActive(3);
+                    _this.movieIndex++;
                     _this.showSpinner = false;
                 }, function (error) {
                     _this.router.navigate(['error']);

@@ -44,14 +44,16 @@ export class FirstQuestionnaireComponent {
     movie: any;
     configuration: any;
     movieQuestionnaire: any
+    movieIndex: number
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.age) this.age = currentUser.age;
         else this.age = 30;
+        this.movieIndex = 0;
     }
 
-    states: string[] = ['active', null, null, null];
+    states: string[] = ['active', null, null];
     age: number;
     showSpinner: boolean;
 
@@ -121,7 +123,7 @@ export class FirstQuestionnaireComponent {
         if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
             this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
                 this.movie = response.json();
-                this.setStateActive(3);
+                this.movieIndex++;
                 this.showSpinner = false;
             },
             error => {
