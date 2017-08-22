@@ -99,8 +99,16 @@ var FirstQuestionnaireComponent = (function () {
                 _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
                     _this.movie = response.json();
                     _this.movieIndex++;
-                    _this.questionAnswered++;
-                    _this.showSpinner = false;
+                    if (_this.questionAnswered >= 11) {
+                        _this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(function (response) {
+                            _this.questionAnswered++;
+                            _this.showSpinner = false;
+                        }, function (error) {
+                            _this.router.navigate(['error']);
+                        });
+                    }
+                    else
+                        _this.questionAnswered++;
                 }, function (error) {
                     _this.router.navigate(['error']);
                 });
@@ -115,36 +123,37 @@ var FirstQuestionnaireComponent = (function () {
     FirstQuestionnaireComponent.prototype.resetAllStates = function () {
         this.states.forEach(function (o, i, a) { return a[i] = null; });
     };
-    FirstQuestionnaireComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'first-questionnaire',
-            templateUrl: 'first-questionnaire.component.html',
-            animations: [
-                animations_1.trigger('areaState', [
-                    animations_1.state('active', animations_1.style({
-                        opacity: 1,
-                        transform: 'translateX(-50%)'
-                    })),
-                    animations_1.transition('void => *', [
-                        animations_1.style({
-                            transform: 'translateX(-150%)',
-                            opacity: 0
-                        }),
-                        animations_1.animate('100ms 300ms ease-in')
-                    ]),
-                    animations_1.transition('* => void', [
-                        animations_1.animate(300, animations_1.keyframes([
-                            animations_1.style({ opacity: 1, transform: 'translateX(-50%)', offset: 0 }),
-                            animations_1.style({ opacity: 1, transform: 'translateX(-15px)', offset: 0.7 }),
-                            animations_1.style({ opacity: 0, transform: 'translateX(150%)', offset: 1.0 })
-                        ]))
-                    ])
-                ])
-            ]
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService])
-    ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
 }());
+FirstQuestionnaireComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'first-questionnaire',
+        templateUrl: 'first-questionnaire.component.html',
+        animations: [
+            animations_1.trigger('areaState', [
+                animations_1.state('active', animations_1.style({
+                    opacity: 1,
+                    transform: 'translateX(-50%)'
+                })),
+                animations_1.transition('void => *', [
+                    animations_1.style({
+                        transform: 'translateX(-150%)',
+                        opacity: 0
+                    }),
+                    animations_1.animate('100ms 300ms ease-in')
+                ]),
+                animations_1.transition('* => void', [
+                    animations_1.animate(300, animations_1.keyframes([
+                        animations_1.style({ opacity: 1, transform: 'translateX(-50%)', offset: 0 }),
+                        animations_1.style({ opacity: 1, transform: 'translateX(-15px)', offset: 0.7 }),
+                        animations_1.style({ opacity: 0, transform: 'translateX(150%)', offset: 1.0 })
+                    ]))
+                ])
+            ])
+        ]
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService])
+], FirstQuestionnaireComponent);
 exports.FirstQuestionnaireComponent = FirstQuestionnaireComponent;
+//# sourceMappingURL=first-questionnaire.component.js.map

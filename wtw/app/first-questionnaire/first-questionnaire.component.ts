@@ -131,8 +131,16 @@ export class FirstQuestionnaireComponent {
             this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
                 this.movie = response.json();
                 this.movieIndex++;
-                this.questionAnswered++;
-                this.showSpinner = false;
+                if (this.questionAnswered >= 11) {
+                    this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(response => {
+                        this.questionAnswered++;
+                        this.showSpinner = false;
+                    },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
+                }
+                else this.questionAnswered++;
             },
             error => {
                 this.router.navigate(['error']);
