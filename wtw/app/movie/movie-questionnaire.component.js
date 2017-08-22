@@ -13,8 +13,14 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var MovieQuestionnaireComponent = (function () {
     function MovieQuestionnaireComponent(domSanitizer) {
+        var _this = this;
         this.domSanitizer = domSanitizer;
         this.notify = new core_1.EventEmitter();
+        this.onRatingChange = function ($event) {
+            if ($event.rating)
+                _this.seenValue = $event.rating;
+            _this.onChange();
+        };
     }
     MovieQuestionnaireComponent.prototype.ngOnChanges = function (changes) {
         if (changes.movie) {
@@ -25,29 +31,9 @@ var MovieQuestionnaireComponent = (function () {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; });
         this.movieSeen = false;
-        this.seenValue = 1;
-        this.sliderConfiguration = {
-            pips: {
-                mode: 'steps',
-                density: 1,
-                format: {
-                    to: this.updatePips
-                }
-            }
-        };
+        this.seenValue = 3;
         this.wantToWatch = false;
         this.onChange();
-    };
-    MovieQuestionnaireComponent.prototype.updatePips = function (value) {
-        if (value === 0)
-            value = 'Poor';
-        if (value === 1)
-            value = 'Average';
-        if (value === 2)
-            value = 'Good';
-        if (value === 3)
-            value = 'Very Good';
-        return value;
     };
     MovieQuestionnaireComponent.prototype.getAllTrailers = function () {
         if (this.movie.trailers) {

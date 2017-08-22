@@ -31,27 +31,15 @@ export class MovieQuestionnaireComponent {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b);
         this.movieSeen = false;
-        this.seenValue = 1;
-        this.sliderConfiguration = {
-            pips: {
-                mode: 'steps',
-                density: 1,
-                format: {
-                    to: this.updatePips
-                }
-            }
-        };
+        this.seenValue = 3;
         this.wantToWatch = false;
         this.onChange();
     }
 
-    updatePips(value) {
-        if (value === 0) value = 'Poor';
-        if (value === 1) value = 'Average';
-        if (value === 2) value = 'Good';
-        if (value === 3) value = 'Very Good';
-        return value;
-    }
+    onRatingChange = ($event: any) => {
+        if ($event.rating) this.seenValue = $event.rating;
+        this.onChange();
+    };
 
     getAllTrailers() {
         if (this.movie.trailers) {

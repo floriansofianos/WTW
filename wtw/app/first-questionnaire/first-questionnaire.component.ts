@@ -45,12 +45,14 @@ export class FirstQuestionnaireComponent {
     configuration: any;
     movieQuestionnaire: any
     movieIndex: number
+    questionAnswered: number
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.age) this.age = currentUser.age;
         else this.age = 30;
         this.movieIndex = 0;
+        this.questionAnswered = 0;
     }
 
     states: string[] = ['active', null, null];
@@ -67,10 +69,12 @@ export class FirstQuestionnaireComponent {
 
     langSkip() {
         this.setStateActive(1);
+        this.questionAnswered++;
     }
 
     ageSkip() {
         this.resetAllStates();
+        this.questionAnswered++;
     }
 
     langConfirm() {
@@ -79,6 +83,7 @@ export class FirstQuestionnaireComponent {
         this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(response => {
             this.setStateActive(1);
             this.showSpinner = false;
+            this.questionAnswered++;
         },
         error => {
             this.router.navigate(['error']);
@@ -87,6 +92,7 @@ export class FirstQuestionnaireComponent {
 
     agePrevious() {
         this.setStateActive(0);
+        this.questionAnswered--;
     }
 
     ageConfirm() {
@@ -97,6 +103,7 @@ export class FirstQuestionnaireComponent {
                 this.configuration = response.json();
                 this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
                     this.movie = response.json();
+                    this.questionAnswered++;
                     this.setStateActive(2);
                     this.showSpinner = false;
                 },
@@ -124,6 +131,7 @@ export class FirstQuestionnaireComponent {
             this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
                 this.movie = response.json();
                 this.movieIndex++;
+                this.questionAnswered++;
                 this.showSpinner = false;
             },
             error => {

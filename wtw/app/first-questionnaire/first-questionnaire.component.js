@@ -32,6 +32,7 @@ var FirstQuestionnaireComponent = (function () {
         else
             this.age = 30;
         this.movieIndex = 0;
+        this.questionAnswered = 0;
     };
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
@@ -41,9 +42,11 @@ var FirstQuestionnaireComponent = (function () {
     };
     FirstQuestionnaireComponent.prototype.langSkip = function () {
         this.setStateActive(1);
+        this.questionAnswered++;
     };
     FirstQuestionnaireComponent.prototype.ageSkip = function () {
         this.resetAllStates();
+        this.questionAnswered++;
     };
     FirstQuestionnaireComponent.prototype.langConfirm = function () {
         var _this = this;
@@ -52,12 +55,14 @@ var FirstQuestionnaireComponent = (function () {
         this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(function (response) {
             _this.setStateActive(1);
             _this.showSpinner = false;
+            _this.questionAnswered++;
         }, function (error) {
             _this.router.navigate(['error']);
         });
     };
     FirstQuestionnaireComponent.prototype.agePrevious = function () {
         this.setStateActive(0);
+        this.questionAnswered--;
     };
     FirstQuestionnaireComponent.prototype.ageConfirm = function () {
         var _this = this;
@@ -69,6 +74,7 @@ var FirstQuestionnaireComponent = (function () {
                     _this.configuration = response.json();
                     _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
                         _this.movie = response.json();
+                        _this.questionAnswered++;
                         _this.setStateActive(2);
                         _this.showSpinner = false;
                     }, function (error) {
@@ -93,6 +99,7 @@ var FirstQuestionnaireComponent = (function () {
                 _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
                     _this.movie = response.json();
                     _this.movieIndex++;
+                    _this.questionAnswered++;
                     _this.showSpinner = false;
                 }, function (error) {
                     _this.router.navigate(['error']);

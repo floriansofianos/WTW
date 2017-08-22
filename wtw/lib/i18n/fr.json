@@ -31,7 +31,10 @@
   },
   "FIRST_QUESTIONNAIRE": {
       "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
-      "AGE_QUESTION": "Quel est votre âge ?"
+      "AGE_QUESTION": "Quel est votre âge ?",
+      "DONE": "Merci d'avoir terminé ce premier questionnaire.",
+      "GO_TO": "Vous pouvez désormais accéder à votre ",
+      "HOMEPAGE": "page d'accueil"
   },
   "MOVIE_QUESTIONNAIRE": {
       "CAST": "Casting",

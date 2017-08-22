@@ -33,9 +33,12 @@ let System: any
             '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
             '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
             '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
+            '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
+            '@angular/cdk': 'npm:@angular/cdk/bundles/cdk.umd.js',
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-spinner': 'npm:angular2-spinner/dist',
+            'angular-star-rating': 'npm:angular-star-rating/angular-star-rating.umd.js',
             'angular2-ui-switch': 'npm:angular2-ui-switch/dist',
             'nouislider': 'npm:nouislider',
             'ng2-nouislider': 'npm:ng2-nouislider',

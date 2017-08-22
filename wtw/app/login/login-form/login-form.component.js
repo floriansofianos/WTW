@@ -39,7 +39,7 @@ var LoginFormComponent = (function () {
             _this.authService.setCurrentUser(currentUser);
             if (currentUser.lang)
                 _this.translate.use(currentUser.lang);
-            _this.router.navigate(['']);
+            _this.router.navigate(['/user/home']);
         }, function (error) {
             _this.showError = true;
             _this.showSpinner = false;

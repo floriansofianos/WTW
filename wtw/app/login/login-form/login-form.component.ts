@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
             let currentUser = response.json();
             this.authService.setCurrentUser(currentUser);
             if (currentUser.lang) this.translate.use(currentUser.lang)
-            this.router.navigate(['']);
+            this.router.navigate(['/user/home']);
         },
         error => {
             this.showError = true;

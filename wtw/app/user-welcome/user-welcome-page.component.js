@@ -11,30 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
-var router_1 = require("@angular/router");
-var UserHomePageComponent = (function () {
-    function UserHomePageComponent(authService, router) {
+var UserWelcomePageComponent = (function () {
+    function UserWelcomePageComponent(authService) {
         this.authService = authService;
-        this.router = router;
     }
-    UserHomePageComponent.prototype.ngOnInit = function () {
+    UserWelcomePageComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
-        if (currentUser) {
-            if (!currentUser.firstQuestionnaireCompleted) {
-                this.router.navigate(['/user/welcome']);
-            }
+        if (currentUser)
             this.username = currentUser.username;
-        }
-        else {
-            this.router.navigate(['']);
-        }
     };
-    UserHomePageComponent = __decorate([
+    UserWelcomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<h2>{{ 'HOME.HELLO' | translate }} {{ username }}</h2>\n"
+            template: "\n<h2>{{ 'HOME.WELCOME' | translate }} {{ username }}</h2>\n<first-questionnaire></first-questionnaire>\n"
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-    ], UserHomePageComponent);
-    return UserHomePageComponent;
+        __metadata("design:paramtypes", [auth_service_1.AuthService])
+    ], UserWelcomePageComponent);
+    return UserWelcomePageComponent;
 }());
-exports.UserHomePageComponent = UserHomePageComponent;
+exports.UserWelcomePageComponent = UserWelcomePageComponent;

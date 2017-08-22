@@ -15,6 +15,8 @@ var http_loader_1 = require("@ngx-translate/http-loader");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var forms_2 = require("@angular/forms");
+var material_1 = require("@angular/material");
+var angular_star_rating_1 = require("angular-star-rating");
 var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
@@ -27,6 +29,7 @@ var confirm_password_validator_directive_1 = require("./signup/signup-form/confi
 var email_validator_directive_1 = require("./signup/signup-form/email-validator.directive");
 var username_validator_directive_1 = require("./signup/signup-form/username-validator.directive");
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
+var user_welcome_page_component_1 = require("./user-welcome/user-welcome-page.component");
 var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
@@ -49,6 +52,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
+                material_1.MdProgressBarModule,
                 forms_2.FormsModule,
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(routes_1.appRoutes),
@@ -56,6 +60,7 @@ var AppModule = (function () {
                 angular2_spinner_1.SpinnerModule,
                 angular2_ui_switch_1.UiSwitchModule,
                 ng2_nouislider_1.NouisliderModule,
+                angular_star_rating_1.StarRatingModule,
                 core_2.TranslateModule.forRoot({
                     loader: {
                         provide: core_2.TranslateLoader,
@@ -73,6 +78,7 @@ var AppModule = (function () {
                 email_validator_directive_1.EmailValidator,
                 username_validator_directive_1.UsernameValidator,
                 user_home_page_component_1.UserHomePageComponent,
+                user_welcome_page_component_1.UserWelcomePageComponent,
                 first_questionnaire_component_1.FirstQuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent],

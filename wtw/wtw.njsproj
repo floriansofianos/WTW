@@ -127,6 +127,7 @@
     </Content>
     <Content Include="README.md" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
@@ -137,6 +138,7 @@
     <Folder Include="app\first-questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />
+    <Folder Include="app\user-welcome\" />
     <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />
     <Folder Include="app\signup\signup-form\" />

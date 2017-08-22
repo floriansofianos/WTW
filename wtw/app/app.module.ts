@@ -7,6 +7,8 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MdProgressBarModule } from '@angular/material'
+import { StarRatingModule } from 'angular-star-rating';
 import { APP_INITIALIZER } from '@angular/core';
 
 import { appRoutes } from './routes';
@@ -21,9 +23,11 @@ import { ConfirmPasswordValidator } from './signup/signup-form/confirm-password-
 import { EmailValidator } from './signup/signup-form/email-validator.directive';
 import { UsernameValidator } from './signup/signup-form/username-validator.directive';
 import { UserHomePageComponent } from './user-home/user-home-page.component';
+import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.component';
 import { FirstQuestionnaireComponent } from './first-questionnaire/first-questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
+
 import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -42,6 +46,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
     imports: [BrowserModule,
             BrowserAnimationsModule,
+            MdProgressBarModule,
             FormsModule,
             ReactiveFormsModule,
             RouterModule.forRoot(appRoutes),
@@ -49,6 +54,7 @@ export function createTranslateLoader(http: Http) {
             SpinnerModule,
             UiSwitchModule,
             NouisliderModule,
+            StarRatingModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
@@ -66,6 +72,7 @@ export function createTranslateLoader(http: Http) {
         EmailValidator,
         UsernameValidator,
         UserHomePageComponent,
+        UserWelcomePageComponent,
         FirstQuestionnaireComponent,
         WtwButtonComponent,
         MovieQuestionnaireComponent],
