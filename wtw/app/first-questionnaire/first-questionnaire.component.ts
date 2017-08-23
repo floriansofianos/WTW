@@ -53,6 +53,10 @@ export class FirstQuestionnaireComponent {
         else this.age = 30;
         this.movieIndex = 0;
         this.questionAnswered = 0;
+        if (currentUser.firstQuestionnaireCompleted) {
+            this.questionAnswered = 12;
+            this.setStateActive(2);
+        }
     }
 
     states: string[] = ['active', null, null];
@@ -124,6 +128,18 @@ export class FirstQuestionnaireComponent {
         this.movieQuestionnaire = data;
     }
 
+    movieSkip() {
+        this.showSpinner = true;
+        this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
+            this.movie = response.json();
+            this.movieIndex++;
+            this.showSpinner = false;
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
+    }
+
     movieConfirm() {
         this.showSpinner = true;
         // Save data in DB
@@ -136,11 +152,14 @@ export class FirstQuestionnaireComponent {
                         this.questionAnswered++;
                         this.showSpinner = false;
                     },
-                    error => {
-                        this.router.navigate(['error']);
-                    });
+                        error => {
+                            this.router.navigate(['error']);
+                        });
                 }
-                else this.questionAnswered++;
+                else {
+                    this.questionAnswered++;
+                    this.showSpinner = false;
+                }
             },
             error => {
                 this.router.navigate(['error']);

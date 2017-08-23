@@ -1,5 +1,6 @@
 ﻿import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     moduleId: module.id,
@@ -18,8 +19,9 @@ export class MovieQuestionnaireComponent {
     seenValue: number;
     sliderConfiguration: any;
     wantToWatch: boolean;
+    labelRating: string;
 
-    constructor(private domSanitizer: DomSanitizer) { }
+    constructor(private domSanitizer: DomSanitizer, private translate: TranslateService) { }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.movie) {
@@ -29,15 +31,19 @@ export class MovieQuestionnaireComponent {
 
     ngOnInit() {
         this.trailerUrl = this.getMovieVideo();
-        this.genres = this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b);
+        this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b) : '') : '';
         this.movieSeen = false;
         this.seenValue = 3;
+        this.getLabelRating();
         this.wantToWatch = false;
         this.onChange();
     }
 
     onRatingChange = ($event: any) => {
-        if ($event.rating) this.seenValue = $event.rating;
+        if ($event.rating) {
+            this.seenValue = $event.rating;
+            this.getLabelRating();
+        }
         this.onChange();
     };
 
@@ -77,6 +83,13 @@ export class MovieQuestionnaireComponent {
             movieDBId: this.movie.id,
             rating: this.seenValue,
             wantToSee: this.wantToWatch
+        });
+    }
+
+    getLabelRating() {
+        let labelTranslationVar = this.seenValue === 1 ? 'MOVIE_QUESTIONNAIRE.POOR' : (this.seenValue === 2 ? 'MOVIE_QUESTIONNAIRE.AVERAGE' : (this.seenValue === 3 ? 'MOVIE_QUESTIONNAIRE.GOOD' : (this.seenValue === 4 ? 'MOVIE_QUESTIONNAIRE.VERYGOOD' : (this.seenValue === 5 ? 'MOVIE_QUESTIONNAIRE.MASTERPIECE' : 'Error!'))));
+        this.translate.get(labelTranslationVar).subscribe((res: string) => {
+            this.labelRating = res;
         });
     }
 }

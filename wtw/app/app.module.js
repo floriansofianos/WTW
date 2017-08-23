@@ -48,54 +48,53 @@ exports.createTranslateLoader = createTranslateLoader;
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule,
+                animations_1.BrowserAnimationsModule,
+                material_1.MdProgressBarModule,
+                forms_2.FormsModule,
+                forms_1.ReactiveFormsModule,
+                router_1.RouterModule.forRoot(routes_1.appRoutes),
+                http_1.HttpModule,
+                angular2_spinner_1.SpinnerModule,
+                angular2_ui_switch_1.UiSwitchModule,
+                ng2_nouislider_1.NouisliderModule,
+                angular_star_rating_1.StarRatingModule,
+                core_2.TranslateModule.forRoot({
+                    loader: {
+                        provide: core_2.TranslateLoader,
+                        useFactory: (createTranslateLoader),
+                        deps: [http_1.Http]
+                    }
+                })],
+            declarations: [main_app_component_1.MainAppComponent,
+                home_page_component_1.HomePageComponent,
+                login_page_component_1.LoginPageComponent,
+                login_form_component_1.LoginFormComponent,
+                signup_page_component_1.SignUpPageComponent,
+                signup_form_component_1.SignUpFormComponent,
+                confirm_password_validator_directive_1.ConfirmPasswordValidator,
+                email_validator_directive_1.EmailValidator,
+                username_validator_directive_1.UsernameValidator,
+                user_home_page_component_1.UserHomePageComponent,
+                user_welcome_page_component_1.UserWelcomePageComponent,
+                first_questionnaire_component_1.FirstQuestionnaireComponent,
+                wtw_button_component_1.WtwButtonComponent,
+                movie_questionnaire_component_1.MovieQuestionnaireComponent],
+            providers: [auth_service_1.AuthService,
+                first_questionnaire_service_1.FirstQuestionnaireService,
+                movie_questionnaire_service_1.MovieQuestionnaireService,
+                can_activate_auth_1.CanActivateAuthGuard,
+                {
+                    provide: core_3.APP_INITIALIZER,
+                    useFactory: function (authService) { return function () { return authService.load(); }; },
+                    deps: [auth_service_1.AuthService],
+                    multi: true
+                }],
+            bootstrap: [main_app_component_1.MainAppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule,
-            animations_1.BrowserAnimationsModule,
-            material_1.MdProgressBarModule,
-            forms_2.FormsModule,
-            forms_1.ReactiveFormsModule,
-            router_1.RouterModule.forRoot(routes_1.appRoutes),
-            http_1.HttpModule,
-            angular2_spinner_1.SpinnerModule,
-            angular2_ui_switch_1.UiSwitchModule,
-            ng2_nouislider_1.NouisliderModule,
-            angular_star_rating_1.StarRatingModule,
-            core_2.TranslateModule.forRoot({
-                loader: {
-                    provide: core_2.TranslateLoader,
-                    useFactory: (createTranslateLoader),
-                    deps: [http_1.Http]
-                }
-            })],
-        declarations: [main_app_component_1.MainAppComponent,
-            home_page_component_1.HomePageComponent,
-            login_page_component_1.LoginPageComponent,
-            login_form_component_1.LoginFormComponent,
-            signup_page_component_1.SignUpPageComponent,
-            signup_form_component_1.SignUpFormComponent,
-            confirm_password_validator_directive_1.ConfirmPasswordValidator,
-            email_validator_directive_1.EmailValidator,
-            username_validator_directive_1.UsernameValidator,
-            user_home_page_component_1.UserHomePageComponent,
-            user_welcome_page_component_1.UserWelcomePageComponent,
-            first_questionnaire_component_1.FirstQuestionnaireComponent,
-            wtw_button_component_1.WtwButtonComponent,
-            movie_questionnaire_component_1.MovieQuestionnaireComponent],
-        providers: [auth_service_1.AuthService,
-            first_questionnaire_service_1.FirstQuestionnaireService,
-            movie_questionnaire_service_1.MovieQuestionnaireService,
-            can_activate_auth_1.CanActivateAuthGuard,
-            {
-                provide: core_3.APP_INITIALIZER,
-                useFactory: function (authService) { return function () { return authService.load(); }; },
-                deps: [auth_service_1.AuthService],
-                multi: true
-            }],
-        bootstrap: [main_app_component_1.MainAppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

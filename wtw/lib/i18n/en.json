@@ -42,7 +42,12 @@
       "WRITER": "Writer",
       "QUESTION_SEEN": "Have you seen that movie?",
       "WOULD_LIKE_SEE": "Would you like to see this movie?",
-      "HOW_RATE": "How would you rate this movie?"
+      "HOW_RATE": "How would you rate this movie?",
+      "POOR": "Poor",
+      "AVERAGE": "Average",
+      "GOOD": "Good",
+      "VERYGOOD": "Very Good",
+      "MASTERPIECE": "Masterpiece"
   },
   "FORM": {
     "OK": "OK",

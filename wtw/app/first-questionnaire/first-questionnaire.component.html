@@ -43,9 +43,9 @@
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
-    <div class="question-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= 12">
+    <div class="question-block thank-you-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= 12">
         <h1><i class="fa fa-check-circle-o" aria-hidden="true"></i>{{ 'FIRST_QUESTIONNAIRE.DONE' | translate }}</h1>
-        <div>{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}</div><a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a>
+        <div>{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}<a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a></div>
     </div>
 </div>
 

@@ -52,7 +52,7 @@
                         </div>
                         <div *ngIf="movieSeen" class="movie-question">
                             <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
-                            <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="3" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="'Create var!'" [size]="'large'"></star-rating-comp>
+                            <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="3" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="labelRating" [size]="'large'"></star-rating-comp>
                         </div>
                         <div *ngIf="!movieSeen" class="movie-question">
                             <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>

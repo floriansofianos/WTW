@@ -11,14 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var core_2 = require("@ngx-translate/core");
 var MovieQuestionnaireComponent = (function () {
-    function MovieQuestionnaireComponent(domSanitizer) {
+    function MovieQuestionnaireComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;
+        this.translate = translate;
         this.notify = new core_1.EventEmitter();
         this.onRatingChange = function ($event) {
-            if ($event.rating)
+            if ($event.rating) {
                 _this.seenValue = $event.rating;
+                _this.getLabelRating();
+            }
             _this.onChange();
         };
     }
@@ -29,9 +33,10 @@ var MovieQuestionnaireComponent = (function () {
     };
     MovieQuestionnaireComponent.prototype.ngOnInit = function () {
         this.trailerUrl = this.getMovieVideo();
-        this.genres = this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; });
+        this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; }) : '') : '';
         this.movieSeen = false;
         this.seenValue = 3;
+        this.getLabelRating();
         this.wantToWatch = false;
         this.onChange();
     };
@@ -73,6 +78,13 @@ var MovieQuestionnaireComponent = (function () {
             wantToSee: this.wantToWatch
         });
     };
+    MovieQuestionnaireComponent.prototype.getLabelRating = function () {
+        var _this = this;
+        var labelTranslationVar = this.seenValue === 1 ? 'MOVIE_QUESTIONNAIRE.POOR' : (this.seenValue === 2 ? 'MOVIE_QUESTIONNAIRE.AVERAGE' : (this.seenValue === 3 ? 'MOVIE_QUESTIONNAIRE.GOOD' : (this.seenValue === 4 ? 'MOVIE_QUESTIONNAIRE.VERYGOOD' : (this.seenValue === 5 ? 'MOVIE_QUESTIONNAIRE.MASTERPIECE' : 'Error!'))));
+        this.translate.get(labelTranslationVar).subscribe(function (res) {
+            _this.labelRating = res;
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
@@ -91,7 +103,7 @@ var MovieQuestionnaireComponent = (function () {
             selector: 'movie-questionnaire',
             templateUrl: 'movie-questionnaire.component.html'
         }),
-        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, core_2.TranslateService])
     ], MovieQuestionnaireComponent);
     return MovieQuestionnaireComponent;
 }());

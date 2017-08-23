@@ -42,7 +42,12 @@
       "WRITER": "Scénariste",
       "QUESTION_SEEN": "Avez-vous vu ce film?",
       "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
-      "HOW_RATE": "Comment avez-vous trouvé ce film?"
+      "HOW_RATE": "Comment avez-vous trouvé ce film?",
+      "POOR": "Médiocre",
+      "AVERAGE": "Moyen",
+      "GOOD": "Bon",
+      "VERYGOOD": "Très Bon",
+      "MASTERPIECE": "Excellent"
   },
   "FORM": {
     "OK": "OK",
