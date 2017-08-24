@@ -130,13 +130,14 @@ export class FirstQuestionnaireComponent {
     moviePrevious() {
         this.showSpinner = true;
         this.movieIndex--;
-        this.questionAnswered--;
         if (this.movieIndex < 0) {
+            this.questionAnswered--;
             this.setStateActive(1);
         }
         else {
             this.movie = this.previousMovies[this.movieIndex].movie;
             this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+            if (!this.movieQuestionnaireInit.isSkipped) this.questionAnswered--;
         }
         this.showSpinner = false;
     }
@@ -165,8 +166,15 @@ export class FirstQuestionnaireComponent {
 
     movieSkip() {
         this.showSpinner = true;
+        this.movieQuestionnaire.isSkipped = true;
         this.storePreviousMovie(false);
-        this.showNextMovie();
+        // Save data in DB
+        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
+            this.showNextMovie();
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
     }
 
     storePreviousMovie(isFirstSave: boolean) {

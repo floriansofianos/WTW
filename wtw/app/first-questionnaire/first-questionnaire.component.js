@@ -96,13 +96,15 @@ var FirstQuestionnaireComponent = (function () {
     FirstQuestionnaireComponent.prototype.moviePrevious = function () {
         this.showSpinner = true;
         this.movieIndex--;
-        this.questionAnswered--;
         if (this.movieIndex < 0) {
+            this.questionAnswered--;
             this.setStateActive(1);
         }
         else {
             this.movie = this.previousMovies[this.movieIndex].movie;
             this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+            if (!this.movieQuestionnaireInit.isSkipped)
+                this.questionAnswered--;
         }
         this.showSpinner = false;
     };
@@ -130,9 +132,17 @@ var FirstQuestionnaireComponent = (function () {
         }
     };
     FirstQuestionnaireComponent.prototype.movieSkip = function () {
+        var _this = this;
         this.showSpinner = true;
+        this.movieQuestionnaire.isSkipped = true;
         this.storePreviousMovie(false);
-        this.showNextMovie();
+        // Save data in DB
+        if (this.movieQuestionnaire)
+            this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
+                _this.showNextMovie();
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
     };
     FirstQuestionnaireComponent.prototype.storePreviousMovie = function (isFirstSave) {
         if (this.previousMovies[this.movieIndex]) {
