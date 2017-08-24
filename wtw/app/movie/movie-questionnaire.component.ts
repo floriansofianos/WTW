@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class MovieQuestionnaireComponent {
-    @Input() movie: any
+    @Input() movie: any;
+    @Input() movieQuestionnaireInit: any;
     @Input() config: any;
     @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;
@@ -27,15 +28,18 @@ export class MovieQuestionnaireComponent {
         if (changes.movie) {
             this.ngOnInit();
         }
+        if (changes.movieSeen || changes.wantToWatch) {
+            this.onChange();
+        }
     }
 
     ngOnInit() {
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b) : '') : '';
-        this.movieSeen = false;
-        this.seenValue = 3;
+        this.movieSeen = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.isSeen : false;
+        this.seenValue = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.rating : 3;
         this.getLabelRating();
-        this.wantToWatch = false;
+        this.wantToWatch = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.wantToSee : false;
         this.onChange();
     }
 

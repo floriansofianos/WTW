@@ -46,12 +46,14 @@ export class FirstQuestionnaireComponent {
     movieQuestionnaire: any
     movieIndex: number
     questionAnswered: number
+    previousMovies: any = [];
+    movieQuestionnaireInit: any
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.age) this.age = currentUser.age;
         else this.age = 30;
-        this.movieIndex = 0;
+        this.movieIndex = -1;
         this.questionAnswered = 0;
         if (currentUser.firstQuestionnaireCompleted) {
             this.questionAnswered = 12;
@@ -77,8 +79,8 @@ export class FirstQuestionnaireComponent {
     }
 
     ageSkip() {
-        this.resetAllStates();
-        this.questionAnswered++;
+        this.showSpinner = true;
+        this.getNextAgeStep();
     }
 
     langConfirm() {
@@ -103,21 +105,18 @@ export class FirstQuestionnaireComponent {
         this.showSpinner = true;
         // Save data in DB
         if (this.age) this.authService.setUserProperty('age', this.age).subscribe(response => {
-            this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(response => {
-                this.configuration = response.json();
-                this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
-                    this.movie = response.json();
-                    this.questionAnswered++;
-                    this.setStateActive(2);
-                    this.showSpinner = false;
-                },
-                error => {
-                    this.router.navigate(['error']);
-                });
-            },
-            error => {
-                this.router.navigate(['error']);
-            });
+            this.getNextAgeStep();
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
+    }
+
+    getNextAgeStep() {
+        this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(response => {
+            this.configuration = response.json();
+            this.questionAnswered++;
+            this.showNextMovie();
         },
         error => {
             this.router.navigate(['error']);
@@ -128,42 +127,79 @@ export class FirstQuestionnaireComponent {
         this.movieQuestionnaire = data;
     }
 
+    moviePrevious() {
+        this.showSpinner = true;
+        this.movieIndex--;
+        this.questionAnswered--;
+        if (this.movieIndex < 0) {
+            this.setStateActive(1);
+        }
+        else {
+            this.movie = this.previousMovies[this.movieIndex].movie;
+            this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+        }
+        this.showSpinner = false;
+    }
+
+    showNextMovie() {
+        if (this.previousMovies && this.previousMovies[this.movieIndex + 1]) {
+            this.movieIndex++;
+            this.movie = this.previousMovies[this.movieIndex].movie;
+            this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+            this.showSpinner = false;
+            if (this.movieIndex === 0) this.setStateActive(2);
+        }
+        else {
+            this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
+                this.movie = response.json();
+                this.movieIndex++;
+                this.showSpinner = false;
+                if (this.movieIndex === 0) this.setStateActive(2);
+                this.storePreviousMovie(true);
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
+        }
+    }
+
     movieSkip() {
         this.showSpinner = true;
-        this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
-            this.movie = response.json();
-            this.movieIndex++;
-            this.showSpinner = false;
-        },
-        error => {
-            this.router.navigate(['error']);
+        this.storePreviousMovie(false);
+        this.showNextMovie();
+    }
+
+    storePreviousMovie(isFirstSave: boolean) {
+        if (this.previousMovies[this.movieIndex]) {
+            this.previousMovies[this.movieIndex] = {
+                movie: this.movie,
+                movieQuestionnaire: this.movieQuestionnaire
+            }
+        }
+        else this.previousMovies.push({
+            movie: this.movie,
+            movieQuestionnaire: isFirstSave ? null : this.movieQuestionnaire
         });
     }
 
     movieConfirm() {
         this.showSpinner = true;
+        this.storePreviousMovie(false);
         // Save data in DB
         if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
-            this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
-                this.movie = response.json();
-                this.movieIndex++;
-                if (this.questionAnswered >= 11) {
-                    this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(response => {
-                        this.questionAnswered++;
-                        this.showSpinner = false;
-                    },
-                        error => {
-                            this.router.navigate(['error']);
-                        });
-                }
-                else {
-                    this.questionAnswered++;
+            this.questionAnswered++;
+            // Check if we need to show more movies
+            if (this.questionAnswered >= 12) {
+                this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(response => {
                     this.showSpinner = false;
-                }
-            },
-            error => {
-                this.router.navigate(['error']);
-            });
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
+            }
+            else {
+                this.showNextMovie();
+            }
         },
         error => {
             this.router.navigate(['error']);

@@ -8,22 +8,37 @@ var movieQuestionnaireService = function () {
         });
     }
 
-    var create = function (movieQuestionnaire, userId, done) {
-        models.MovieQuestionnaire.create({
-            userId: userId,
-            movieDBId: movieQuestionnaire.movieDBId,
-            isSeen: movieQuestionnaire.isSeen,
-            rating: movieQuestionnaire.rating,
-            wantToSee: movieQuestionnaire.wantToSee,
-            isSkipped: movieQuestionnaire.isSkipped
-        }).then(questionnaire => {
-            done(null, questionnaire);
+    var createOrUpdate = function (movieQuestionnaire, userId, done) {
+        models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieQuestionnaire.movieDBId } }).then(data => {
+            if (data) {
+                data.isSeen = movieQuestionnaire.isSeen;
+                data.rating = movieQuestionnaire.rating;
+                data.wantToSee = movieQuestionnaire.wantToSee;
+                data.isSkipped = movieQuestionnaire.isSkipped;
+                data.save().then(questionnaire => {
+                    done(null, questionnaire);
+                });
+            }
+            else {
+                models.MovieQuestionnaire.create({
+                    userId: userId,
+                    movieDBId: movieQuestionnaire.movieDBId,
+                    isSeen: movieQuestionnaire.isSeen,
+                    rating: movieQuestionnaire.rating,
+                    wantToSee: movieQuestionnaire.wantToSee,
+                    isSkipped: movieQuestionnaire.isSkipped
+                }).then(questionnaire => {
+                    done(null, questionnaire);
+                });
+            }
         });
+
+        
     }
 
     return {
         getAll: getAll,
-        create: create
+        createOrUpdate: createOrUpdate
     }
 }
 

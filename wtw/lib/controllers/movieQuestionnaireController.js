@@ -9,9 +9,9 @@
         else res.send(400);
     };
 
-    var create = function (req, res) {
+    var createOrUpdate = function (req, res) {
         if (req.user) {
-            movieQuestionnaireService.create(req.body, req.user.id, function (err, data) {
+            movieQuestionnaireService.createOrUpdate(req.body, req.user.id, function (err, data) {
                 if (!err) res.json(data);
                 else res.send(500);
             });
@@ -21,7 +21,7 @@
 
     return {
         getAll: getAll,
-        create: create
+        createOrUpdate: createOrUpdate
     }
 }
 

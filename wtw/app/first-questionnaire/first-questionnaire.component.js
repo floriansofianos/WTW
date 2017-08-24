@@ -23,6 +23,7 @@ var FirstQuestionnaireComponent = (function () {
         this.router = router;
         this.firstQuestionnaireService = firstQuestionnaireService;
         this.movieQuestionnaireService = movieQuestionnaireService;
+        this.previousMovies = [];
         this.states = ['active', null, null];
     }
     FirstQuestionnaireComponent.prototype.ngOnInit = function () {
@@ -31,7 +32,7 @@ var FirstQuestionnaireComponent = (function () {
             this.age = currentUser.age;
         else
             this.age = 30;
-        this.movieIndex = 0;
+        this.movieIndex = -1;
         this.questionAnswered = 0;
         if (currentUser.firstQuestionnaireCompleted) {
             this.questionAnswered = 12;
@@ -49,8 +50,8 @@ var FirstQuestionnaireComponent = (function () {
         this.questionAnswered++;
     };
     FirstQuestionnaireComponent.prototype.ageSkip = function () {
-        this.resetAllStates();
-        this.questionAnswered++;
+        this.showSpinner = true;
+        this.getNextAgeStep();
     };
     FirstQuestionnaireComponent.prototype.langConfirm = function () {
         var _this = this;
@@ -74,61 +75,97 @@ var FirstQuestionnaireComponent = (function () {
         // Save data in DB
         if (this.age)
             this.authService.setUserProperty('age', this.age).subscribe(function (response) {
-                _this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(function (response) {
-                    _this.configuration = response.json();
-                    _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
-                        _this.movie = response.json();
-                        _this.questionAnswered++;
-                        _this.setStateActive(2);
-                        _this.showSpinner = false;
-                    }, function (error) {
-                        _this.router.navigate(['error']);
-                    });
-                }, function (error) {
-                    _this.router.navigate(['error']);
-                });
+                _this.getNextAgeStep();
             }, function (error) {
                 _this.router.navigate(['error']);
             });
     };
-    FirstQuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
-    };
-    FirstQuestionnaireComponent.prototype.movieSkip = function () {
+    FirstQuestionnaireComponent.prototype.getNextAgeStep = function () {
         var _this = this;
-        this.showSpinner = true;
-        this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(function (response) {
-            _this.movie = response.json();
-            _this.movieIndex++;
-            _this.showSpinner = false;
+        this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(function (response) {
+            _this.configuration = response.json();
+            _this.questionAnswered++;
+            _this.showNextMovie();
         }, function (error) {
             _this.router.navigate(['error']);
         });
     };
+    FirstQuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
+        this.movieQuestionnaire = data;
+    };
+    FirstQuestionnaireComponent.prototype.moviePrevious = function () {
+        this.showSpinner = true;
+        this.movieIndex--;
+        this.questionAnswered--;
+        if (this.movieIndex < 0) {
+            this.setStateActive(1);
+        }
+        else {
+            this.movie = this.previousMovies[this.movieIndex].movie;
+            this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+        }
+        this.showSpinner = false;
+    };
+    FirstQuestionnaireComponent.prototype.showNextMovie = function () {
+        var _this = this;
+        if (this.previousMovies && this.previousMovies[this.movieIndex + 1]) {
+            this.movieIndex++;
+            this.movie = this.previousMovies[this.movieIndex].movie;
+            this.movieQuestionnaireInit = this.previousMovies[this.movieIndex].movieQuestionnaire;
+            this.showSpinner = false;
+            if (this.movieIndex === 0)
+                this.setStateActive(2);
+        }
+        else {
+            this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(function (response) {
+                _this.movie = response.json();
+                _this.movieIndex++;
+                _this.showSpinner = false;
+                if (_this.movieIndex === 0)
+                    _this.setStateActive(2);
+                _this.storePreviousMovie(true);
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
+        }
+    };
+    FirstQuestionnaireComponent.prototype.movieSkip = function () {
+        this.showSpinner = true;
+        this.storePreviousMovie(false);
+        this.showNextMovie();
+    };
+    FirstQuestionnaireComponent.prototype.storePreviousMovie = function (isFirstSave) {
+        if (this.previousMovies[this.movieIndex]) {
+            this.previousMovies[this.movieIndex] = {
+                movie: this.movie,
+                movieQuestionnaire: this.movieQuestionnaire
+            };
+        }
+        else
+            this.previousMovies.push({
+                movie: this.movie,
+                movieQuestionnaire: isFirstSave ? null : this.movieQuestionnaire
+            });
+    };
     FirstQuestionnaireComponent.prototype.movieConfirm = function () {
         var _this = this;
         this.showSpinner = true;
+        this.storePreviousMovie(false);
         // Save data in DB
         if (this.movieQuestionnaire)
             this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
-                _this.firstQuestionnaireService.getFirstQuestionnaireMovie(_this.translate.currentLang).subscribe(function (response) {
-                    _this.movie = response.json();
-                    _this.movieIndex++;
-                    if (_this.questionAnswered >= 11) {
-                        _this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(function (response) {
-                            _this.questionAnswered++;
-                            _this.showSpinner = false;
-                        }, function (error) {
-                            _this.router.navigate(['error']);
-                        });
-                    }
-                    else {
-                        _this.questionAnswered++;
+                _this.questionAnswered++;
+                // Check if we need to show more movies
+                if (_this.questionAnswered >= 12) {
+                    _this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(function (response) {
                         _this.showSpinner = false;
-                    }
-                }, function (error) {
-                    _this.router.navigate(['error']);
-                });
+                    }, function (error) {
+                        _this.router.navigate(['error']);
+                    });
+                }
+                else {
+                    _this.showNextMovie();
+                }
             }, function (error) {
                 _this.router.navigate(['error']);
             });

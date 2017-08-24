@@ -8,7 +8,7 @@ var movieQuestionnaireRoutes = function () {
 
     movieQuestionnaireRouter.route('/')
         .get(isAuthenticated, movieQuestionnaireController.getAll)
-        .post(isAuthenticated, movieQuestionnaireController.create);
+        .post(isAuthenticated, movieQuestionnaireController.createOrUpdate);
 
     return movieQuestionnaireRouter;
 }

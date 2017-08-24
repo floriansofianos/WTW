@@ -26,7 +26,7 @@
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
     <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 0 && states[2] && questionAnswered < 12">
-        <movie-questionnaire [movie]="movie" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
+        <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
             <wtw-button class="button-center" (click)="movieSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
@@ -35,7 +35,7 @@
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
     <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 1 && states[2] && questionAnswered < 12">
-        <movie-questionnaire [movie]="movie" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
+        <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
             <wtw-button class="button-center" (click)="movieSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
