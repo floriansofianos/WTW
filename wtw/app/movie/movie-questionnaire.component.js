@@ -35,6 +35,13 @@ var MovieQuestionnaireComponent = (function () {
         }
     };
     MovieQuestionnaireComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.translate.get('MOVIE_QUESTIONNAIRE.DIRECTOR').subscribe(function (res) {
+            _this.jobDirector = res;
+        });
+        this.translate.get('MOVIE_QUESTIONNAIRE.WRITER').subscribe(function (res) {
+            _this.jobWriter = res;
+        });
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; }) : '') : '';
         this.movieSeen = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.isSeen : false;
@@ -66,12 +73,6 @@ var MovieQuestionnaireComponent = (function () {
         }
         else
             return null;
-    };
-    MovieQuestionnaireComponent.prototype.isImgProfile = function (file) {
-        if (file === null || file === '')
-            return false;
-        else
-            return true;
     };
     MovieQuestionnaireComponent.prototype.onChange = function () {
         this.notify.emit({

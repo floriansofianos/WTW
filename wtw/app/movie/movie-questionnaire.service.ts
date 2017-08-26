@@ -18,6 +18,11 @@ export class MovieQuestionnaireService {
             .catch(this.handleErrors);
     }
 
+    getCast(id: number): Observable<any> {
+        return this.http.get('/api/cast?id=' + id)
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

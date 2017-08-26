@@ -43,6 +43,8 @@ let System: any
             'nouislider': 'npm:nouislider',
             'ng2-nouislider': 'npm:ng2-nouislider',
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
+            'ngx-modialog': 'npm:ngx-modialog/bundle/ngx-modialog.rollup.umd.min.js',
+            'ngx-modialog/plugins/bootstrap': 'npm:ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.rollup.umd.min.js',
             'libphonenumber-js': 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js'
         },
         // packages tells the System loader how to load when no filename and/or no extension

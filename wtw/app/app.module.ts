@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MdProgressBarModule } from '@angular/material'
 import { StarRatingModule } from 'angular-star-rating';
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { APP_INITIALIZER } from '@angular/core';
 
 import { appRoutes } from './routes';
@@ -27,6 +29,7 @@ import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.compo
 import { FirstQuestionnaireComponent } from './first-questionnaire/first-questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
+import { CastMemberComponent } from './movie/cast-member.component';
 
 import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
@@ -55,6 +58,8 @@ export function createTranslateLoader(http: Http) {
             UiSwitchModule,
             NouisliderModule,
             StarRatingModule,
+            ModalModule.forRoot(),
+            BootstrapModalModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
@@ -75,7 +80,8 @@ export function createTranslateLoader(http: Http) {
         UserWelcomePageComponent,
         FirstQuestionnaireComponent,
         WtwButtonComponent,
-        MovieQuestionnaireComponent],
+        MovieQuestionnaireComponent,
+        CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,
         MovieQuestionnaireService,

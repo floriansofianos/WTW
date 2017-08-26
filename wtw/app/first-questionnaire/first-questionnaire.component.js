@@ -32,12 +32,17 @@ var FirstQuestionnaireComponent = (function () {
             this.age = currentUser.age;
         else
             this.age = 30;
+        this.username = currentUser.username;
+        this.welcomeMessage = true;
         this.movieIndex = -1;
         this.questionAnswered = 0;
         if (currentUser.firstQuestionnaireCompleted) {
             this.questionAnswered = 12;
             this.setStateActive(2);
         }
+    };
+    FirstQuestionnaireComponent.prototype.welcomeMessageOK = function () {
+        this.welcomeMessage = false;
     };
     FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);

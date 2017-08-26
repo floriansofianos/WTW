@@ -47,12 +47,16 @@ export class FirstQuestionnaireComponent {
     movieIndex: number
     questionAnswered: number
     previousMovies: any = [];
-    movieQuestionnaireInit: any
+    movieQuestionnaireInit: any;
+    welcomeMessage: boolean;
+    username: string;
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.age) this.age = currentUser.age;
         else this.age = 30;
+        this.username = currentUser.username;
+        this.welcomeMessage = true;
         this.movieIndex = -1;
         this.questionAnswered = 0;
         if (currentUser.firstQuestionnaireCompleted) {
@@ -64,6 +68,10 @@ export class FirstQuestionnaireComponent {
     states: string[] = ['active', null, null];
     age: number;
     showSpinner: boolean;
+
+    welcomeMessageOK() {
+        this.welcomeMessage = false;
+    }
 
     setTranslation(lang: string) {
         this.translate.use(lang);

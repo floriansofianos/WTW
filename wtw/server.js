@@ -5,6 +5,7 @@ var authRouter = require('./lib/routes/authRoutes')();
 var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')();
 var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoutes')();
 var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')();
+var castRouter = require('./lib/routes/castRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -59,6 +60,7 @@ app.use('/auth', authRouter);
 app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
 app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
+app.use('/api/cast', castRouter);
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');

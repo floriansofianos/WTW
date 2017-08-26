@@ -69,9 +69,19 @@ module.exports = function () {
         return cache.get('movieDBConfiguration');
     }
 
+    var getCast = function (id, done) {
+        mdb.personMovieCredits({ id: id }, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        })
+    }
+
     return {
         getFirstTenMovies: getFirstTenMovies,
         loadConfiguration: loadConfiguration,
-        getConfiguration: getConfiguration
+        getConfiguration: getConfiguration,
+        getCast: getCast
     }
 }

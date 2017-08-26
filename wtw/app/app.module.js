@@ -17,6 +17,8 @@ var forms_1 = require("@angular/forms");
 var forms_2 = require("@angular/forms");
 var material_1 = require("@angular/material");
 var angular_star_rating_1 = require("angular-star-rating");
+var ngx_modialog_1 = require("ngx-modialog");
+var bootstrap_1 = require("ngx-modialog/plugins/bootstrap");
 var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
@@ -33,6 +35,7 @@ var user_welcome_page_component_1 = require("./user-welcome/user-welcome-page.co
 var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
+var cast_member_component_1 = require("./movie/cast-member.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var angular2_ui_switch_1 = require("angular2-ui-switch");
 var ng2_nouislider_1 = require("ng2-nouislider");
@@ -61,6 +64,8 @@ var AppModule = (function () {
                 angular2_ui_switch_1.UiSwitchModule,
                 ng2_nouislider_1.NouisliderModule,
                 angular_star_rating_1.StarRatingModule,
+                ngx_modialog_1.ModalModule.forRoot(),
+                bootstrap_1.BootstrapModalModule,
                 core_2.TranslateModule.forRoot({
                     loader: {
                         provide: core_2.TranslateLoader,
@@ -81,7 +86,8 @@ var AppModule = (function () {
                 user_welcome_page_component_1.UserWelcomePageComponent,
                 first_questionnaire_component_1.FirstQuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent,
-                movie_questionnaire_component_1.MovieQuestionnaireComponent],
+                movie_questionnaire_component_1.MovieQuestionnaireComponent,
+                cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 first_questionnaire_service_1.FirstQuestionnaireService,
                 movie_questionnaire_service_1.MovieQuestionnaireService,

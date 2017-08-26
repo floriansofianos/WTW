@@ -24,6 +24,10 @@ var MovieQuestionnaireService = (function () {
         return this.http.get('/api/movieQuestionnaire')
             .catch(this.handleErrors);
     };
+    MovieQuestionnaireService.prototype.getCast = function (id) {
+        return this.http.get('/api/cast?id=' + id)
+            .catch(this.handleErrors);
+    };
     MovieQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };

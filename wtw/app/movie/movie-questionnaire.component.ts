@@ -21,6 +21,8 @@ export class MovieQuestionnaireComponent {
     sliderConfiguration: any;
     wantToWatch: boolean;
     labelRating: string;
+    jobDirector: string;
+    jobWriter: string;
 
     constructor(private domSanitizer: DomSanitizer, private translate: TranslateService) { }
 
@@ -34,6 +36,12 @@ export class MovieQuestionnaireComponent {
     }
 
     ngOnInit() {
+        this.translate.get('MOVIE_QUESTIONNAIRE.DIRECTOR').subscribe((res: string) => {
+            this.jobDirector = res;
+        });
+        this.translate.get('MOVIE_QUESTIONNAIRE.WRITER').subscribe((res: string) => {
+            this.jobWriter = res;
+        });
         this.trailerUrl = this.getMovieVideo();
         this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(a => a.name).reduce((a, b) => a + ', ' + b) : '') : '';
         this.movieSeen = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.isSeen : false;
@@ -74,11 +82,6 @@ export class MovieQuestionnaireComponent {
             return this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + trailers[0].key + '?ecver=2');
         }
         else return null;
-    }
-
-    isImgProfile(file: string) {
-        if (file === null || file === '') return false;
-        else return true;
     }
 
     onChange() {

@@ -15,26 +15,17 @@
                         <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.directors.length > 2 }">
                             <div class="cast-card" *ngFor="let director of movie.directors">
-                                <img *ngIf="isImgProfile(director.profile_path)" width="90" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ director.profile_path }}" />
-                                <div class="person-image" *ngIf="!isImgProfile(director.profile_path)"></div>
-                                <div class="main-name">{{ director.name }}</div>
-                                <div class="name-sub">{{ 'MOVIE_QUESTIONNAIRE.DIRECTOR' | translate }}</div>
+                                <cast-member [config]="config" [castMember]="director" [job]="jobDirector"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.writers.length > 2 }">
                             <div class="cast-card" *ngFor="let writer of movie.writers">
-                                <img width="90" *ngIf="isImgProfile(writer.profile_path)" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ writer.profile_path }}" />
-                                <div class="person-image" *ngIf="!isImgProfile(writer.profile_path)"></div>
-                                <div class="main-name">{{ writer.name }}</div>
-                                <div class="name-sub">{{ 'MOVIE_QUESTIONNAIRE.WRITER' | translate }}</div>
+                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.actors.length > 2 }">
                             <div class="cast-card" *ngFor="let actor of movie.actors">
-                                <img width="90" *ngIf="isImgProfile(actor.profile_path)" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ actor.profile_path }}" />
-                                <div class="person-image" *ngIf="!isImgProfile(actor.profile_path)"></div>
-                                <div class="main-name">{{ actor.name }}</div>
-                                <div class="name-sub">{{ actor.character }}</div>
+                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character"></cast-member>
                             </div>
                         </div>
                     </div>

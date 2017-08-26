@@ -30,11 +30,12 @@
     }
   },
   "FIRST_QUESTIONNAIRE": {
-      "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
-      "AGE_QUESTION": "What is your age?",
-      "DONE": "Thank you for answering this first questionnaire.",
-      "GO_TO": "You can now go to your ",
-      "HOMEPAGE": "homepage"
+    "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
+    "AGE_QUESTION": "What is your age?",
+    "DONE": "Thank you for answering this first questionnaire.",
+    "GO_TO": "You can now go to your ",
+    "HOMEPAGE": "homepage",
+    "WELCOME_MESSAGE":  "Please answer those few questions. They will help us create your personal recommandations."
   },
   "MOVIE_QUESTIONNAIRE": {
       "CAST": "Cast",
