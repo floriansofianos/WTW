@@ -1,4 +1,4 @@
 ﻿<img *ngIf="isImgProfile(castMember.profile_path)" width="90" src="{{ config.images.base_url }}{{ config.images.profile_sizes[1] }}{{ castMember.profile_path }}" />
 <div class="person-image" *ngIf="!isImgProfile(castMember.profile_path)"></div>
-<div class="main-name">{{ castMember.name }}<i class="fa fa-eye" (click)="modalCast()"></i></div>
+<div class="main-name" (click)="modalCast()">{{ castMember.name }}</div>
 <div class="name-sub">{{ job }}</div>

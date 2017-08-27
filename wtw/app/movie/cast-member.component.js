@@ -13,11 +13,13 @@ var core_1 = require("@angular/core");
 var bootstrap_1 = require("ngx-modialog/plugins/bootstrap");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var router_1 = require("@angular/router");
+var core_2 = require("@ngx-translate/core");
 var CastMemberComponent = (function () {
-    function CastMemberComponent(modal, movieQuestionnaireService, router) {
+    function CastMemberComponent(modal, movieQuestionnaireService, router, translate) {
         this.modal = modal;
         this.movieQuestionnaireService = movieQuestionnaireService;
         this.router = router;
+        this.translate = translate;
     }
     CastMemberComponent.prototype.isImgProfile = function (file) {
         if (file === null || file === '')
@@ -29,15 +31,37 @@ var CastMemberComponent = (function () {
         var _this = this;
         this.movieQuestionnaireService.getCast(this.castMember.id).subscribe(function (response) {
             var details = response.json();
+            var modalTitle = _this.isCrew ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
             _this.modal.alert()
                 .size('lg')
                 .showClose(true)
                 .title(_this.castMember.name)
-                .body("\n            <div class=\"movie-poster-container\"><img width=\"200\" src=\"" + _this.config.images.base_url + _this.config.images.poster_sizes[3] + details.cast[0].poster_path + "\" /></div>\n            <h4>" + details.cast[0].character + "</h4>\n            ")
+                .body("\n            <div><h4>" + modalTitle + "</h4></div>\n            <div class=\"modal-movies-container\">\n            " + _this.getAllMoviesHtml(details) + "\n            </div>\n            ")
                 .open();
         }, function (error) {
             _this.router.navigate(['error']);
         });
+    };
+    CastMemberComponent.prototype.getPosterHtml = function (movie) {
+        return "\n            <div class=\"movie-poster-container\">\n                <img width=\"200\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.isCrew ? this.job : movie.character) + "</div>\n            </div>\n            ";
+    };
+    CastMemberComponent.prototype.getAllMoviesHtml = function (details) {
+        var movies = [];
+        if (this.isCrew) {
+            for (var i = 0; i < Math.min(details.crew.length, 5); i++) {
+                movies.push(details.crew[i]);
+            }
+        }
+        else {
+            for (var i = 0; i < Math.min(details.cast.length, 5); i++) {
+                movies.push(details.cast[i]);
+            }
+        }
+        var result = '';
+        for (var i = 0; i < movies.length; i++) {
+            result += this.getPosterHtml(movies[i]);
+        }
+        return result;
     };
     __decorate([
         core_1.Input(),
@@ -51,13 +75,17 @@ var CastMemberComponent = (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], CastMemberComponent.prototype, "job", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], CastMemberComponent.prototype, "isCrew", void 0);
     CastMemberComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'cast-member',
             templateUrl: 'cast-member.component.html'
         }),
-        __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router])
+        __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router, core_2.TranslateService])
     ], CastMemberComponent);
     return CastMemberComponent;
 }());

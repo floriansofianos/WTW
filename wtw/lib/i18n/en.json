@@ -35,7 +35,11 @@
     "DONE": "Thank you for answering this first questionnaire.",
     "GO_TO": "You can now go to your ",
     "HOMEPAGE": "homepage",
-    "WELCOME_MESSAGE":  "Please answer those few questions. They will help us create your personal recommandations."
+    "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations."
+  },
+  "CAST": {
+    "ALSO_KNOWN": "Also known for:",
+    "ALSO_SEEN": "Also seen in:"
   },
   "MOVIE_QUESTIONNAIRE": {
       "CAST": "Cast",
