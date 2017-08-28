@@ -36,11 +36,11 @@ var CastMemberComponent = (function () {
             .title(this.castMember.name);
         var modalWindowLoadingPromise = modalWindowConfig
             .okBtnClass('hidden')
-            .body("\n            <i class=\"fa fa-circle-o-notch fa-spin\"></i>")
+            .body("\n            <div class=\"loading-container\"><i class=\"fa fa-circle-o-notch fa-spin\"></i></div>")
             .open();
         this.movieQuestionnaireService.getCast(this.castMember.id).subscribe(function (response) {
             var details = response.json();
-            var modalTitleObservable = _this.isCrew ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
+            var modalTitleObservable = _this.crewType < 2 ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
             var modalTitle = '';
             modalTitleObservable.subscribe(function (response) {
                 modalTitle = response;
@@ -59,17 +59,28 @@ var CastMemberComponent = (function () {
         });
     };
     CastMemberComponent.prototype.getPosterHtml = function (movie) {
-        return "\n            <div class=\"movie-poster-container\">\n                <img width=\"150\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.isCrew ? this.job : movie.character) + "</div>\n            </div>\n            ";
+        return "\n            <div class=\"movie-poster-container\">\n                <img width=\"150\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.crewType < 2 ? this.job : movie.character) + "</div>\n            </div>\n            ";
     };
     CastMemberComponent.prototype.getAllMoviesHtml = function (details) {
-        var movies = this.isCrew ? details.crew : details.cast;
+        var movies = this.crewType < 2 ? details.crew : details.cast;
         var movieId = this.currentMovieId;
         var moviesFiltered = _.filter(movies, function (m) {
             return m.id !== movieId;
         });
+        if (this.crewType === 0) {
+            moviesFiltered = _.filter(moviesFiltered, function (m) {
+                return m.job === 'Director';
+            });
+        }
+        if (this.crewType === 1) {
+            moviesFiltered = _.filter(moviesFiltered, function (m) {
+                return m.job === 'Screenplay' || m.job === 'Writer';
+            });
+        }
+        moviesFiltered = _.sortBy(moviesFiltered, 'popularity').reverse();
         var result = '';
         for (var i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
-            result += this.getPosterHtml(movies[i]);
+            result += this.getPosterHtml(moviesFiltered[i]);
         }
         return result;
     };
@@ -87,8 +98,8 @@ var CastMemberComponent = (function () {
     ], CastMemberComponent.prototype, "job", void 0);
     __decorate([
         core_1.Input(),
-        __metadata("design:type", Boolean)
-    ], CastMemberComponent.prototype, "isCrew", void 0);
+        __metadata("design:type", Number)
+    ], CastMemberComponent.prototype, "crewType", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number)

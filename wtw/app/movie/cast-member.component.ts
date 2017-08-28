@@ -16,7 +16,7 @@ export class CastMemberComponent {
     @Input() castMember: any;
     @Input() config: any;
     @Input() job: string;
-    @Input() isCrew: boolean;
+    @Input() crewType: number;
     @Input() currentMovieId: number;
 
     constructor(private modal: Modal, private movieQuestionnaireService: MovieQuestionnaireService, private router: Router, private translate: TranslateService) { }
@@ -35,11 +35,11 @@ export class CastMemberComponent {
             modalWindowConfig
             .okBtnClass('hidden')
             .body(`
-            <i class="fa fa-circle-o-notch fa-spin"></i>`)
+            <div class="loading-container"><i class="fa fa-circle-o-notch fa-spin"></i></div>`)
                 .open();
         this.movieQuestionnaireService.getCast(this.castMember.id).subscribe(response => {
             let details = response.json();
-            let modalTitleObservable = this.isCrew ? this.translate.get('CAST.ALSO_KNOWN') : this.translate.get('CAST.ALSO_SEEN');
+            let modalTitleObservable = this.crewType < 2 ? this.translate.get('CAST.ALSO_KNOWN') : this.translate.get('CAST.ALSO_SEEN');
             let modalTitle = '';
             modalTitleObservable.subscribe(response => {
                 modalTitle = response;
@@ -68,20 +68,31 @@ export class CastMemberComponent {
             <div class="movie-poster-container">
                 <img width="150" src="` + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + `" />
                 <div class="modal-movie-title">` + movie.title + `</div>
-                <div class="modal-movie-job">` + (this.isCrew ? this.job : movie.character) + `</div>
+                <div class="modal-movie-job">` + (this.crewType < 2 ? this.job : movie.character) + `</div>
             </div>
             `
     }
 
     getAllMoviesHtml(details: any) {
-        let movies = this.isCrew ? details.crew : details.cast;
+        let movies = this.crewType < 2 ? details.crew : details.cast;
         let movieId = this.currentMovieId;
         let moviesFiltered = _.filter(movies, function (m) {
             return m.id !== movieId;
         });
+        if (this.crewType === 0) {
+            moviesFiltered = _.filter(moviesFiltered, function (m) {
+                return m.job === 'Director';
+            });
+        }
+        if (this.crewType === 1) {
+            moviesFiltered = _.filter(moviesFiltered, function (m) {
+                return m.job === 'Screenplay' || m.job === 'Writer';
+            });
+        }
+        moviesFiltered = _.sortBy(moviesFiltered, 'popularity').reverse();
         let result = '';
         for (let i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
-            result += this.getPosterHtml(movies[i]);
+            result += this.getPosterHtml(moviesFiltered[i]);
         }
         return result;
     }
