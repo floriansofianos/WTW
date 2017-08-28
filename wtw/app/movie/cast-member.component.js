@@ -14,6 +14,7 @@ var bootstrap_1 = require("ngx-modialog/plugins/bootstrap");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
+var _ = require("underscore");
 var CastMemberComponent = (function () {
     function CastMemberComponent(modal, movieQuestionnaireService, router, translate) {
         this.modal = modal;
@@ -29,36 +30,45 @@ var CastMemberComponent = (function () {
     };
     CastMemberComponent.prototype.modalCast = function () {
         var _this = this;
+        var modalWindowConfig = this.modal.alert()
+            .size('lg')
+            .showClose(true)
+            .title(this.castMember.name);
+        var modalWindowLoadingPromise = modalWindowConfig
+            .okBtnClass('hidden')
+            .body("\n            <i class=\"fa fa-circle-o-notch fa-spin\"></i>")
+            .open();
         this.movieQuestionnaireService.getCast(this.castMember.id).subscribe(function (response) {
             var details = response.json();
-            var modalTitle = _this.isCrew ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
-            _this.modal.alert()
-                .size('lg')
-                .showClose(true)
-                .title(_this.castMember.name)
-                .body("\n            <div><h4>" + modalTitle + "</h4></div>\n            <div class=\"modal-movies-container\">\n            " + _this.getAllMoviesHtml(details) + "\n            </div>\n            ")
+            var modalTitleObservable = _this.isCrew ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
+            var modalTitle = '';
+            modalTitleObservable.subscribe(function (response) {
+                modalTitle = response;
+            });
+            // Close the loading modal window
+            modalWindowLoadingPromise.then(function (response) {
+                response.close();
+            });
+            // Open a new one
+            modalWindowConfig
+                .okBtnClass('button')
+                .body("\n             <div><h4>" + modalTitle + "</h4></div>\n                        <div class=\"modal-movies-container\">\n                        " + _this.getAllMoviesHtml(details) + "\n                        </div>")
                 .open();
         }, function (error) {
             _this.router.navigate(['error']);
         });
     };
     CastMemberComponent.prototype.getPosterHtml = function (movie) {
-        return "\n            <div class=\"movie-poster-container\">\n                <img width=\"200\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.isCrew ? this.job : movie.character) + "</div>\n            </div>\n            ";
+        return "\n            <div class=\"movie-poster-container\">\n                <img width=\"150\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.isCrew ? this.job : movie.character) + "</div>\n            </div>\n            ";
     };
     CastMemberComponent.prototype.getAllMoviesHtml = function (details) {
-        var movies = [];
-        if (this.isCrew) {
-            for (var i = 0; i < Math.min(details.crew.length, 5); i++) {
-                movies.push(details.crew[i]);
-            }
-        }
-        else {
-            for (var i = 0; i < Math.min(details.cast.length, 5); i++) {
-                movies.push(details.cast[i]);
-            }
-        }
+        var movies = this.isCrew ? details.crew : details.cast;
+        var movieId = this.currentMovieId;
+        var moviesFiltered = _.filter(movies, function (m) {
+            return m.id !== movieId;
+        });
         var result = '';
-        for (var i = 0; i < movies.length; i++) {
+        for (var i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
             result += this.getPosterHtml(movies[i]);
         }
         return result;
@@ -79,6 +89,10 @@ var CastMemberComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Boolean)
     ], CastMemberComponent.prototype, "isCrew", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Number)
+    ], CastMemberComponent.prototype, "currentMovieId", void 0);
     CastMemberComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

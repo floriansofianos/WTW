@@ -115,9 +115,9 @@
     <Content Include="lib\routes\firstQuestionnaireRoutes.js" />
     <Content Include="lib\routes\testRoutes.js" />
     <Content Include="lib\routes\movieQuestionnaireRoutes.js" />
-    <Compile Include="lib\routes\castRoutes.js">
+    <Content Include="lib\routes\castRoutes.js">
       <SubType>Code</SubType>
-    </Compile>
+    </Content>
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>

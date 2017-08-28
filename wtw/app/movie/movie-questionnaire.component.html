@@ -15,17 +15,17 @@
                         <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.directors.length > 2 }">
                             <div class="cast-card" *ngFor="let director of movie.directors">
-                                <cast-member [config]="config" [castMember]="director" [job]="jobDirector" [isCrew]="true"></cast-member>
+                                <cast-member [config]="config" [castMember]="director" [job]="jobDirector" [isCrew]="true" [currentMovieId]="movie?.id"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.writers.length > 2 }">
                             <div class="cast-card" *ngFor="let writer of movie.writers">
-                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [isCrew]="true"></cast-member>
+                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [isCrew]="true" [currentMovieId]="movie?.id"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.actors.length > 2 }">
                             <div class="cast-card" *ngFor="let actor of movie.actors">
-                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [isCrew]="false"></cast-member>
+                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [isCrew]="false" [currentMovieId]="movie?.id"></cast-member>
                             </div>
                         </div>
                     </div>

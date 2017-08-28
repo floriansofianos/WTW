@@ -9,7 +9,6 @@ var $ = require('gulp-load-plugins')({
 });
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
-var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var karmaServer = require('karma').Server;
 var exec = require('child_process').exec;

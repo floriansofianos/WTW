@@ -527,8 +527,45 @@ em {
 }
 
 .modal-movies-container {
-    display: flex;
     .movie-poster-container {
         margin-right: 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        max-width: 150px;
+    }
+}
+
+modal-content {
+    line-height: 16px;
+    .modal-body {
+        background-color: #2f2f2f;
+        h4 {
+            margin-bottom: 0;
+        }
+        .modal-movie-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 5px;
+            margin-bottom: 3px;
+        }
+        .fa-circle-o-notch {
+            text-align: center;
+            font-size: 50px;
+            font-weight: 100;
+        }
+    }
+    .modal-header {
+        background-color: #2f2f2f;
+    }
+    .modal-footer {
+        background-color: #2f2f2f;
+        border: none;
+        text-align: center;
+    }
+    button.close {
+        color: #e1e1e1;
+    }
+    button.close:hover {
+        color: white;
     }
 }
