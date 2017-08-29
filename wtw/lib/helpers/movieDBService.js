@@ -1,8 +1,9 @@
 ﻿var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
 var library = require('../helpers/library')();
 var cache = require('memory-cache');
+var date = require('date-and-time');
 var _ = require('underscore');
-
+var models = require('../models');
 
 module.exports = function () {
     var getFirstTenMovies = function (lang, done) {
@@ -11,8 +12,7 @@ module.exports = function () {
             if (err) return done(err, null);
             var movieId = data.results[library.randomInt(0, data.results.length)].id;
 
-            // Retrieve all the information about this movie
-            mdb.movieInfo({ id: movieId, language: lang }, (err, data) => {
+            getMovie(movieId, lang, (err, data) => {
                 if (err) return done(err, null);
                 // Retrieve the trailer if available
                 var movie = data;
@@ -31,9 +31,77 @@ module.exports = function () {
                     }
                     else return done(null, movie);
                 });
-            })
+            });
         });
     };
+
+    /// Gets a movie from Cache or movieDB if not cached
+    var getMovie = function (id, lang, done) {
+        getMovieFromCache(id, lang, (err, movie) => {
+            if (movie) {
+                if (date.addYears(movie.updatedAt, 1) > new Date()) return done(null, movie.data);
+                else {
+                    getMovieFromMovieDB(id, lang, movie, (err, movie) => {
+                        if (err) return done(err, null);
+                        else return done(null, movie);
+                    });
+                }
+            }
+            else {
+                // Retrieve all the information about this movie
+                getMovieFromMovieDB(id, lang, null, (err, movie) => {
+                    if (err) return done(err, null);
+                    else return done(null, movie);
+                });
+            }
+        });
+    }
+
+    var getMovieFromMovieDB = function (id, lang, movieCache, done) {
+        mdb.movieInfo({ id: id, language: lang }, (err, data) => {
+            if (err) return done(err, null);
+            var movie = data;
+            if (!movieCache) {
+                setMovieCache(id, lang, movie, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, movie);
+                });
+            }
+            else {
+                movieCache.data = movie;
+                movieCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, movie);
+                });
+            }            
+        });
+    }
+
+    var getMovieFromCache = function (id, lang, done) {
+        models.MovieInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(movie => {
+            done(null, movie);
+        });
+    }
+
+    var setMovieCache = function (id, lang, data, done) {
+        models.MovieInfoCache.create({
+            movieDBId: id,
+            lang: lang,
+            data: data
+        }).then(movieCache => {
+            done(null, movieCache);
+        });
+    }
+
+    var updateMovieCache = function (id, lang, data, done) {
+        models.MovieInfoCache.create({
+            movieDBId: id,
+            lang: lang,
+            data: data
+        }).then(movieCache => {
+            done(null, movieCache);
+        });
+    }
 
     var getActors = function (credits) {
         return credits.cast.slice(0, Math.min(5, credits.cast.length));
