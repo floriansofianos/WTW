@@ -57,6 +57,7 @@ module.exports = function () {
         });
     }
 
+    /// Gets a movie from movieDB and sets the cache
     var getMovieFromMovieDB = function (id, lang, movieCache, done) {
         mdb.movieInfo({ id: id, language: lang }, (err, data) => {
             if (err) return done(err, null);
@@ -93,14 +94,8 @@ module.exports = function () {
         });
     }
 
-    var updateMovieCache = function (id, lang, data, done) {
-        models.MovieInfoCache.create({
-            movieDBId: id,
-            lang: lang,
-            data: data
-        }).then(movieCache => {
-            done(null, movieCache);
-        });
+    var getMovieTrailer = function (movie, id) {
+
     }
 
     var getActors = function (credits) {
