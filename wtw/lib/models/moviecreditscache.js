@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var MovieVideoCache = sequelize.define('MovieVideoCache', {
+  var MovieCreditsCache = sequelize.define('MovieCreditsCache', {
     movieDBId: DataTypes.INTEGER,
     data: DataTypes.JSON
   }, {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return MovieVideoCache;
+  return MovieCreditsCache;
 };

@@ -108,8 +108,10 @@
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
     <Compile Include="lib\models\index.js" />
+    <Compile Include="lib\models\moviecreditscache.js" />
     <Compile Include="lib\models\movieinfocache.js" />
     <Compile Include="lib\models\moviequestionnaire.js" />
+    <Compile Include="lib\models\movievideocache.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />

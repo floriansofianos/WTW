@@ -16,11 +16,11 @@ module.exports = function () {
                 if (err) return done(err, null);
                 // Retrieve the trailer if available
                 var movie = data;
-                mdb.movieVideos({ id: movieId }, (err, data) => {
+                getMovieTrailer(movieId, (err, data) => {
                     if (!err) {
                         movie.trailers = data.results;
                         // Retrieve the cast if available
-                        mdb.movieCredits({ id: movieId }, (err, data) => {
+                        getMovieCredits(movieId, (err, data) => {
                             if (!err) {
                                 movie.actors = getActors(data);
                                 movie.directors = getDirectors(data);
@@ -94,8 +94,118 @@ module.exports = function () {
         });
     }
 
-    var getMovieTrailer = function (movie, id) {
+    var getMovieTrailer = function (id, done) {
+        getMovieTrailersFromCache(id, (err, trailers) => {
+            if (trailers) {
+                if (date.addYears(trailers.updatedAt, 1) > new Date()) return done(null, trailers.data);
+                else {
+                    getMovieTrailersFromMovieDB(id, trailers, (err, trailers) => {
+                        if (err) return done(err, null);
+                        else return done(null, trailers);
+                    });
+                }
+            }
+            else {
+                // Retrieve all the information about this movie
+                getMovieTrailersFromMovieDB(id, null, (err, trailers) => {
+                    if (err) return done(err, null);
+                    else return done(null, trailers);
+                });
+            }
+        });
+    }
 
+    /// Gets trailers from movieDB and sets the cache
+    var getMovieTrailersFromMovieDB = function (id, trailersCache, done) {
+        mdb.movieVideos({ id: id }, (err, data) => {
+            if (err) return done(err, null);
+            var trailers = data;
+            if (!trailersCache) {
+                setMovieTrailersCache(id, trailers, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, trailers);
+                });
+            }
+            else {
+                trailersCache.data = trailers;
+                trailersCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, trailers);
+                });
+            }
+        });
+    }
+
+    var getMovieTrailersFromCache = function (id, done) {
+        models.MovieVideoCache.findOne({ where: { movieDBId: id } }).then(trailers => {
+            done(null, trailers);
+        });
+    }
+
+    var setMovieTrailersCache = function (id, data, done) {
+        models.MovieVideoCache.create({
+            movieDBId: id,
+            data: data
+        }).then(trailersCache => {
+            done(null, trailersCache);
+        });
+    }
+
+    var getMovieCredits = function (id, done) {
+        getMovieCreditsFromCache(id, (err, credits) => {
+            if (credits) {
+                if (date.addYears(credits.updatedAt, 1) > new Date()) return done(null, credits.data);
+                else {
+                    getMovieCreditsFromMovieDB(id, credits, (err, credits) => {
+                        if (err) return done(err, null);
+                        else return done(null, credits);
+                    });
+                }
+            }
+            else {
+                // Retrieve all the information about this movie
+                getMovieCreditsFromMovieDB(id, null, (err, credits) => {
+                    if (err) return done(err, null);
+                    else return done(null, credits);
+                });
+            }
+        });
+    }
+
+    /// Gets trailers from movieDB and sets the cache
+    var getMovieCreditsFromMovieDB = function (id, creditsCache, done) {
+        mdb.movieCredits({ id: id }, (err, data) => {
+            if (err) return done(err, null);
+            var credits = data;
+            if (!creditsCache) {
+                setMovieTrailersCache(id, credits, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, credits);
+                });
+            }
+            else {
+                creditsCache.data = credits;
+                creditsCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, credits);
+                });
+            }
+        });
+    }
+
+    var getMovieCreditsFromCache = function (id, done) {
+        models.MovieCreditsCache.findOne({ where: { movieDBId: id } }).then(credits => {
+            done(null, credits);
+        });
+    }
+
+    var setMovieCreditsCache = function (id, data, done) {
+        models.MovieCreditsCache.create({
+            movieDBId: id,
+            data: data
+        }).then(creditsCache => {
+            done(null, creditsCache);
+        });
     }
 
     var getActors = function (credits) {
@@ -133,13 +243,63 @@ module.exports = function () {
     }
 
     var getCast = function (id, done) {
+        getCastFromCache(id, (err, cast) => {
+            if (cast) {
+                if (date.addMonths(cast.updatedAt, 1) > new Date()) return done(null, cast.data);
+                else {
+                    getCastFromMovieDB(id, cast, (err, cast) => {
+                        if (err) return done(err, null);
+                        else return done(null, cast);
+                    });
+                }
+            }
+            else {
+                // Retrieve all the information about this movie
+                getCastFromMovieDB(id, null, (err, cast) => {
+                    if (err) return done(err, null);
+                    else return done(null, cast);
+                });
+            }
+        });
+    }
+
+    /// Gets cast from movieDB and sets the cache
+    var getCastFromMovieDB = function (id, castCache, done) {
         mdb.personMovieCredits({ id: id }, (err, data) => {
             if (err) return done(err, null);
-            else {
-                return done(null, data);
+            var cast = data;
+            if (!castCache) {
+                setCastCache(id, cast, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, cast);
+                });
             }
-        })
+            else {
+                castCache.data = cast;
+                castCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, cast);
+                });
+            }
+        });
     }
+
+    var getCastFromCache = function (id, done) {
+        models.CastCache.findOne({ where: { movieDBId: id } }).then(cast => {
+            done(null, cast);
+        });
+    }
+
+    var setCastCache = function (id, data, done) {
+        models.CastCache.create({
+            movieDBId: id,
+            data: data
+        }).then(castCache => {
+            done(null, castCache);
+        });
+    }
+
+    
 
     return {
         getFirstTenMovies: getFirstTenMovies,
