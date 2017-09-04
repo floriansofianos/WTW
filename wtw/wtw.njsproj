@@ -37,6 +37,7 @@
   <ItemGroup>
     <Content Include="app\first-questionnaire\first-questionnaire.component.html" />
     <Content Include="app\login\login-form\login-form.component.html" />
+    <Content Include="app\logo\logo.component.html" />
     <Content Include="app\movie\cast-member.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -65,6 +66,9 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\login\login-form\login-form.component.ts" />
     <TypeScriptCompile Include="app\login\login-page.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="app\logo\logo.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\main-aot.ts" />
@@ -153,6 +157,7 @@
     <Folder Include="app\first-questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />
+    <Folder Include="app\logo\" />
     <Folder Include="app\user-welcome\" />
     <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />

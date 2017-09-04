@@ -30,7 +30,7 @@ import { FirstQuestionnaireComponent } from './first-questionnaire/first-questio
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { CastMemberComponent } from './movie/cast-member.component';
-
+import { LogoComponent } from './logo/logo.component';
 import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -81,6 +81,7 @@ export function createTranslateLoader(http: Http) {
         FirstQuestionnaireComponent,
         WtwButtonComponent,
         MovieQuestionnaireComponent,
+        LogoComponent,
         CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,

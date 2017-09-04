@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Component({
     template: `
+<logo></logo>
 <h2>{{ 'HOME.TITLE' | translate }}</h2>
 <div *ngIf="name">
 {{ 'HOME.WELCOME' | translate }} {{ name }}
