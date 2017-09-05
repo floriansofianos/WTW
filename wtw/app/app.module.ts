@@ -34,6 +34,7 @@ import { LogoComponent } from './logo/logo.component';
 import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
+import { TopMenuComponent } from './top-menu/top-menu.component'
 
 
 import { AuthService } from './auth/auth.service';
@@ -82,6 +83,7 @@ export function createTranslateLoader(http: Http) {
         WtwButtonComponent,
         MovieQuestionnaireComponent,
         LogoComponent,
+        TopMenuComponent,
         CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,

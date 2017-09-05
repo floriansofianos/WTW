@@ -2,8 +2,10 @@
 
 @Component({
     moduleId: module.id,
-    selector: 'logo',
-    templateUrl: 'logo.component.html'
+    selector: 'top-menu',
+    templateUrl: 'top-menu.component.html'
 })
 
-export class LogoComponent {}
+export class TopMenuComponent {
+    showMenus: boolean = false;
+}

@@ -40,6 +40,7 @@ var logo_component_1 = require("./logo/logo.component");
 var angular2_spinner_1 = require("angular2-spinner");
 var angular2_ui_switch_1 = require("angular2-ui-switch");
 var ng2_nouislider_1 = require("ng2-nouislider");
+var top_menu_component_1 = require("./top-menu/top-menu.component");
 var auth_service_1 = require("./auth/auth.service");
 var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -89,6 +90,7 @@ var AppModule = (function () {
                 wtw_button_component_1.WtwButtonComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
                 logo_component_1.LogoComponent,
+                top_menu_component_1.TopMenuComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 first_questionnaire_service_1.FirstQuestionnaireService,
