@@ -43,6 +43,7 @@
     </Content>
     <Content Include="app\movie\movie-questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
+    <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
@@ -145,6 +146,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />
+    <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
   </ItemGroup>
@@ -158,6 +160,7 @@
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />
     <Folder Include="app\logo\" />
+    <Folder Include="app\top-menu\" />
     <Folder Include="app\user-welcome\" />
     <Folder Include="app\user-home\" />
     <Folder Include="app\signup\" />
