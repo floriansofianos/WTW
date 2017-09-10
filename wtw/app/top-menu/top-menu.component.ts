@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -7,5 +7,5 @@
 })
 
 export class TopMenuComponent {
-    showMenus: boolean = false;
+    @Input() showButtons: boolean;
 }

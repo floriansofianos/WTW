@@ -1,7 +1,43 @@
 <div class="top-menu-container">
-   <logo></logo>
-    <div class="buttons-container" *ngIf="showButtons">
-        <div class="button"></div>
-    </div>
+   
+    <nav class="navbar navbar-inverse" *ngIf="showButtons">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a [routerLink]="'/'"><logo></logo></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">{{ 'TOP_MENU.HOME' | translate }}</a></li>
+                    <li><a href="#">What to watch</a></li>
+                    <li><a href="#">{{ 'TOP_MENU.MOVIES' | translate }}</a></li>
+                    <li><a href="#">{{ 'TOP_MENU.SOCIAL' | translate }}</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> {{ 'TOP_MENU.LOGOUT' | translate }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-inverse" *ngIf="!showButtons">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a><logo></logo></a>
+                <span class="logo-title">What To Watch</span>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ 'TOP_MENU.SIGN_UP' | translate }}</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'TOP_MENU.LOGIN' | translate }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 </div>

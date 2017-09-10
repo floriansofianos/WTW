@@ -29,12 +29,14 @@ var UserHomePageComponent = (function () {
             this.router.navigate(['']);
         }
     };
-    UserHomePageComponent = __decorate([
-        core_1.Component({
-            template: "\n<h2>{{ 'HOME.HELLO' | translate }} {{ username }}</h2>\n"
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-    ], UserHomePageComponent);
     return UserHomePageComponent;
 }());
+UserHomePageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-home-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+], UserHomePageComponent);
 exports.UserHomePageComponent = UserHomePageComponent;
+//# sourceMappingURL=user-home-page.component.js.map

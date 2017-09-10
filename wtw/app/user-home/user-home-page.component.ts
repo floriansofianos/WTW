@@ -3,9 +3,8 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-    template: `
-<h2>{{ 'HOME.HELLO' | translate }} {{ username }}</h2>
-`
+    moduleId: module.id,
+    templateUrl: 'user-home-page.component.html'
 })
 
 export class UserHomePageComponent {

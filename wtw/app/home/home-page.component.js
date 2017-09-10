@@ -22,7 +22,7 @@ var HomePageComponent = (function () {
     };
     HomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+            template: "\n<top-menu [showButtons]=\"false\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService])
     ], HomePageComponent);
