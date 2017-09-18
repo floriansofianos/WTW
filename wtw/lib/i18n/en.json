@@ -41,18 +41,26 @@
     "ALSO_KNOWN": "Also known for:",
     "ALSO_SEEN": "Also seen in:"
   },
+  "TOP_MENU": {
+    "SIGN_UP": "Sign Up",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "HOME": "Home",
+    "MOVIES": "Movies",
+    "SOCIAL":  "Social"
+  },
   "MOVIE_QUESTIONNAIRE": {
-      "CAST": "Cast",
-      "DIRECTOR": "Director",
-      "WRITER": "Writer",
-      "QUESTION_SEEN": "Have you seen that movie?",
-      "WOULD_LIKE_SEE": "Would you like to see this movie?",
-      "HOW_RATE": "How would you rate this movie?",
-      "POOR": "Poor",
-      "AVERAGE": "Average",
-      "GOOD": "Good",
-      "VERYGOOD": "Very Good",
-      "MASTERPIECE": "Masterpiece"
+    "CAST": "Cast",
+    "DIRECTOR": "Director",
+    "WRITER": "Writer",
+    "QUESTION_SEEN": "Have you seen that movie?",
+    "WOULD_LIKE_SEE": "Would you like to see this movie?",
+    "HOW_RATE": "How would you rate this movie?",
+    "POOR": "Poor",
+    "AVERAGE": "Average",
+    "GOOD": "Good",
+    "VERYGOOD": "Very Good",
+    "MASTERPIECE": "Masterpiece"
   },
   "FORM": {
     "OK": "OK",

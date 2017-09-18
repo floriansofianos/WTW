@@ -8,4 +8,5 @@
 
 export class TopMenuComponent {
     @Input() showButtons: boolean;
+    @Input() showLogin: boolean;
 }

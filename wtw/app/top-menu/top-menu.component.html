@@ -12,14 +12,14 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">{{ 'TOP_MENU.HOME' | translate }}</a></li>
-                    <li><a href="#">What to watch</a></li>
-                    <li><a href="#">{{ 'TOP_MENU.MOVIES' | translate }}</a></li>
-                    <li><a href="#">{{ 'TOP_MENU.SOCIAL' | translate }}</a></li>
+                    <li class="active"><a [routerLink]="'/user/home'">{{ 'TOP_MENU.HOME' | translate }}</a></li>
+                    <li><a [routerLink]="'/user/wtw'">What to watch</a></li>
+                    <li><a [routerLink]="'/user/movies'">{{ 'TOP_MENU.MOVIES' | translate }}</a></li>
+                    <li><a [routerLink]="'/user/social'">{{ 'TOP_MENU.SOCIAL' | translate }}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> {{ 'TOP_MENU.LOGOUT' | translate }}</a></li>
+                    <li><a [routerLink]="'/user/profile'"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+                    <li><a [routerLink]="'/logout'"><span class="glyphicon glyphicon-log-out"></span> {{ 'TOP_MENU.LOGOUT' | translate }}</a></li>
                 </ul>
             </div>
         </div>
@@ -31,10 +31,10 @@
                 <a><logo></logo></a>
                 <span class="logo-title">What To Watch</span>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="collapse navbar-collapse" id="myNavbar" *ngIf="showLogin">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ 'TOP_MENU.SIGN_UP' | translate }}</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'TOP_MENU.LOGIN' | translate }}</a></li>
+                    <li><a [routerLink]="'/signup'"><span class="glyphicon glyphicon-user"></span> {{ 'TOP_MENU.SIGN_UP' | translate }}</a></li>
+                    <li><a [routerLink]="'/login'"><span class="glyphicon glyphicon-log-in"></span> {{ 'TOP_MENU.LOGIN' | translate }}</a></li>
                 </ul>
             </div>
         </div>

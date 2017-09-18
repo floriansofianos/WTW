@@ -41,6 +41,14 @@
     "ALSO_KNOWN": "Egalement connu pour:",
     "ALSO_SEEN": "Egalement vu dans:"
   },
+  "TOP_MENU": {
+    "SIGN_UP": "Inscription",
+    "LOGIN": "Connexion",
+    "LOGOUT": "Déconnexion",
+    "HOME": "Accueil",
+    "MOVIES": "Films",
+    "SOCIAL": "Social"
+  },
   "MOVIE_QUESTIONNAIRE": {
     "CAST": "Casting",
     "DIRECTOR": "Réalisateur",

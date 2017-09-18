@@ -17,6 +17,10 @@ var TopMenuComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Boolean)
     ], TopMenuComponent.prototype, "showButtons", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], TopMenuComponent.prototype, "showLogin", void 0);
     TopMenuComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

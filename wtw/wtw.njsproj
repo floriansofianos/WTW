@@ -44,6 +44,7 @@
     <Content Include="app\movie\movie-questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
+    <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
