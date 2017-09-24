@@ -4,12 +4,17 @@ import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class FirstQuestionnaireService {
+export class MovieDBService {
 
     constructor(private http: Http) { }
 
-    getFirstQuestionnaireMovie(lang: string): Observable<any> {
-        return this.http.get('/api/firstQuestionnaire?lang=' + lang)
+    getMovieDBConfiguration(): Observable<any> {
+        return this.http.get('/api/movieDBConfiguration')
+            .catch(this.handleErrors);
+    }
+
+    search(s: string) {
+        return this.http.get('/api/movieDBSearch', { params: { search: s } })
             .catch(this.handleErrors);
     }
 

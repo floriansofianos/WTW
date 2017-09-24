@@ -299,12 +299,20 @@ module.exports = function () {
         });
     }
 
-    
+    var search = function (s, done) {
+        mdb.searchMovie({query: s, include_adult: false}, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        });
+    }    
 
     return {
         getFirstTenMovies: getFirstTenMovies,
         loadConfiguration: loadConfiguration,
         getConfiguration: getConfiguration,
-        getCast: getCast
+        getCast: getCast,
+        search: search
     }
 }

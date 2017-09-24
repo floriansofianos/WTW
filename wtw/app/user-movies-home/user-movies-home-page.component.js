@@ -12,30 +12,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var UserHomePageComponent = /** @class */ (function () {
-    function UserHomePageComponent(authService, router) {
+var movieDB_service_1 = require("../movieDB/movieDB.service");
+var UserMoviesHomePageComponent = /** @class */ (function () {
+    function UserMoviesHomePageComponent(authService, router, movieDBService) {
         this.authService = authService;
         this.router = router;
+        this.movieDBService = movieDBService;
     }
-    UserHomePageComponent.prototype.ngOnInit = function () {
+    UserMoviesHomePageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
-            this.username = currentUser.username;
+            this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
+                _this.configuration = response.json();
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }
         else {
             this.router.navigate(['']);
         }
     };
-    UserHomePageComponent = __decorate([
+    UserMoviesHomePageComponent.prototype.searchMovie = function () {
+        var _this = this;
+        this.movieDBService.search(this.search).subscribe(function (data) {
+            _this.searchResults = data.json();
+        }, function (error) {
+            _this.router.navigate(['/error']);
+        });
+    };
+    UserMoviesHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'user-home-page.component.html'
+            templateUrl: 'user-movies-home-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-    ], UserHomePageComponent);
-    return UserHomePageComponent;
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService])
+    ], UserMoviesHomePageComponent);
+    return UserMoviesHomePageComponent;
 }());
-exports.UserHomePageComponent = UserHomePageComponent;
+exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;

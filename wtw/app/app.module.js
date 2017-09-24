@@ -41,16 +41,18 @@ var angular2_spinner_1 = require("angular2-spinner");
 var angular2_ui_switch_1 = require("angular2-ui-switch");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var top_menu_component_1 = require("./top-menu/top-menu.component");
+var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-home-page.component");
 var auth_service_1 = require("./auth/auth.service");
 var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
+var movieDB_service_1 = require("./movieDB/movieDB.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -58,6 +60,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
                 material_1.MdProgressBarModule,
+                material_1.MdInputModule,
                 forms_2.FormsModule,
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(routes_1.appRoutes),
@@ -91,10 +94,12 @@ var AppModule = (function () {
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
                 logo_component_1.LogoComponent,
                 top_menu_component_1.TopMenuComponent,
+                user_movies_home_page_component_1.UserMoviesHomePageComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 first_questionnaire_service_1.FirstQuestionnaireService,
                 movie_questionnaire_service_1.MovieQuestionnaireService,
+                movieDB_service_1.MovieDBService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,

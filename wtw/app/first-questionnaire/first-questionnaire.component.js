@@ -15,14 +15,16 @@ var core_2 = require("@ngx-translate/core");
 var first_questionnaire_service_1 = require("../first-questionnaire/first-questionnaire.service");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var animations_1 = require("@angular/animations");
+var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
-var FirstQuestionnaireComponent = (function () {
-    function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService) {
+var FirstQuestionnaireComponent = /** @class */ (function () {
+    function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.translate = translate;
         this.router = router;
         this.firstQuestionnaireService = firstQuestionnaireService;
         this.movieQuestionnaireService = movieQuestionnaireService;
+        this.movieDBService = movieDBService;
         this.previousMovies = [];
         this.states = ['active', null, null];
     }
@@ -87,7 +89,7 @@ var FirstQuestionnaireComponent = (function () {
     };
     FirstQuestionnaireComponent.prototype.getNextAgeStep = function () {
         var _this = this;
-        this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(function (response) {
+        this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
             _this.configuration = response.json();
             _this.questionAnswered++;
             _this.showNextMovie();
@@ -220,7 +222,7 @@ var FirstQuestionnaireComponent = (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
     ], FirstQuestionnaireComponent);
     return FirstQuestionnaireComponent;
 }());

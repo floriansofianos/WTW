@@ -10,25 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var auth_service_1 = require("./auth.service");
-var CanActivateAuthGuard = /** @class */ (function () {
-    function CanActivateAuthGuard(authService, router) {
-        this.authService = authService;
-        this.router = router;
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+var MovieDBService = /** @class */ (function () {
+    function MovieDBService(http) {
+        this.http = http;
     }
-    CanActivateAuthGuard.prototype.canActivate = function () {
-        if (this.authService.isLoggedIn())
-            return true;
-        else {
-            this.router.navigate(['/login']);
-            return false;
-        }
+    MovieDBService.prototype.getMovieDBConfiguration = function () {
+        return this.http.get('/api/movieDBConfiguration')
+            .catch(this.handleErrors);
     };
-    CanActivateAuthGuard = __decorate([
+    MovieDBService.prototype.search = function (s) {
+        return this.http.get('/api/movieDBSearch', { params: { search: s } })
+            .catch(this.handleErrors);
+    };
+    MovieDBService.prototype.handleErrors = function (error) {
+        return Rx_1.Observable.throw(error.status);
+    };
+    MovieDBService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-    ], CanActivateAuthGuard);
-    return CanActivateAuthGuard;
+        __metadata("design:paramtypes", [http_1.Http])
+    ], MovieDBService);
+    return MovieDBService;
 }());
-exports.CanActivateAuthGuard = CanActivateAuthGuard;
+exports.MovieDBService = MovieDBService;

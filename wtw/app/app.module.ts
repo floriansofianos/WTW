@@ -7,7 +7,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { MdProgressBarModule } from '@angular/material'
+import { MdProgressBarModule, MdInputModule } from '@angular/material'
 import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
@@ -34,13 +34,15 @@ import { LogoComponent } from './logo/logo.component';
 import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
-import { TopMenuComponent } from './top-menu/top-menu.component'
+import { TopMenuComponent } from './top-menu/top-menu.component';
+import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component'
 
 
 import { AuthService } from './auth/auth.service';
 import { FirstQuestionnaireService } from './first-questionnaire/first-questionnaire.service';
 import { MovieQuestionnaireService } from './movie/movie-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
+import { MovieDBService } from './movieDB/movieDB.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -49,25 +51,26 @@ export function createTranslateLoader(http: Http) {
 
 @NgModule({
     imports: [BrowserModule,
-            BrowserAnimationsModule,
-            MdProgressBarModule,
-            FormsModule,
-            ReactiveFormsModule,
-            RouterModule.forRoot(appRoutes),
-            HttpModule,
-            SpinnerModule,
-            UiSwitchModule,
-            NouisliderModule,
-            StarRatingModule,
-            ModalModule.forRoot(),
-            BootstrapModalModule,
-            TranslateModule.forRoot({
-                loader: {
-                    provide: TranslateLoader,
-                    useFactory: (createTranslateLoader),
-                    deps: [Http]
-                }
-            })],
+        BrowserAnimationsModule,
+        MdProgressBarModule,
+        MdInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(appRoutes),
+        HttpModule,
+        SpinnerModule,
+        UiSwitchModule,
+        NouisliderModule,
+        StarRatingModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [Http]
+            }
+        })],
     declarations: [MainAppComponent,
         HomePageComponent,
         LoginPageComponent,
@@ -84,10 +87,12 @@ export function createTranslateLoader(http: Http) {
         MovieQuestionnaireComponent,
         LogoComponent,
         TopMenuComponent,
+        UserMoviesHomePageComponent,
         CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,
         MovieQuestionnaireService,
+        MovieDBService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

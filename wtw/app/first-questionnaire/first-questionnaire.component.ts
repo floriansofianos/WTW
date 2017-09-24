@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FirstQuestionnaireService } from '../first-questionnaire/first-questionnaire.service';
 import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { MovieDBService } from '../movieDB/movieDB.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -39,7 +40,7 @@ import { Router } from '@angular/router';
 })
 
 export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService) { }
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService) { }
 
     movie: any;
     configuration: any;
@@ -121,7 +122,7 @@ export class FirstQuestionnaireComponent {
     }
 
     getNextAgeStep() {
-        this.firstQuestionnaireService.getMovieDBConfiguration().subscribe(response => {
+        this.movieDBService.getMovieDBConfiguration().subscribe(response => {
             this.configuration = response.json();
             this.questionAnswered++;
             this.showNextMovie();

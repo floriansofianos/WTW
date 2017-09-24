@@ -45,6 +45,7 @@
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
+    <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
@@ -74,6 +75,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\main-aot.ts" />
+    <TypeScriptCompile Include="app\movieDB\movieDB.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app\movie\cast-member.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -101,6 +105,7 @@
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\movieSearchController.js" />
     <Compile Include="lib\controllers\movieQuestionnaireController.js" />
     <Compile Include="lib\controllers\firstQuestionnaireController.js" />
     <Compile Include="lib\controllers\userController.js" />
@@ -127,6 +132,9 @@
     <Content Include="lib\routes\castRoutes.js">
       <SubType>Code</SubType>
     </Content>
+    <Compile Include="lib\routes\movieDBSearchRoutes.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>
@@ -149,6 +157,7 @@
     <Content Include="README.md" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +170,8 @@
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />
     <Folder Include="app\logo\" />
+    <Folder Include="app\movieDB\" />
+    <Folder Include="app\user-movies-home\" />
     <Folder Include="app\top-menu\" />
     <Folder Include="app\user-welcome\" />
     <Folder Include="app\user-home\" />

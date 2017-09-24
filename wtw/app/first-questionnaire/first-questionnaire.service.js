@@ -12,16 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var FirstQuestionnaireService = (function () {
+var FirstQuestionnaireService = /** @class */ (function () {
     function FirstQuestionnaireService(http) {
         this.http = http;
     }
     FirstQuestionnaireService.prototype.getFirstQuestionnaireMovie = function (lang) {
         return this.http.get('/api/firstQuestionnaire?lang=' + lang)
-            .catch(this.handleErrors);
-    };
-    FirstQuestionnaireService.prototype.getMovieDBConfiguration = function () {
-        return this.http.get('/api/movieDBConfiguration')
             .catch(this.handleErrors);
     };
     FirstQuestionnaireService.prototype.handleErrors = function (error) {

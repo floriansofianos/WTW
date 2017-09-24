@@ -8,13 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a [routerLink]="'/'"><logo></logo></a>
+                <a [routerLink]="'/'" class="logo-margin-right"><logo></logo></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a [routerLink]="'/user/home'">{{ 'TOP_MENU.HOME' | translate }}</a></li>
                     <li><a [routerLink]="'/user/wtw'">What to watch</a></li>
-                    <li><a [routerLink]="'/user/movies'">{{ 'TOP_MENU.MOVIES' | translate }}</a></li>
+                    <li><a [routerLink]="'/user/movies/home'">{{ 'TOP_MENU.MOVIES' | translate }}</a></li>
                     <li><a [routerLink]="'/user/social'">{{ 'TOP_MENU.SOCIAL' | translate }}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
