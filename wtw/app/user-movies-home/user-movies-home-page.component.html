@@ -20,8 +20,8 @@
         </div>
     </div>
 </div>
-<div class="movie-questionnaire-container">
-    <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)" *ngIf="movie && movieQuestionnaireInitLoaded"></movie-questionnaire>
+<div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
+    <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
     <div class="button-line" *ngIf="!showSpinner">
         <wtw-button class="button-left" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
         <wtw-button class="button-right" (click)="confirm()">{{ 'FORM.OK' | translate }}</wtw-button>
