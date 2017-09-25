@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
 import { MdInputModule } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     moduleId: module.id,
@@ -13,8 +14,13 @@ export class UserMoviesHomePageComponent {
     search: string;
     configuration: any;
     searchResults: Array<any>;
+    movie: any;
+    movieQuestionnaireInit: any;
+    movieQuestionnaireInitLoaded: boolean;
+    movieQuestionnaire: any;
+    hideSearch: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService) { }
+    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -43,5 +49,31 @@ export class UserMoviesHomePageComponent {
                 this.router.navigate(['/error']);
             }
         );
+    }
+
+    rateMovie(id) {
+        this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
+            data => {
+                this.movie = data.json();
+                this.movieQuestionnaireInitLoaded = true;
+                this.hideSearch = true;
+            },
+            error => {
+                this.router.navigate(['/error']);
+            }
+        );
+    }
+
+    back() {
+        this.movieQuestionnaireInitLoaded = false;
+        this.hideSearch = false;
+    }
+
+    confirm() {
+        // Add the questionnaire to DB
+    }
+
+    movieQuestionnaireChange(data) {
+        this.movieQuestionnaire = data;
     }
 }

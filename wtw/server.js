@@ -6,6 +6,7 @@ var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')(
 var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoutes')();
 var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
+var movieRouter = require('./lib/routes/movieRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
@@ -62,6 +63,7 @@ app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
 app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
+app.use('/api/movie', movieRouter);
 app.use('/api/cast', castRouter);
 
 app.get('/', function (req, res) {
@@ -78,6 +80,9 @@ app.get('/user/welcome', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/home', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/movies/home', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 

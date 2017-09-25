@@ -13,11 +13,14 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
-var UserMoviesHomePageComponent = /** @class */ (function () {
-    function UserMoviesHomePageComponent(authService, router, movieDBService) {
+var core_2 = require("@ngx-translate/core");
+var UserMoviesHomePageComponent = (function () {
+    function UserMoviesHomePageComponent(authService, router, movieDBService, translate) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
+        this.translate = translate;
+        this.hideSearch = false;
     }
     UserMoviesHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -44,13 +47,34 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
             _this.router.navigate(['/error']);
         });
     };
+    UserMoviesHomePageComponent.prototype.rateMovie = function (id) {
+        var _this = this;
+        this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(function (data) {
+            _this.movie = data.json();
+            _this.movieQuestionnaireInitLoaded = true;
+            _this.hideSearch = true;
+        }, function (error) {
+            _this.router.navigate(['/error']);
+        });
+    };
+    UserMoviesHomePageComponent.prototype.back = function () {
+        this.movieQuestionnaireInitLoaded = false;
+        this.hideSearch = false;
+    };
+    UserMoviesHomePageComponent.prototype.confirm = function () {
+        // Add the questionnaire to DB
+    };
+    UserMoviesHomePageComponent.prototype.movieQuestionnaireChange = function (data) {
+        this.movieQuestionnaire = data;
+    };
     UserMoviesHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'user-movies-home-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService])
     ], UserMoviesHomePageComponent);
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+//# sourceMappingURL=user-movies-home-page.component.js.map

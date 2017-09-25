@@ -105,6 +105,7 @@
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\movieController.js" />
     <Compile Include="lib\controllers\movieSearchController.js" />
     <Compile Include="lib\controllers\movieQuestionnaireController.js" />
     <Compile Include="lib\controllers\firstQuestionnaireController.js" />
@@ -132,9 +133,10 @@
     <Content Include="lib\routes\castRoutes.js">
       <SubType>Code</SubType>
     </Content>
-    <Compile Include="lib\routes\movieDBSearchRoutes.js">
+    <Content Include="lib\routes\movieDBSearchRoutes.js">
       <SubType>Code</SubType>
-    </Compile>
+    </Content>
+    <Content Include="lib\routes\movieRoutes.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>

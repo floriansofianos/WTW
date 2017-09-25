@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieDBService = /** @class */ (function () {
+var MovieDBService = (function () {
     function MovieDBService(http) {
         this.http = http;
     }
@@ -22,6 +22,10 @@ var MovieDBService = /** @class */ (function () {
     };
     MovieDBService.prototype.search = function (s) {
         return this.http.get('/api/movieDBSearch', { params: { search: s } })
+            .catch(this.handleErrors);
+    };
+    MovieDBService.prototype.getMovie = function (id, lang) {
+        return this.http.get('/api/movie', { params: { id: id, lang: lang } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.handleErrors = function (error) {
@@ -34,3 +38,4 @@ var MovieDBService = /** @class */ (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
+//# sourceMappingURL=movieDB.service.js.map

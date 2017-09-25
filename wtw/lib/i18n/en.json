@@ -1,75 +1,80 @@
 ﻿{
-  "HOME": {
-    "TITLE": "Hello Angular with ngx-translate!",
-    "WELCOME": "Welcome"
-  },
-  "LOGIN": {
-    "TITLE": "Login",
+    "HOME": {
+        "TITLE": "Hello Angular with ngx-translate!",
+        "WELCOME": "Welcome"
+    },
+    "LOGIN": {
+        "TITLE": "Login",
+        "FORM": {
+            "LOGIN": "Email",
+            "PASSWORD": "Password",
+            "WRONGPASSWORD": "Your email or password is incorrect."
+        }
+    },
+    "SIGNUP": {
+        "TITLE": "Sign Up",
+        "FORM": {
+            "EMAIL": "Email",
+            "EMAIL_INVALID": "The email entered is invalid.",
+            "PASSWORD": "Password",
+            "CONFIRM_PASSWORD": "Confirm Password",
+            "CONFIRM_PASSWORD_INVALID": "The Confirm Password do not match",
+            "USERNAME": "Username",
+            "FIRST_NAME": "First Name",
+            "LAST_NAME": "Last Name",
+            "USERNAME_NOT_NULL": "The username is mandatory.",
+            "EMAIL_NOT_NULL": "The email is mandatory.",
+            "PASSWORD_NOT_NULL": "The password is mandatory.",
+            "EMAIL_TAKEN": "This email address is already used.",
+            "USERNAME_TAKEN": "This username has already been taken."
+        }
+    },
+    "FIRST_QUESTIONNAIRE": {
+        "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
+        "AGE_QUESTION": "What is your age?",
+        "DONE": "Thank you for answering this first questionnaire.",
+        "GO_TO": "You can now go to your ",
+        "HOMEPAGE": "homepage",
+        "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations."
+    },
+    "CAST": {
+        "ALSO_KNOWN": "Also known for:",
+        "ALSO_SEEN": "Also seen in:"
+    },
+    "TOP_MENU": {
+        "SIGN_UP": "Sign Up",
+        "LOGIN": "Login",
+        "LOGOUT": "Logout",
+        "HOME": "Home",
+        "MOVIES": "Movies",
+        "SOCIAL": "Social"
+    },
+    "MOVIE_QUESTIONNAIRE": {
+        "CAST": "Cast",
+        "DIRECTOR": "Director",
+        "WRITER": "Writer",
+        "QUESTION_SEEN": "Have you seen that movie?",
+        "WOULD_LIKE_SEE": "Would you like to see this movie?",
+        "HOW_RATE": "How would you rate this movie?",
+        "POOR": "Poor",
+        "AVERAGE": "Average",
+        "GOOD": "Good",
+        "VERYGOOD": "Very Good",
+        "MASTERPIECE": "Masterpiece"
+    },
+    "MOVIES": {
+        "HOME": {
+            "RATE_THIS_MOVIE":  "Rate or add to wishlist."
+        }
+    },
     "FORM": {
-      "LOGIN": "Email",
-      "PASSWORD": "Password",
-      "WRONGPASSWORD": "Your email or password is incorrect."
+        "OK": "OK",
+        "CANCEL": "Cancel",
+        "REQUIRED": "Required",
+        "NEXT": "Next",
+        "SKIP": "Skip",
+        "PREVIOUS": "Previous",
+        "YES": "Yes",
+        "NO": "No"
     }
-  },
-  "SIGNUP": {
-    "TITLE": "Sign Up",
-    "FORM": {
-      "EMAIL": "Email",
-      "EMAIL_INVALID": "The email entered is invalid.",
-      "PASSWORD": "Password",
-      "CONFIRM_PASSWORD": "Confirm Password",
-      "CONFIRM_PASSWORD_INVALID": "The Confirm Password do not match",
-      "USERNAME": "Username",
-      "FIRST_NAME": "First Name",
-      "LAST_NAME": "Last Name",
-      "USERNAME_NOT_NULL": "The username is mandatory.",
-      "EMAIL_NOT_NULL": "The email is mandatory.",
-      "PASSWORD_NOT_NULL": "The password is mandatory.",
-      "EMAIL_TAKEN": "This email address is already used.",
-      "USERNAME_TAKEN": "This username has already been taken."
-    }
-  },
-  "FIRST_QUESTIONNAIRE": {
-    "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
-    "AGE_QUESTION": "What is your age?",
-    "DONE": "Thank you for answering this first questionnaire.",
-    "GO_TO": "You can now go to your ",
-    "HOMEPAGE": "homepage",
-    "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations."
-  },
-  "CAST": {
-    "ALSO_KNOWN": "Also known for:",
-    "ALSO_SEEN": "Also seen in:"
-  },
-  "TOP_MENU": {
-    "SIGN_UP": "Sign Up",
-    "LOGIN": "Login",
-    "LOGOUT": "Logout",
-    "HOME": "Home",
-    "MOVIES": "Movies",
-    "SOCIAL":  "Social"
-  },
-  "MOVIE_QUESTIONNAIRE": {
-    "CAST": "Cast",
-    "DIRECTOR": "Director",
-    "WRITER": "Writer",
-    "QUESTION_SEEN": "Have you seen that movie?",
-    "WOULD_LIKE_SEE": "Would you like to see this movie?",
-    "HOW_RATE": "How would you rate this movie?",
-    "POOR": "Poor",
-    "AVERAGE": "Average",
-    "GOOD": "Good",
-    "VERYGOOD": "Very Good",
-    "MASTERPIECE": "Masterpiece"
-  },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Cancel",
-    "REQUIRED": "Required",
-    "NEXT": "Next",
-    "SKIP": "Skip",
-    "PREVIOUS": "Previous",
-    "YES": "Yes",
-    "NO": "No"
-  }
 }

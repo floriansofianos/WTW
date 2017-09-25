@@ -1,75 +1,80 @@
 ﻿{
-  "HOME": {
-    "TITLE": "Bienvenue sur Angular avec le module de traduction !",
-    "WELCOME": "Bienvenue"
-  },
-  "LOGIN": {
-    "TITLE": "Connexion",
+    "HOME": {
+        "TITLE": "Bienvenue sur Angular avec le module de traduction !",
+        "WELCOME": "Bienvenue"
+    },
+    "LOGIN": {
+        "TITLE": "Connexion",
+        "FORM": {
+            "LOGIN": "Email",
+            "PASSWORD": "Mot de passe",
+            "WRONGPASSWORD": "Votre email ou mot de passe est incorrect."
+        }
+    },
+    "SIGNUP": {
+        "TITLE": "Inscription",
+        "FORM": {
+            "EMAIL": "Email",
+            "EMAIL_INVALID": "L'adresse email est invalide.",
+            "PASSWORD": "Mot de passe",
+            "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
+            "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
+            "USERNAME": "Pseudo",
+            "FIRST_NAME": "Prénom",
+            "LAST_NAME": "Nom de famille",
+            "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
+            "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
+            "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
+            "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
+            "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
+        }
+    },
+    "FIRST_QUESTIONNAIRE": {
+        "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
+        "AGE_QUESTION": "Quel est votre âge ?",
+        "DONE": "Merci d'avoir terminé ce premier questionnaire.",
+        "GO_TO": "Vous pouvez désormais accéder à votre ",
+        "HOMEPAGE": "page d'accueil",
+        "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
+    },
+    "CAST": {
+        "ALSO_KNOWN": "Egalement connu pour:",
+        "ALSO_SEEN": "Egalement vu dans:"
+    },
+    "TOP_MENU": {
+        "SIGN_UP": "Inscription",
+        "LOGIN": "Connexion",
+        "LOGOUT": "Déconnexion",
+        "HOME": "Accueil",
+        "MOVIES": "Films",
+        "SOCIAL": "Social"
+    },
+    "MOVIE_QUESTIONNAIRE": {
+        "CAST": "Casting",
+        "DIRECTOR": "Réalisateur",
+        "WRITER": "Scénariste",
+        "QUESTION_SEEN": "Avez-vous vu ce film?",
+        "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
+        "HOW_RATE": "Comment avez-vous trouvé ce film?",
+        "POOR": "Médiocre",
+        "AVERAGE": "Moyen",
+        "GOOD": "Bon",
+        "VERYGOOD": "Très Bon",
+        "MASTERPIECE": "Excellent"
+    },
+    "MOVIES": {
+        "HOME": {
+            "RATE_THIS_MOVIE": "Evaluer ou ajouter à la liste de souhaits"
+        }
+    },
     "FORM": {
-      "LOGIN": "Email",
-      "PASSWORD": "Mot de passe",
-      "WRONGPASSWORD": "Votre email ou mot de passe est incorrect."
+        "OK": "OK",
+        "CANCEL": "Annuler",
+        "REQUIRED": "Obligatoire",
+        "NEXT": "Suivant",
+        "SKIP": "Passer",
+        "PREVIOUS": "Précédent",
+        "YES": "Oui",
+        "NO": "Non"
     }
-  },
-  "SIGNUP": {
-    "TITLE": "Inscription",
-    "FORM": {
-      "EMAIL": "Email",
-      "EMAIL_INVALID": "L'adresse email est invalide.",
-      "PASSWORD": "Mot de passe",
-      "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
-      "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
-      "USERNAME": "Pseudo",
-      "FIRST_NAME": "Prénom",
-      "LAST_NAME": "Nom de famille",
-      "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
-      "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
-      "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
-      "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
-      "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
-    }
-  },
-  "FIRST_QUESTIONNAIRE": {
-    "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
-    "AGE_QUESTION": "Quel est votre âge ?",
-    "DONE": "Merci d'avoir terminé ce premier questionnaire.",
-    "GO_TO": "Vous pouvez désormais accéder à votre ",
-    "HOMEPAGE": "page d'accueil",
-    "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
-  },
-  "CAST": {
-    "ALSO_KNOWN": "Egalement connu pour:",
-    "ALSO_SEEN": "Egalement vu dans:"
-  },
-  "TOP_MENU": {
-    "SIGN_UP": "Inscription",
-    "LOGIN": "Connexion",
-    "LOGOUT": "Déconnexion",
-    "HOME": "Accueil",
-    "MOVIES": "Films",
-    "SOCIAL": "Social"
-  },
-  "MOVIE_QUESTIONNAIRE": {
-    "CAST": "Casting",
-    "DIRECTOR": "Réalisateur",
-    "WRITER": "Scénariste",
-    "QUESTION_SEEN": "Avez-vous vu ce film?",
-    "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
-    "HOW_RATE": "Comment avez-vous trouvé ce film?",
-    "POOR": "Médiocre",
-    "AVERAGE": "Moyen",
-    "GOOD": "Bon",
-    "VERYGOOD": "Très Bon",
-    "MASTERPIECE": "Excellent"
-  },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Annuler",
-    "REQUIRED": "Obligatoire",
-    "NEXT": "Suivant",
-    "SKIP": "Passer",
-    "PREVIOUS": "Précédent",
-    "YES": "Oui",
-    "NO": "Non"
-  }
 }

@@ -11,29 +11,35 @@ module.exports = function () {
         mdb.discoverMovie(firstTenQuery, (err, data) => {
             if (err) return done(err, null);
             var movieId = data.results[library.randomInt(0, data.results.length)].id;
-
-            getMovie(movieId, lang, (err, data) => {
+            getMovieWithAdditionalInfo(movieId, lang, (err, data) => {
                 if (err) return done(err, null);
-                // Retrieve the trailer if available
-                var movie = data;
-                getMovieTrailer(movieId, (err, data) => {
-                    if (!err) {
-                        movie.trailers = data.results;
-                        // Retrieve the cast if available
-                        getMovieCredits(movieId, (err, data) => {
-                            if (!err) {
-                                movie.actors = getActors(data);
-                                movie.directors = getDirectors(data);
-                                movie.writers = getWriters(data);
-                            }
-                            return done(null, movie);
-                        });
-                    }
-                    else return done(null, movie);
-                });
+                else return done(null, data);
             });
         });
     };
+
+    var getMovieWithAdditionalInfo = function (id, lang, done) {
+        getMovie(id, lang, (err, data) => {
+            if (err) return done(err, null);
+            // Retrieve the trailer if available
+            var movie = data;
+            getMovieTrailer(id, (err, data) => {
+                if (!err) {
+                    movie.trailers = data.results;
+                    // Retrieve the cast if available
+                    getMovieCredits(id, (err, data) => {
+                        if (!err) {
+                            movie.actors = getActors(data);
+                            movie.directors = getDirectors(data);
+                            movie.writers = getWriters(data);
+                        }
+                        return done(null, movie);
+                    });
+                }
+                else return done(null, movie);
+            });
+        });
+    }
 
     /// Gets a movie from Cache or movieDB if not cached
     var getMovie = function (id, lang, done) {
@@ -312,6 +318,7 @@ module.exports = function () {
         getFirstTenMovies: getFirstTenMovies,
         loadConfiguration: loadConfiguration,
         getConfiguration: getConfiguration,
+        getMovieWithAdditionalInfo: getMovieWithAdditionalInfo,
         getCast: getCast,
         search: search
     }

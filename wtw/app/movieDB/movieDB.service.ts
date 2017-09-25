@@ -18,6 +18,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    getMovie(id: number, lang: string) {
+        return this.http.get('/api/movie', { params: { id: id, lang: lang} })
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

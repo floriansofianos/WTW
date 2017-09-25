@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='lint-front-end-code, lint-server-code, style-server-code, compile-ts, inject-front-end-dependancies, serve-dev' />
+/// <binding BeforeBuild='serve-dev' />
 var gulp = require('gulp');
 var config = require('./config/gulp.config')();
 var $ = require('gulp-load-plugins')({
