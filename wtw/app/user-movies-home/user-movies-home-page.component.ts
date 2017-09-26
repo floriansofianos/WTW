@@ -4,10 +4,26 @@ import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
 import { MdInputModule } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'user-movies-home-page.component.html'
+    templateUrl: 'user-movies-home-page.component.html',
+    animations: [
+        trigger('areaState', [
+            state('notSearched', style({
+                transform: 'translateY(150px)'
+            })),
+            transition('notSearched => searched',
+                [
+                    style({
+                        transform: 'translateY(-150px)'
+                    }),
+                    animate('3000ms ease-in')
+                ]
+            )
+        ])
+    ]
 })
 
 export class UserMoviesHomePageComponent {
@@ -19,6 +35,7 @@ export class UserMoviesHomePageComponent {
     movieQuestionnaireInitLoaded: boolean;
     movieQuestionnaire: any;
     hideSearch: boolean = false;
+    searchContainerState = 'notSearched'
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService) { }
 
@@ -41,6 +58,7 @@ export class UserMoviesHomePageComponent {
     }
 
     searchMovie() {
+        this.searchContainerState = 'searched'
         this.movieDBService.search(this.search).subscribe(
             data => {
                 this.searchResults = data.json();

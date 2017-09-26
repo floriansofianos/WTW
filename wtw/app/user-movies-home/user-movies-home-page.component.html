@@ -1,12 +1,12 @@
 <top-menu [showButtons]="true" [showLogin]="false"></top-menu>
 <div class="search-container" *ngIf="!hideSearch">
-    <div class="search-bar-container">
+    <div class="search-bar-container" [@areaState]="searchContainerState">
         <md-form-field>
             <input mdInput placeholder="Search..." [(ngModel)]="search">
         </md-form-field>
         <wtw-button (click)="searchMovie()">{{ 'FORM.OK' | translate }}</wtw-button>
     </div>
-    <div class="search-results-container">
+    <div class="search-results-container" >
         <div class="search-result" *ngFor="let result of searchResults">
             <div class="search-result-poster">
                 <img width="100" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />

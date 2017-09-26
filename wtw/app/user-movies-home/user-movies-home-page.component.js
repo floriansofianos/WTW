@@ -14,6 +14,7 @@ var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
+var animations_1 = require("@angular/animations");
 var UserMoviesHomePageComponent = /** @class */ (function () {
     function UserMoviesHomePageComponent(authService, router, movieDBService, translate) {
         this.authService = authService;
@@ -21,6 +22,7 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
         this.movieDBService = movieDBService;
         this.translate = translate;
         this.hideSearch = false;
+        this.searchContainerState = 'notSearched';
     }
     UserMoviesHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41,6 +43,7 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     };
     UserMoviesHomePageComponent.prototype.searchMovie = function () {
         var _this = this;
+        this.searchContainerState = 'searched';
         this.movieDBService.search(this.search).subscribe(function (data) {
             _this.searchResults = data.json();
         }, function (error) {
@@ -70,7 +73,20 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     UserMoviesHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'user-movies-home-page.component.html'
+            templateUrl: 'user-movies-home-page.component.html',
+            animations: [
+                animations_1.trigger('areaState', [
+                    animations_1.state('notSearched', animations_1.style({
+                        transform: 'translateY(150px)'
+                    })),
+                    animations_1.transition('notSearched => searched', [
+                        animations_1.style({
+                            transform: 'translateY(-150px)'
+                        }),
+                        animations_1.animate('3000ms ease-in')
+                    ])
+                ])
+            ]
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService])
     ], UserMoviesHomePageComponent);
