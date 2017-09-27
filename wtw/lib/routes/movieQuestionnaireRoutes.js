@@ -10,6 +10,9 @@ var movieQuestionnaireRoutes = function () {
         .get(isAuthenticated, movieQuestionnaireController.getAll)
         .post(isAuthenticated, movieQuestionnaireController.createOrUpdate);
 
+    movieQuestionnaireRouter.route('/:id')
+        .get(isAuthenticated, movieQuestionnaireController.get)
+
     return movieQuestionnaireRouter;
 }
 

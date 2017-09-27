@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieQuestionnaireService = (function () {
+var MovieQuestionnaireService = /** @class */ (function () {
     function MovieQuestionnaireService(http) {
         this.http = http;
     }
@@ -22,6 +22,10 @@ var MovieQuestionnaireService = (function () {
     };
     MovieQuestionnaireService.prototype.getAll = function () {
         return this.http.get('/api/movieQuestionnaire')
+            .catch(this.handleErrors);
+    };
+    MovieQuestionnaireService.prototype.get = function (id) {
+        return this.http.get('/api/movieQuestionnaire/' + id)
             .catch(this.handleErrors);
     };
     MovieQuestionnaireService.prototype.getCast = function (id) {
@@ -38,4 +42,3 @@ var MovieQuestionnaireService = (function () {
     return MovieQuestionnaireService;
 }());
 exports.MovieQuestionnaireService = MovieQuestionnaireService;
-//# sourceMappingURL=movie-questionnaire.service.js.map

@@ -8,7 +8,7 @@
     </div>
     <div class="search-results-container" [@searchResultsState]="searchContainerState">
         <div [@searchResultsLoadedState]="searchResultsLoaded">
-            <div class="search-result" *ngFor="let result of searchResults" >
+            <div class="search-result" *ngFor="let result of searchResults">
                 <div class="search-result-poster">
                     <img width="100" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
                 </div>
@@ -28,8 +28,11 @@
 
 <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
     <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
-    <div class="button-line" *ngIf="!showSpinner">
+    <div class="button-line" *ngIf="!showSaveSpinner">
         <wtw-button class="button-left" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
         <wtw-button class="button-right" (click)="confirm()">{{ 'FORM.OK' | translate }}</wtw-button>
+    </div>
+    <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
+        <spinner></spinner>
     </div>
 </div>

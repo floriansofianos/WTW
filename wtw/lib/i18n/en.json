@@ -67,14 +67,15 @@
             "RATE_THIS_MOVIE":  "Rate or add to wishlist."
         }
     },
-    "FORM": {
-        "OK": "OK",
-        "CANCEL": "Cancel",
-        "REQUIRED": "Required",
-        "NEXT": "Next",
-        "SKIP": "Skip",
-        "PREVIOUS": "Previous",
-        "YES": "Yes",
-        "NO": "No"
-    }
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "REQUIRED": "Required",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "SKIP": "Skip",
+    "PREVIOUS": "Previous",
+    "YES": "Yes",
+    "NO": "No"
+  }
 }

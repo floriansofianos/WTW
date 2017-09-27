@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var ng2_validation_1 = require("ng2-validation");
-var SignUpFormComponent = (function () {
+var SignUpFormComponent = /** @class */ (function () {
     function SignUpFormComponent(router, authService) {
         this.router = router;
         this.authService = authService;
@@ -78,4 +78,3 @@ var SignUpFormComponent = (function () {
     return SignUpFormComponent;
 }());
 exports.SignUpFormComponent = SignUpFormComponent;
-//# sourceMappingURL=signup-form.component.js.map

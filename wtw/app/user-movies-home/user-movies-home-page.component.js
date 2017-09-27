@@ -15,16 +15,19 @@ var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
-var UserMoviesHomePageComponent = (function () {
-    function UserMoviesHomePageComponent(authService, router, movieDBService, translate) {
+var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
+var UserMoviesHomePageComponent = /** @class */ (function () {
+    function UserMoviesHomePageComponent(authService, router, movieDBService, translate, movieQuestionnaireService) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
         this.translate = translate;
+        this.movieQuestionnaireService = movieQuestionnaireService;
         this.hideSearch = false;
         this.searchContainerState = 'notSearched';
         this.loadingSearch = false;
         this.searchResultsLoaded = 'notLoaded';
+        this.showSaveSpinner = false;
     }
     UserMoviesHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -58,20 +61,40 @@ var UserMoviesHomePageComponent = (function () {
     };
     UserMoviesHomePageComponent.prototype.rateMovie = function (id) {
         var _this = this;
-        this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(function (data) {
-            _this.movie = data.json();
-            _this.movieQuestionnaireInitLoaded = true;
-            _this.hideSearch = true;
+        this.searchResultsLoaded = 'notLoaded';
+        this.loadingSearch = true;
+        // load existing data regarding this movie for the current user
+        this.movieQuestionnaireService.get(id).subscribe(function (data) {
+            _this.movieQuestionnaireInit = data.json();
+            _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
+                _this.movie = data.json();
+                _this.movieQuestionnaireInitLoaded = true;
+                _this.hideSearch = true;
+                _this.loadingSearch = false;
+            }, function (error) {
+                _this.router.navigate(['/error']);
+            });
         }, function (error) {
             _this.router.navigate(['/error']);
         });
     };
     UserMoviesHomePageComponent.prototype.back = function () {
+        this.searchResultsLoaded = 'loaded';
         this.movieQuestionnaireInitLoaded = false;
         this.hideSearch = false;
     };
     UserMoviesHomePageComponent.prototype.confirm = function () {
+        var _this = this;
         // Add the questionnaire to DB
+        this.showSaveSpinner = true;
+        // Save data in DB
+        if (this.movieQuestionnaire)
+            this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
+                _this.showSaveSpinner = false;
+                _this.back();
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
     };
     UserMoviesHomePageComponent.prototype.movieQuestionnaireChange = function (data) {
         this.movieQuestionnaire = data;
@@ -110,9 +133,8 @@ var UserMoviesHomePageComponent = (function () {
                 ]),
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService, movie_questionnaire_service_1.MovieQuestionnaireService])
     ], UserMoviesHomePageComponent);
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
-//# sourceMappingURL=user-movies-home-page.component.js.map

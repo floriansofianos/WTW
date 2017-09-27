@@ -8,6 +8,12 @@ var movieQuestionnaireService = function () {
         });
     }
 
+    var get = function (userId, movieId, done) {
+        models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieId } }).then(data => {
+            done(null, data);
+        });
+    }
+
     var createOrUpdate = function (movieQuestionnaire, userId, done) {
         models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieQuestionnaire.movieDBId } }).then(data => {
             if (data) {
@@ -33,12 +39,13 @@ var movieQuestionnaireService = function () {
             }
         });
 
-        
+
     }
 
     return {
         getAll: getAll,
-        createOrUpdate: createOrUpdate
+        createOrUpdate: createOrUpdate,
+        get: get
     }
 }
 

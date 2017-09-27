@@ -5,6 +5,7 @@ import { MovieDBService } from '../movieDB/movieDB.service';
 import { MdInputModule } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
 
 @Component({
     moduleId: module.id,
@@ -52,8 +53,9 @@ export class UserMoviesHomePageComponent {
     searchContainerState = 'notSearched';
     loadingSearch = false;
     searchResultsLoaded = 'notLoaded';
+    showSaveSpinner = false;
 
-    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService) { }
+    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService, private movieQuestionnaireService: MovieQuestionnaireService) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -90,11 +92,23 @@ export class UserMoviesHomePageComponent {
     }
 
     rateMovie(id) {
-        this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
+        this.searchResultsLoaded = 'notLoaded';
+        this.loadingSearch = true;
+        // load existing data regarding this movie for the current user
+        this.movieQuestionnaireService.get(id).subscribe(
             data => {
-                this.movie = data.json();
-                this.movieQuestionnaireInitLoaded = true;
-                this.hideSearch = true;
+                this.movieQuestionnaireInit = data.json();
+                this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
+                    data => {
+                        this.movie = data.json();
+                        this.movieQuestionnaireInitLoaded = true;
+                        this.hideSearch = true;
+                        this.loadingSearch = false;
+                    },
+                    error => {
+                        this.router.navigate(['/error']);
+                    }
+                );
             },
             error => {
                 this.router.navigate(['/error']);
@@ -103,12 +117,22 @@ export class UserMoviesHomePageComponent {
     }
 
     back() {
+        this.searchResultsLoaded = 'loaded';
         this.movieQuestionnaireInitLoaded = false;
         this.hideSearch = false;
     }
 
     confirm() {
         // Add the questionnaire to DB
+        this.showSaveSpinner = true;
+        // Save data in DB
+        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
+            this.showSaveSpinner = false;
+            this.back();
+        },
+        error => {
+            this.router.navigate(['error']);
+        });
     }
 
     movieQuestionnaireChange(data) {

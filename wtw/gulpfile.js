@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='serve-dev' />
+/// <binding BeforeBuild='serve-dev' ProjectOpened='watch' />
 var gulp = require('gulp');
 var config = require('./config/gulp.config')();
 var $ = require('gulp-load-plugins')({
@@ -165,6 +165,15 @@ gulp.task('serve-dev', function () {
         'inject-front-end-dependancies-dev');
 });
 
+gulp.task('serve-dev-light', function () {
+    return runSequence('clean',
+        'compile-ts',
+        'compile-ts-in-app',
+        'copy-angular-html',
+        'compile-less',
+        'inject-front-end-dependancies-dev');
+});
+
 gulp.task('front-end-test', function () {
     new karmaServer({
         configFile: __dirname + '/karma.conf.js',
@@ -175,4 +184,9 @@ gulp.task('front-end-test', function () {
 gulp.task('copy-angular-html', function (done) {
     return gulp.src(config.angularHTML)
         .pipe(gulpCopy(config.publicFolder + 'js/', { prefix: 1 }));
+});
+
+// Rerun the task when a file changes
+gulp.task('watch', function () {
+    gulp.watch(config.allChangesWatch, ['serve-dev-light']);
 });

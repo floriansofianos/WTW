@@ -9,6 +9,16 @@
         else res.send(400);
     };
 
+    var get = function (req, res) {
+        if (req.user && req.params.id) {
+            movieQuestionnaireService.get(req.user.id, req.params.id, function (err, data) {
+                if (!err) res.json(data);
+                else res.send(500);
+            });
+        }
+        else res.send(400);
+    };
+
     var createOrUpdate = function (req, res) {
         if (req.user) {
             movieQuestionnaireService.createOrUpdate(req.body, req.user.id, function (err, data) {
@@ -21,7 +31,8 @@
 
     return {
         getAll: getAll,
-        createOrUpdate: createOrUpdate
+        createOrUpdate: createOrUpdate,
+        get: get
     }
 }
 

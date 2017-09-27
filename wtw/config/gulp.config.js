@@ -16,6 +16,7 @@ module.exports = function () {
         index: lib + 'index.html',
         indexAOT: lib + 'index-aot.html',
         allts: [app + '*.ts', app + '**/*.ts', '!./app/main-aot.ts'],
+        allChangesWatch: [app + '*.ts', app + '**/*.ts', app + 'less/*.less', app + '*.html', app + '**/*.html'],
         tsConfig: app + 'tsconfig.json',
         allLess: [app + 'less/*.less'],
         allTests: [tests + '*.js'],

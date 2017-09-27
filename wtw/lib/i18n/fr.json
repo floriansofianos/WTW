@@ -67,14 +67,15 @@
             "RATE_THIS_MOVIE": "Evaluer ou ajouter à la liste de souhaits"
         }
     },
-    "FORM": {
-        "OK": "OK",
-        "CANCEL": "Annuler",
-        "REQUIRED": "Obligatoire",
-        "NEXT": "Suivant",
-        "SKIP": "Passer",
-        "PREVIOUS": "Précédent",
-        "YES": "Oui",
-        "NO": "Non"
-    }
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Annuler",
+    "REQUIRED": "Obligatoire",
+    "BACK": "Précédent",
+    "NEXT": "Suivant",
+    "SKIP": "Passer",
+    "PREVIOUS": "Précédent",
+    "YES": "Oui",
+    "NO": "Non"
+  }
 }
