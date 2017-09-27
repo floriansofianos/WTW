@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
-var UserMoviesHomePageComponent = /** @class */ (function () {
+var UserMoviesHomePageComponent = (function () {
     function UserMoviesHomePageComponent(authService, router, movieDBService, translate) {
         this.authService = authService;
         this.router = router;
@@ -23,6 +23,8 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
         this.translate = translate;
         this.hideSearch = false;
         this.searchContainerState = 'notSearched';
+        this.loadingSearch = false;
+        this.searchResultsLoaded = 'notLoaded';
     }
     UserMoviesHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -44,8 +46,12 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     UserMoviesHomePageComponent.prototype.searchMovie = function () {
         var _this = this;
         this.searchContainerState = 'searched';
+        this.loadingSearch = true;
+        this.searchResultsLoaded = 'notLoaded';
         this.movieDBService.search(this.search).subscribe(function (data) {
             _this.searchResults = data.json();
+            _this.loadingSearch = false;
+            _this.searchResultsLoaded = 'loaded';
         }, function (error) {
             _this.router.navigate(['/error']);
         });
@@ -75,17 +81,33 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
             moduleId: module.id,
             templateUrl: 'user-movies-home-page.component.html',
             animations: [
-                animations_1.trigger('areaState', [
+                animations_1.trigger('searchState', [
                     animations_1.state('notSearched', animations_1.style({
                         transform: 'translateY(150px)'
                     })),
-                    animations_1.transition('notSearched => searched', [
-                        animations_1.style({
-                            transform: 'translateY(-150px)'
-                        }),
-                        animations_1.animate('3000ms ease-in')
-                    ])
-                ])
+                    animations_1.transition('notSearched => searched', animations_1.animate('800ms ease-in')),
+                    animations_1.state('searched', animations_1.style({
+                        transform: 'translateY(0px)'
+                    }))
+                ]),
+                animations_1.trigger('searchResultsState', [
+                    animations_1.state('notSearched', animations_1.style({
+                        opacity: 0
+                    })),
+                    animations_1.transition('notSearched => searched', animations_1.animate('300ms 200ms ease-in')),
+                    animations_1.state('searched', animations_1.style({
+                        opacity: 1
+                    }))
+                ]),
+                animations_1.trigger('searchResultsLoadedState', [
+                    animations_1.state('notLoaded', animations_1.style({
+                        opacity: 0
+                    })),
+                    animations_1.transition('notLoaded <=> loaded', animations_1.animate('200ms ease-in')),
+                    animations_1.state('loaded', animations_1.style({
+                        opacity: 1
+                    }))
+                ]),
             ]
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService])
@@ -93,3 +115,4 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+//# sourceMappingURL=user-movies-home-page.component.js.map

@@ -10,19 +10,33 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
     moduleId: module.id,
     templateUrl: 'user-movies-home-page.component.html',
     animations: [
-        trigger('areaState', [
+        trigger('searchState', [
             state('notSearched', style({
                 transform: 'translateY(150px)'
             })),
-            transition('notSearched => searched',
-                [
-                    style({
-                        transform: 'translateY(-150px)'
-                    }),
-                    animate('3000ms ease-in')
-                ]
-            )
-        ])
+            transition('notSearched => searched', animate('800ms ease-in')),
+            state('searched', style({
+                transform: 'translateY(0px)'
+            }))
+        ]),
+        trigger('searchResultsState', [
+            state('notSearched', style({
+                opacity: 0
+            })),
+            transition('notSearched => searched', animate('300ms 200ms ease-in')),
+            state('searched', style({
+                opacity: 1
+            }))
+        ]),
+        trigger('searchResultsLoadedState', [
+            state('notLoaded', style({
+                opacity: 0
+            })),
+            transition('notLoaded <=> loaded', animate('200ms ease-in')),
+            state('loaded', style({
+                opacity: 1
+            }))
+        ]),
     ]
 })
 
@@ -35,7 +49,9 @@ export class UserMoviesHomePageComponent {
     movieQuestionnaireInitLoaded: boolean;
     movieQuestionnaire: any;
     hideSearch: boolean = false;
-    searchContainerState = 'notSearched'
+    searchContainerState = 'notSearched';
+    loadingSearch = false;
+    searchResultsLoaded = 'notLoaded';
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService) { }
 
@@ -58,10 +74,14 @@ export class UserMoviesHomePageComponent {
     }
 
     searchMovie() {
-        this.searchContainerState = 'searched'
+        this.searchContainerState = 'searched';
+        this.loadingSearch = true;
+        this.searchResultsLoaded = 'notLoaded'
         this.movieDBService.search(this.search).subscribe(
             data => {
                 this.searchResults = data.json();
+                this.loadingSearch = false;
+                this.searchResultsLoaded = 'loaded'
             },
             error => {
                 this.router.navigate(['/error']);
