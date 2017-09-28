@@ -1,0 +1,6 @@
+<div class="left-menu-container" >
+    <div class="left-menu-item-container" *ngFor="let menu of leftMenus" (click)="itemClick(menu)">
+        <i class="fa" ngClass="{{ menu.icon }}"></i>
+        <div class="left-menu-item-title">{{ menu.title | translate }}</div>
+    </div>
+</div>

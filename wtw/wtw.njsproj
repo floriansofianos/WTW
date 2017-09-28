@@ -43,6 +43,7 @@
     </Content>
     <Content Include="app\movie\movie-questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
+    <Content Include="app\left-menu\left-menu.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
@@ -157,6 +158,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />
+    <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
@@ -173,6 +175,7 @@
     <Folder Include="app\movie\" />
     <Folder Include="app\logo\" />
     <Folder Include="app\movieDB\" />
+    <Folder Include="app\left-menu\" />
     <Folder Include="app\user-movies-home\" />
     <Folder Include="app\top-menu\" />
     <Folder Include="app\user-welcome\" />

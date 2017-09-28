@@ -54,6 +54,11 @@ export class UserMoviesHomePageComponent {
     loadingSearch = false;
     searchResultsLoaded = 'notLoaded';
     showSaveSpinner = false;
+    leftMenus = [
+        { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
+        { icon: 'fa-question', path: 'questionnaire', title: 'LEFT_MENU.QUESTIONNAIRE' },
+        { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
+    ];
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private translate: TranslateService, private movieQuestionnaireService: MovieQuestionnaireService) { }
 

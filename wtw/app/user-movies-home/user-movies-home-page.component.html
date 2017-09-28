@@ -1,38 +1,43 @@
 <top-menu [showButtons]="true" [showLogin]="false"></top-menu>
-<div class="search-container" *ngIf="!hideSearch">
-    <div class="search-bar-container" [@searchState]="searchContainerState">
-        <md-form-field>
-            <input mdInput placeholder="Search..." [(ngModel)]="search">
-        </md-form-field>
-        <wtw-button (click)="searchMovie()">{{ 'FORM.OK' | translate }}</wtw-button>
-    </div>
-    <div class="search-results-container" [@searchResultsState]="searchContainerState">
-        <div [@searchResultsLoadedState]="searchResultsLoaded">
-            <div class="search-result" *ngFor="let result of searchResults">
-                <div class="search-result-poster">
-                    <img width="100" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
+<div class="content-container">
+    <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
+    <div class="inner-content-container">
+        <div class="search-container" *ngIf="!hideSearch">
+            <div class="search-bar-container" [@searchState]="searchContainerState">
+                <md-form-field>
+                    <input mdInput placeholder="Search..." [(ngModel)]="search">
+                </md-form-field>
+                <wtw-button (click)="searchMovie()">{{ 'FORM.OK' | translate }}</wtw-button>
+            </div>
+            <div class="search-results-container" [@searchResultsState]="searchContainerState">
+                <div [@searchResultsLoadedState]="searchResultsLoaded">
+                    <div class="search-result" *ngFor="let result of searchResults">
+                        <div class="search-result-poster">
+                            <img width="100" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
+                        </div>
+                        <div class="search-result-title">{{ result.title }}</div>
+                        <div class="search-result-year">{{ result.release_date?.substring(0, 4)}}</div>
+                        <div class="search-result-overview">{{ result.overview }}</div>
+                        <div class="search-result-button-container">
+                            <wtw-button (click)="rateMovie(result.id)">{{ 'MOVIES.HOME.RATE_THIS_MOVIE' | translate }}</wtw-button>
+                        </div>
+                    </div>
                 </div>
-                <div class="search-result-title">{{ result.title }}</div>
-                <div class="search-result-year">{{ result.release_date?.substring(0, 4)}}</div>
-                <div class="search-result-overview">{{ result.overview }}</div>
-                <div class="search-result-button-container">
-                    <wtw-button (click)="rateMovie(result.id)">{{ 'MOVIES.HOME.RATE_THIS_MOVIE' | translate }}</wtw-button>
+                <div *ngIf="loadingSearch" class="spinner-container">
+                    <spinner></spinner>
                 </div>
             </div>
         </div>
-        <div *ngIf="loadingSearch" class="spinner-container">
-            <spinner></spinner>
-        </div>
-    </div>
-</div>
 
-<div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
-    <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
-    <div class="button-line" *ngIf="!showSaveSpinner">
-        <wtw-button class="button-left" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
-        <wtw-button class="button-right" (click)="confirm()">{{ 'FORM.OK' | translate }}</wtw-button>
-    </div>
-    <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
-        <spinner></spinner>
+        <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
+            <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
+            <div class="button-line" *ngIf="!showSaveSpinner">
+                <wtw-button class="button-left" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
+                <wtw-button class="button-right" (click)="confirm()">{{ 'FORM.OK' | translate }}</wtw-button>
+            </div>
+            <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
+                <spinner></spinner>
+            </div>
+        </div>
     </div>
 </div>

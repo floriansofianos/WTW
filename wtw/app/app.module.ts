@@ -35,7 +35,8 @@ import { SpinnerModule } from 'angular2-spinner';
 import { UiSwitchModule } from 'angular2-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
 import { TopMenuComponent } from './top-menu/top-menu.component';
-import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component'
+import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -88,6 +89,7 @@ export function createTranslateLoader(http: Http) {
         LogoComponent,
         TopMenuComponent,
         UserMoviesHomePageComponent,
+        LeftMenuComponent,
         CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,

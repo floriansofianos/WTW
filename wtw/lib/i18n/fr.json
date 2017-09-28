@@ -49,6 +49,11 @@
         "MOVIES": "Films",
         "SOCIAL": "Social"
     },
+    "LEFT_MENU": {
+        "HOME": "Accueil",
+        "QUESTIONNAIRE": "Questionnaire",
+        "WATCHLIST": "A Voir"
+    },
     "MOVIE_QUESTIONNAIRE": {
         "CAST": "Casting",
         "DIRECTOR": "Réalisateur",

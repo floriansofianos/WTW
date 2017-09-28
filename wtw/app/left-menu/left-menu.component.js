@@ -10,22 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var auth_service_1 = require("../auth/auth.service");
-var UserWelcomePageComponent = (function () {
-    function UserWelcomePageComponent(authService) {
-        this.authService = authService;
+var router_1 = require("@angular/router");
+var LeftMenuComponent = (function () {
+    function LeftMenuComponent(router) {
+        this.router = router;
     }
-    UserWelcomePageComponent.prototype.ngOnInit = function () {
-        var currentUser = this.authService.getCurrentUser();
-        if (currentUser)
-            this.username = currentUser.username;
+    LeftMenuComponent.prototype.itemClick = function (menu) {
+        this.router.navigate([this.rootPath + menu.path]);
     };
-    UserWelcomePageComponent = __decorate([
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array)
+    ], LeftMenuComponent.prototype, "leftMenus", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], LeftMenuComponent.prototype, "rootPath", void 0);
+    LeftMenuComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<first-questionnaire></first-questionnaire>\n"
+            moduleId: module.id,
+            selector: 'left-menu',
+            templateUrl: 'left-menu.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService])
-    ], UserWelcomePageComponent);
-    return UserWelcomePageComponent;
+        __metadata("design:paramtypes", [router_1.Router])
+    ], LeftMenuComponent);
+    return LeftMenuComponent;
 }());
-exports.UserWelcomePageComponent = UserWelcomePageComponent;
+exports.LeftMenuComponent = LeftMenuComponent;

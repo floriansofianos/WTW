@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
-var UserMoviesHomePageComponent = /** @class */ (function () {
+var UserMoviesHomePageComponent = (function () {
     function UserMoviesHomePageComponent(authService, router, movieDBService, translate, movieQuestionnaireService) {
         this.authService = authService;
         this.router = router;
@@ -28,6 +28,11 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
         this.loadingSearch = false;
         this.searchResultsLoaded = 'notLoaded';
         this.showSaveSpinner = false;
+        this.leftMenus = [
+            { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
+            { icon: 'fa-question', path: 'questionnaire', title: 'LEFT_MENU.QUESTIONNAIRE' },
+            { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
+        ];
     }
     UserMoviesHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;

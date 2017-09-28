@@ -42,6 +42,7 @@ var angular2_ui_switch_1 = require("angular2-ui-switch");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var top_menu_component_1 = require("./top-menu/top-menu.component");
 var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-home-page.component");
+var left_menu_component_1 = require("./left-menu/left-menu.component");
 var auth_service_1 = require("./auth/auth.service");
 var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -52,7 +53,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -95,6 +96,7 @@ var AppModule = /** @class */ (function () {
                 logo_component_1.LogoComponent,
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
+                left_menu_component_1.LeftMenuComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 first_questionnaire_service_1.FirstQuestionnaireService,
