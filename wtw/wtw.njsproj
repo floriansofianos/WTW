@@ -138,6 +138,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\routes\movieRoutes.js" />
+    <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>
@@ -185,6 +186,7 @@
     <Folder Include="app\spinner\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
+    <Folder Include="lib\tasks\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />
     <Folder Include="lib\middlewares\" />

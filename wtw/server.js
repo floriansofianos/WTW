@@ -18,6 +18,8 @@ var winston = require('winston');
 var favicon = require('serve-favicon');
 var path = require('path');
 var movieDbService = require('./lib/helpers/movieDBService')();
+var Queue = require('bull');
+var wtwTasks = require('./lib/tasks/wtwTasks');
 
 var port = process.env.port || 1337;
 
@@ -26,6 +28,11 @@ winston.configure({
         new (winston.transports.File)({ filename: 'logFile.log' })
     ]
 });
+
+var tasksQueue = new Queue('background tasks');
+tasksQueue.process(wtwTasks);
+tasksQueue.add(null, { repeat: { cron: '*/5 * * * * *' } });
+
 
 var app = express();
 

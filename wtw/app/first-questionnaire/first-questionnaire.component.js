@@ -17,7 +17,7 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
-var FirstQuestionnaireComponent = (function () {
+var FirstQuestionnaireComponent = /** @class */ (function () {
     function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.translate = translate;
