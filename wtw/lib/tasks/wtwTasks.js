@@ -40,9 +40,11 @@ var wtwTasks = function (job, done) {
 
                         // Deal with directors
 
+                        // Deal with writers
+
                         // Deal with actors
 
-                        // TODO Deal with custom tags
+                        // TODO Deal with custom tags => probably put them in genres
                     });
                 });
             })
