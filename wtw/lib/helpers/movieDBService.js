@@ -184,7 +184,7 @@ module.exports = function () {
             if (err) return done(err, null);
             var credits = data;
             if (!creditsCache) {
-                setMovieTrailersCache(id, credits, (err, data) => {
+                setMovieCreditsCache(id, credits, (err, data) => {
                     if (err) return done(err, null);
                     else return done(null, credits);
                 });
@@ -320,6 +320,8 @@ module.exports = function () {
         getConfiguration: getConfiguration,
         getMovieWithAdditionalInfo: getMovieWithAdditionalInfo,
         getCast: getCast,
-        search: search
+        search: search,
+        getMovie: getMovie,
+        getMovieCredits: getMovieCredits
     }
 }

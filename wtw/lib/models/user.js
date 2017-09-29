@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     lang: DataTypes.STRING,
     age: DataTypes.INTEGER,
-    firstQuestionnaireCompleted: DataTypes.BOOLEAN
+    firstQuestionnaireCompleted: DataTypes.BOOLEAN,
+    profileRefresh: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate: function(models) {

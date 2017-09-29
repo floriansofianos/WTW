@@ -31,7 +31,8 @@ winston.configure({
 
 var tasksQueue = new Queue('background tasks');
 tasksQueue.process(wtwTasks);
-tasksQueue.add(null, { repeat: { cron: '*/5 * * * * *' } });
+//tasksQueue.add(null, { repeat: { cron: '* 0/5 * * * * *' } });
+tasksQueue.add(null);
 
 
 var app = express();

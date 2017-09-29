@@ -113,6 +113,7 @@
     <Compile Include="lib\controllers\userController.js" />
     <Compile Include="lib\helpers\library.js" />
     <Compile Include="lib\helpers\movieDBService.js" />
+    <Compile Include="lib\helpers\movieCacheService.js" />
     <Compile Include="lib\helpers\movieQuestionnaireService.js" />
     <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />

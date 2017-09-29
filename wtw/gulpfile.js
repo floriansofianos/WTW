@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='serve-dev' ProjectOpened='watch' />
+/// <binding ProjectOpened='watch' />
 var gulp = require('gulp');
 var config = require('./config/gulp.config')();
 var $ = require('gulp-load-plugins')({

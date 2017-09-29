@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var LoginFormComponent = /** @class */ (function () {
+var LoginFormComponent = (function () {
     function LoginFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
@@ -56,3 +56,4 @@ var LoginFormComponent = /** @class */ (function () {
     return LoginFormComponent;
 }());
 exports.LoginFormComponent = LoginFormComponent;
+//# sourceMappingURL=login-form.component.js.map

@@ -49,12 +49,19 @@ var userService = function () {
         });
     }
 
+    var getUsersForPorfileRefresh = function (done) {
+        models.User.findAll({ where: { profileRefresh: true } }).then(users => {
+            done(null, users);
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
         validateUser: validateUser,
         createUser: createUser,
-        getUserById: getUserById
+        getUserById: getUserById,
+        getUsersForPorfileRefresh: getUsersForPorfileRefresh
     }
 }
 
