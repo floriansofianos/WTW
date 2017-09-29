@@ -47,6 +47,7 @@
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
+    <Content Include="lib\helpers\userProfileService.js" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>
@@ -139,6 +140,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\routes\movieRoutes.js" />
+    <Compile Include="lib\models\userprofile.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
