@@ -13,6 +13,9 @@ module.exports = function(sequelize, DataTypes) {
           MovieQuestionnaire.belongsTo(models.User);
       }
     }
-  });
+        });
+  MovieQuestionnaire.associate = function (models) {
+      MovieQuestionnaire.belongsTo(models.User, { foreignKey: 'userId' });
+  }
   return MovieQuestionnaire;
 };

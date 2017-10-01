@@ -13,6 +13,7 @@ var userProfileService = function () {
             models.UserProfile.findOne({ where: { userId: userProfile.userId, genreId: userProfile.genreId } }).then(data => {
                 if (data) {
                     data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
                     });
@@ -22,7 +23,8 @@ var userProfileService = function () {
                         userId: userProfile.userId,
                         genreId: userProfile.genreId,
                         name: userProfile.name,
-                        score: userProfile.score
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
                     });
@@ -33,6 +35,7 @@ var userProfileService = function () {
             models.UserProfile.findOne({ where: { userId: userProfile.userId, castId: userProfile.castId } }).then(data => {
                 if (data) {
                     data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
                     });
@@ -42,7 +45,52 @@ var userProfileService = function () {
                         userId: userProfile.userId,
                         castId: userProfile.castId,
                         name: userProfile.name,
-                        score: userProfile.score
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance
+                    }).then(profile => {
+                        done(null, profile);
+                    });
+                }
+            });
+        }
+        else if (userProfile.writerId) {
+            models.UserProfile.findOne({ where: { userId: userProfile.userId, writerId: userProfile.writerId } }).then(data => {
+                if (data) {
+                    data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
+                    data.save().then(profile => {
+                        done(null, profile);
+                    });
+                }
+                else {
+                    models.UserProfile.create({
+                        userId: userProfile.userId,
+                        writerId: userProfile.writerId,
+                        name: userProfile.name,
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance
+                    }).then(profile => {
+                        done(null, profile);
+                    });
+                }
+            });
+        }
+        else if (userProfile.directorId) {
+            models.UserProfile.findOne({ where: { userId: userProfile.userId, directorId: userProfile.directorId } }).then(data => {
+                if (data) {
+                    data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
+                    data.save().then(profile => {
+                        done(null, profile);
+                    });
+                }
+                else {
+                    models.UserProfile.create({
+                        userId: userProfile.userId,
+                        directorId: userProfile.directorId,
+                        name: userProfile.name,
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
                     });

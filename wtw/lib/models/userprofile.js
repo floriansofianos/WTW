@@ -5,7 +5,10 @@ module.exports = function (sequelize, DataTypes) {
         name: DataTypes.STRING,
         genreId: DataTypes.INTEGER,
         castId: DataTypes.INTEGER,
-        score: DataTypes.FLOAT
+        score: DataTypes.FLOAT,
+        scoreRelevance: DataTypes.FLOAT,
+        directorId: DataTypes.INTEGER,
+        writerId: DataTypes.INTEGER
     }, {
             classMethods: {
                 associate: function (models) {
@@ -13,5 +16,8 @@ module.exports = function (sequelize, DataTypes) {
                 }
             }
         });
+    UserProfile.associate = function (models) {
+        UserProfile.belongsTo(models.User, { foreignKey: 'userId' });
+    }
     return UserProfile;
 };

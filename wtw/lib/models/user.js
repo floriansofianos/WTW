@@ -12,14 +12,13 @@ module.exports = function(sequelize, DataTypes) {
     age: DataTypes.INTEGER,
     firstQuestionnaireCompleted: DataTypes.BOOLEAN,
     profileRefresh: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate: function(models) {
-          User.hasMany(models.MovieQuestionnaire);
-          User.hasMany(models.UserProfile);
-      }
-    }
-        });
+  }, {});
+
+  User.associate = function (models) {
+      User.hasMany(models.MovieQuestionnaire, { foreignKey: 'userId' });
+      User.hasMany(models.UserProfile, { foreignKey: 'userId' });
+      User.hasMany(models.UserQuestionnaire, { foreignKey: 'userId' });
+  }
 
   User.prototype.generateHash = function (password) {
       return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

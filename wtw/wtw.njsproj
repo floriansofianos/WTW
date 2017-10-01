@@ -116,6 +116,7 @@
     <Compile Include="lib\helpers\movieDBService.js" />
     <Compile Include="lib\helpers\movieCacheService.js" />
     <Compile Include="lib\helpers\movieQuestionnaireService.js" />
+    <Compile Include="lib\helpers\userQuestionnaireService.js" />
     <Compile Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
@@ -141,6 +142,7 @@
     </Content>
     <Content Include="lib\routes\movieRoutes.js" />
     <Compile Include="lib\models\userprofile.js" />
+    <Compile Include="lib\models\userquestionnaire.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>

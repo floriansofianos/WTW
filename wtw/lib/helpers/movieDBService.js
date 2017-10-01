@@ -322,6 +322,9 @@ module.exports = function () {
         getCast: getCast,
         search: search,
         getMovie: getMovie,
-        getMovieCredits: getMovieCredits
+        getMovieCredits: getMovieCredits,
+        getDirectors: getDirectors,
+        getWriters: getWriters,
+        getActors: getActors
     }
 }

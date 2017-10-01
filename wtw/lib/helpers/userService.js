@@ -1,4 +1,6 @@
 ﻿var models = require('../models');
+var sequelize = require('sequelize');
+var _ = require('underscore');
 
 var userService = function () {
 
@@ -55,13 +57,39 @@ var userService = function () {
         });
     }
 
+    var setUserProfileRefresh = function (userId, profileRefresh, done) {
+        models.User.findOne({ where: { id: userId } }).then(data => {
+            if (data) {
+                data.profileRefresh = profileRefresh;
+                data.save().then(user => {
+                    done(null, user);
+                });
+            }
+        });
+    }
+
+    var getUsersForQuestionnaireRefresh = function (done) {
+        models.UserQuestionnaire.findAll({
+            attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
+            group: 'userId',
+            having: sequelize.literal('count("movieDBId") > 20')
+        }).then(data => {
+            var usersIds = _.map(data, 'userId');
+            models.User.findAll({ where: { id: { $notIn: usersIds } } }).then(users => {
+                done(null, users);
+            });
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
         validateUser: validateUser,
         createUser: createUser,
         getUserById: getUserById,
-        getUsersForPorfileRefresh: getUsersForPorfileRefresh
+        getUsersForPorfileRefresh: getUsersForPorfileRefresh,
+        setUserProfileRefresh: setUserProfileRefresh,
+        getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh
     }
 }
 
