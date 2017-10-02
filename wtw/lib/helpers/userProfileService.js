@@ -3,7 +3,7 @@ var models = require('../models');
 var userProfileService = function () {
 
     var getAll = function (userId, done) {
-        models.MovieQuestionnaire.findAll({ where: { userId: userId } }).then(data => {
+        models.UserProfile.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         });
     }

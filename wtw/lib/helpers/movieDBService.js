@@ -18,6 +18,52 @@ module.exports = function () {
         });
     };
 
+    var getMoviesForGenreQuestionnaire = function (genreId, done) {
+        var query = JSON.parse(JSON.stringify(questionnaireQuery));
+        query.with_genres = genreId;
+        query.page = library.randomInt(0, 100);
+        mdb.discoverMovie(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        }); 
+    }
+
+    var getMoviesForDirectorQuestionnaire = function (directorId, done) {
+        var query = JSON.parse(JSON.stringify(questionnaireQuery));
+        query.with_crew = directorId;
+        mdb.discoverMovie(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        }); 
+    }
+
+    var getMoviesForWriterQuestionnaire = function (writerId, done) {
+        var query = JSON.parse(JSON.stringify(questionnaireQuery));
+        query.with_crew = writerId;
+        mdb.discoverMovie(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        }); 
+    }
+
+    var getMoviesForActorQuestionnaire = function (castIds, done) {
+        var query = JSON.parse(JSON.stringify(questionnaireQuery));
+        var allCastIds = _.reduce(castIds, function (memo, c) { memo + (memo == '' ? '' : ',') + c });
+        query.with_cast = allCastIds;
+        mdb.discoverMovie(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        }); 
+    }
+
     var getMovieWithAdditionalInfo = function (id, lang, done) {
         getMovie(id, lang, (err, data) => {
             if (err) return done(err, null);
@@ -234,6 +280,13 @@ module.exports = function () {
         'release_date.gte': new Date('1980-01-01')
     }
 
+    var questionnaireQuery = {
+        'include_adult': false,
+        'include_video': false,
+        'sort_by': 'popularity.desc',
+        'release_date.lte': new Date('2017-01-01')
+    }
+
     var loadConfiguration = function (done) {
         mdb.configuration({}, (err, data) => {
             if (err) return done(err, null);
@@ -325,6 +378,10 @@ module.exports = function () {
         getMovieCredits: getMovieCredits,
         getDirectors: getDirectors,
         getWriters: getWriters,
-        getActors: getActors
+        getActors: getActors,
+        getMoviesForGenreQuestionnaire: getMoviesForGenreQuestionnaire,
+        getMoviesForDirectorQuestionnaire: getMoviesForDirectorQuestionnaire,
+        getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
+        getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire
     }
 }

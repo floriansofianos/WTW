@@ -3,6 +3,7 @@ var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')(
 var movieCacheService = require('../helpers/movieCacheService')();
 var movieDBService = require('../helpers/movieDBService')();
 var userProfileService = require('../helpers/userProfileService')();
+var userQuestionnaireService = require('../helpers/userQuestionnaireService')();
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
@@ -13,7 +14,7 @@ var wtwTasks = function (job, done) {
         generateUsersQuestionnaires(function (err, res) {
             console.log('ALL DONE !!!!!!');
         });
-        
+
     });
     // call done when finished
     done();
@@ -36,8 +37,24 @@ var generateQuestionnaires = function (users, i, done) {
                 userQuestionnaireService.getAll(u.id, function (err, userQuestionnaires) {
                     // Deal with genres
                     var filteredGenreProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.genreId != null; });
-                    generateGenreQuestionnaire(_.map(filteredGenreProfiles, 'genreId'), questionnaires, userQuestionnaires, 0, function (err, res) {
+                    generateGenreQuestionnaire(_.map(filteredGenreProfiles, 'genreId'), questionnaires, userQuestionnaires, u.id, 0, function (err, res) {
                         // Deal with directors
+                        console.log('Generating questionnaires for directors...');
+                        var filteredDirectorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.directorId != null; });
+                        generateDirectorQuestionnaire(_.map(filteredDirectorsProfiles, 'directorId'), questionnaires, userQuestionnaires, u.id, 0, function (err, res) {
+                            // Deal with writers
+                            console.log('Generating questionnaires for writers...');
+                            var filteredWritersProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.writerId != null; });
+                            generateWriterQuestionnaire(_.map(filteredWritersProfiles, 'writerId'), questionnaires, userQuestionnaires, u.id, 0, function (err, res) {
+                                // Deal with actors
+                                console.log('Generating questionnaires for actors...');
+                                var filteredActorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.castId != null; });
+                                generateActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, u.id, function (err, res) {
+                                    // Done!
+                                    generateQuestionnaires(users, i + 1, done);
+                                });
+                            });
+                        });
                     });
                 });
             });
@@ -46,16 +63,81 @@ var generateQuestionnaires = function (users, i, done) {
     else done(null, true);
 }
 
-var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, i, done) {
+var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, userId, i, done) {
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        console.log(genreId);
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
+            if (data && data.results) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 5, function (err, res) {
+                    generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                });
+            }
+            else generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+        });
     }
     else done(null, true);
 }
 
+var handleData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
+    if (i < allMovies.length) {
+        var m = allMovies[i];
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0) {
+            userQuestionnaireService.create(userId, m.id, function (err, data) {
+                handleData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
+            });
+        }
+        else handleData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
+    }
+    else done(null, true);
+}
 
+var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQuestionnaires, userId, i, done) {
+    if (i < directorIds.length) {
+        var directorId = directorIds[i];
+        // get movieDB movies
+        movieDBService.getMoviesForDirectorQuestionnaire(directorId, function (err, data) {
+            if (data && data.results) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
+                    generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                });
+            }
+            else generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuestionnaires, userId, i, done) {
+    if (i < writerIds.length) {
+        var writerId = writerIds[i];
+        // get movieDB movies
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, function (err, data) {
+            if (data && data.results) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
+                    generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                });
+            }
+            else generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, userId, done) {
+    if (castIds.length < 1) done(null, true);
+    else {
+        // get movieDB movies
+        movieDBService.getMoviesForActorQuestionnaire(castIds, function (err, data) {
+            if (data && data.results) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 2, function (err, res) {
+                    done(null, true);
+                });
+            }
+            else done(null, true);
+        });
+    }
+}
 
 var generateUsersProfile = function (done) {
     // Retrieve all the users that need profile refresh
@@ -83,7 +165,7 @@ var generateUserProfile = function (users, i, done) {
                         });
                     });
                     var moviesGrouped = _.groupBy(moviesGenres, 'genreId');
-                    processMovieGenreGroups(moviesGrouped, function (err, res) {
+                    processMovieGenreGroups(moviesGrouped, u.id, function (err, res) {
 
                         // Deal with directors
                         console.log('Starting generating directors profile...');
@@ -95,7 +177,7 @@ var generateUserProfile = function (users, i, done) {
                             });
                         });
                         var moviesGrouped = _.groupBy(moviesDirectors, 'directorId');
-                        processMovieDirectorGroups(moviesGrouped, function (err, res) {
+                        processMovieDirectorGroups(moviesGrouped, u.id, function (err, res) {
 
                             // Deal with writers
                             console.log('Starting generating writers profile...');
@@ -107,7 +189,7 @@ var generateUserProfile = function (users, i, done) {
                                 });
                             });
                             var moviesGrouped = _.groupBy(moviesWriters, 'writerId');
-                            processMovieWriterGroups(moviesGrouped, function (err, res) {
+                            processMovieWriterGroups(moviesGrouped, u.id, function (err, res) {
 
                                 // Deal with actors
                                 console.log('Starting generating actors profile...');
@@ -119,7 +201,7 @@ var generateUserProfile = function (users, i, done) {
                                     });
                                 });
                                 var moviesGrouped = _.groupBy(moviesActors, 'castId');
-                                processMovieActorGroups(moviesGrouped, function (err, res) {
+                                processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
                                     console.log('User profile created!');
                                     userService.setUserProfileRefresh(u.id, false, function (err, user) {
                                         generateUserProfile(users, i + 1, done)
@@ -154,85 +236,85 @@ var processQuestionnaire = function (questionnaires, allMoviesCache, i, done) {
 }
 
 
-var processMovieGenreGroups = function (moviesGrouped, done) {
-    processGenreGroup(moviesGrouped, 0, done);
+var processMovieGenreGroups = function (moviesGrouped, userId, done) {
+    processGenreGroup(moviesGrouped, 0, userId, done);
 }
 
-var processGenreGroup = function (moviesGrouped, i, done) {
-    if (i < moviesGrouped.length) {
-        var g = moviesGrouped[i];
+var processGenreGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
         var userProfile = {
-            userId: u.id,
+            userId: userId,
             name: g[0].name,
             genreId: g[0].genreId,
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getGenreScoreRelevance(_.size(g))
         }
         userProfileService.createOrUpdate(userProfile, function (err, res) {
-            processGenreGroup(moviesGrouped, i + 1, done);
+            processGenreGroup(moviesGrouped, i + 1, userId, done);
         });
     }
     else done(null, true);
 }
 
-var processMovieDirectorGroups = function (moviesGrouped, done) {
-    processDirectorGroup(moviesGrouped, 0, done);
+var processMovieDirectorGroups = function (moviesGrouped, userId, done) {
+    processDirectorGroup(moviesGrouped, 0, userId, done);
 }
 
-var processDirectorGroup = function (moviesGrouped, i, done) {
-    if (i < moviesGrouped.length) {
-        var g = moviesGrouped[i];
+var processDirectorGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
         var userProfile = {
-            userId: u.id,
+            userId: userId,
             name: g[0].name,
             directorId: g[0].directorId,
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
         }
         userProfileService.createOrUpdate(userProfile, function (err, res) {
-            processDirectorGroup(moviesGrouped, i + 1, done);
+            processDirectorGroup(moviesGrouped, i + 1, userId, done);
         });
     }
     else done(null, true);
 }
 
-var processMovieWriterGroups = function (moviesGrouped, done) {
-    processWriterGroup(moviesGrouped, 0, done);
+var processMovieWriterGroups = function (moviesGrouped, userId, done) {
+    processWriterGroup(moviesGrouped, 0, userId, done);
 }
 
-var processWriterGroup = function (moviesGrouped, i, done) {
-    if (i < moviesGrouped.length) {
-        var g = moviesGrouped[i];
+var processWriterGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
         var userProfile = {
-            userId: u.id,
+            userId: userId,
             name: g[0].name,
             writerId: g[0].writerId,
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
         }
         userProfileService.createOrUpdate(userProfile, function (err, res) {
-            processWriterGroup(moviesGrouped, i + 1, done);
+            processWriterGroup(moviesGrouped, i + 1, userId, done);
         });
     }
     else done(null, true);
 }
 
-var processMovieActorGroups = function (moviesGrouped, done) {
-    processActorGroup(moviesGrouped, 0, done);
+var processMovieActorGroups = function (moviesGrouped, userId, done) {
+    processActorGroup(moviesGrouped, 0, userId, done);
 }
 
-var processActorGroup = function (moviesGrouped, i, done) {
-    if (i < moviesGrouped.length) {
-        var g = moviesGrouped[i];
+var processActorGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
         var userProfile = {
-            userId: u.id,
+            userId: userId,
             name: g[0].name,
             castId: g[0].castId,
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getGenreScoreRelevance(_.size(g))
         }
         userProfileService.createOrUpdate(userProfile, function (err, res) {
-            processActorGroup(moviesGrouped, i + 1, done);
+            processActorGroup(moviesGrouped, i + 1, userId, done);
         });
     }
     else done(null, true);

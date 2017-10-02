@@ -8,8 +8,18 @@ var userQuestionnaireService = function () {
         });
     }
 
+    var create = function (userId, movieDBId, done) {
+        models.UserQuestionnaire.create({
+            userId: userId,
+            movieDBId: movieDBId
+        }).then(userQuestionnaire => {
+            done(null, userQuestionnaire);
+        })
+    }
+
     return {
-        getAll: getAll
+        getAll: getAll,
+        create: create
     }
 }
 
