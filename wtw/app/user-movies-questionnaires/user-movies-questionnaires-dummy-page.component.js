@@ -11,18 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var DummyUserMoviesQuestionnairesComponent = (function () {
+var DummyUserMoviesQuestionnairesComponent = /** @class */ (function () {
     function DummyUserMoviesQuestionnairesComponent(router) {
         this.router = router;
     }
     DummyUserMoviesQuestionnairesComponent.prototype.ngOnInit = function () {
-        this.router.navigate(['/user/movies/questionnaires'], { skipLocationChange: true });
+        this.router.navigate(['/user/movies/questionnaires']);
     };
     DummyUserMoviesQuestionnairesComponent = __decorate([
-        core_1.Component({}),
+        core_1.Component({
+            template: ''
+        }),
         __metadata("design:paramtypes", [router_1.Router])
     ], DummyUserMoviesQuestionnairesComponent);
     return DummyUserMoviesQuestionnairesComponent;
 }());
 exports.DummyUserMoviesQuestionnairesComponent = DummyUserMoviesQuestionnairesComponent;
-//# sourceMappingURL=user-movies-questionnaires-dummy-page.component.js.map

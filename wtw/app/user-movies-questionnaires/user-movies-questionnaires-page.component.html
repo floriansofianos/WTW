@@ -3,11 +3,14 @@
     <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
     <div class="inner-content-container">
         <div class="start-questionnaire-container" (click)="startNewQuestionnaire()" *ngIf="!startNewClicked">
-            <i class="fa fa-plus"></i>
-            <span>{{ 'QUESTIONNAIRE.START_NEW' | translate }}</span>
+            <wtw-button>
+                <i class="fa fa-plus"></i>
+                <span>{{ 'QUESTIONNAIRE.START_NEW' | translate }}</span>
+            </wtw-button>
+
         </div>
         <div *ngIf="startNewClicked">
-            <first-questionnaire [isFirstQuestionnaire]="false"></first-questionnaire>
+            <questionnaire [isFirstQuestionnaire]="false"></questionnaire>
         </div>
     </div>
 </div>

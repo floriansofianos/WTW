@@ -32,7 +32,7 @@ var email_validator_directive_1 = require("./signup/signup-form/email-validator.
 var username_validator_directive_1 = require("./signup/signup-form/username-validator.directive");
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
 var user_welcome_page_component_1 = require("./user-welcome/user-welcome-page.component");
-var first_questionnaire_component_1 = require("./first-questionnaire/first-questionnaire.component");
+var questionnaire_component_1 = require("./questionnaire/questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
 var cast_member_component_1 = require("./movie/cast-member.component");
@@ -44,18 +44,19 @@ var top_menu_component_1 = require("./top-menu/top-menu.component");
 var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-home-page.component");
 var left_menu_component_1 = require("./left-menu/left-menu.component");
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
+var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
 var auth_service_1 = require("./auth/auth.service");
-var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
+var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
-var user_questionnaire_service_1 = require("./first-questionnaire/user-questionnaire.service");
+var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -92,7 +93,7 @@ var AppModule = (function () {
                 username_validator_directive_1.UsernameValidator,
                 user_home_page_component_1.UserHomePageComponent,
                 user_welcome_page_component_1.UserWelcomePageComponent,
-                first_questionnaire_component_1.FirstQuestionnaireComponent,
+                questionnaire_component_1.QuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
                 logo_component_1.LogoComponent,
@@ -100,9 +101,10 @@ var AppModule = (function () {
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
                 left_menu_component_1.LeftMenuComponent,
                 user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent,
+                user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
-                first_questionnaire_service_1.FirstQuestionnaireService,
+                questionnaire_service_1.QuestionnaireService,
                 movie_questionnaire_service_1.MovieQuestionnaireService,
                 movieDB_service_1.MovieDBService,
                 user_questionnaire_service_1.UserQuestionnaireService,
@@ -119,4 +121,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

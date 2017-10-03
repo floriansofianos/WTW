@@ -1,7 +1,7 @@
 ﻿import { Component, Input } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { FirstQuestionnaireService } from '../first-questionnaire/first-questionnaire.service';
+import { QuestionnaireService } from '../questionnaire/questionnaire.service';
 import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
 import { UserQuestionnaireService } from './user-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    selector: 'first-questionnaire',
-    templateUrl: 'first-questionnaire.component.html',
+    selector: 'questionnaire',
+    templateUrl: 'questionnaire.component.html',
     animations: [
         trigger('areaState', [
             state('active', style({
@@ -40,8 +40,8 @@ import { Router } from '@angular/router';
     ]
 })
 
-export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService, private userQuestionnaireService: UserQuestionnaireService) { }
+export class QuestionnaireComponent {
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: QuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService, private userQuestionnaireService: UserQuestionnaireService) { }
     @Input() isFirstQuestionnaire: boolean;
     movie: any;
     configuration: any;

@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
-var HomePageComponent = (function () {
+var HomePageComponent = /** @class */ (function () {
     function HomePageComponent(authService) {
         this.authService = authService;
     }
@@ -29,4 +29,3 @@ var HomePageComponent = (function () {
     return HomePageComponent;
 }());
 exports.HomePageComponent = HomePageComponent;
-//# sourceMappingURL=home-page.component.js.map

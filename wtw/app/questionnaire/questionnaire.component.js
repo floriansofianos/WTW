@@ -12,14 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var first_questionnaire_service_1 = require("../first-questionnaire/first-questionnaire.service");
+var questionnaire_service_1 = require("../questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var user_questionnaire_service_1 = require("./user-questionnaire.service");
 var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
-var FirstQuestionnaireComponent = (function () {
-    function FirstQuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService) {
+var QuestionnaireComponent = /** @class */ (function () {
+    function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService) {
         this.authService = authService;
         this.translate = translate;
         this.router = router;
@@ -30,7 +30,7 @@ var FirstQuestionnaireComponent = (function () {
         this.previousMovies = [];
         this.states = ['active', null, null];
     }
-    FirstQuestionnaireComponent.prototype.ngOnInit = function () {
+    QuestionnaireComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
         if (currentUser.age)
             this.age = currentUser.age;
@@ -50,24 +50,24 @@ var FirstQuestionnaireComponent = (function () {
             this.getNextAgeStep();
         }
     };
-    FirstQuestionnaireComponent.prototype.welcomeMessageOK = function () {
+    QuestionnaireComponent.prototype.welcomeMessageOK = function () {
         this.welcomeMessage = false;
     };
-    FirstQuestionnaireComponent.prototype.setTranslation = function (lang) {
+    QuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
     };
-    FirstQuestionnaireComponent.prototype.isTranslation = function (lang) {
+    QuestionnaireComponent.prototype.isTranslation = function (lang) {
         return this.translate.currentLang === lang;
     };
-    FirstQuestionnaireComponent.prototype.langSkip = function () {
+    QuestionnaireComponent.prototype.langSkip = function () {
         this.setStateActive(1);
         this.questionAnswered++;
     };
-    FirstQuestionnaireComponent.prototype.ageSkip = function () {
+    QuestionnaireComponent.prototype.ageSkip = function () {
         this.showSpinner = true;
         this.getNextAgeStep();
     };
-    FirstQuestionnaireComponent.prototype.langConfirm = function () {
+    QuestionnaireComponent.prototype.langConfirm = function () {
         var _this = this;
         this.showSpinner = true;
         // Save data in DB
@@ -79,11 +79,11 @@ var FirstQuestionnaireComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
-    FirstQuestionnaireComponent.prototype.agePrevious = function () {
+    QuestionnaireComponent.prototype.agePrevious = function () {
         this.setStateActive(0);
         this.questionAnswered--;
     };
-    FirstQuestionnaireComponent.prototype.ageConfirm = function () {
+    QuestionnaireComponent.prototype.ageConfirm = function () {
         var _this = this;
         this.showSpinner = true;
         // Save data in DB
@@ -94,7 +94,7 @@ var FirstQuestionnaireComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
-    FirstQuestionnaireComponent.prototype.getNextAgeStep = function () {
+    QuestionnaireComponent.prototype.getNextAgeStep = function () {
         var _this = this;
         this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
             _this.configuration = response.json();
@@ -104,10 +104,10 @@ var FirstQuestionnaireComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
-    FirstQuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
+    QuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
         this.movieQuestionnaire = data;
     };
-    FirstQuestionnaireComponent.prototype.moviePrevious = function () {
+    QuestionnaireComponent.prototype.moviePrevious = function () {
         this.showSpinner = true;
         this.movieIndex--;
         if (this.movieIndex < 0) {
@@ -122,7 +122,7 @@ var FirstQuestionnaireComponent = (function () {
         }
         this.showSpinner = false;
     };
-    FirstQuestionnaireComponent.prototype.showNextMovie = function () {
+    QuestionnaireComponent.prototype.showNextMovie = function () {
         var _this = this;
         if (this.previousMovies && this.previousMovies[this.movieIndex + 1]) {
             this.movieIndex++;
@@ -149,7 +149,7 @@ var FirstQuestionnaireComponent = (function () {
             }
         }
     };
-    FirstQuestionnaireComponent.prototype.showMovieFromAPIResponse = function (response) {
+    QuestionnaireComponent.prototype.showMovieFromAPIResponse = function (response) {
         this.movie = response.json();
         this.movieIndex++;
         this.showSpinner = false;
@@ -157,7 +157,7 @@ var FirstQuestionnaireComponent = (function () {
             this.setStateActive(2);
         this.storePreviousMovie(true);
     };
-    FirstQuestionnaireComponent.prototype.movieSkip = function () {
+    QuestionnaireComponent.prototype.movieSkip = function () {
         var _this = this;
         this.showSpinner = true;
         this.movieQuestionnaire.isSkipped = true;
@@ -170,7 +170,7 @@ var FirstQuestionnaireComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
-    FirstQuestionnaireComponent.prototype.storePreviousMovie = function (isFirstSave) {
+    QuestionnaireComponent.prototype.storePreviousMovie = function (isFirstSave) {
         if (this.previousMovies[this.movieIndex]) {
             this.previousMovies[this.movieIndex] = {
                 movie: this.movie,
@@ -183,7 +183,7 @@ var FirstQuestionnaireComponent = (function () {
                 movieQuestionnaire: isFirstSave ? null : this.movieQuestionnaire
             });
     };
-    FirstQuestionnaireComponent.prototype.movieConfirm = function () {
+    QuestionnaireComponent.prototype.movieConfirm = function () {
         var _this = this;
         this.showSpinner = true;
         this.storePreviousMovie(false);
@@ -210,22 +210,22 @@ var FirstQuestionnaireComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
-    FirstQuestionnaireComponent.prototype.setStateActive = function (i) {
+    QuestionnaireComponent.prototype.setStateActive = function (i) {
         this.resetAllStates();
         this.states[i] = 'active';
     };
-    FirstQuestionnaireComponent.prototype.resetAllStates = function () {
+    QuestionnaireComponent.prototype.resetAllStates = function () {
         this.states.forEach(function (o, i, a) { return a[i] = null; });
     };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Boolean)
-    ], FirstQuestionnaireComponent.prototype, "isFirstQuestionnaire", void 0);
-    FirstQuestionnaireComponent = __decorate([
+    ], QuestionnaireComponent.prototype, "isFirstQuestionnaire", void 0);
+    QuestionnaireComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'first-questionnaire',
-            templateUrl: 'first-questionnaire.component.html',
+            selector: 'questionnaire',
+            templateUrl: 'questionnaire.component.html',
             animations: [
                 animations_1.trigger('areaState', [
                     animations_1.state('active', animations_1.style({
@@ -249,9 +249,8 @@ var FirstQuestionnaireComponent = (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, first_questionnaire_service_1.FirstQuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService])
-    ], FirstQuestionnaireComponent);
-    return FirstQuestionnaireComponent;
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, questionnaire_service_1.QuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService])
+    ], QuestionnaireComponent);
+    return QuestionnaireComponent;
 }());
-exports.FirstQuestionnaireComponent = FirstQuestionnaireComponent;
-//# sourceMappingURL=first-questionnaire.component.js.map
+exports.QuestionnaireComponent = QuestionnaireComponent;

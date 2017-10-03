@@ -35,13 +35,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app\first-questionnaire\first-questionnaire.component.html" />
     <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="app\logo\logo.component.html" />
     <Content Include="app\movie\cast-member.component.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="app\movie\movie-questionnaire.component.html" />
+    <Content Include="app\questionnaire\questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\left-menu\left-menu.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
@@ -91,6 +91,9 @@
     <TypeScriptCompile Include="app\movie\movie-questionnaire.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\questionnaire\questionnaire.component.ts" />
+    <TypeScriptCompile Include="app\questionnaire\questionnaire.service.ts" />
+    <TypeScriptCompile Include="app\questionnaire\user-questionnaire.service.ts" />
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -178,11 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
+    <Folder Include="app\first-questionnaire\" />
     <Folder Include="app\less\" />
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
-    <Folder Include="app\first-questionnaire\" />
+    <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />
     <Folder Include="app\logo\" />

@@ -26,7 +26,7 @@ import { EmailValidator } from './signup/signup-form/email-validator.directive';
 import { UsernameValidator } from './signup/signup-form/username-validator.directive';
 import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.component';
-import { FirstQuestionnaireComponent } from './first-questionnaire/first-questionnaire.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { CastMemberComponent } from './movie/cast-member.component';
@@ -38,14 +38,15 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
+import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 
 
 import { AuthService } from './auth/auth.service';
-import { FirstQuestionnaireService } from './first-questionnaire/first-questionnaire.service';
+import { QuestionnaireService } from './questionnaire/questionnaire.service';
 import { MovieQuestionnaireService } from './movie/movie-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MovieDBService } from './movieDB/movieDB.service';
-import { UserQuestionnaireService } from './first-questionnaire/user-questionnaire.service';
+import { UserQuestionnaireService } from './questionnaire/user-questionnaire.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -85,7 +86,7 @@ export function createTranslateLoader(http: Http) {
         UsernameValidator,
         UserHomePageComponent,
         UserWelcomePageComponent,
-        FirstQuestionnaireComponent,
+        QuestionnaireComponent,
         WtwButtonComponent,
         MovieQuestionnaireComponent,
         LogoComponent,
@@ -93,9 +94,10 @@ export function createTranslateLoader(http: Http) {
         UserMoviesHomePageComponent,
         LeftMenuComponent,
         UserMoviesQuestionnairesPageComponent,
+        DummyUserMoviesQuestionnairesComponent,
         CastMemberComponent],
     providers: [AuthService,
-        FirstQuestionnaireService,
+        QuestionnaireService,
         MovieQuestionnaireService,
         MovieDBService,
         UserQuestionnaireService,

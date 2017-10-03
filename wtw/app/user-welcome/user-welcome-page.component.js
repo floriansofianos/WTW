@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
-var UserWelcomePageComponent = (function () {
+var UserWelcomePageComponent = /** @class */ (function () {
     function UserWelcomePageComponent(authService) {
         this.authService = authService;
     }
@@ -22,11 +22,10 @@ var UserWelcomePageComponent = (function () {
     };
     UserWelcomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<first-questionnaire [isFirstQuestionnaire]=\"true\"></first-questionnaire>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService])
     ], UserWelcomePageComponent);
     return UserWelcomePageComponent;
 }());
 exports.UserWelcomePageComponent = UserWelcomePageComponent;
-//# sourceMappingURL=user-welcome-page.component.js.map

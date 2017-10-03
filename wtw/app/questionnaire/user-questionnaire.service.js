@@ -12,22 +12,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var FirstQuestionnaireService = (function () {
-    function FirstQuestionnaireService(http) {
+var UserQuestionnaireService = /** @class */ (function () {
+    function UserQuestionnaireService(http) {
         this.http = http;
     }
-    FirstQuestionnaireService.prototype.getFirstQuestionnaireMovie = function (lang) {
-        return this.http.get('/api/firstQuestionnaire?lang=' + lang)
+    UserQuestionnaireService.prototype.get = function (lang) {
+        return this.http.get('/api/userQuestionnaire?lang=' + lang)
             .catch(this.handleErrors);
     };
-    FirstQuestionnaireService.prototype.handleErrors = function (error) {
+    UserQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    FirstQuestionnaireService = __decorate([
+    UserQuestionnaireService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
-    ], FirstQuestionnaireService);
-    return FirstQuestionnaireService;
+    ], UserQuestionnaireService);
+    return UserQuestionnaireService;
 }());
-exports.FirstQuestionnaireService = FirstQuestionnaireService;
-//# sourceMappingURL=first-questionnaire.service.js.map
+exports.UserQuestionnaireService = UserQuestionnaireService;
