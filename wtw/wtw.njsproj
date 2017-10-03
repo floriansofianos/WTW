@@ -171,6 +171,7 @@
     <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-dummy-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
