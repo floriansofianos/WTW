@@ -1,5 +1,6 @@
 ﻿var models = require('../models');
 var userService = require('./userService')();
+var userQuestionnaireService = require('./userQuestionnaireService')();
 
 var movieQuestionnaireService = function () {
 
@@ -36,8 +37,10 @@ var movieQuestionnaireService = function () {
                     isSkipped: movieQuestionnaire.isSkipped
                 }).then(questionnaire => {
                     userService.setUserProfileRefresh(userId, true, function (err, res) {
-                        done(null, questionnaire);
-                    })
+                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                            done(null, questionnaire);
+                        });
+                    });
                 });
             }
         });

@@ -61,13 +61,6 @@
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.component.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="app\first-questionnaire\user-questionnaire.service.ts" />
-    <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.service.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="app\home\home-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -181,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
-    <Folder Include="app\first-questionnaire\" />
     <Folder Include="app\less\" />
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />

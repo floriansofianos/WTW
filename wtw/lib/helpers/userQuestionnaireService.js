@@ -30,10 +30,17 @@ var userQuestionnaireService = function () {
         })
     }
 
+    var deleteQuestionnaire = function(userId, movieDBId, done) {
+        models.UserQuestionnaire.destroy({ where: { userId: userId, movieDBId: movieDBId } }).then(result => {
+            done(null, result);
+        })
+    }
+
     return {
         getAll: getAll,
         getRandom: getRandom,
-        create: create
+        create: create,
+        deleteQuestionnaire: deleteQuestionnaire
     }
 }
 
