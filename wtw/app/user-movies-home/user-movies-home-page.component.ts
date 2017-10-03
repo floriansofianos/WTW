@@ -56,7 +56,7 @@ export class UserMoviesHomePageComponent {
     showSaveSpinner = false;
     leftMenus = [
         { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
-        { icon: 'fa-question', path: 'questionnaire', title: 'LEFT_MENU.QUESTIONNAIRE' },
+        { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
         { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
     ];
 

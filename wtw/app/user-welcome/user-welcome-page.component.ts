@@ -4,7 +4,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
     template: `
 <top-menu [showButtons]="false" [showLogin]="false"></top-menu>
-<first-questionnaire></first-questionnaire>
+<first-questionnaire [isFirstQuestionnaire]="true"></first-questionnaire>
 `
 })
 

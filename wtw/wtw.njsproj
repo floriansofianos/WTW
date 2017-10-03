@@ -46,6 +46,7 @@
     <Content Include="app\left-menu\left-menu.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
+    <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="lib\helpers\userProfileService.js" />
     <Content Include="lib\i18n\fr.json" />
@@ -63,6 +64,7 @@
     <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\first-questionnaire\user-questionnaire.service.ts" />
     <TypeScriptCompile Include="app\first-questionnaire\first-questionnaire.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -107,17 +109,18 @@
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\userQuestionnaireController.js" />
     <Compile Include="lib\controllers\movieController.js" />
     <Compile Include="lib\controllers\movieSearchController.js" />
     <Compile Include="lib\controllers\movieQuestionnaireController.js" />
     <Compile Include="lib\controllers\firstQuestionnaireController.js" />
     <Compile Include="lib\controllers\userController.js" />
-    <Compile Include="lib\helpers\library.js" />
-    <Compile Include="lib\helpers\movieDBService.js" />
-    <Compile Include="lib\helpers\movieCacheService.js" />
-    <Compile Include="lib\helpers\movieQuestionnaireService.js" />
-    <Compile Include="lib\helpers\userQuestionnaireService.js" />
-    <Compile Include="lib\helpers\userService.js" />
+    <Content Include="lib\helpers\library.js" />
+    <Content Include="lib\helpers\movieDBService.js" />
+    <Content Include="lib\helpers\movieCacheService.js" />
+    <Content Include="lib\helpers\movieQuestionnaireService.js" />
+    <Content Include="lib\helpers\userQuestionnaireService.js" />
+    <Content Include="lib\helpers\userService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -143,6 +146,7 @@
     <Content Include="lib\routes\movieRoutes.js" />
     <Compile Include="lib\models\userprofile.js" />
     <Compile Include="lib\models\userquestionnaire.js" />
+    <Content Include="lib\routes\userQuestionnaireRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -167,6 +171,7 @@
     <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
   </ItemGroup>
@@ -182,6 +187,7 @@
     <Folder Include="app\logo\" />
     <Folder Include="app\movieDB\" />
     <Folder Include="app\left-menu\" />
+    <Folder Include="app\user-movies-questionnaires\" />
     <Folder Include="app\user-movies-home\" />
     <Folder Include="app\top-menu\" />
     <Folder Include="app\user-welcome\" />

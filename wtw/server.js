@@ -5,6 +5,7 @@ var authRouter = require('./lib/routes/authRoutes')();
 var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')();
 var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoutes')();
 var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')();
+var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
 var movieRouter = require('./lib/routes/movieRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
@@ -33,7 +34,6 @@ var tasksQueue = new Queue('background tasks');
 tasksQueue.process(wtwTasks);
 //tasksQueue.add(null, { repeat: { cron: '* 0/5 * * * * *' } });
 tasksQueue.add(null);
-
 
 var app = express();
 
@@ -70,6 +70,7 @@ app.use('/auth', authRouter);
 app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
 app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
+app.use('/api/userQuestionnaire', userQuestionnaireRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api/cast', castRouter);
@@ -91,6 +92,9 @@ app.get('/user/home', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/movies/home', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/movies/questionnaires', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 

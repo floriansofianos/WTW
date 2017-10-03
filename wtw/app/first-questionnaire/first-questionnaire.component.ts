@@ -1,8 +1,9 @@
-﻿import { Component } from '@angular/core'
+﻿import { Component, Input } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FirstQuestionnaireService } from '../first-questionnaire/first-questionnaire.service';
 import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
+import { UserQuestionnaireService } from './user-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { MovieDBService } from '../movieDB/movieDB.service';
 import { Router } from '@angular/router';
@@ -40,13 +41,14 @@ import { Router } from '@angular/router';
 })
 
 export class FirstQuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService) { }
-
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: FirstQuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService, private userQuestionnaireService: UserQuestionnaireService) { }
+    @Input() isFirstQuestionnaire: boolean;
     movie: any;
     configuration: any;
     movieQuestionnaire: any
     movieIndex: number
     questionAnswered: number
+    questionsToAnswer: number;
     previousMovies: any = [];
     movieQuestionnaireInit: any;
     welcomeMessage: boolean;
@@ -56,13 +58,18 @@ export class FirstQuestionnaireComponent {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.age) this.age = currentUser.age;
         else this.age = 30;
+        this.questionsToAnswer = this.isFirstQuestionnaire ? 12 : 10;
         this.username = currentUser.username;
         this.welcomeMessage = true;
         this.movieIndex = -1;
         this.questionAnswered = 0;
-        if (currentUser.firstQuestionnaireCompleted) {
-            this.questionAnswered = 12;
+        if (currentUser.firstQuestionnaireCompleted && this.isFirstQuestionnaire) {
+            this.questionAnswered = this.questionsToAnswer;
             this.setStateActive(2);
+        }
+        if (!this.isFirstQuestionnaire) {
+            this.showSpinner = true;
+            this.getNextAgeStep();
         }
     }
 
@@ -160,17 +167,31 @@ export class FirstQuestionnaireComponent {
             if (this.movieIndex === 0) this.setStateActive(2);
         }
         else {
-            this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
-                this.movie = response.json();
-                this.movieIndex++;
-                this.showSpinner = false;
-                if (this.movieIndex === 0) this.setStateActive(2);
-                this.storePreviousMovie(true);
-            },
-                error => {
-                    this.router.navigate(['error']);
-                });
+            if (this.isFirstQuestionnaire) {
+                this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(response => {
+                    this.showMovieFromAPIResponse(response);
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
+            }
+            else {
+                this.userQuestionnaireService.get(this.translate.currentLang).subscribe(response => {
+                    this.showMovieFromAPIResponse(response);
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
+            }            
         }
+    }
+
+    showMovieFromAPIResponse(response) {
+        this.movie = response.json();
+        this.movieIndex++;
+        this.showSpinner = false;
+        if (this.movieIndex === 0) this.setStateActive(2);
+        this.storePreviousMovie(true);
     }
 
     movieSkip() {
@@ -206,13 +227,18 @@ export class FirstQuestionnaireComponent {
         if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
             this.questionAnswered++;
             // Check if we need to show more movies
-            if (this.questionAnswered >= 12) {
-                this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(response => {
-                    this.showSpinner = false;
-                },
-                    error => {
-                        this.router.navigate(['error']);
-                    });
+            if (this.questionAnswered >= this.questionsToAnswer) {
+                if (this.isFirstQuestionnaire) {
+                    this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(response => {
+                        this.showSpinner = false;
+                    },
+                        error => {
+                            this.router.navigate(['error']);
+                        });
+                }
+                else {
+
+                }
             }
             else {
                 this.showNextMovie();

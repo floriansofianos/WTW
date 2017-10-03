@@ -37,6 +37,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
+import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -44,6 +45,7 @@ import { FirstQuestionnaireService } from './first-questionnaire/first-questionn
 import { MovieQuestionnaireService } from './movie/movie-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MovieDBService } from './movieDB/movieDB.service';
+import { UserQuestionnaireService } from './first-questionnaire/user-questionnaire.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -90,11 +92,13 @@ export function createTranslateLoader(http: Http) {
         TopMenuComponent,
         UserMoviesHomePageComponent,
         LeftMenuComponent,
+        UserMoviesQuestionnairesPageComponent,
         CastMemberComponent],
     providers: [AuthService,
         FirstQuestionnaireService,
         MovieQuestionnaireService,
         MovieDBService,
+        UserQuestionnaireService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

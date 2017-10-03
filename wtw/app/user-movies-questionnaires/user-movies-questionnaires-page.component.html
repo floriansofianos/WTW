@@ -1,0 +1,13 @@
+<top-menu [showButtons]="true" [showLogin]="false"></top-menu>
+<div class="content-container">
+    <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
+    <div class="inner-content-container">
+        <div class="start-questionnaire-container" (click)="startNewQuestionnaire()" *ngIf="!startNewClicked">
+            <i class="fa fa-plus"></i>
+            <span>{{ 'QUESTIONNAIRE.START_NEW' | translate }}</span>
+        </div>
+        <div *ngIf="startNewClicked">
+            <first-questionnaire [isFirstQuestionnaire]="false"></first-questionnaire>
+        </div>
+    </div>
+</div>

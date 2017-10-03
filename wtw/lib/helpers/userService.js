@@ -71,7 +71,7 @@ var userService = function () {
     var getUsersForQuestionnaireRefresh = function (done) {
         models.UserQuestionnaire.findAll({
             attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
-            group: 'userId',
+            group: '"userId"',
             having: sequelize.literal('count("movieDBId") > 20')
         }).then(data => {
             var usersIds = _.map(data, 'userId');

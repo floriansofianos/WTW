@@ -5,6 +5,7 @@ import { SignUpPageComponent } from './signup/signup-page.component';
 import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.component';
 import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home-page.component';
+import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 export const appRoutes: Routes = [
@@ -13,5 +14,6 @@ export const appRoutes: Routes = [
     { path: 'user/welcome', component: UserWelcomePageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/home', component: UserHomePageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/home', component: UserMoviesHomePageComponent, canActivate: [CanActivateAuthGuard] },
+    { path: 'user/movies/questionnaires', component: UserMoviesQuestionnairesPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: '', component: HomePageComponent }
 ]

@@ -32,7 +32,8 @@
     "FIRST_QUESTIONNAIRE": {
         "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
         "AGE_QUESTION": "Quel est votre âge ?",
-        "DONE": "Merci d'avoir terminé ce premier questionnaire.",
+        "DONE": "Merci d'avoir terminé ce questionnaire.",
+        "CONTINUE":  "Continuer",
         "GO_TO": "Vous pouvez désormais accéder à votre ",
         "HOMEPAGE": "page d'accueil",
         "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
@@ -71,6 +72,9 @@
         "HOME": {
             "RATE_THIS_MOVIE": "Evaluer ou ajouter à la liste de souhaits"
         }
+    },
+    "QUESTIONNAIRE": {
+        "START_NEW": "Commencer un nouveau questionnaire."
     },
   "FORM": {
     "OK": "OK",

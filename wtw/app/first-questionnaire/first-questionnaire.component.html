@@ -1,17 +1,17 @@
 <div class="top-right">
-    <div class="progress-bar-container"><md-progress-bar [color]="'#08073c'" [mode]="'determinate'" [value]="(questionAnswered / 12) * 100"></md-progress-bar></div>
-    <div class="text-centered">{{ questionAnswered }}/12</div>
+    <div class="progress-bar-container"><md-progress-bar [color]="'#08073c'" [mode]="'determinate'" [value]="(questionAnswered / questionsToAnswer) * 100"></md-progress-bar></div>
+    <div class="text-centered">{{ questionAnswered }}/{{questionsToAnswer}}</div>
 </div>
 <div class="questionnaire-container">
-    
-    <div class="question-block" [@areaState]="'active'" *ngIf="welcomeMessage">
+    <div class="spinner-container" *ngIf="!isFirstQuestionnaire && movieIndex == -1 && showSpinner"><spinner></spinner></div>
+    <div class="question-block" [@areaState]="'active'" *ngIf="welcomeMessage && isFirstQuestionnaire">
         <h2>{{ 'HOME.WELCOME' | translate }} {{ username }}</h2>
         <div class="welcome-message">{{ 'FIRST_QUESTIONNAIRE.WELCOME_MESSAGE' | translate }}</div>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-center" (click)="welcomeMessageOK()">{{ 'FORM.OK' | translate }}</wtw-button>
         </div>
     </div>
-    <div class="question-block" [@areaState]="'active'" *ngIf="states[0] && !welcomeMessage">
+    <div class="question-block" [@areaState]="'active'" *ngIf="states[0] && !welcomeMessage && isFirstQuestionnaire">
         <div>{{ 'FIRST_QUESTIONNAIRE.LANGUAGE_QUESTION' | translate }}</div>
         <div class="flags-container">
             <div class="flag-container" (click)="setTranslation('fr')"><span class="flag-icon flag-icon-fr" [ngClass]="{'flag-selected' : isTranslation('fr')}"></span></div>
@@ -23,7 +23,7 @@
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
-    <div class="question-block" [@areaState]="'active'" *ngIf="states[1]">
+    <div class="question-block" [@areaState]="'active'" *ngIf="states[1] && isFirstQuestionnaire">
         <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
         <input class="input-invert-color" type="number" min="1" max="130" [(ngModel)]="age" />
         <div class="button-line" *ngIf="!showSpinner">
@@ -33,7 +33,16 @@
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
-    <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 0 && states[2] && questionAnswered < 12">
+    <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 0 && states[2] && questionAnswered < questionsToAnswer">
+        <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
+        <div class="button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-left" (click)="moviePrevious()" *ngIf="!isFirstQuestionnaire && movieIndex != 0">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
+            <wtw-button class="button-center" (click)="movieSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
+            <wtw-button class="button-right" (click)="movieConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </div>
+    <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 1 && states[2] && questionAnswered < questionsToAnswer">
         <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
@@ -42,18 +51,10 @@
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
     </div>
-    <div class="question-block width95" [@areaState]="'active'" *ngIf="movieIndex % 2 == 1 && states[2] && questionAnswered < 12">
-        <movie-questionnaire [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-questionnaire>
-        <div class="button-line" *ngIf="!showSpinner">
-            <wtw-button class="button-left" (click)="moviePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
-            <wtw-button class="button-center" (click)="movieSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
-            <wtw-button class="button-right" (click)="movieConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
-        </div>
-        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
-    </div>
-    <div class="question-block thank-you-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= 12">
+    <div class="question-block thank-you-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= questionsToAnswer">
         <h1><i class="fa fa-check-circle-o" aria-hidden="true"></i>{{ 'FIRST_QUESTIONNAIRE.DONE' | translate }}</h1>
-        <div>{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}<a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a></div>
+        <div *ngIf="isFirstQuestionnaire">{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}<a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a></div>
+        <div *ngIf="!isFirstQuestionnaire"><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
     </div>
 </div>
 

@@ -43,11 +43,13 @@ var ng2_nouislider_1 = require("ng2-nouislider");
 var top_menu_component_1 = require("./top-menu/top-menu.component");
 var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-home-page.component");
 var left_menu_component_1 = require("./left-menu/left-menu.component");
+var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
 var auth_service_1 = require("./auth/auth.service");
 var first_questionnaire_service_1 = require("./first-questionnaire/first-questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
+var user_questionnaire_service_1 = require("./first-questionnaire/user-questionnaire.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
@@ -97,11 +99,13 @@ var AppModule = (function () {
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
                 left_menu_component_1.LeftMenuComponent,
+                user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 first_questionnaire_service_1.FirstQuestionnaireService,
                 movie_questionnaire_service_1.MovieQuestionnaireService,
                 movieDB_service_1.MovieDBService,
+                user_questionnaire_service_1.UserQuestionnaireService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,

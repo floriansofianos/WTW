@@ -22,7 +22,7 @@ var UserWelcomePageComponent = (function () {
     };
     UserWelcomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<first-questionnaire></first-questionnaire>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<first-questionnaire [isFirstQuestionnaire]=\"true\"></first-questionnaire>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService])
     ], UserWelcomePageComponent);
