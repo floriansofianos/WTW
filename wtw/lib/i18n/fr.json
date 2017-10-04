@@ -74,7 +74,9 @@
         }
     },
     "QUESTIONNAIRE": {
-        "START_NEW": "Commencer un nouveau questionnaire."
+        "START_NEW": "Commencer un nouveau questionnaire.",
+        "HISTORY": "Historique",
+        "NOT_WANT_TO_SEE":  "Vous ne voulez pas voir"
     },
   "FORM": {
     "OK": "OK",

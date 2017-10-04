@@ -2,12 +2,25 @@
 <div class="content-container">
     <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
     <div class="inner-content-container">
-        <div class="start-questionnaire-container" (click)="startNewQuestionnaire()" *ngIf="!startNewClicked">
-            <wtw-button>
+        <div class="start-questionnaire-container" *ngIf="!startNewClicked">
+            <wtw-button (click)="startNewQuestionnaire()">
                 <i class="fa fa-plus"></i>
                 <span>{{ 'QUESTIONNAIRE.START_NEW' | translate }}</span>
             </wtw-button>
-
+            <h2>{{'QUESTIONNAIRE.HISTORY' | translate }}</h2>
+            <div class="categories-placeholder" *ngIf="categoriesNotLoaded">
+                <spinner></spinner>
+            </div>
+            <div *ngFor="let category of categories" class="category-container">
+                <div class="questionnaire-separator"></div>
+                <div class="category-title">
+                    <span *ngIf="category.type == 'text'">{{ category.name | translate }}</span>
+                    <span *ngIf="category.type == 'star'"><star-rating-comp [rating]="category.name" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [size]="'large'"></star-rating-comp></span>
+                </div>
+                <div class="category-movie-wall">
+                    PLACEHOLDER FOR MOVIE WALL
+                </div>
+            </div>
         </div>
         <div *ngIf="startNewClicked">
             <questionnaire [isFirstQuestionnaire]="false"></questionnaire>
