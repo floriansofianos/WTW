@@ -37,6 +37,7 @@
   <ItemGroup>
     <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="app\logo\logo.component.html" />
+    <Content Include="app\movie-wall\movie-wall.component.html" />
     <Content Include="app\movie\cast-member.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -72,6 +73,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\main-aot.ts" />
+    <TypeScriptCompile Include="app\movie-wall\movie-wall.component.ts" />
     <TypeScriptCompile Include="app\movieDB\movieDB.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -178,6 +180,7 @@
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
+    <Folder Include="app\movie-wall\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />

@@ -18,6 +18,41 @@ module.exports = function () {
         });
     };
 
+    var getAllMovies = function (movieIds, lang, movieCacheService, done) {
+        if (movieIds.constructor !== Array) movieIds = [movieIds];
+        movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+            data = _.map(data, 'data');
+            // Get rid of duplicates
+            data = _.map(_.groupBy(data, 'id'), function (g) {
+                return g[0];
+            });
+            var missingMovieIds = _.filter(movieIds, function (id) { return !_.find(data, function (d) { return d.id == id }); });
+            if (missingMovieIds && missingMovieIds.length > 0) {
+                getMoviesFromMovieDB(missingMovieIds, lang, 0, [], function (err, res) {
+                    if (err) return done(err, null);
+                    else {
+                        data = data.concat(res);
+                        done(null, data);
+                    }
+                });
+            }
+            else done(null, data);
+        });
+    }
+
+    var getMoviesFromMovieDB = function(movieIds, lang, i, data, done) {
+        if (i < movieIds.length) {
+            getMovieFromMovieDB(movieIds[i], lang, null, (err, movie) => {
+                if (err) return done(err, null);
+                else {
+                    data.push(movie);
+                    getMoviesFromMovieDB(movieIds, lang, i + 1, data, done);
+                }
+            });
+        }
+        else done(null, data);
+    }
+
     var getMoviesForGenreQuestionnaire = function (genreId, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
@@ -382,6 +417,7 @@ module.exports = function () {
         getMoviesForGenreQuestionnaire: getMoviesForGenreQuestionnaire,
         getMoviesForDirectorQuestionnaire: getMoviesForDirectorQuestionnaire,
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
-        getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire
+        getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
+        getAllMovies: getAllMovies
     }
 }

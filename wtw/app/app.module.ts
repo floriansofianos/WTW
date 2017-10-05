@@ -39,6 +39,7 @@ import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
+import { MovieWallComponent } from './movie-wall/movie-wall.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -95,6 +96,7 @@ export function createTranslateLoader(http: Http) {
         LeftMenuComponent,
         UserMoviesQuestionnairesPageComponent,
         DummyUserMoviesQuestionnairesComponent,
+        MovieWallComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,

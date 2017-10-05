@@ -15,10 +15,10 @@
                 <div class="questionnaire-separator"></div>
                 <div class="category-title">
                     <span *ngIf="category.type == 'text'">{{ category.name | translate }}</span>
-                    <span *ngIf="category.type == 'star'"><star-rating-comp [rating]="category.name" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [size]="'large'"></star-rating-comp></span>
+                    <span *ngIf="category.type == 'star'"><star-rating-comp [rating]="category.name" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [size]="'medium'"></star-rating-comp></span>
                 </div>
-                <div class="category-movie-wall">
-                    PLACEHOLDER FOR MOVIE WALL
+                <div class="category-movie-wall" *ngIf="category.values && category.values.length > 0">
+                    <movie-wall [movieIds]="category.values" [lang]="lang" [config]="configuration"></movie-wall>
                 </div>
             </div>
         </div>

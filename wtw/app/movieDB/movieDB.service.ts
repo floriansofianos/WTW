@@ -23,6 +23,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    getMovies(movieIds: Array<number>, lang: string) {
+        return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

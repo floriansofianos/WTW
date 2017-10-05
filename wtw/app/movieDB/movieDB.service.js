@@ -28,6 +28,10 @@ var MovieDBService = (function () {
         return this.http.get('/api/movie', { params: { id: id, lang: lang } })
             .catch(this.handleErrors);
     };
+    MovieDBService.prototype.getMovies = function (movieIds, lang) {
+        return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
+            .catch(this.handleErrors);
+    };
     MovieDBService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };

@@ -1,0 +1,9 @@
+<div class="movie-wall-container" *ngIf="dataLoaded">
+    <div class="movie-container" *ngFor="let m of movies">
+        <img width="100" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ m?.poster_path }}" />
+        <span class="movie-title">{{ m.title }}</span>
+    </div>
+</div>
+<div class="movie-wall-spinner-container" *ngIf="!dataLoaded">
+    <spinner></spinner>
+</div>

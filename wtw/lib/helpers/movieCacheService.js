@@ -10,8 +10,15 @@ var movieCacheService = function () {
         });
     }
 
+    var getAllInArrayWithLang = function (movieIds, lang, done) {
+        models.MovieInfoCache.findAll({ where: { movieDBId: { $in: movieIds }, lang: lang } }).then(movieInfos => {
+            done(null, movieInfos);
+        });
+    }
+
     return {
-        getAllInArray: getAllInArray
+        getAllInArray: getAllInArray,
+        getAllInArrayWithLang: getAllInArrayWithLang
     }
 }
 
