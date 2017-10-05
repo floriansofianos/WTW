@@ -1,4 +1,4 @@
 <div class="movie-container" (mouseup)="onMouseUp()" (mouseout)="onMouseOut()" (mouseover)="onMouseOver()">
     <img width="100" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie.poster_path }}" [@posterState]="state" />
-    <span class="movie-title" [@titleState]="state">{{ movie.title }}</span>
+    <div class="movie-title" [@titleState]="state">{{ movie.title }}</div>
 </div>
