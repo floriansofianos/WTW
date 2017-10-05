@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
 
@@ -12,6 +12,7 @@ export class MovieWallComponent {
     @Input() movieIds: Array<number>;
     @Input() lang: string;
     @Input() config: any;
+    @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     movies: Array<any>;
     dataLoaded: boolean;
 
@@ -25,6 +26,12 @@ export class MovieWallComponent {
         },
         err => {
             this.router.navigate(['error']);
+        });
+    }
+
+    showQuestionnaire(id: number) {
+        this.notify.emit({
+            movieId: id
         });
     }
 }

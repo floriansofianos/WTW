@@ -20,11 +20,17 @@ export class UserMoviesQuestionnairesPageComponent {
     categories: Array<any>;
     categoriesNotLoaded: boolean
     configuration: any;
-    lang: string
+    lang: string;
+    loadingState: boolean;
+    movieQuestionnaireInit: any;
+    selectedMovie: any;
+    showSaveSpinner: boolean;
+    movieQuestionnaire: any;
 
     constructor(private authService: AuthService, private router: Router, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService) { }
 
     ngOnInit() {
+        this.loadingState = false;
         let currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -60,6 +66,51 @@ export class UserMoviesQuestionnairesPageComponent {
             error => {
                 this.router.navigate(['error']);
             });
+    }
+
+    onClickMovie(event) {
+        this.loadingState = true;
+        // load existing data regarding this movie for the current user
+        this.movieQuestionnaireService.get(event.movieId).subscribe(
+            data => {
+                this.movieQuestionnaireInit = data.json();
+                this.movieDBService.getMovie(event.movieId, this.lang).subscribe(
+                    data => {
+                        this.selectedMovie = data.json();
+                        this.loadingState = false;
+                    },
+                    error => {
+                        this.router.navigate(['/error']);
+                    }
+                );
+            },
+            error => {
+                this.router.navigate(['/error']);
+            }
+        );
+    }
+
+    back() {
+        this.selectedMovie = null;
+        this.categories = null;
+        this.ngOnInit();
+    }
+
+    confirm() {
+        // Add the questionnaire to DB
+        this.showSaveSpinner = true;
+        // Save data in DB
+        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
+            this.showSaveSpinner = false;
+            this.back();
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    movieQuestionnaireChange(data) {
+        this.movieQuestionnaire = data;
     }
 
     startNewQuestionnaire() {

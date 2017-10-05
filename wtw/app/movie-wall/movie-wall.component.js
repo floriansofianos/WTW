@@ -16,6 +16,7 @@ var MovieWallComponent = (function () {
     function MovieWallComponent(movieDBService, router) {
         this.movieDBService = movieDBService;
         this.router = router;
+        this.notify = new core_1.EventEmitter();
     }
     MovieWallComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -25,6 +26,11 @@ var MovieWallComponent = (function () {
             _this.dataLoaded = true;
         }, function (err) {
             _this.router.navigate(['error']);
+        });
+    };
+    MovieWallComponent.prototype.showQuestionnaire = function (id) {
+        this.notify.emit({
+            movieId: id
         });
     };
     __decorate([
@@ -39,6 +45,10 @@ var MovieWallComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Object)
     ], MovieWallComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], MovieWallComponent.prototype, "notify", void 0);
     MovieWallComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
