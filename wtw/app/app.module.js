@@ -45,6 +45,7 @@ var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-
 var left_menu_component_1 = require("./left-menu/left-menu.component");
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
 var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
+var user_movies_watchlist_page_component_1 = require("./user-movies-watchlist/user-movies-watchlist-page.component");
 var movie_wall_component_1 = require("./movie-wall/movie-wall.component");
 var movie_wall_element_component_1 = require("./movie-wall/movie-wall-element.component");
 var auth_service_1 = require("./auth/auth.service");
@@ -104,6 +105,7 @@ var AppModule = (function () {
                 left_menu_component_1.LeftMenuComponent,
                 user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent,
                 user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent,
+                user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent,
                 movie_wall_component_1.MovieWallComponent,
                 movie_wall_element_component_1.MovieWallElementComponent,
                 cast_member_component_1.CastMemberComponent],

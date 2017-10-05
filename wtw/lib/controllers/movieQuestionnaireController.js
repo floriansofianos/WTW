@@ -11,10 +11,18 @@
 
     var get = function (req, res) {
         if (req.user && req.params.id) {
-            movieQuestionnaireService.get(req.user.id, req.params.id, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
-            });
+            if (req.params.id == 'watchlist') {
+                movieQuestionnaireService.getWatchlist(req.user.id, function (err, data) {
+                    if (!err) res.json(data);
+                    else res.send(500);
+                });
+            }
+            else {
+                movieQuestionnaireService.get(req.user.id, req.params.id, function (err, data) {
+                    if (!err) res.json(data);
+                    else res.send(500);
+                });
+            }
         }
         else res.send(400);
     };

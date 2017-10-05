@@ -18,6 +18,11 @@ export class MovieQuestionnaireService {
             .catch(this.handleErrors);
     }
 
+    getWatchlist(): Observable<any> {
+        return this.http.get('/api/movieQuestionnaire/watchlist')
+            .catch(this.handleErrors);
+    }
+
     get(id: number) {
         return this.http.get('/api/movieQuestionnaire/' + id)
             .catch(this.handleErrors);

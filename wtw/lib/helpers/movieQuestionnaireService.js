@@ -16,6 +16,12 @@ var movieQuestionnaireService = function () {
         });
     }
 
+    var getWatchlist = function (userId, done) {
+        models.MovieQuestionnaire.findAll({ where: { userId: userId, isSeen: false, wantToSee: true } }).then(data => {
+            done(null, data);
+        });
+    }
+
     var createOrUpdate = function (movieQuestionnaire, userId, done) {
         models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieQuestionnaire.movieDBId } }).then(data => {
             if (data) {
@@ -51,7 +57,8 @@ var movieQuestionnaireService = function () {
     return {
         getAll: getAll,
         createOrUpdate: createOrUpdate,
-        get: get
+        get: get,
+        getWatchlist: getWatchlist
     }
 }
 

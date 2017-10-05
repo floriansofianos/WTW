@@ -48,6 +48,7 @@
     <Content Include="app\left-menu\left-menu.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
+    <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="lib\helpers\userProfileService.js" />
@@ -171,6 +172,7 @@
     <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-dummy-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
@@ -189,6 +191,7 @@
     <Folder Include="app\logo\" />
     <Folder Include="app\movieDB\" />
     <Folder Include="app\left-menu\" />
+    <Folder Include="app\user-movies-watchlist\" />
     <Folder Include="app\user-movies-questionnaires\" />
     <Folder Include="app\user-movies-home\" />
     <Folder Include="app\top-menu\" />

@@ -11,7 +11,7 @@ var movieQuestionnaireRoutes = function () {
         .post(isAuthenticated, movieQuestionnaireController.createOrUpdate);
 
     movieQuestionnaireRouter.route('/:id')
-        .get(isAuthenticated, movieQuestionnaireController.get)
+        .get(isAuthenticated, movieQuestionnaireController.get);
 
     return movieQuestionnaireRouter;
 }
