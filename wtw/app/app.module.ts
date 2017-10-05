@@ -40,6 +40,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
+import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -97,6 +98,7 @@ export function createTranslateLoader(http: Http) {
         UserMoviesQuestionnairesPageComponent,
         DummyUserMoviesQuestionnairesComponent,
         MovieWallComponent,
+        MovieWallElementComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,
