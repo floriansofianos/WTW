@@ -211,17 +211,17 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
     else done(null, true);
 }
 
-var generateActorRecommandations = function (genreIds, questionnaires, movieRecommandations, userId, i, done) {
-    if (i < genreIds.length) {
-        var genreId = genreIds[i];
+var generateActorRecommandations = function (actorIds, questionnaires, movieRecommandations, userId, i, done) {
+    if (i < actorIds.length) {
+        var actorId = actorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(actorId, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                    generateGenreRecommandations(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    generateActorRecommandations(actorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
                 });
             }
-            else generateGenreRecommandations(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateActorRecommandations(actorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
         });
     }
     else done(null, true);
