@@ -15,8 +15,8 @@ var router_1 = require("@angular/router");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserMoviesQuestionnairesPageComponent = (function () {
-    function UserMoviesQuestionnairesPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
+var UserMoviesWatchlistPageComponent = (function () {
+    function UserMoviesWatchlistPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
         this.movieQuestionnaireService = movieQuestionnaireService;
@@ -27,9 +27,8 @@ var UserMoviesQuestionnairesPageComponent = (function () {
             { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
         ];
     }
-    UserMoviesQuestionnairesPageComponent.prototype.ngOnInit = function () {
+    UserMoviesWatchlistPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.loadingState = false;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -40,25 +39,12 @@ var UserMoviesQuestionnairesPageComponent = (function () {
             this.router.navigate(['']);
         }
         this.lang = currentUser.lang;
+        this.loadingState = true;
         this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
             _this.configuration = response.json();
-            _this.categoriesNotLoaded = true;
-            _this.movieQuestionnaireService.getAll().subscribe(function (data) {
-                var movieQuestionnaires = _.filter(data.json(), function (d) { return (!d.isSkipped) && (d.isSeen || !d.wantToSee); });
-                _this.categories = [];
-                var _loop_1 = function (i) {
-                    _this.categories.push({
-                        name: i.toString(), type: 'star', values: _.map(_.filter(movieQuestionnaires, function (m) { return m.isSeen && m.rating == i; }), 'movieDBId')
-                    });
-                };
-                for (var i = 1; i <= 5; i++) {
-                    _loop_1(i);
-                }
-                _this.categories.reverse();
-                _this.categories.push({
-                    name: 'QUESTIONNAIRE.NOT_WANT_TO_SEE', type: 'text', values: _.map(_.filter(movieQuestionnaires, function (m) { return !m.isSeen && !m.wantToSee; }), 'movieDBId')
-                });
-                _this.categoriesNotLoaded = false;
+            _this.movieQuestionnaireService.getWatchlist().subscribe(function (data) {
+                _this.movieIds = _.map(data.json(), 'movieDBId');
+                _this.loadingState = false;
             }, function (error) {
                 _this.router.navigate(['error']);
             });
@@ -66,7 +52,7 @@ var UserMoviesQuestionnairesPageComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
-    UserMoviesQuestionnairesPageComponent.prototype.onClickMovie = function (event) {
+    UserMoviesWatchlistPageComponent.prototype.onClickMovie = function (event) {
         var _this = this;
         this.loadingState = true;
         // load existing data regarding this movie for the current user
@@ -82,12 +68,12 @@ var UserMoviesQuestionnairesPageComponent = (function () {
             _this.router.navigate(['/error']);
         });
     };
-    UserMoviesQuestionnairesPageComponent.prototype.back = function () {
+    UserMoviesWatchlistPageComponent.prototype.back = function () {
         this.selectedMovie = null;
-        this.categories = null;
+        this.movieIds = null;
         this.ngOnInit();
     };
-    UserMoviesQuestionnairesPageComponent.prototype.confirm = function () {
+    UserMoviesWatchlistPageComponent.prototype.confirm = function () {
         var _this = this;
         // Add the questionnaire to DB
         this.showSaveSpinner = true;
@@ -100,20 +86,17 @@ var UserMoviesQuestionnairesPageComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
-    UserMoviesQuestionnairesPageComponent.prototype.movieQuestionnaireChange = function (data) {
+    UserMoviesWatchlistPageComponent.prototype.movieQuestionnaireChange = function (data) {
         this.movieQuestionnaire = data;
     };
-    UserMoviesQuestionnairesPageComponent.prototype.startNewQuestionnaire = function () {
-        this.startNewClicked = true;
-    };
-    UserMoviesQuestionnairesPageComponent = __decorate([
+    UserMoviesWatchlistPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'user-movies-questionnaires-page.component.html'
+            templateUrl: 'user-movies-watchlist-page.component.html'
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
-    ], UserMoviesQuestionnairesPageComponent);
-    return UserMoviesQuestionnairesPageComponent;
+    ], UserMoviesWatchlistPageComponent);
+    return UserMoviesWatchlistPageComponent;
 }());
-exports.UserMoviesQuestionnairesPageComponent = UserMoviesQuestionnairesPageComponent;
-//# sourceMappingURL=user-movies-questionnaires-page.component.js.map
+exports.UserMoviesWatchlistPageComponent = UserMoviesWatchlistPageComponent;
+//# sourceMappingURL=user-movies-watchlist-page.component.js.map

@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.MovieQuestionnaire, { foreignKey: 'userId' });
       User.hasMany(models.UserProfile, { foreignKey: 'userId' });
       User.hasMany(models.UserQuestionnaire, { foreignKey: 'userId' });
+      User.hasMany(models.MovieRecommandation, { foreignKey: 'userId' });
   }
 
   User.prototype.generateHash = function (password) {

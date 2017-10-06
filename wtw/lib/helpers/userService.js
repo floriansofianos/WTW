@@ -81,6 +81,19 @@ var userService = function () {
         });
     }
 
+    var getUsersForRecommandationRefresh = function (done) {
+        models.MovieRecommandation.findAll({
+            attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
+            group: '"userId"',
+            having: sequelize.literal('count("movieDBId") > 30')
+        }).then(data => {
+            var usersIds = _.map(data, 'userId');
+            models.User.findAll({ where: { id: { $notIn: usersIds } } }).then(users => {
+                done(null, users);
+            });
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
@@ -89,7 +102,8 @@ var userService = function () {
         getUserById: getUserById,
         getUsersForPorfileRefresh: getUsersForPorfileRefresh,
         setUserProfileRefresh: setUserProfileRefresh,
-        getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh
+        getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh,
+        getUsersForRecommandationRefresh: getUsersForRecommandationRefresh
     }
 }
 
