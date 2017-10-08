@@ -24,7 +24,7 @@ var wtwTasks = function (job, done) {
 
 var generateUsersRecommandations = function (done) {
     // Retrieve all the users that need more recommandations
-    userService.getUsersForRecommandationsRefresh(function (err, users) {
+    userService.getUsersForRecommandationRefresh(function (err, users) {
         generateRecommandations(users, 0, done);
     });
 }
@@ -38,6 +38,7 @@ var generateRecommandations = function (users, i, done) {
             userProfileService.getAll(u.id, function (err, profiles) {
                 movieRecommandationService.getAll(u.id, function (err, movieRecommandations) {
                     var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 });
+                    var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
                     // Check favourite directors
                     var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65; });
                     generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
@@ -170,7 +171,7 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
         movieDBService.getMoviesForDirectorQuestionnaire(directorId, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                    generateDirectorRecommandations(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
             else generateDirectorRecommandations(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
@@ -186,7 +187,7 @@ var generateWriterRecommandations = function (writerIds, questionnaires, movieRe
         movieDBService.getMoviesForWriterQuestionnaire(writerId, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                    generateWriterRecommandations(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
             else generateWriterRecommandations(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
@@ -201,8 +202,8 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
         // get movieDB movies
         movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
             if (data && data.results) {
-                handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                    generateGenreRecommandations(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
+                    generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
             else generateGenreRecommandations(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
@@ -217,8 +218,8 @@ var generateActorRecommandations = function (actorIds, questionnaires, movieReco
         // get movieDB movies
         movieDBService.getMoviesForActorQuestionnaire(actorId, function (err, data) {
             if (data && data.results) {
-                handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                    generateActorRecommandations(actorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
+                    generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
             else generateActorRecommandations(actorIds, questionnaires, userQuestionnaires, userId, i + 1, done);

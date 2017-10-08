@@ -6,4 +6,3 @@ describe('Main App Component', function () {
         });
     });
 });
-//# sourceMappingURL=main-app.component.spec.js.map

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var MovieRecommandation = sequelize.define('MoviesRecommandation', {
+  var MovieRecommandation = sequelize.define('MovieRecommandation', {
     userId: DataTypes.INTEGER,
     movieDBId: DataTypes.INTEGER
   }, {
