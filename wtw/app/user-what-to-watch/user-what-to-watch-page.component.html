@@ -1,0 +1,12 @@
+<top-menu [showButtons]="true" [showLogin]="false"></top-menu>
+<div class="content-container">
+    <left-menu [rootPath]="'user/what-to-watch/'" [leftMenus]="[]"></left-menu>
+    <div class="inner-content-container">
+        <div class="personal-recommandations-container" *ngIf="recommandationIds">
+            <div class="personal-recommandations-title">
+                {{ 'WTW.PERSONAL_RECO' | translate }}
+            </div>
+            <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
+        </div>
+    </div>
+</div>

@@ -40,6 +40,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-movies-watchlist-page.component';
+import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
 import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
 
@@ -50,6 +51,7 @@ import { MovieQuestionnaireService } from './movie/movie-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MovieDBService } from './movieDB/movieDB.service';
 import { UserQuestionnaireService } from './questionnaire/user-questionnaire.service';
+import { MovieRecommandationService } from './movie/movie-recommandation.service'
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -99,6 +101,7 @@ export function createTranslateLoader(http: Http) {
         UserMoviesQuestionnairesPageComponent,
         DummyUserMoviesQuestionnairesComponent,
         UserMoviesWatchlistPageComponent,
+        UserWhatToWatchPageComponent,
         MovieWallComponent,
         MovieWallElementComponent,
         CastMemberComponent],
@@ -107,6 +110,7 @@ export function createTranslateLoader(http: Http) {
         MovieQuestionnaireService,
         MovieDBService,
         UserQuestionnaireService,
+        MovieRecommandationService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

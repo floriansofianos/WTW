@@ -51,6 +51,8 @@
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
+    <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
+    <Content Include="app\user-what\user-movies-home-page.component.html" />
     <Content Include="lib\helpers\userProfileService.js" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
@@ -89,6 +91,7 @@
     <TypeScriptCompile Include="app\movie\movie-questionnaire.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\movie\movie-recommandation.service.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.component.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.service.ts" />
     <TypeScriptCompile Include="app\questionnaire\user-questionnaire.service.ts" />
@@ -108,6 +111,9 @@
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
     <Compile Include="lib\controllers\castController.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\controllers\MovieRecommandationController.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="lib\controllers\userQuestionnaireController.js" />
@@ -150,6 +156,9 @@
     <Compile Include="lib\models\userprofile.js" />
     <Compile Include="lib\models\userquestionnaire.js" />
     <Content Include="lib\routes\userQuestionnaireRoutes.js" />
+    <Compile Include="lib\routes\movieRecommandationRoutes.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -179,6 +188,8 @@
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
+    <TypeScriptCompile Include="app\user-what-to-watch\user-what-to-watch-page.component.ts" />
+    <TypeScriptCompile Include="app\user-what\user-what-to-watch-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
@@ -202,6 +213,8 @@
     <Folder Include="app\signup\" />
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
+    <Folder Include="app\user-what-to-watch\" />
+    <Folder Include="app\user-what\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
     <Folder Include="lib\tasks\" />
