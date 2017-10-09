@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../../auth/auth.service");
-var UsernameValidator = (function () {
+var UsernameValidator = /** @class */ (function () {
     function UsernameValidator(authService) {
         this.authService = authService;
     }

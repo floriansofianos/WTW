@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_recommandation_service_1 = require("../movie/movie-recommandation.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation) {
         this.authService = authService;
         this.router = router;
@@ -39,12 +39,17 @@ var UserWhatToWatchPageComponent = (function () {
             this.router.navigate(['']);
         }
         this.lang = currentUser.lang;
-        this.movieRecommandation.getAll().subscribe(function (response) {
-            if (response.json().length > 0) {
-                _this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
-            }
-            else
-                _this.noReco = true;
+        this.movieDBService.getAllGenres().subscribe(function (response) {
+            _this.genres = response.json();
+            _this.movieRecommandation.getAll().subscribe(function (response) {
+                if (response.json().length > 0) {
+                    _this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+                }
+                else
+                    _this.noReco = true;
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }, function (error) {
             _this.router.navigate(['error']);
         });

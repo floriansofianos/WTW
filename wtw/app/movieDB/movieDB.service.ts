@@ -28,6 +28,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    getAllGenres() {
+        return this.http.get('/api/movieDBGenres')
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

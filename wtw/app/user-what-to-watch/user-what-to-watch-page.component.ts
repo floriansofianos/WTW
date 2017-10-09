@@ -16,6 +16,7 @@ export class UserWhatToWatchPageComponent {
     lang: string;
     recommandationIds: Array<any>;
     noReco: boolean;
+    genres: Array<any>
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService) { }
 
@@ -36,15 +37,22 @@ export class UserWhatToWatchPageComponent {
             this.router.navigate(['']);
         }
         this.lang = currentUser.lang;
-        this.movieRecommandation.getAll().subscribe(response => {
-            if (response.json().length > 0) {
-                this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
-            }
-            else this.noReco = true;
+        this.movieDBService.getAllGenres().subscribe(response => {
+            this.genres = response.json();
+            this.movieRecommandation.getAll().subscribe(response => {
+                if (response.json().length > 0) {
+                    this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+                }
+                else this.noReco = true;
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
         },
             error => {
                 this.router.navigate(['error']);
             });
+        
     }
 
     onClickMovie(event) {

@@ -40,7 +40,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesFromMovieDB = function(movieIds, lang, i, data, done) {
+    var getMoviesFromMovieDB = function (movieIds, lang, i, data, done) {
         if (i < movieIds.length) {
             getMovieFromMovieDB(movieIds[i], lang, null, (err, movie) => {
                 if (err) return done(err, null);
@@ -62,7 +62,7 @@ module.exports = function () {
             else {
                 return done(null, data);
             }
-        }); 
+        });
     }
 
     var getMoviesForDirectorQuestionnaire = function (directorId, done) {
@@ -73,7 +73,7 @@ module.exports = function () {
             else {
                 return done(null, data);
             }
-        }); 
+        });
     }
 
     var getMoviesForWriterQuestionnaire = function (writerId, done) {
@@ -84,7 +84,7 @@ module.exports = function () {
             else {
                 return done(null, data);
             }
-        }); 
+        });
     }
 
     var getMoviesForActorQuestionnaire = function (castIds, done) {
@@ -96,7 +96,7 @@ module.exports = function () {
             else {
                 return done(null, data);
             }
-        }); 
+        });
     }
 
     var getMovieWithAdditionalInfo = function (id, lang, done) {
@@ -161,7 +161,7 @@ module.exports = function () {
                     if (err) done(err, null);
                     else return done(null, movie);
                 });
-            }            
+            }
         });
     }
 
@@ -332,6 +332,20 @@ module.exports = function () {
         });
     }
 
+    var loadGenres = function (done) {
+        mdb.genreMovieList({}, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                cache.put('movieDBGenres', data);
+                return done(null, data);
+            }
+        });
+    }
+
+    var getGenres = function () {
+        return cache.get('movieDBGenres');
+    }
+
     var getConfiguration = function () {
         return cache.get('movieDBConfiguration');
     }
@@ -394,18 +408,20 @@ module.exports = function () {
     }
 
     var search = function (s, done) {
-        mdb.searchMovie({query: s, include_adult: false}, (err, data) => {
+        mdb.searchMovie({ query: s, include_adult: false }, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
             }
         });
-    }    
+    }
 
     return {
         getFirstTenMovies: getFirstTenMovies,
         loadConfiguration: loadConfiguration,
         getConfiguration: getConfiguration,
+        loadGenres: loadGenres,
+        getGenres: getGenres,
         getMovieWithAdditionalInfo: getMovieWithAdditionalInfo,
         getCast: getCast,
         search: search,

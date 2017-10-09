@@ -8,6 +8,7 @@ var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')(
 var movieRecommandationRouter = require('./lib/routes/movieRecommandationRoutes')();
 var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
+var movieDBGenresRouter = require('./lib/routes/movieDBGenresRoutes')();
 var movieRouter = require('./lib/routes/movieRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
 var cookieParser = require('cookie-parser');
@@ -74,32 +75,33 @@ app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
 app.use('/api/userQuestionnaire', userQuestionnaireRouter);
 app.use('/api/movieRecommandation', movieRecommandationRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
+app.use('/api/movieDBGenres', movieDBGenresRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api/cast', castRouter);
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.sendFile('index.html');
 });
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/signup', function (req, res) {
+app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/user/welcome', function (req, res) {
+app.get('/user/welcome', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/user/home', function (req, res) {
+app.get('/user/home', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/user/movies/home', function (req, res) {
+app.get('/user/movies/home', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/user/movies/questionnaires', function (req, res) {
+app.get('/user/movies/questionnaires', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.get('/user/what-to-watch', function (req, res) {
+app.get('/user/what-to-watch', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
@@ -107,9 +109,13 @@ app.get('/user/what-to-watch', function (req, res) {
 app.use(logErrors);
 app.use(clientErrorHandler);
 
-movieDbService.loadConfiguration(function (err, data) {
+movieDbService.loadConfiguration(function(err, data) {
     if (!err) {
-        app.listen(port);
+        movieDbService.loadGenres(function(err, data) {
+            if (!err) {
+                app.listen(port);
+            }
+        });
     }
 });
 

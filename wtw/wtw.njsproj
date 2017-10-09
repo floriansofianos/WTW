@@ -112,6 +112,9 @@
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\movieDBGenresController.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\controllers\MovieRecommandationController.js">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +161,9 @@
     <Content Include="lib\routes\movieRecommandationRoutes.js">
       <SubType>Code</SubType>
     </Content>
+    <Compile Include="lib\routes\movieDBGenresRoutes.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -213,6 +219,7 @@
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
     <Folder Include="app\user-what-to-watch\" />
+    <Folder Include="app\user-what\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
     <Folder Include="lib\tasks\" />
