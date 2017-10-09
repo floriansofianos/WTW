@@ -52,7 +52,6 @@
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
-    <Content Include="app\user-what\user-movies-home-page.component.html" />
     <Content Include="lib\helpers\userProfileService.js" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
@@ -156,9 +155,9 @@
     <Compile Include="lib\models\userprofile.js" />
     <Compile Include="lib\models\userquestionnaire.js" />
     <Content Include="lib\routes\userQuestionnaireRoutes.js" />
-    <Compile Include="lib\routes\movieRecommandationRoutes.js">
+    <Content Include="lib\routes\movieRecommandationRoutes.js">
       <SubType>Code</SubType>
-    </Compile>
+    </Content>
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -214,7 +213,6 @@
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
     <Folder Include="app\user-what-to-watch\" />
-    <Folder Include="app\user-what\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
     <Folder Include="lib\tasks\" />

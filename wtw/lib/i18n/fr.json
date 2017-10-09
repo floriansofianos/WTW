@@ -33,7 +33,7 @@
         "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
         "AGE_QUESTION": "Quel est votre âge ?",
         "DONE": "Merci d'avoir terminé ce questionnaire.",
-        "CONTINUE":  "Continuer",
+        "CONTINUE": "Continuer",
         "GO_TO": "Vous pouvez désormais accéder à votre ",
         "HOMEPAGE": "page d'accueil",
         "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
@@ -76,17 +76,21 @@
     "QUESTIONNAIRE": {
         "START_NEW": "Commencer un nouveau questionnaire.",
         "HISTORY": "Historique",
-        "NOT_WANT_TO_SEE":  "Vous ne voulez pas voir"
+        "NOT_WANT_TO_SEE": "Vous ne voulez pas voir"
     },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Annuler",
-    "REQUIRED": "Obligatoire",
-    "BACK": "Précédent",
-    "NEXT": "Suivant",
-    "SKIP": "Passer",
-    "PREVIOUS": "Précédent",
-    "YES": "Oui",
-    "NO": "Non"
-  }
+    "WTW": {
+        "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
+        "WTW":  "Trouver votre prochaine séance."
+    },
+    "FORM": {
+        "OK": "OK",
+        "CANCEL": "Annuler",
+        "REQUIRED": "Obligatoire",
+        "BACK": "Précédent",
+        "NEXT": "Suivant",
+        "SKIP": "Passer",
+        "PREVIOUS": "Précédent",
+        "YES": "Oui",
+        "NO": "Non"
+    }
 }

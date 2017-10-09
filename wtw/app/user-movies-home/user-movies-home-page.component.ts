@@ -2,7 +2,7 @@
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
-import { MdInputModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';

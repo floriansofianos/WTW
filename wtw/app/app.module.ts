@@ -7,7 +7,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { MdProgressBarModule, MdInputModule } from '@angular/material'
+import { MatProgressBarModule, MatInputModule, MatCheckboxModule, MatSelectModule, MatSliderModule } from '@angular/material'
 import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
@@ -61,8 +61,11 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
     imports: [BrowserModule,
         BrowserAnimationsModule,
-        MdProgressBarModule,
-        MdInputModule,
+        MatProgressBarModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        MatSliderModule,
         FormsModule,
         ReactiveFormsModule,
         RouterModule.forRoot(appRoutes),

@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
 import { MovieRecommandationService } from '../movie/movie-recommandation.service';
+import { MatSelectModule, MatCheckboxModule, MatSliderModule } from '@angular/material';
 import * as _ from 'underscore';
 
 @Component({
@@ -14,6 +15,7 @@ export class UserWhatToWatchPageComponent {
     configuration: any;
     lang: string;
     recommandationIds: Array<any>;
+    noReco: boolean;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService) { }
 
@@ -35,7 +37,10 @@ export class UserWhatToWatchPageComponent {
         }
         this.lang = currentUser.lang;
         this.movieRecommandation.getAll().subscribe(response => {
-            this.recommandationIds = _.map(response.json(), 'movieDBId');
+            if (response.json().length > 0) {
+                this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+            }
+            else this.noReco = true;
         },
             error => {
                 this.router.navigate(['error']);

@@ -4,9 +4,9 @@
     <div class="inner-content-container">
         <div class="search-container" *ngIf="!hideSearch">
             <div class="search-bar-container" [@searchState]="searchContainerState">
-                <md-form-field>
-                    <input mdInput placeholder="Search..." [(ngModel)]="search">
-                </md-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Search..." [(ngModel)]="search">
+                </mat-form-field>
                 <wtw-button (click)="searchMovie()">{{ 'FORM.OK' | translate }}</wtw-button>
             </div>
             <div class="search-results-container" [@searchResultsState]="searchContainerState">

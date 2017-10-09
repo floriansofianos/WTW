@@ -34,7 +34,7 @@
         "AGE_QUESTION": "What is your age?",
         "DONE": "Thank you for answering this questionnaire.",
         "GO_TO": "You can now go to your ",
-        "CONTINUE":  "Continue",
+        "CONTINUE": "Continue",
         "HOMEPAGE": "homepage",
         "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations."
     },
@@ -76,7 +76,11 @@
     "QUESTIONNAIRE": {
         "START_NEW": "Start a new questionnaire",
         "HISTORY": "History",
-        "NOT_WANT_TO_SEE":  "You don't want to see"
+        "NOT_WANT_TO_SEE": "You don't want to see"
+    },
+    "WTW": {
+        "PERSONAL_RECO": "Here are some personal recommandations for you:",
+        "WTW":  "Find something to watch."
     },
     "FORM": {
         "OK": "OK",

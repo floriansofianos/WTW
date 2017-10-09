@@ -61,15 +61,18 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
-                material_1.MdProgressBarModule,
-                material_1.MdInputModule,
+                material_1.MatProgressBarModule,
+                material_1.MatInputModule,
+                material_1.MatCheckboxModule,
+                material_1.MatSelectModule,
+                material_1.MatSliderModule,
                 forms_2.FormsModule,
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(routes_1.appRoutes),

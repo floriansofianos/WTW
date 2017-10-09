@@ -8,7 +8,8 @@ let System: any
         paths: {
             // paths serve as alias
             'npm:': 'node_modules/',
-            underscore: './node_modules/underscore/underscore.js'
+            underscore: './node_modules/underscore/underscore.js',
+            hammerjs: './node_modules/hammerjs/hammer.min.js'
         },
         // map tells the System loader where to look for things
         map: {
