@@ -80,7 +80,10 @@
     },
     "WTW": {
         "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
-        "WTW":  "Trouver votre prochaine séance."
+        "WTW": "Trouver votre prochaine séance.",
+        "RUNTIME_LIMIT": "Ajouter une limite de temps",
+        "RUNTIME_LIMIT_EXPLANATION": "Le film trouvé ne durera pas plus longtemps que la valeur ci-dessus (en minutes).",
+        "INCLUDE_WATCHLIST": "Utiliser les films de ma liste à voir"
     },
     "FORM": {
         "OK": "OK",

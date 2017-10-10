@@ -16,11 +16,13 @@ export class UserWhatToWatchPageComponent {
     lang: string;
     recommandationIds: Array<any>;
     noReco: boolean;
-    genres: Array<any>
+    genres: Array<any>;
+    formWTW: any;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService) { }
 
     ngOnInit() {
+        this.formWTW = {};
         let currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -37,6 +39,7 @@ export class UserWhatToWatchPageComponent {
             this.router.navigate(['']);
         }
         this.lang = currentUser.lang;
+        this.formWTW.isRuntimeChecked = false;
         this.movieDBService.getAllGenres().subscribe(response => {
             this.genres = response.json();
             this.movieRecommandation.getAll().subscribe(response => {
@@ -57,6 +60,10 @@ export class UserWhatToWatchPageComponent {
 
     onClickMovie(event) {
 
+    }
+
+    clickSearch() {
+        console.log(this.formWTW);
     }
 
     

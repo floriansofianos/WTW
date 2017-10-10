@@ -18,6 +18,26 @@ module.exports = function () {
         });
     };
 
+    var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, movieCacheService, done) {
+        if (useWatchlist) {
+            movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
+                var movieDBIds = _.map(wishlist, 'movieDBId');
+                movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+                    data = _.map(data, 'data');
+                    // Get rid of duplicates
+                    data = _.map(_.groupBy(data, 'id'), function (g) {
+                        return g[0];
+                    });
+                    if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { g.id == genreId }) });
+                    if (useRuntimeLimit) data = _.filter(data, function (m) { return m.runtime <= runtimeLimit });
+                    if (_.size(data) > 0) done(null, _.sample(data));
+                    else findMovieWithoutWishlist();
+                });
+            });
+        }
+        else findMovieWithoutWishlist();
+    }
+
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
@@ -343,7 +363,7 @@ module.exports = function () {
     }
 
     var getGenres = function () {
-        return cache.get('movieDBGenres');
+        return cache.get('movieDBGenres').genres;
     }
 
     var getConfiguration = function () {
@@ -434,6 +454,7 @@ module.exports = function () {
         getMoviesForDirectorQuestionnaire: getMoviesForDirectorQuestionnaire,
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
-        getAllMovies: getAllMovies
+        getAllMovies: getAllMovies,
+        wtw: wtw
     }
 }

@@ -35,6 +35,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\less\angular-material.css" />
+    <Content Include="app\less\angular-material.min.css" />
+    <Content Include="app\less\angular-material.scss" />
     <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="app\logo\logo.component.html" />
     <Content Include="app\movie-wall\movie-wall-element.component.html" />
@@ -52,6 +55,11 @@
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <SubType>Content</SubType>
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <Content Include="lib\helpers\userProfileService.js" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
@@ -161,9 +169,9 @@
     <Content Include="lib\routes\movieRecommandationRoutes.js">
       <SubType>Code</SubType>
     </Content>
-    <Compile Include="lib\routes\movieDBGenresRoutes.js">
+    <Content Include="lib\routes\movieDBGenresRoutes.js">
       <SubType>Code</SubType>
-    </Compile>
+    </Content>
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -194,7 +202,6 @@
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
     <TypeScriptCompile Include="app\user-what-to-watch\user-what-to-watch-page.component.ts" />
-    <TypeScriptCompile Include="app\user-what\user-what-to-watch-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
@@ -219,7 +226,6 @@
     <Folder Include="app\signup\signup-form\" />
     <Folder Include="app\spinner\" />
     <Folder Include="app\user-what-to-watch\" />
-    <Folder Include="app\user-what\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
     <Folder Include="lib\tasks\" />

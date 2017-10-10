@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_recommandation_service_1 = require("../movie/movie-recommandation.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = /** @class */ (function () {
+var UserWhatToWatchPageComponent = (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation) {
         this.authService = authService;
         this.router = router;
@@ -24,6 +24,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
     }
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.formWTW = {};
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -39,6 +40,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
             this.router.navigate(['']);
         }
         this.lang = currentUser.lang;
+        this.formWTW.isRuntimeChecked = false;
         this.movieDBService.getAllGenres().subscribe(function (response) {
             _this.genres = response.json();
             _this.movieRecommandation.getAll().subscribe(function (response) {
@@ -55,6 +57,9 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
         });
     };
     UserWhatToWatchPageComponent.prototype.onClickMovie = function (event) {
+    };
+    UserWhatToWatchPageComponent.prototype.clickSearch = function () {
+        console.log(this.formWTW);
     };
     UserWhatToWatchPageComponent = __decorate([
         core_1.Component({

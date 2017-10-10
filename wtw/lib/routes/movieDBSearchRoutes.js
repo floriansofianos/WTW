@@ -9,6 +9,9 @@ var movieDBSearchRoutes = function () {
     movieDBSearchRouter.route('/')
         .get(movieSearchController.search);
 
+    movieDBSearchRouter.route('/wtw')
+        .get(movieSearchController.wtw);
+
     return movieDBSearchRouter;
 }
 

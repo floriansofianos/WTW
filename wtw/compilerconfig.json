@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "app/less/angular-material.css",
+    "inputFile": "app/less/angular-material.sass"
+  },
+  {
+    "outputFile": "app/less/angular-material.css",
+    "inputFile": "app/less/angular-material.scss"
+  }
+]

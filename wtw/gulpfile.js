@@ -170,6 +170,7 @@ gulp.task('serve-dev-light', function () {
         'compile-ts',
         'compile-ts-in-app',
         'copy-angular-html',
+        'copy-angular-material-theme',
         'compile-less',
         'inject-front-end-dependancies-dev');
 });
@@ -184,6 +185,11 @@ gulp.task('front-end-test', function () {
 gulp.task('copy-angular-html', function (done) {
     return gulp.src(config.angularHTML)
         .pipe(gulpCopy(config.publicFolder + 'js/', { prefix: 1 }));
+});
+
+gulp.task('copy-angular-material-theme', function (done) {
+    return gulp.src(config.angularTheme)
+        .pipe(gulpCopy(config.publicFolder + 'css/', { prefix: 2 }));
 });
 
 // Rerun the task when a file changes

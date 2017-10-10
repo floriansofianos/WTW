@@ -80,7 +80,10 @@
     },
     "WTW": {
         "PERSONAL_RECO": "Here are some personal recommandations for you:",
-        "WTW":  "Find something to watch."
+        "WTW": "Find something to watch.",
+        "RUNTIME_LIMIT": "Add a runtime limit to my search",
+        "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
+        "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results"
     },
     "FORM": {
         "OK": "OK",
