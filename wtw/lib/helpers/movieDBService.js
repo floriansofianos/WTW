@@ -21,14 +21,14 @@ module.exports = function () {
     var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, movieCacheService, done) {
         if (useWatchlist) {
             movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
-                var movieDBIds = _.map(wishlist, 'movieDBId');
-                movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+                var movieDBIds = _.map(watchlist, 'movieDBId');
+                movieCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
                     data = _.map(data, 'data');
                     // Get rid of duplicates
                     data = _.map(_.groupBy(data, 'id'), function (g) {
                         return g[0];
                     });
-                    if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { g.id == genreId }) });
+                    if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { return g.id == genreId }) });
                     if (useRuntimeLimit) data = _.filter(data, function (m) { return m.runtime <= runtimeLimit });
                     if (_.size(data) > 0) done(null, _.sample(data));
                     else findMovieWithoutWishlist();

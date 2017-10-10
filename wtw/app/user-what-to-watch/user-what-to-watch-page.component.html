@@ -27,7 +27,7 @@
                         <mat-checkbox [(ngModel)]="formWTW.isRuntimeChecked">{{ 'WTW.RUNTIME_LIMIT' | translate }}</mat-checkbox>
                     </div>
                     <div class="wtw-form-field-container" *ngIf="formWTW.isRuntimeChecked">
-                        <mat-slider [thumbLabel]="true" min="90" max="300" step="10" value="90" [(ngModel)]="formWTW.runtimeLimit" [style.width.px]="250" [style.height.px]="40"></mat-slider>
+                        <mat-slider [thumbLabel]="true" min="90" max="150" step="1" value="90" [(ngModel)]="formWTW.runtimeLimit" [style.width.px]="250" [style.height.px]="40"></mat-slider>
                         <div class="wtw-form-runtime-restriction">{{ 'WTW.RUNTIME_LIMIT_EXPLANATION' | translate }}</div>
                     </div>
                     <div class="wtw-form-field-container">

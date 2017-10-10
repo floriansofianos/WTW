@@ -63,6 +63,12 @@ export class UserWhatToWatchPageComponent {
     }
 
     clickSearch() {
+        this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(response => {
+            console.log(response.json());
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
         console.log(this.formWTW);
     }
 

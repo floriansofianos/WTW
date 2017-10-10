@@ -18,6 +18,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    wtw(lang: string, genreId: number, useWatchlist: boolean, useRuntimeLimit: boolean, runtimeLimit: number) {
+        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit } })
+            .catch(this.handleErrors);
+    }
+
     getMovie(id: number, lang: string) {
         return this.http.get('/api/movie', { params: { id: id, lang: lang} })
             .catch(this.handleErrors);

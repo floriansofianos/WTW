@@ -1,6 +1,8 @@
 ﻿var express = require('express');
 var movieDBService = require('../helpers/movieDBService')();
-var movieSearchController = require('../controllers/movieSearchController')(movieDBService);
+var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
+var movieCacheService = require('../helpers/movieCacheService')();
+var movieSearchController = require('../controllers/movieSearchController')(movieDBService, movieQuestionnaireService, movieCacheService);
 
 
 var movieDBSearchRoutes = function () {
