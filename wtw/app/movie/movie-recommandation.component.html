@@ -6,24 +6,29 @@
         <div class="col-right">
             <div class="movie-content">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-7">
                         <div class="movie-title">
                             <span>{{ movie?.title }} ({{ movie?.release_date?.substring(0, 4) }})</span>
                             <span class="movie-title-right">{{ genres }}</span>
                         </div>
                         <div class="movie-summary">{{ movie?.overview }}</div>
                     </div>
-                    <div class="col-md-1 grade-column">
-                        <div class="reco-grading-container" *ngIf="grade">
+                    <div class="col-md-5 grade-column">
+                        <div class="reco-grading-container" *ngIf="grade" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
                             {{ grade }}%
                         </div>
                         <div *ngIf="!grade">
                             <spinner></spinner>
                         </div>
+                        <div class="grade-reasons">
+                            <div class="good-reason"><i class="fa fa-check"></i><span>You love this director</span></div>
+                            <div class="good-reason"><i class="fa fa-check"></i><span>You love this writer</span></div>
+                            <div class="bad-reason"><i class="fa fa-ban"></i><span>You don't like movies with this actor</span></div>
+                        </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top: 20px;">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.directors.length > 2 }">
                             <div class="cast-card" *ngFor="let director of movie.directors">
@@ -41,28 +46,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="movie-player">
                             <div *ngIf="isVideoPlayerDisplayed()">
                                 <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
-                        <div class="movie-question">
-                            <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.QUESTION_SEEN' | translate }}</div>
-                            <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
-                            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="movieSeen" (ngModelChange)="onChange()"></ui-switch>
-                            <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                        <div class="questions-container">
+                            <div class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.QUESTION_SEEN' | translate }}</div>
+                                <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                                <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="movieSeen" (ngModelChange)="onChange()"></ui-switch>
+                                <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                            </div>
+                            <div *ngIf="movieSeen" class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
+                                <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="seenValue" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="labelRating" [size]="'large'"></star-rating-comp>
+                            </div>
+                            <div *ngIf="!movieSeen" class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>
+                                <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                                <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="wantToWatch" (ngModelChange)="onChange()"></ui-switch>
+                                <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                            </div>
+                            <wtw-button>{{ 'FORM.SAVE' | translate }}</wtw-button>
                         </div>
-                        <div *ngIf="movieSeen" class="movie-question">
-                            <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
-                            <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="seenValue" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="labelRating" [size]="'large'"></star-rating-comp>
-                        </div>
-                        <div *ngIf="!movieSeen" class="movie-question">
-                            <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>
-                            <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
-                            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="wantToWatch" (ngModelChange)="onChange()"></ui-switch>
-                            <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

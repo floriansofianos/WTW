@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
-var MovieRecommandationComponent = (function () {
+var MovieRecommandationComponent = /** @class */ (function () {
     function MovieRecommandationComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;

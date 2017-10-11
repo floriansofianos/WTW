@@ -62,7 +62,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -74,6 +74,7 @@ var AppModule = (function () {
                 material_1.MatCheckboxModule,
                 material_1.MatSelectModule,
                 material_1.MatSliderModule,
+                material_1.MatTooltipModule,
                 forms_2.FormsModule,
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(routes_1.appRoutes),

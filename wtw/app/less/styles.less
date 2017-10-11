@@ -403,7 +403,7 @@ em {
     }
 
     .movie-player {
-        margin-top: 10px;
+        margin-top: 30px;
         margin-bottom: 10px;
     }
 }
@@ -476,7 +476,7 @@ em {
 }
 
 .movie-question {
-    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
 .movie-question-text {
@@ -808,6 +808,11 @@ modal-content {
     }
 }
 
+.questions-container {
+    border-left: 2px solid #DE5E60;
+    padding: 20px;
+}
+
 .grade-column {
     text-align: right;
     padding-right: 0;
@@ -819,5 +824,26 @@ modal-content {
         display: inline-block;
         font-weight: bold;
         font-size: 18px;
+    }
+}
+
+.grade-reasons {
+    text-align: left;
+    padding: 10px;
+    border-left: 2px solid #DE5E60;
+    font-weight: bold;
+
+    .good-reason {
+        i {
+            color: #6fb76f;
+            margin-right: 10px;
+        }
+    }
+
+    .bad-reason {
+        i {
+            color: #DE5E60;
+            margin-right: 10px;
+        }
     }
 }
