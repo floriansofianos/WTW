@@ -2,13 +2,13 @@
 <div class="content-container">
     <left-menu [rootPath]="'user/what-to-watch/'" [leftMenus]="[]"></left-menu>
     <div class="inner-content-container">
-        <div class="personal-recommandations-container" *ngIf="recommandationIds">
+        <div class="personal-recommandations-container" *ngIf="recommandationIds && !movie">
             <div class="personal-recommandations-title">
                 {{ 'WTW.PERSONAL_RECO' | translate }}
             </div>
             <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
         </div>
-        <div class="wtw-container">
+        <div class="wtw-container" *ngIf="!movie">
             <div class="form-container">
                 <h1 class="wtw-title-container">
                     {{ 'WTW.WTW' | translate }}
@@ -35,6 +35,16 @@
                     </div>
                     <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
                 </div>
+            </div>
+        </div>
+        <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
+            <movie-recommandation [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)"></movie-recommandation>
+            <div class="button-line" *ngIf="!showSaveSpinner">
+                <wtw-button class="button-left" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
+                <wtw-button class="button-right" (click)="confirm()">{{ 'FORM.OK' | translate }}</wtw-button>
+            </div>
+            <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
+                <spinner></spinner>
             </div>
         </div>
     </div>

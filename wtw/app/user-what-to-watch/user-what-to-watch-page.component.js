@@ -14,13 +14,17 @@ var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_recommandation_service_1 = require("../movie/movie-recommandation.service");
+var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
+var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = /** @class */ (function () {
-    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation) {
+var UserWhatToWatchPageComponent = (function () {
+    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
         this.movieRecommandation = movieRecommandation;
+        this.movieQuestionnaireService = movieQuestionnaireService;
+        this.translate = translate;
     }
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -61,18 +65,33 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
     UserWhatToWatchPageComponent.prototype.clickSearch = function () {
         var _this = this;
         this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(function (response) {
-            console.log(response.json());
+            // load existing data regarding this movie for the current user
+            var id = response.json().id;
+            _this.movieQuestionnaireService.get(id).subscribe(function (data) {
+                _this.movieQuestionnaireInit = data.json();
+                _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
+                    _this.movie = data.json();
+                    _this.movieQuestionnaireInitLoaded = true;
+                }, function (error) {
+                    _this.router.navigate(['/error']);
+                });
+            }, function (error) {
+                _this.router.navigate(['/error']);
+            });
         }, function (error) {
             _this.router.navigate(['error']);
         });
         console.log(this.formWTW);
+    };
+    UserWhatToWatchPageComponent.prototype.movieQuestionnaireChange = function (event) {
+        this.movieQuestionnaire = event;
     };
     UserWhatToWatchPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'user-what-to-watch-page.component.html',
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService])
     ], UserWhatToWatchPageComponent);
     return UserWhatToWatchPageComponent;
 }());

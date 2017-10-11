@@ -35,6 +35,7 @@ var user_welcome_page_component_1 = require("./user-welcome/user-welcome-page.co
 var questionnaire_component_1 = require("./questionnaire/questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
+var movie_recommandation_component_1 = require("./movie/movie-recommandation.component");
 var cast_member_component_1 = require("./movie/cast-member.component");
 var logo_component_1 = require("./logo/logo.component");
 var angular2_spinner_1 = require("angular2-spinner");
@@ -61,7 +62,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -104,6 +105,7 @@ var AppModule = /** @class */ (function () {
                 questionnaire_component_1.QuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
+                movie_recommandation_component_1.MovieRecommandationComponent,
                 logo_component_1.LogoComponent,
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,

@@ -3,6 +3,8 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
 import { MovieRecommandationService } from '../movie/movie-recommandation.service';
+import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
+import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule, MatCheckboxModule, MatSliderModule } from '@angular/material';
 import * as _ from 'underscore';
 
@@ -18,8 +20,12 @@ export class UserWhatToWatchPageComponent {
     noReco: boolean;
     genres: Array<any>;
     formWTW: any;
+    movie: any;
+    movieQuestionnaireInit: any;
+    movieQuestionnaireInitLoaded: boolean;
+    movieQuestionnaire: any;
 
-    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService) { }
+    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
 
     ngOnInit() {
         this.formWTW = {};
@@ -64,12 +70,34 @@ export class UserWhatToWatchPageComponent {
 
     clickSearch() {
         this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(response => {
-            console.log(response.json());
+            // load existing data regarding this movie for the current user
+            var id = response.json().id;
+            this.movieQuestionnaireService.get(id).subscribe(
+                data => {
+                    this.movieQuestionnaireInit = data.json();
+                    this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
+                        data => {
+                            this.movie = data.json();
+                            this.movieQuestionnaireInitLoaded = true;
+                        },
+                        error => {
+                            this.router.navigate(['/error']);
+                        }
+                    );
+                },
+                error => {
+                    this.router.navigate(['/error']);
+                }
+            );
         },
             error => {
                 this.router.navigate(['error']);
             });
         console.log(this.formWTW);
+    }
+
+    movieQuestionnaireChange(event) {
+        this.movieQuestionnaire = event;
     }
 
     

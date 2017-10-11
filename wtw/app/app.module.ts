@@ -29,6 +29,7 @@ import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.compo
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
+import { MovieRecommandationComponent } from './movie/movie-recommandation.component';
 import { CastMemberComponent } from './movie/cast-member.component';
 import { LogoComponent } from './logo/logo.component';
 import { SpinnerModule } from 'angular2-spinner';
@@ -97,6 +98,7 @@ export function createTranslateLoader(http: Http) {
         QuestionnaireComponent,
         WtwButtonComponent,
         MovieQuestionnaireComponent,
+        MovieRecommandationComponent,
         LogoComponent,
         TopMenuComponent,
         UserMoviesHomePageComponent,

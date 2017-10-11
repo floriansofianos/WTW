@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
-var MovieQuestionnaireComponent = (function () {
-    function MovieQuestionnaireComponent(domSanitizer, translate) {
+var MovieRecommandationComponent = (function () {
+    function MovieRecommandationComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;
         this.translate = translate;
@@ -26,7 +26,7 @@ var MovieQuestionnaireComponent = (function () {
             _this.onChange();
         };
     }
-    MovieQuestionnaireComponent.prototype.ngOnChanges = function (changes) {
+    MovieRecommandationComponent.prototype.ngOnChanges = function (changes) {
         if (changes.movie) {
             this.ngOnInit();
         }
@@ -34,7 +34,7 @@ var MovieQuestionnaireComponent = (function () {
             this.onChange();
         }
     };
-    MovieQuestionnaireComponent.prototype.ngOnInit = function () {
+    MovieRecommandationComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.translate.get('MOVIE_QUESTIONNAIRE.DIRECTOR').subscribe(function (res) {
             _this.jobDirector = res;
@@ -48,9 +48,10 @@ var MovieQuestionnaireComponent = (function () {
         this.seenValue = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.rating : 3;
         this.getLabelRating();
         this.wantToWatch = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.wantToSee : false;
+        this.grade = 75;
         this.onChange();
     };
-    MovieQuestionnaireComponent.prototype.getAllTrailers = function () {
+    MovieRecommandationComponent.prototype.getAllTrailers = function () {
         if (this.movie.trailers) {
             var trailers = this.movie.trailers.filter(function (t) { return t.type === 'Trailer' && t.site === 'YouTube'; });
             return trailers;
@@ -58,7 +59,7 @@ var MovieQuestionnaireComponent = (function () {
         else
             return null;
     };
-    MovieQuestionnaireComponent.prototype.isVideoPlayerDisplayed = function () {
+    MovieRecommandationComponent.prototype.isVideoPlayerDisplayed = function () {
         var trailers = this.getAllTrailers();
         if (trailers) {
             return trailers.length > 0;
@@ -66,7 +67,7 @@ var MovieQuestionnaireComponent = (function () {
         else
             return false;
     };
-    MovieQuestionnaireComponent.prototype.getMovieVideo = function () {
+    MovieRecommandationComponent.prototype.getMovieVideo = function () {
         var trailers = this.getAllTrailers();
         if (trailers && trailers.length > 0) {
             return this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + trailers[0].key + '?ecver=2');
@@ -74,7 +75,7 @@ var MovieQuestionnaireComponent = (function () {
         else
             return null;
     };
-    MovieQuestionnaireComponent.prototype.onChange = function () {
+    MovieRecommandationComponent.prototype.onChange = function () {
         this.notify.emit({
             isSeen: this.movieSeen,
             movieDBId: this.movie.id,
@@ -82,7 +83,7 @@ var MovieQuestionnaireComponent = (function () {
             wantToSee: this.wantToWatch
         });
     };
-    MovieQuestionnaireComponent.prototype.getLabelRating = function () {
+    MovieRecommandationComponent.prototype.getLabelRating = function () {
         var _this = this;
         var labelTranslationVar = this.seenValue === 1 ? 'MOVIE_QUESTIONNAIRE.POOR' : (this.seenValue === 2 ? 'MOVIE_QUESTIONNAIRE.AVERAGE' : (this.seenValue === 3 ? 'MOVIE_QUESTIONNAIRE.GOOD' : (this.seenValue === 4 ? 'MOVIE_QUESTIONNAIRE.VERYGOOD' : (this.seenValue === 5 ? 'MOVIE_QUESTIONNAIRE.MASTERPIECE' : 'Error!'))));
         this.translate.get(labelTranslationVar).subscribe(function (res) {
@@ -92,27 +93,27 @@ var MovieQuestionnaireComponent = (function () {
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
-    ], MovieQuestionnaireComponent.prototype, "movie", void 0);
+    ], MovieRecommandationComponent.prototype, "movie", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
-    ], MovieQuestionnaireComponent.prototype, "movieQuestionnaireInit", void 0);
+    ], MovieRecommandationComponent.prototype, "movieQuestionnaireInit", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
-    ], MovieQuestionnaireComponent.prototype, "config", void 0);
+    ], MovieRecommandationComponent.prototype, "config", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
-    ], MovieQuestionnaireComponent.prototype, "notify", void 0);
-    MovieQuestionnaireComponent = __decorate([
+    ], MovieRecommandationComponent.prototype, "notify", void 0);
+    MovieRecommandationComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'movie-questionnaire',
-            templateUrl: 'movie-questionnaire.component.html'
+            selector: 'movie-recommandation',
+            templateUrl: 'movie-recommandation.component.html'
         }),
         __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, core_2.TranslateService])
-    ], MovieQuestionnaireComponent);
-    return MovieQuestionnaireComponent;
+    ], MovieRecommandationComponent);
+    return MovieRecommandationComponent;
 }());
-exports.MovieQuestionnaireComponent = MovieQuestionnaireComponent;
+exports.MovieRecommandationComponent = MovieRecommandationComponent;

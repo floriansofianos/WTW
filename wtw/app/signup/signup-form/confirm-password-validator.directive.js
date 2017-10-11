@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var ConfirmPasswordValidator = /** @class */ (function () {
+var ConfirmPasswordValidator = (function () {
     function ConfirmPasswordValidator() {
     }
     ConfirmPasswordValidator_1 = ConfirmPasswordValidator;
