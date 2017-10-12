@@ -25,6 +25,7 @@ export class UserWhatToWatchPageComponent {
     movieQuestionnaireInitLoaded: boolean;
     movieQuestionnaire: any;
     showSaveSpinner: boolean;
+    isLoading: boolean;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
 
@@ -66,30 +67,37 @@ export class UserWhatToWatchPageComponent {
     }
 
     onClickMovie(event) {
+        this.isLoading = true;
+        this.loadMovie(event.movieId);
+    }
 
+    loadMovie(id: number) {
+        this.movieQuestionnaireService.get(id).subscribe(
+            data => {
+                this.movieQuestionnaireInit = data.json();
+                this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
+                    data => {
+                        this.movie = data.json();
+                        this.movieQuestionnaireInitLoaded = true;
+                        this.isLoading = false;
+                    },
+                    error => {
+                        this.router.navigate(['/error']);
+                    }
+                );
+            },
+            error => {
+                this.router.navigate(['/error']);
+            }
+        );
     }
 
     clickSearch() {
+        this.isLoading = true;
         this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(response => {
             // load existing data regarding this movie for the current user
             var id = response.json().id;
-            this.movieQuestionnaireService.get(id).subscribe(
-                data => {
-                    this.movieQuestionnaireInit = data.json();
-                    this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
-                        data => {
-                            this.movie = data.json();
-                            this.movieQuestionnaireInitLoaded = true;
-                        },
-                        error => {
-                            this.router.navigate(['/error']);
-                        }
-                    );
-                },
-                error => {
-                    this.router.navigate(['/error']);
-                }
-            );
+            this.loadMovie(id);
         },
             error => {
                 this.router.navigate(['error']);

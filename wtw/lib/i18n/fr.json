@@ -78,22 +78,24 @@
         "HISTORY": "Historique",
         "NOT_WANT_TO_SEE": "Vous ne voulez pas voir"
     },
-    "WTW": {
-        "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
-        "WTW": "Trouver votre prochaine séance.",
-        "RUNTIME_LIMIT": "Ajouter une limite de temps",
-        "RUNTIME_LIMIT_EXPLANATION": "Le film trouvé ne durera pas plus longtemps que la valeur ci-dessus (en minutes).",
-        "INCLUDE_WATCHLIST": "Utiliser les films de ma liste à voir"
-    },
-    "FORM": {
-        "OK": "OK",
-        "CANCEL": "Annuler",
-        "REQUIRED": "Obligatoire",
-        "BACK": "Précédent",
-        "NEXT": "Suivant",
-        "SKIP": "Passer",
-        "PREVIOUS": "Précédent",
-        "YES": "Oui",
-        "NO": "Non"
-    }
+  "WTW": {
+    "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
+    "WTW": "Trouver votre prochaine séance.",
+    "RUNTIME_LIMIT": "Ajouter une limite de temps",
+    "RUNTIME_LIMIT_EXPLANATION": "Le film trouvé ne durera pas plus longtemps que la valeur ci-dessus (en minutes).",
+    "INCLUDE_WATCHLIST": "Utiliser les films de ma liste à voir",
+    "GRADE_HELP": "Ce pourcentage représente la probabilité que vous aimiez ce film. Si nous ne pouvons pas déterminer ce chiffre, il sera remplacé par un point d'interrogation."
+  },
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Annuler",
+    "REQUIRED": "Obligatoire",
+    "SAVE": "Sauvegarder",
+    "BACK": "Précédent",
+    "NEXT": "Suivant",
+    "SKIP": "Passer",
+    "PREVIOUS": "Précédent",
+    "YES": "Oui",
+    "NO": "Non"
+  }
 }

@@ -78,17 +78,19 @@
         "HISTORY": "History",
         "NOT_WANT_TO_SEE": "You don't want to see"
     },
-    "WTW": {
-        "PERSONAL_RECO": "Here are some personal recommandations for you:",
-        "WTW": "Find something to watch.",
-        "RUNTIME_LIMIT": "Add a runtime limit to my search",
-        "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
-        "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results"
-    },
+  "WTW": {
+    "PERSONAL_RECO": "Here are some personal recommandations for you:",
+    "WTW": "Find something to watch.",
+    "RUNTIME_LIMIT": "Add a runtime limit to my search",
+    "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
+    "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
+    "GRADE_HELP": "This percentage represents the likelihood you have to like this movie. If we cannot calculate it, you will see a question mark."
+  },
     "FORM": {
         "OK": "OK",
         "CANCEL": "Cancel",
-        "REQUIRED": "Required",
+      "REQUIRED": "Required",
+      "SAVE":  "Save",
         "BACK": "Back",
         "NEXT": "Next",
         "SKIP": "Skip",

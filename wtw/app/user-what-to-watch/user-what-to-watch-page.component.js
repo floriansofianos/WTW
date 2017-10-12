@@ -17,7 +17,7 @@ var movie_recommandation_service_1 = require("../movie/movie-recommandation.serv
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate) {
         this.authService = authService;
         this.router = router;
@@ -61,23 +61,31 @@ var UserWhatToWatchPageComponent = (function () {
         });
     };
     UserWhatToWatchPageComponent.prototype.onClickMovie = function (event) {
+        this.isLoading = true;
+        this.loadMovie(event.movieId);
     };
-    UserWhatToWatchPageComponent.prototype.clickSearch = function () {
+    UserWhatToWatchPageComponent.prototype.loadMovie = function (id) {
         var _this = this;
-        this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(function (response) {
-            // load existing data regarding this movie for the current user
-            var id = response.json().id;
-            _this.movieQuestionnaireService.get(id).subscribe(function (data) {
-                _this.movieQuestionnaireInit = data.json();
-                _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
-                    _this.movie = data.json();
-                    _this.movieQuestionnaireInitLoaded = true;
-                }, function (error) {
-                    _this.router.navigate(['/error']);
-                });
+        this.movieQuestionnaireService.get(id).subscribe(function (data) {
+            _this.movieQuestionnaireInit = data.json();
+            _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
+                _this.movie = data.json();
+                _this.movieQuestionnaireInitLoaded = true;
+                _this.isLoading = false;
             }, function (error) {
                 _this.router.navigate(['/error']);
             });
+        }, function (error) {
+            _this.router.navigate(['/error']);
+        });
+    };
+    UserWhatToWatchPageComponent.prototype.clickSearch = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(function (response) {
+            // load existing data regarding this movie for the current user
+            var id = response.json().id;
+            _this.loadMovie(id);
         }, function (error) {
             _this.router.navigate(['error']);
         });

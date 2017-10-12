@@ -85,9 +85,10 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForDirectorQuestionnaire = function (directorId, done) {
+    var getMoviesForDirectorQuestionnaire = function (directorId, page, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = directorId;
+        query.page = page;
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -96,9 +97,10 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForWriterQuestionnaire = function (writerId, done) {
+    var getMoviesForWriterQuestionnaire = function (writerId, page, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = writerId;
+        query.page = page;
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -319,6 +321,22 @@ module.exports = function () {
         return credits.cast.slice(0, Math.min(5, credits.cast.length));
     };
 
+    var isMovieDirector = function (movieDBId, directorId, done) {
+        getMovieCredits(movieDBId, function (err, data) {
+            if (err) return done(err, null);
+            var directors = getDirectors(data);
+            done(null, _.find(directors, function (d) { return d.id == directorId; }));
+        })
+    }
+
+    var isMovieWriter = function (movieDBId, writerId, done) {
+        getMovieCredits(movieDBId, function (err, data) {
+            if (err) return done(err, null);
+            var writers = getWriters(data);
+            done(null, _.find(writers, function (d) { return d.id == writerId; }));
+        })
+    }
+
     var getDirectors = function (credits) {
         return _.filter(credits.crew, function (c) { return c.job == 'Director' });
     }
@@ -455,6 +473,8 @@ module.exports = function () {
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
         getAllMovies: getAllMovies,
+        isMovieDirector: isMovieDirector,
+        isMovieWriter: isMovieWriter,
         wtw: wtw
     }
 }
