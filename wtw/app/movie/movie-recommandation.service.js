@@ -12,12 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieRecommandationService = /** @class */ (function () {
+var MovieRecommandationService = (function () {
     function MovieRecommandationService(http) {
         this.http = http;
     }
     MovieRecommandationService.prototype.getAll = function () {
         return this.http.get('/api/movieRecommandation')
+            .catch(this.handleErrors);
+    };
+    MovieRecommandationService.prototype.getScore = function (id) {
+        return this.http.get('/api/movieRecommandation/score', { params: { id: id } })
             .catch(this.handleErrors);
     };
     MovieRecommandationService.prototype.handleErrors = function (error) {

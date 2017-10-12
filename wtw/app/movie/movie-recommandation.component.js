@@ -12,12 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
-var MovieRecommandationComponent = /** @class */ (function () {
-    function MovieRecommandationComponent(domSanitizer, translate) {
+var router_1 = require("@angular/router");
+var movie_recommandation_service_1 = require("./movie-recommandation.service");
+var _ = require("underscore");
+var MovieRecommandationComponent = (function () {
+    function MovieRecommandationComponent(domSanitizer, translate, movieRecommandationService, router) {
         var _this = this;
         this.domSanitizer = domSanitizer;
         this.translate = translate;
+        this.movieRecommandationService = movieRecommandationService;
+        this.router = router;
         this.notify = new core_1.EventEmitter();
+        this.notifySave = new core_1.EventEmitter();
+        this.gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', 'WTW.LIKE_', 'WTW.LOVE_'];
         this.onRatingChange = function ($event) {
             if ($event.rating) {
                 _this.seenValue = $event.rating;
@@ -48,7 +55,18 @@ var MovieRecommandationComponent = /** @class */ (function () {
         this.seenValue = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.rating : 3;
         this.getLabelRating();
         this.wantToWatch = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.wantToSee : false;
-        this.grade = 75;
+        this.gradeLoaded = false;
+        this.movieRecommandationService.getScore(this.movie.id).subscribe(function (response) {
+            var data = response.json();
+            _this.gradeRelevant = data.certaintyLevel >= 3;
+            _this.grade = data.score;
+            _this.gradeComments = _.map(data.comments, function (c) {
+                return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
+            }, _this);
+            _this.gradeLoaded = true;
+        }, function (error) {
+            _this.router.navigate(['/error']);
+        });
         this.onChange();
     };
     MovieRecommandationComponent.prototype.getAllTrailers = function () {
@@ -90,6 +108,12 @@ var MovieRecommandationComponent = /** @class */ (function () {
             _this.labelRating = res;
         });
     };
+    MovieRecommandationComponent.prototype.clickSave = function () {
+        this.saving = true;
+        this.notifySave.emit({
+            clickSave: true
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
@@ -106,13 +130,17 @@ var MovieRecommandationComponent = /** @class */ (function () {
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
     ], MovieRecommandationComponent.prototype, "notify", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], MovieRecommandationComponent.prototype, "notifySave", void 0);
     MovieRecommandationComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'movie-recommandation',
             templateUrl: 'movie-recommandation.component.html'
         }),
-        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, core_2.TranslateService])
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, core_2.TranslateService, movie_recommandation_service_1.MovieRecommandationService, router_1.Router])
     ], MovieRecommandationComponent);
     return MovieRecommandationComponent;
 }());

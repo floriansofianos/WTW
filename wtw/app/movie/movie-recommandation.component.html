@@ -14,16 +14,18 @@
                         <div class="movie-summary">{{ movie?.overview }}</div>
                     </div>
                     <div class="col-md-5 grade-column">
-                        <div class="reco-grading-container" *ngIf="grade" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
-                            {{ grade }}%
+                        <div class="reco-grading-container" *ngIf="gradeLoaded" [ngClass]="{ 'grade-unknown': !gradeRelevant, 'good-grade': gradeRelevant && grade > 60, 'bad-grade': gradeRelevant && grade < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
+                            {{ gradeRelevant ? Math.floor(grade) + '%' : '?' }}
                         </div>
-                        <div *ngIf="!grade">
+                        <div *ngIf="!gradeLoaded">
                             <spinner></spinner>
                         </div>
-                        <div class="grade-reasons">
-                            <div class="good-reason"><i class="fa fa-check"></i><span>You love this director</span></div>
-                            <div class="good-reason"><i class="fa fa-check"></i><span>You love this writer</span></div>
-                            <div class="bad-reason"><i class="fa fa-ban"></i><span>You don't like movies with this actor</span></div>
+                        <div class="grade-reasons" *ngIf="gradeComments?.length > 0">
+                            <div [ngClass]="{ 'good-reason': c.isGood, 'bad-reason': !c.isGood }" *ngFor="let c of gradeComments">
+                                <i class="fa fa-check" *ngIf="c.isGood"></i>
+                                <i class="fa fa-ban" *ngIf="!c.isGood"></i>
+                                <span>{{ c.text | translate }} {{c.name}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,7 +71,7 @@
                                 <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="wantToWatch" (ngModelChange)="onChange()"></ui-switch>
                                 <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
                             </div>
-                            <wtw-button>{{ 'FORM.SAVE' | translate }}</wtw-button>
+                            <wtw-button (click)="clickSave()" *ngIf="!saving">{{ 'FORM.SAVE' | translate }}</wtw-button>
                         </div>
                         
                     </div>

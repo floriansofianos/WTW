@@ -24,6 +24,7 @@ export class UserWhatToWatchPageComponent {
     movieQuestionnaireInit: any;
     movieQuestionnaireInitLoaded: boolean;
     movieQuestionnaire: any;
+    showSaveSpinner: boolean;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
 
@@ -100,5 +101,23 @@ export class UserWhatToWatchPageComponent {
         this.movieQuestionnaire = event;
     }
 
+    back() {
+        this.movieQuestionnaire = null;
+        this.movie = null;
+        this.movieQuestionnaireInitLoaded = false;
+    }
+
+    movieQuestionnaireSave() {
+        // Add the questionnaire to DB
+        this.showSaveSpinner = true;
+        // Save data in DB
+        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
+            this.showSaveSpinner = false;
+            this.back();
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
     
 }

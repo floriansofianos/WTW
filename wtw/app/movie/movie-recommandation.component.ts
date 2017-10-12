@@ -1,6 +1,9 @@
 ﻿import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { MovieRecommandationService } from './movie-recommandation.service';
+import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
@@ -13,6 +16,7 @@ export class MovieRecommandationComponent {
     @Input() movieQuestionnaireInit: any;
     @Input() config: any;
     @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+    @Output() notifySave: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;
     genres: string;
     releaseYear: string;
@@ -24,8 +28,13 @@ export class MovieRecommandationComponent {
     jobDirector: string;
     jobWriter: string;
     grade: number;
+    gradeLoaded: boolean;
+    gradeRelevant: boolean;
+    gradeComments: Array<any>;
+    saving: boolean;
+    gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', 'WTW.LIKE_', 'WTW.LOVE_'];
 
-    constructor(private domSanitizer: DomSanitizer, private translate: TranslateService) { }
+    constructor(private domSanitizer: DomSanitizer, private translate: TranslateService, private movieRecommandationService: MovieRecommandationService, private router: Router) { }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.movie) {
@@ -49,7 +58,20 @@ export class MovieRecommandationComponent {
         this.seenValue = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.rating : 3;
         this.getLabelRating();
         this.wantToWatch = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.wantToSee : false;
-        this.grade = 75;
+        this.gradeLoaded = false;
+        this.movieRecommandationService.getScore(this.movie.id).subscribe(response => {
+            var data = response.json();
+            this.gradeRelevant = data.certaintyLevel >= 3;
+            this.grade = data.score;
+            this.gradeComments = _.map(data.comments, function (c) {
+                return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
+            }, this);
+
+            this.gradeLoaded = true;
+        },
+            error => {
+                this.router.navigate(['/error']);
+            });
         this.onChange();
     }
 
@@ -99,6 +121,13 @@ export class MovieRecommandationComponent {
         let labelTranslationVar = this.seenValue === 1 ? 'MOVIE_QUESTIONNAIRE.POOR' : (this.seenValue === 2 ? 'MOVIE_QUESTIONNAIRE.AVERAGE' : (this.seenValue === 3 ? 'MOVIE_QUESTIONNAIRE.GOOD' : (this.seenValue === 4 ? 'MOVIE_QUESTIONNAIRE.VERYGOOD' : (this.seenValue === 5 ? 'MOVIE_QUESTIONNAIRE.MASTERPIECE' : 'Error!'))));
         this.translate.get(labelTranslationVar).subscribe((res: string) => {
             this.labelRating = res;
+        });
+    }
+
+    clickSave() {
+        this.saving = true;
+        this.notifySave.emit({
+            clickSave: true
         });
     }
 }

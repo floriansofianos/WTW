@@ -13,6 +13,11 @@ export class MovieRecommandationService {
             .catch(this.handleErrors);
     }
 
+    getScore(id: number): Observable<any> {
+        return this.http.get('/api/movieRecommandation/score', { params: { id: id } })
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }
