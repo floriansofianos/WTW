@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-5 grade-column">
                         <div class="reco-grading-container" *ngIf="gradeLoaded" [ngClass]="{ 'grade-unknown': !gradeRelevant, 'good-grade': gradeRelevant && grade > 60, 'bad-grade': gradeRelevant && grade < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
-                            {{ gradeRelevant ? Math.floor(grade) + '%' : '?' }}
+                            {{ gradeRelevant ? grade + '%' : '?' }}
                         </div>
                         <div *ngIf="!gradeLoaded">
                             <spinner></spinner>

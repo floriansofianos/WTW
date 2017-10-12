@@ -59,7 +59,7 @@ var MovieRecommandationComponent = /** @class */ (function () {
         this.movieRecommandationService.getScore(this.movie.id).subscribe(function (response) {
             var data = response.json();
             _this.gradeRelevant = data.certaintyLevel >= 3;
-            _this.grade = data.score;
+            _this.grade = Math.floor(data.score);
             _this.gradeComments = _.map(data.comments, function (c) {
                 return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
             }, _this);

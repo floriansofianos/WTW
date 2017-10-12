@@ -62,7 +62,7 @@ export class MovieRecommandationComponent {
         this.movieRecommandationService.getScore(this.movie.id).subscribe(response => {
             var data = response.json();
             this.gradeRelevant = data.certaintyLevel >= 3;
-            this.grade = data.score;
+            this.grade = Math.floor(data.score);
             this.gradeComments = _.map(data.comments, function (c) {
                 return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
             }, this);
