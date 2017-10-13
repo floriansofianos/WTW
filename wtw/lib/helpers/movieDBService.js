@@ -18,7 +18,7 @@ module.exports = function () {
         });
     };
 
-    var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, movieCacheService, done) {
+    var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, movieCacheService, userProfileService, userRecommandationService, done) {
         if (useWatchlist) {
             movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
                 var movieDBIds = _.map(watchlist, 'movieDBId');
@@ -36,6 +36,29 @@ module.exports = function () {
             });
         }
         else findMovieWithoutWishlist();
+    }
+
+    var filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds) {
+
+    }
+
+    var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, userProfileService, userRecommandationService, done) {
+        // Start by looking at the reco
+        userRecommandationService.getAll(id, function (err, recos) {
+
+        });
+
+        // Nothing? then try one of our favourite director - go more than 1 page in movieDB discover
+
+        // Nothing? try writer - go more than 1 page in movieDB discover
+
+        // Nothing? what about favourite genre if not provided
+
+        // Nothing? what about favourite actor
+
+        // Nothing? Try popular movie
+
+        // Nothing? Give up!
     }
 
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
