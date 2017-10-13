@@ -78,6 +78,10 @@ export class UserMoviesWatchlistPageComponent {
         );
     }
 
+    movieQuestionnaireSave(event) {
+        this.confirm();
+    }
+
     back() {
         this.selectedMovie = null;
         this.movieIds = null;

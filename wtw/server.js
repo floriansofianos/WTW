@@ -101,6 +101,9 @@ app.get('/user/movies/home', function(req, res) {
 app.get('/user/movies/questionnaires', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/user/movies/watchlist', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 app.get('/user/what-to-watch', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });

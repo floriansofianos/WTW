@@ -15,7 +15,7 @@ var core_2 = require("@ngx-translate/core");
 var router_1 = require("@angular/router");
 var movie_recommandation_service_1 = require("./movie-recommandation.service");
 var _ = require("underscore");
-var MovieRecommandationComponent = /** @class */ (function () {
+var MovieRecommandationComponent = (function () {
     function MovieRecommandationComponent(domSanitizer, translate, movieRecommandationService, router) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -24,7 +24,7 @@ var MovieRecommandationComponent = /** @class */ (function () {
         this.router = router;
         this.notify = new core_1.EventEmitter();
         this.notifySave = new core_1.EventEmitter();
-        this.gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', 'WTW.LIKE_', 'WTW.LOVE_'];
+        this.gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', '', 'WTW.LIKE_', 'WTW.LOVE_'];
         this.onRatingChange = function ($event) {
             if ($event.rating) {
                 _this.seenValue = $event.rating;
@@ -34,9 +34,6 @@ var MovieRecommandationComponent = /** @class */ (function () {
         };
     }
     MovieRecommandationComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.movie) {
-            this.ngOnInit();
-        }
         if (changes.movieSeen || changes.wantToWatch) {
             this.onChange();
         }

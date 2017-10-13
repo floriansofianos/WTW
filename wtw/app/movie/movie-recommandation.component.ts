@@ -32,14 +32,11 @@ export class MovieRecommandationComponent {
     gradeRelevant: boolean;
     gradeComments: Array<any>;
     saving: boolean;
-    gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', 'WTW.LIKE_', 'WTW.LOVE_'];
+    gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', '', 'WTW.LIKE_', 'WTW.LOVE_'];
 
     constructor(private domSanitizer: DomSanitizer, private translate: TranslateService, private movieRecommandationService: MovieRecommandationService, private router: Router) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.movie) {
-            this.ngOnInit();
-        }
         if (changes.movieSeen || changes.wantToWatch) {
             this.onChange();
         }

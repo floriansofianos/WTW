@@ -127,6 +127,10 @@ export class UserMoviesHomePageComponent {
         this.hideSearch = false;
     }
 
+    movieQuestionnaireSave(event) {
+        this.confirm();
+    }
+
     confirm() {
         // Add the questionnaire to DB
         this.showSaveSpinner = true;
