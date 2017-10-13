@@ -33,6 +33,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class MovieWallElementComponent {
     @Input() movie: Array<number>;
     @Input() config: any;
+    @Input() width: number;
     state: string = 'normal';
 
     onMouseOver() {

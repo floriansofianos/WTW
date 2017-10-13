@@ -102,7 +102,6 @@ export class UserWhatToWatchPageComponent {
             error => {
                 this.router.navigate(['error']);
             });
-        console.log(this.formWTW);
     }
 
     movieQuestionnaireChange(event) {

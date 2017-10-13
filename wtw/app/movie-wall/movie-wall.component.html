@@ -1,5 +1,5 @@
 <div class="movie-wall-container" *ngIf="dataLoaded">
-    <movie-wall-element *ngFor="let m of movies" [movie]="m" [config]="config" (click)="showQuestionnaire(m.id)"></movie-wall-element>
+    <movie-wall-element *ngFor="let m of movies" [movie]="m" [config]="config" [width]="width" (click)="showQuestionnaire(m.id)"></movie-wall-element>
 </div>
 <div class="movie-wall-spinner-container" *ngIf="!dataLoaded">
     <spinner></spinner>

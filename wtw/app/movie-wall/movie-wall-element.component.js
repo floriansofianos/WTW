@@ -32,6 +32,10 @@ var MovieWallElementComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Object)
     ], MovieWallElementComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Number)
+    ], MovieWallElementComponent.prototype, "width", void 0);
     MovieWallElementComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

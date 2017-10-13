@@ -89,7 +89,6 @@ var UserWhatToWatchPageComponent = (function () {
         }, function (error) {
             _this.router.navigate(['error']);
         });
-        console.log(this.formWTW);
     };
     UserWhatToWatchPageComponent.prototype.movieQuestionnaireChange = function (event) {
         this.movieQuestionnaire = event;

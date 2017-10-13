@@ -35,7 +35,7 @@
             <div class="personal-recommandations-title">
                 {{ 'WTW.PERSONAL_RECO' | translate }}
             </div>
-            <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
+            <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" [width]="150" (notify)="onClickMovie($event)"></movie-wall>
         </div>
         
         <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">

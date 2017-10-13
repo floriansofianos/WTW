@@ -20,6 +20,8 @@ var MovieWallComponent = (function () {
     }
     MovieWallComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (!this.width)
+            this.width = 100;
         this.dataLoaded = false;
         this.movieDBService.getMovies(this.movieIds, this.lang).subscribe(function (data) {
             _this.movies = data.json();
@@ -45,6 +47,10 @@ var MovieWallComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Object)
     ], MovieWallComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Number)
+    ], MovieWallComponent.prototype, "width", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
