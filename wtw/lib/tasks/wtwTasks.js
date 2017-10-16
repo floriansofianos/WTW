@@ -154,7 +154,7 @@ var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQ
         // get movieDB movies
         movieDBService.getMoviesForDirectorQuestionnaire(directorId, 1, function (err, data) {
             if (data && data.results) {
-                filterOutDirectorData(directorId, data, 0, function (err, res) {
+                movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
@@ -176,7 +176,7 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
         // get movieDB movies
         movieDBService.getMoviesForDirectorQuestionnaire(directorId, 1, function (err, data) {
             if (data && data.results) {
-                filterOutDirectorData(directorId, data, 0, function (err, res) {
+                movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
@@ -192,27 +192,13 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
     else done(null, true);
 }
 
-var filterOutDirectorData = function (directorId, data, i, done) {
-    if (i < data.results.length) {
-        var d = data.results[i];
-        movieDBService.isMovieDirector(d.id, directorId, function (err, res) {
-            if (!res) {
-                data.results = _.without(data.results, d);
-                filterOutDirectorData(directorId, data, i, done);
-            }
-            else filterOutDirectorData(directorId, data, i + 1, done);
-        });
-    }
-    else done(null, data);
-}
-
 var generateWriterRecommandations = function (writerIds, questionnaires, movieRecommandations, userId, i, done) {
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
         movieDBService.getMoviesForWriterQuestionnaire(writerId, 1, function (err, data) {
             if (data && data.results) {
-                filterOutWriterData(writerId, data, 0, function (err, res) {
+                movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
@@ -266,7 +252,7 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
         // get movieDB movies
         movieDBService.getMoviesForWriterQuestionnaire(writerId, 1, function (err, data) {
             if (data && data.results) {
-                filterOutWriterData(writerId, data, 0, function (err, res) {
+                movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
@@ -282,19 +268,7 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
     else done(null, true);
 }
 
-var filterOutWriterData = function (writerId, data, i, done) {
-    if (i < data.results.length) {
-        var d = data.results[i];
-        movieDBService.isMovieWriter(d.id, writerId, function (err, res) {
-            if (!res) {
-                data.results = _.without(data.results, d);
-                filterOutWriterData(writerId, data, i, done);
-            }
-            else filterOutWriterData(writerId, data, i + 1, done);
-        });
-    }
-    else done(null, data);
-}
+
 
 var generateActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, userId, done) {
     if (castIds.length < 1) done(null, true);

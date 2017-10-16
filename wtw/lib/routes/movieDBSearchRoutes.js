@@ -2,7 +2,9 @@
 var movieDBService = require('../helpers/movieDBService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
 var movieCacheService = require('../helpers/movieCacheService')();
-var movieSearchController = require('../controllers/movieSearchController')(movieDBService, movieQuestionnaireService, movieCacheService);
+var userProfileService = require('../helpers/userProfileService')();
+var movieRecommandationService = require('../helpers/movieRecommandationService')();
+var movieSearchController = require('../controllers/movieSearchController')(movieDBService, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService);
 
 
 var movieDBSearchRoutes = function () {
