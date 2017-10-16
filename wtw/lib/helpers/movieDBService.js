@@ -64,6 +64,11 @@ module.exports = function () {
                     if (res) return done(null, res);
                     else {
                         // Nothing? then try one of our favourite director - go more than 1 page in movieDB discover
+                        // First get favourite directors
+                        userProfileService.getAll(id, function (err, profiles) {
+                            var favouriteDirectorIds = _.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.directorId });
+
+                        });
 
                         // Nothing? try writer - go more than 1 page in movieDB discover
 
