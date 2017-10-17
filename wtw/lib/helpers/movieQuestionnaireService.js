@@ -1,6 +1,7 @@
 ﻿var models = require('../models');
 var userService = require('./userService')();
 var userQuestionnaireService = require('./userQuestionnaireService')();
+var movieRecommandationService = require('./movieRecommandationService')();
 
 var movieQuestionnaireService = function () {
 
@@ -30,7 +31,13 @@ var movieQuestionnaireService = function () {
                 data.wantToSee = movieQuestionnaire.wantToSee;
                 data.isSkipped = movieQuestionnaire.isSkipped;
                 data.save().then(questionnaire => {
-                    done(null, questionnaire);
+                    userService.setUserProfileRefresh(userId, true, function(err, res) {
+                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
+                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function(err, res) {
+                                done(null, questionnaire);
+                            });
+                        });
+                    });
                 });
             }
             else {
@@ -44,7 +51,9 @@ var movieQuestionnaireService = function () {
                 }).then(questionnaire => {
                     userService.setUserProfileRefresh(userId, true, function (err, res) {
                         userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function (err, res) {
-                            done(null, questionnaire);
+                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                                done(null, questionnaire);
+                            });
                         });
                     });
                 });
