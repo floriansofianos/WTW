@@ -3,27 +3,33 @@ var userService = require('./userService')();
 var userQuestionnaireService = require('./userQuestionnaireService')();
 var movieRecommandationService = require('./movieRecommandationService')();
 
-var movieQuestionnaireService = function () {
+var movieQuestionnaireService = function() {
 
-    var getAll = function (userId, done) {
+    var getAll = function(userId, done) {
         models.MovieQuestionnaire.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var get = function (userId, movieId, done) {
+    var get = function(userId, movieId, done) {
         models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieId } }).then(data => {
             done(null, data);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getWatchlist = function (userId, done) {
+    var getWatchlist = function(userId, done) {
         models.MovieQuestionnaire.findAll({ where: { userId: userId, isSeen: false, wantToSee: true } }).then(data => {
             done(null, data);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var createOrUpdate = function (movieQuestionnaire, userId, done) {
+    var createOrUpdate = function(movieQuestionnaire, userId, done) {
         models.MovieQuestionnaire.findOne({ where: { userId: userId, movieDBId: movieQuestionnaire.movieDBId } }).then(data => {
             if (data) {
                 data.isSeen = movieQuestionnaire.isSeen;
@@ -49,15 +55,19 @@ var movieQuestionnaireService = function () {
                     wantToSee: movieQuestionnaire.wantToSee,
                     isSkipped: movieQuestionnaire.isSkipped
                 }).then(questionnaire => {
-                    userService.setUserProfileRefresh(userId, true, function (err, res) {
-                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function (err, res) {
-                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                    userService.setUserProfileRefresh(userId, true, function(err, res) {
+                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
+                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function(err, res) {
                                 done(null, questionnaire);
                             });
                         });
                     });
+                }).catch(function(err) {
+                    done(err);
                 });
             }
+        }).catch(function(err) {
+            done(err);
         });
 
 

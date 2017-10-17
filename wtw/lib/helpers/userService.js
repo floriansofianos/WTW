@@ -2,30 +2,34 @@
 var sequelize = require('sequelize');
 var _ = require('underscore');
 
-var userService = function () {
+var userService = function() {
 
-    var getUserByUsername = function (username, done) {
+    var getUserByUsername = function(username, done) {
         models.User.findOne({ where: { username: username } }).then(user => {
             done(null, user);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getUserByEmail = function (email, done) {
+    var getUserByEmail = function(email, done) {
         models.User.findOne({ where: { email: email } }).then(user => {
             done(null, user);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var validateUser = function (user, done) {
+    var validateUser = function(user, done) {
         if (!user.username) done('SIGNUP.FORM.USERNAME_NOT_NULL', null);
         if (!user.email) done('SIGNUP.FORM.EMAIL_NOT_NULL', null);
         if (!user.password) done('SIGNUP.FORM.PASSWORD_NOT_NULL', null);
 
         // Check that the username or email has not already been used
-        getUserByEmail(user.email, function (err, u) {
+        getUserByEmail(user.email, function(err, u) {
             if (u) done('SIGNUP.FORM.EMAIL_TAKEN', null);
             else if (err) done(err, null);
-            else getUserByUsername(user.username, function (err, u) {
+            else getUserByUsername(user.username, function(err, u) {
                 if (u) done('SIGNUP.FORM.USERNAME_TAKEN', null);
                 else if (err) done(err, null);
                 else done(null, true);
@@ -33,7 +37,7 @@ var userService = function () {
         });
     }
 
-    var createUser = function (user, done) {
+    var createUser = function(user, done) {
         models.User.create({
             username: user.username,
             email: user.email,
@@ -42,22 +46,28 @@ var userService = function () {
             lastName: user.lastName
         }).then(user => {
             done(null, user);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getUserById = function (id, done) {
+    var getUserById = function(id, done) {
         models.User.findOne({ where: { id: id } }).then(user => {
             done(null, user);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getUsersForPorfileRefresh = function (done) {
+    var getUsersForPorfileRefresh = function(done) {
         models.User.findAll({ where: { profileRefresh: true } }).then(users => {
             done(null, users);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var setUserProfileRefresh = function (userId, profileRefresh, done) {
+    var setUserProfileRefresh = function(userId, profileRefresh, done) {
         models.User.findOne({ where: { id: userId } }).then(data => {
             if (data) {
                 data.profileRefresh = profileRefresh;
@@ -65,10 +75,12 @@ var userService = function () {
                     done(null, user);
                 });
             }
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getUsersForQuestionnaireRefresh = function (done) {
+    var getUsersForQuestionnaireRefresh = function(done) {
         models.UserQuestionnaire.findAll({
             attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
             group: '"userId"',
@@ -77,11 +89,15 @@ var userService = function () {
             var usersIds = _.map(data, 'userId');
             models.User.findAll({ where: { id: { $notIn: usersIds } } }).then(users => {
                 done(null, users);
+            }).catch(function(err) {
+                done(err);
             });
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var getUsersForRecommandationRefresh = function (done) {
+    var getUsersForRecommandationRefresh = function(done) {
         models.MovieRecommandation.findAll({
             attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
             group: '"userId"',
@@ -90,7 +106,11 @@ var userService = function () {
             var usersIds = _.map(data, 'userId');
             models.User.findAll({ where: { id: { $notIn: usersIds } } }).then(users => {
                 done(null, users);
+            }).catch(function(err) {
+                done(err);
             });
+        }).catch(function(err) {
+            done(err);
         });
     }
 

@@ -34,7 +34,7 @@ module.exports = function () {
                     message: 'Something went wrong with your Signin'
                 });
 
-            });;
+            });
         }));
 
     var isValidPassword = function (user, password) {

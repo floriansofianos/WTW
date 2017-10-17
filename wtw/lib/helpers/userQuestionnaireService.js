@@ -6,6 +6,8 @@ var userQuestionnaireService = function () {
     var getAll = function (userId, done) {
         models.UserQuestionnaire.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
@@ -18,7 +20,9 @@ var userQuestionnaireService = function () {
                 Sequelize.fn('RANDOM'),
             ] }).then(data => {
             done(null, data);
-        });
+            }).catch(function(err) {
+                done(err);
+            });
     }
 
     var create = function (userId, movieDBId, done) {
@@ -33,7 +37,9 @@ var userQuestionnaireService = function () {
     var deleteQuestionnaire = function(userId, movieDBId, done) {
         models.UserQuestionnaire.destroy({ where: { userId: userId, movieDBId: movieDBId } }).then(result => {
             done(null, result);
-        })
+        }).catch(function(err) {
+            done(err);
+        });
     }
 
     return {

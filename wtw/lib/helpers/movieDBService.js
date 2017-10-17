@@ -417,7 +417,10 @@ module.exports = function () {
     var getMovieFromCache = function (id, lang, done) {
         models.MovieInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(movie => {
             done(null, movie);
-        });
+        })
+            .catch(function(err) {
+                done(err);
+            });
     }
 
     var setMovieCache = function (id, lang, data, done) {
@@ -427,7 +430,10 @@ module.exports = function () {
             data: data
         }).then(movieCache => {
             done(null, movieCache);
-        });
+            })
+            .catch(function(err) {
+                done(err);
+            });
     }
 
     var getMovieTrailer = function (id, done) {
@@ -475,6 +481,8 @@ module.exports = function () {
     var getMovieTrailersFromCache = function (id, done) {
         models.MovieVideoCache.findOne({ where: { movieDBId: id } }).then(trailers => {
             done(null, trailers);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
@@ -484,7 +492,9 @@ module.exports = function () {
             data: data
         }).then(trailersCache => {
             done(null, trailersCache);
-        });
+            }).catch(function(err) {
+                done(err);
+            });
     }
 
     var getMovieCredits = function (id, done) {
@@ -532,6 +542,8 @@ module.exports = function () {
     var getMovieCreditsFromCache = function (id, done) {
         models.MovieCreditsCache.findOne({ where: { movieDBId: id } }).then(credits => {
             done(null, credits);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
@@ -541,7 +553,9 @@ module.exports = function () {
             data: data
         }).then(creditsCache => {
             done(null, creditsCache);
-        });
+            }).catch(function(err) {
+                done(err);
+            });
     }
 
     var getActors = function (credits) {
@@ -660,6 +674,8 @@ module.exports = function () {
     var getCastFromCache = function (id, done) {
         models.CastCache.findOne({ where: { movieDBId: id } }).then(cast => {
             done(null, cast);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
@@ -669,7 +685,9 @@ module.exports = function () {
             data: data
         }).then(castCache => {
             done(null, castCache);
-        });
+            }).catch(function(err) {
+                done(err);
+            });
     }
 
     var search = function (s, done) {

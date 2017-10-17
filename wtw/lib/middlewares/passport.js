@@ -16,6 +16,8 @@ module.exports = function(app) {
             } else {
                 done(user.errors, null);
             }
+        }).catch(function(err) {
+            done(err);
         });
     });
 

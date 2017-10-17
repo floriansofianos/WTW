@@ -1,14 +1,16 @@
 var models = require('../models');
 
-var userProfileService = function () {
+var userProfileService = function() {
 
-    var getAll = function (userId, done) {
+    var getAll = function(userId, done) {
         models.UserProfile.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
+        }).catch(function(err) {
+            done(err);
         });
     }
 
-    var createOrUpdate = function (userProfile, done) {
+    var createOrUpdate = function(userProfile, done) {
         if (userProfile.genreId) {
             models.UserProfile.findOne({ where: { userId: userProfile.userId, genreId: userProfile.genreId } }).then(data => {
                 if (data) {
@@ -16,6 +18,8 @@ var userProfileService = function () {
                     data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
                 else {
@@ -27,8 +31,12 @@ var userProfileService = function () {
                         scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
+            }).catch(function(err) {
+                done(err);
             });
         }
         else if (userProfile.castId) {
@@ -38,6 +46,8 @@ var userProfileService = function () {
                     data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
                 else {
@@ -49,8 +59,12 @@ var userProfileService = function () {
                         scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
+            }).catch(function(err) {
+                done(err);
             });
         }
         else if (userProfile.writerId) {
@@ -60,6 +74,8 @@ var userProfileService = function () {
                     data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
                 else {
@@ -71,8 +87,12 @@ var userProfileService = function () {
                         scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
+            }).catch(function(err) {
+                done(err);
             });
         }
         else if (userProfile.directorId) {
@@ -82,6 +102,8 @@ var userProfileService = function () {
                     data.scoreRelevance = userProfile.scoreRelevance;
                     data.save().then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
                 else {
@@ -93,8 +115,12 @@ var userProfileService = function () {
                         scoreRelevance: userProfile.scoreRelevance
                     }).then(profile => {
                         done(null, profile);
+                    }).catch(function(err) {
+                        done(err);
                     });
                 }
+            }).catch(function(err) {
+                done(err);
             });
         }
     }
