@@ -9,12 +9,12 @@ var authRoutes = function () {
 
     authRouter.route('/signin')
         .post(passport.authenticate('local'), function(req, res) {
-            res.json(req.user);
+            res.json(userService.userToModelView(req.user));
         });
 
     authRouter.route('/current')
         .get(function (req, res) {
-            res.json(req.user);
+            res.json(userService.userToModelView(req.user));
         })
         .put(isAuthenticated, userController.updateUser);
 

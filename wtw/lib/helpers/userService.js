@@ -114,6 +114,20 @@ var userService = function() {
         });
     }
 
+    var userToModelView = function(user) {
+        if (!user) return user;
+        return {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            lang: user.lang,
+            age: user.age,
+            firstQuestionnaireCompleted: user.firstQuestionnaireCompleted
+        }
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
@@ -123,7 +137,8 @@ var userService = function() {
         getUsersForPorfileRefresh: getUsersForPorfileRefresh,
         setUserProfileRefresh: setUserProfileRefresh,
         getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh,
-        getUsersForRecommandationRefresh: getUsersForRecommandationRefresh
+        getUsersForRecommandationRefresh: getUsersForRecommandationRefresh,
+        userToModelView: userToModelView
     }
 }
 

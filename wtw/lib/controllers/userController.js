@@ -22,7 +22,7 @@
         var userValidation = userService.validateUser(req.body, function (err, valid) {
             if (valid) {
                 userService.createUser(req.body, function (err, user) {
-                    if (user) res.json(user);
+                    if (user) res.json(userService.userToModelView(user));
                     else res.send(500);
                 });
             }
@@ -37,7 +37,7 @@
                 if (req.body.age) user.age = req.body.age;
                 if (req.body.firstQuestionnaireCompleted) user.firstQuestionnaireCompleted = req.body.firstQuestionnaireCompleted;
                 user.save().then(function (user, err) {
-                    if (!err) res.json(req.user);
+                    if (!err) res.json(userService.userToModelView(req.user));
                     else res.send(500);
                 })
                 .catch(function (err) {
