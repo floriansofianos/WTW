@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var ng2_validation_1 = require("ng2-validation");
-var SignUpFormComponent = (function () {
+var SignUpFormComponent = /** @class */ (function () {
     function SignUpFormComponent(router, authService) {
         this.router = router;
         this.authService = authService;
@@ -37,6 +37,7 @@ var SignUpFormComponent = (function () {
     };
     SignUpFormComponent.prototype.signup = function (formValues) {
         var _this = this;
+        this.isSubmitted = true;
         if (this.signupForm.valid) {
             this.showSpinner = true;
             this.authService.signUp(formValues).subscribe(function (response) {
@@ -49,23 +50,26 @@ var SignUpFormComponent = (function () {
         }
     };
     SignUpFormComponent.prototype.isEmailInvalid = function () {
-        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.email && ((this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty) || this.isSubmitted);
     };
     SignUpFormComponent.prototype.isEmailEmpty = function () {
-        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required && ((this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty) || this.isSubmitted);
     };
     SignUpFormComponent.prototype.isUsernameEmpty = function () {
-        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.required && this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty;
+        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.required && ((this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty) || this.isSubmitted);
+    };
+    SignUpFormComponent.prototype.isPasswordStrongEnough = function () {
+        return ((this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty) || this.isSubmitted) && this.passwordGroup.controls.password.errors != null;
     };
     SignUpFormComponent.prototype.isConfirmPasswordInvalid = function () {
-        return this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty
+        return ((this.passwordGroup.controls.password.touched && this.passwordGroup.controls.password.dirty && this.passwordGroup.controls.confirmPassword.touched && this.passwordGroup.controls.confirmPassword.dirty) || this.isSubmitted)
             && this.passwordGroup.errors != null;
     };
     SignUpFormComponent.prototype.isEmailTaken = function () {
-        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.validateEmail && this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty;
+        return this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.validateEmail && ((this.signupForm.controls.email.touched && this.signupForm.controls.email.dirty) || this.isSubmitted);
     };
     SignUpFormComponent.prototype.isUsernameTaken = function () {
-        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.validateUsername && this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty;
+        return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.validateUsername && ((this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty) || this.isSubmitted);
     };
     SignUpFormComponent = __decorate([
         core_1.Component({

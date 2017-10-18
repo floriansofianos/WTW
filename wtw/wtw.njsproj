@@ -107,6 +107,7 @@
     <TypeScriptCompile Include="app\routes.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\signup\signup-form\password-validator.directive.ts" />
     <TypeScriptCompile Include="app\signup\signup-form\username-validator.directive.ts" />
     <TypeScriptCompile Include="app\signup\signup-form\email-validator.directive.ts" />
     <TypeScriptCompile Include="app\signup\signup-form\confirm-password-validator.directive.ts" />

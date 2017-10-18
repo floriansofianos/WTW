@@ -44,7 +44,8 @@ var userService = function() {
             email: user.email,
             password: models.User.prototype.generateHash(user.password),
             firstName: user.firstName,
-            lastName: user.lastName
+            lastName: user.lastName,
+            lang: user.lang
         }).then(user => {
             done(null, user);
         }).catch(function(err) {

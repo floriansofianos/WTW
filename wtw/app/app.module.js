@@ -28,6 +28,7 @@ var login_form_component_1 = require("./login/login-form/login-form.component");
 var signup_page_component_1 = require("./signup/signup-page.component");
 var signup_form_component_1 = require("./signup/signup-form/signup-form.component");
 var confirm_password_validator_directive_1 = require("./signup/signup-form/confirm-password-validator.directive");
+var password_validator_directive_1 = require("./signup/signup-form/password-validator.directive");
 var email_validator_directive_1 = require("./signup/signup-form/email-validator.directive");
 var username_validator_directive_1 = require("./signup/signup-form/username-validator.directive");
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
@@ -62,7 +63,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -99,6 +100,7 @@ var AppModule = (function () {
                 signup_page_component_1.SignUpPageComponent,
                 signup_form_component_1.SignUpFormComponent,
                 confirm_password_validator_directive_1.ConfirmPasswordValidator,
+                password_validator_directive_1.PasswordValidator,
                 email_validator_directive_1.EmailValidator,
                 username_validator_directive_1.UsernameValidator,
                 user_home_page_component_1.UserHomePageComponent,

@@ -14,21 +14,22 @@
     },
     "SIGNUP": {
         "TITLE": "Inscription",
-        "FORM": {
-            "EMAIL": "Email",
-            "EMAIL_INVALID": "L'adresse email est invalide.",
-            "PASSWORD": "Mot de passe",
-            "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
-            "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
-            "USERNAME": "Pseudo",
-            "FIRST_NAME": "Prénom",
-            "LAST_NAME": "Nom de famille",
-            "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
-            "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
-            "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
-            "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
-            "USERNAME_TAKEN": "Ce pseudo est déjà utilisé."
-        }
+      "FORM": {
+        "EMAIL": "Email",
+        "EMAIL_INVALID": "L'adresse email est invalide.",
+        "PASSWORD": "Mot de passe",
+        "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
+        "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
+        "USERNAME": "Pseudo",
+        "FIRST_NAME": "Prénom",
+        "LAST_NAME": "Nom de famille",
+        "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
+        "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
+        "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
+        "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
+        "USERNAME_TAKEN": "Ce pseudo est déjà utilisé.",
+        "PASSWORD_NOT_STRONG": "Votre mot de passe doit faire au moins 8 caractères."
+      }
     },
     "FIRST_QUESTIONNAIRE": {
         "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
