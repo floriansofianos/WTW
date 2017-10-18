@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var LoginFormComponent = /** @class */ (function () {
+var LoginFormComponent = (function () {
     function LoginFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
@@ -23,9 +23,11 @@ var LoginFormComponent = /** @class */ (function () {
     LoginFormComponent.prototype.ngOnInit = function () {
         var login = new forms_1.FormControl();
         var password = new forms_1.FormControl();
+        var rememberMe = new forms_1.FormControl();
         this.loginForm = new forms_1.FormGroup({
             login: login,
-            password: password
+            password: password,
+            rememberMe: rememberMe
         });
     };
     LoginFormComponent.prototype.cancel = function () {
@@ -34,7 +36,7 @@ var LoginFormComponent = /** @class */ (function () {
     LoginFormComponent.prototype.login = function (formValues) {
         var _this = this;
         this.showSpinner = true;
-        this.authService.loginUser(formValues.login, formValues.password).subscribe(function (response) {
+        this.authService.loginUser(formValues.login, formValues.password, formValues.rememberMe).subscribe(function (response) {
             var currentUser = response.json();
             _this.authService.setCurrentUser(currentUser);
             if (currentUser.lang)

@@ -9,8 +9,8 @@ export class AuthService {
     constructor(private http: Http) { }
 
     currentUser: any
-    loginUser(login: string, password: string): Observable<any> {
-        return this.http.post('/auth/signin', { email: login, password: password })
+    loginUser(login: string, password: string, rememberMe: boolean): Observable<any> {
+        return this.http.post('/auth/signin', { email: login, password: password, remember_me: rememberMe })
             .catch(this.handleErrors);
     }
 

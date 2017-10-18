@@ -20,10 +20,12 @@ export class LoginFormComponent implements OnInit {
     ngOnInit(): void {
         let login = new FormControl();
         let password = new FormControl();
+        let rememberMe = new FormControl();
 
         this.loginForm = new FormGroup({
             login: login,
-            password: password
+            password: password,
+            rememberMe: rememberMe
         });
     }
 
@@ -33,7 +35,7 @@ export class LoginFormComponent implements OnInit {
 
     login(formValues: any) {
         this.showSpinner = true;
-        this.authService.loginUser(formValues.login, formValues.password).subscribe(response => {
+        this.authService.loginUser(formValues.login, formValues.password, formValues.rememberMe).subscribe(response => {
             let currentUser = response.json();
             this.authService.setCurrentUser(currentUser);
             if (currentUser.lang) this.translate.use(currentUser.lang)

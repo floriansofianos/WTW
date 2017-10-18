@@ -8,7 +8,16 @@ var authRoutes = function () {
     var authRouter = express.Router();
 
     authRouter.route('/signin')
-        .post(passport.authenticate('local'), function(req, res) {
+        .post(passport.authenticate('local'), function (req, res, next) {
+            // Issue a remember me cookie if the option was checked
+            if (!req.body.remember_me) { return next(); }
+
+            userService.issueToken(req.user, function (err, token) {
+                if (err) { return next(err); }
+                res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 });
+                return next();
+            });
+        }, function(req, res) {
             res.json(userService.userToModelView(req.user));
         });
 

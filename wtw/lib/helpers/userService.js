@@ -1,6 +1,7 @@
 ﻿var models = require('../models');
 var sequelize = require('sequelize');
 var _ = require('underscore');
+var guid = require('guid');
 
 var userService = function() {
 
@@ -128,6 +129,30 @@ var userService = function() {
         }
     }
 
+    var issueToken = function(user, done) {
+        var token = guid.raw();
+        models.User.findOne({ where: { id: user.id } }).then(data => {
+            if (data) {
+                data.rememberMeCookie = token;
+                data.rememberMeExpiry = new Date().setDate((new Date().getDate()) + 7);
+                data.save().then(user => {
+                    done(null, token);
+                });
+            }
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+    var getUserFromToken = function (token, done) {
+        var Op = sequelize.Op;
+        models.User.findOne({ where: { rememberMeCookie: token, rememberMeExpiry: { [Op.gt]: new Date() } } }).then(user => {
+            done(null, user)
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
@@ -138,7 +163,9 @@ var userService = function() {
         setUserProfileRefresh: setUserProfileRefresh,
         getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh,
         getUsersForRecommandationRefresh: getUsersForRecommandationRefresh,
-        userToModelView: userToModelView
+        userToModelView: userToModelView,
+        issueToken: issueToken,
+        getUserFromToken: getUserFromToken
     }
 }
 

@@ -8,6 +8,7 @@
         "FORM": {
             "LOGIN": "Email",
             "PASSWORD": "Mot de passe",
+            "REMEMBER_ME":  "Se souvenir de moi",
             "WRONGPASSWORD": "Votre email ou mot de passe est incorrect."
         }
     },

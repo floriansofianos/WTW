@@ -11,7 +11,9 @@ module.exports = function(sequelize, DataTypes) {
     lang: DataTypes.STRING,
     age: DataTypes.INTEGER,
     firstQuestionnaireCompleted: DataTypes.BOOLEAN,
-    profileRefresh: DataTypes.BOOLEAN
+    profileRefresh: DataTypes.BOOLEAN,
+    rememberMeCookie: DataTypes.STRING,
+    rememberMeExpiry: DataTypes.DATE
   }, {});
 
   User.associate = function (models) {
