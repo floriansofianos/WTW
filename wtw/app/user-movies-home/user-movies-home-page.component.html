@@ -15,7 +15,7 @@
                         <div class="search-result-poster">
                             <img width="100" *ngIf="result.poster_path" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
                             <div *ngIf="!result.poster_path" class="movie-poster-placeholder" style="width: 100px; height: 175px;">
-                                <i class="fa fa-film"></i>
+                                <i class="fa fa-film" style="font-size: 40px; margin-top: 65px;"></i>
                             </div>
                         </div>
                         <div class="search-result-title">{{ result.title }}</div>

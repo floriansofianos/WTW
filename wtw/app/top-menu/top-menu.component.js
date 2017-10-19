@@ -31,4 +31,3 @@ var TopMenuComponent = (function () {
     return TopMenuComponent;
 }());
 exports.TopMenuComponent = TopMenuComponent;
-//# sourceMappingURL=top-menu.component.js.map
