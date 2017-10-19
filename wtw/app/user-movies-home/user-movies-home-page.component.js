@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
-var UserMoviesHomePageComponent = /** @class */ (function () {
+var UserMoviesHomePageComponent = (function () {
     function UserMoviesHomePageComponent(authService, router, movieDBService, translate, movieQuestionnaireService) {
         this.authService = authService;
         this.router = router;
@@ -107,6 +107,12 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     UserMoviesHomePageComponent.prototype.movieQuestionnaireChange = function (data) {
         this.movieQuestionnaire = data;
     };
+    UserMoviesHomePageComponent.prototype.keyDownFunction = function (event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.searchMovie();
+        }
+    };
     UserMoviesHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -146,3 +152,4 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+//# sourceMappingURL=user-movies-home-page.component.js.map

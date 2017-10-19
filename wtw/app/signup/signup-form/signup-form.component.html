@@ -1,4 +1,4 @@
-<form id="signup-form" class="login-form" [formGroup]="signupForm" autocomplete="off" novalidate>
+<form id="signup-form" class="login-form" [formGroup]="signupForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
     <div class="login-line">
         <em *ngIf="isEmailInvalid()">{{ 'SIGNUP.FORM.EMAIL_INVALID' | translate }}</em>
         <em *ngIf="isEmailEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>

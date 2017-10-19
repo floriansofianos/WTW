@@ -12,7 +12,8 @@
     var isEmailAlreadyUsed = function (req, res) {
         if (req.query.email) {
             userService.getUserByEmail(req.query.email, function (err, user) {
-                
+                if (!err) res.json({ email: req.query.email, isTaken: user != undefined });
+                else res.send(500);
             });
         }
         else res.send(400);

@@ -46,4 +46,11 @@ export class LoginFormComponent implements OnInit {
             this.showSpinner = false;
         });
     }
+
+    keyDownFunction(event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.login(this.loginForm.value);
+        }
+    }
 }

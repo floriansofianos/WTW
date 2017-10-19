@@ -14,10 +14,12 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var ng2_validation_1 = require("ng2-validation");
-var SignUpFormComponent = /** @class */ (function () {
-    function SignUpFormComponent(router, authService) {
+var core_2 = require("@ngx-translate/core");
+var SignUpFormComponent = (function () {
+    function SignUpFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
+        this.translate = translate;
     }
     SignUpFormComponent.prototype.ngOnInit = function () {
         this.passwordGroup = new forms_1.FormGroup({
@@ -40,6 +42,7 @@ var SignUpFormComponent = /** @class */ (function () {
         this.isSubmitted = true;
         if (this.signupForm.valid) {
             this.showSpinner = true;
+            formValues.lang = this.translate.currentLang;
             this.authService.signUp(formValues).subscribe(function (response) {
                 _this.authService.setCurrentUser(response.json());
                 _this.router.navigate(['']);
@@ -71,14 +74,21 @@ var SignUpFormComponent = /** @class */ (function () {
     SignUpFormComponent.prototype.isUsernameTaken = function () {
         return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.validateUsername && ((this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty) || this.isSubmitted);
     };
+    SignUpFormComponent.prototype.keyDownFunction = function (event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.signup(this.signupForm.value);
+        }
+    };
     SignUpFormComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'signup-form',
             templateUrl: 'signup-form.component.html'
         }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService])
+        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
     ], SignUpFormComponent);
     return SignUpFormComponent;
 }());
 exports.SignUpFormComponent = SignUpFormComponent;
+//# sourceMappingURL=signup-form.component.js.map

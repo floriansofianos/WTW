@@ -83,4 +83,11 @@ export class SignUpFormComponent implements OnInit {
     isUsernameTaken(): boolean {
         return this.signupForm.controls.username.errors && this.signupForm.controls.username.errors.validateUsername && ((this.signupForm.controls.username.touched && this.signupForm.controls.username.dirty) || this.isSubmitted);
     }
+
+    keyDownFunction(event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.signup(this.signupForm.value);
+        }
+    }
 }

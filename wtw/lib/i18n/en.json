@@ -19,7 +19,7 @@
         "EMAIL_INVALID": "The email entered is invalid.",
         "PASSWORD": "Password",
         "CONFIRM_PASSWORD": "Confirm Password",
-        "CONFIRM_PASSWORD_INVALID": "The Confirm Password do not match",
+        "CONFIRM_PASSWORD_INVALID": "The Confirm Password does not match",
         "USERNAME": "Username",
         "FIRST_NAME": "First Name",
         "LAST_NAME": "Last Name",

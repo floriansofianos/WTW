@@ -147,4 +147,11 @@ export class UserMoviesHomePageComponent {
     movieQuestionnaireChange(data) {
         this.movieQuestionnaire = data;
     }
+
+    keyDownFunction(event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.searchMovie();
+        }
+    }
 }

@@ -5,7 +5,7 @@
         <div class="search-container" *ngIf="!hideSearch">
             <div class="search-bar-container" [@searchState]="searchContainerState">
                 <mat-form-field>
-                    <input matInput placeholder="Search..." [(ngModel)]="search">
+                    <input matInput placeholder="Search..." [(ngModel)]="search" (keydown)="keyDownFunction($event)" />
                 </mat-form-field>
                 <wtw-button (click)="searchMovie()">{{ 'FORM.OK' | translate }}</wtw-button>
             </div>
