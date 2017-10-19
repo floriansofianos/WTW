@@ -3,6 +3,9 @@
         "TITLE": "Hello Angular with ngx-translate!",
         "WELCOME": "Welcome"
     },
+    "ERROR": {
+        "TEXT":  "Something went wrong when displaying the page."
+    },
     "LOGIN": {
         "TITLE": "Login",
         "FORM": {

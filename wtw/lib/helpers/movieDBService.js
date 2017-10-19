@@ -7,7 +7,7 @@ var models = require('../models');
 
 module.exports = function () {
     var getFirstTenMovies = function (lang, done) {
-        firstTenQuery.page = library.randomInt(0, 25);
+        firstTenQuery.page = library.randomInt(1, 36);
         mdb.discoverMovie(firstTenQuery, (err, data) => {
             if (err) return done(err, null);
             var movieId = data.results[library.randomInt(0, data.results.length)].id;

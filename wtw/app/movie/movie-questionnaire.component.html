@@ -1,7 +1,12 @@
 <div class="movie-header">
     <div class="row">
         <div class="col-left">
-            <div class="movie-poster-container"><img width="200" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie?.poster_path }}" /></div>
+            <div class="movie-poster-container">
+                <img *ngIf="movie?.poster_path" width="200" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie?.poster_path }}" />
+                <div *ngIf="!movie?.poster_path" class="movie-poster-placeholder">
+                    <i class="fa fa-film"></i>
+                </div>
+            </div>
         </div>
         <div class="col-right">
             <div class="movie-content">

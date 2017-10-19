@@ -9,10 +9,12 @@ import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnai
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-movies-watchlist-page.component';
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
+import { ErrorPageComponent } from './error/error-page.component';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginPageComponent },
+    { path: 'error', component: ErrorPageComponent },
     { path: 'signup', component: SignUpPageComponent },
     { path: 'user/welcome', component: UserWelcomePageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/home', component: UserHomePageComponent, canActivate: [CanActivateAuthGuard] },

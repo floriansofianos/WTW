@@ -107,6 +107,9 @@ app.get('/user/movies/watchlist', function (req, res) {
 app.get('/user/what-to-watch', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/error', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 // Error handling
 app.use(logErrors);

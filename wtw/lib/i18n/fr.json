@@ -3,6 +3,9 @@
         "TITLE": "Bienvenue sur Angular avec le module de traduction !",
         "WELCOME": "Bienvenue"
     },
+     "ERROR": {
+        "TEXT":  "Une erreur est survenue lors de l'affichage de la page."
+    },
     "LOGIN": {
         "TITLE": "Connexion",
         "FORM": {

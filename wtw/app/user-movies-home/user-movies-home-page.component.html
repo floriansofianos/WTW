@@ -13,7 +13,10 @@
                 <div [@searchResultsLoadedState]="searchResultsLoaded">
                     <div class="search-result" *ngFor="let result of searchResults">
                         <div class="search-result-poster">
-                            <img width="100" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
+                            <img width="100" *ngIf="result.poster_path" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
+                            <div *ngIf="!result.poster_path" class="movie-poster-placeholder" style="width: 100px; height: 175px;">
+                                <i class="fa fa-film"></i>
+                            </div>
                         </div>
                         <div class="search-result-title">{{ result.title }}</div>
                         <div class="search-result-year">{{ result.release_date?.substring(0, 4)}}</div>

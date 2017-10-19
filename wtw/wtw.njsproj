@@ -74,6 +74,7 @@
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\error\error-page.component.ts" />
     <TypeScriptCompile Include="app\home\home-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -214,6 +215,7 @@
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
     <Folder Include="app\movie-wall\" />
+    <Folder Include="app\error\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />

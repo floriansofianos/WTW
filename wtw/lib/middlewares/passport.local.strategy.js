@@ -39,6 +39,5 @@ module.exports = function () {
 
     var isValidPassword = function (user, password) {
         return models.User.validPassword(password, user.password);
-        //return password === user.password;
     }
 }

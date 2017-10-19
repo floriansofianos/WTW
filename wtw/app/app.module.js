@@ -51,6 +51,7 @@ var user_movies_watchlist_page_component_1 = require("./user-movies-watchlist/us
 var user_what_to_watch_page_component_1 = require("./user-what-to-watch/user-what-to-watch-page.component");
 var movie_wall_component_1 = require("./movie-wall/movie-wall.component");
 var movie_wall_element_component_1 = require("./movie-wall/movie-wall-element.component");
+var error_page_component_1 = require("./error/error-page.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -119,6 +120,7 @@ var AppModule = (function () {
                 user_what_to_watch_page_component_1.UserWhatToWatchPageComponent,
                 movie_wall_component_1.MovieWallComponent,
                 movie_wall_element_component_1.MovieWallElementComponent,
+                error_page_component_1.ErrorPageComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 questionnaire_service_1.QuestionnaireService,

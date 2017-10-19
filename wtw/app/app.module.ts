@@ -45,6 +45,7 @@ import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-m
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
 import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
+import { ErrorPageComponent } from './error/error-page.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -112,6 +113,7 @@ export function createTranslateLoader(http: Http) {
         UserWhatToWatchPageComponent,
         MovieWallComponent,
         MovieWallElementComponent,
+        ErrorPageComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,
