@@ -53,16 +53,18 @@ var UserMoviesHomePageComponent = (function () {
     };
     UserMoviesHomePageComponent.prototype.searchMovie = function () {
         var _this = this;
-        this.searchContainerState = 'searched';
-        this.loadingSearch = true;
-        this.searchResultsLoaded = 'notLoaded';
-        this.movieDBService.search(this.search).subscribe(function (data) {
-            _this.searchResults = data.json();
-            _this.loadingSearch = false;
-            _this.searchResultsLoaded = 'loaded';
-        }, function (error) {
-            _this.router.navigate(['/error']);
-        });
+        if (this.search && this.search.trim()) {
+            this.searchContainerState = 'searched';
+            this.loadingSearch = true;
+            this.searchResultsLoaded = 'notLoaded';
+            this.movieDBService.search(this.search).subscribe(function (data) {
+                _this.searchResults = data.json();
+                _this.loadingSearch = false;
+                _this.searchResultsLoaded = 'loaded';
+            }, function (error) {
+                _this.router.navigate(['/error']);
+            });
+        }
     };
     UserMoviesHomePageComponent.prototype.rateMovie = function (id) {
         var _this = this;

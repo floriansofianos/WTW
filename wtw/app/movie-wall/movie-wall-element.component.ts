@@ -35,6 +35,15 @@ export class MovieWallElementComponent {
     @Input() config: any;
     @Input() width: number;
     state: string = 'normal';
+    height: number;
+    fontSize: number;
+    marginTop: number;
+
+    ngOnInit() {
+        this.height = Math.floor(this.width * 1.5);
+        this.fontSize = this.width < 100 ? 30 : (this.width < 200 ? 40 : (this.width < 300 ? 60 : 70));
+        this.marginTop = Math.floor(this.height / 2) - Math.floor(this.fontSize / 2);
+    }
 
     onMouseOver() {
         this.state = 'over';

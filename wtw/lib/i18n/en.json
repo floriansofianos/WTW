@@ -45,7 +45,8 @@
     },
     "CAST": {
         "ALSO_KNOWN": "Also known for:",
-        "ALSO_SEEN": "Also seen in:"
+        "ALSO_SEEN": "Also seen in:",
+        "NO_RESULTS":  "No result"
     },
     "TOP_MENU": {
         "SIGN_UP": "Sign Up",

@@ -48,15 +48,18 @@ export class CastMemberComponent {
             modalWindowLoadingPromise.then((response: DialogRef<OneButtonPreset>) => {
                 response.close();
             });
-            // Open a new one
-            modalWindowConfig
-                .okBtnClass('button')
-                .body(`
+            this.getAllMoviesHtml(details).then(response => {
+                // Open a new one
+                modalWindowConfig
+                    .okBtnClass('button')
+                    .body(`
              <div><h4>` + modalTitle + `</h4></div>
                         <div class="modal-movies-container">
-                        ` + this.getAllMoviesHtml(details) + `
+                        ` + response + `
                         </div>`)
-                .open();
+                    .open();
+            })
+           
         },
             error => {
                 this.router.navigate(['error']);
@@ -91,10 +94,15 @@ export class CastMemberComponent {
         }
         moviesFiltered = _.sortBy(moviesFiltered, 'popularity').reverse();
         let result = '';
-        for (let i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
-            result += this.getPosterHtml(moviesFiltered[i]);
+        if (moviesFiltered.length < 1) {
+            return this.translate.get('CAST.NO_RESULTS').toPromise();
         }
-        return result;
+        else {
+            for (let i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
+                result += this.getPosterHtml(moviesFiltered[i]);
+            }
+            return Promise.resolve(result);
+        }
     }
 
 }

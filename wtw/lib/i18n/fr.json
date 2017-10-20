@@ -44,8 +44,9 @@
         "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
     },
     "CAST": {
-        "ALSO_KNOWN": "Egalement connu pour:",
-        "ALSO_SEEN": "Egalement vu dans:"
+        "ALSO_KNOWN": "Egalement connu pour :",
+        "ALSO_SEEN": "Egalement vu dans :",
+        "NO_RESULTS":  "Aucun résultat"
     },
     "TOP_MENU": {
         "SIGN_UP": "Inscription",

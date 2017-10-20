@@ -49,11 +49,13 @@ var CastMemberComponent = (function () {
             modalWindowLoadingPromise.then(function (response) {
                 response.close();
             });
-            // Open a new one
-            modalWindowConfig
-                .okBtnClass('button')
-                .body("\n             <div><h4>" + modalTitle + "</h4></div>\n                        <div class=\"modal-movies-container\">\n                        " + _this.getAllMoviesHtml(details) + "\n                        </div>")
-                .open();
+            _this.getAllMoviesHtml(details).then(function (response) {
+                // Open a new one
+                modalWindowConfig
+                    .okBtnClass('button')
+                    .body("\n             <div><h4>" + modalTitle + "</h4></div>\n                        <div class=\"modal-movies-container\">\n                        " + response + "\n                        </div>")
+                    .open();
+            });
         }, function (error) {
             _this.router.navigate(['error']);
         });
@@ -79,10 +81,15 @@ var CastMemberComponent = (function () {
         }
         moviesFiltered = _.sortBy(moviesFiltered, 'popularity').reverse();
         var result = '';
-        for (var i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
-            result += this.getPosterHtml(moviesFiltered[i]);
+        if (moviesFiltered.length < 1) {
+            return this.translate.get('CAST.NO_RESULTS').toPromise();
         }
-        return result;
+        else {
+            for (var i = 0; i < Math.min(moviesFiltered.length, 5); i++) {
+                result += this.getPosterHtml(moviesFiltered[i]);
+            }
+            return Promise.resolve(result);
+        }
     };
     __decorate([
         core_1.Input(),

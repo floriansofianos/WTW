@@ -109,6 +109,10 @@ export class UserMoviesQuestionnairesPageComponent {
             });
     }
 
+    movieQuestionnaireSave(event) {
+        this.confirm();
+    }
+
     movieQuestionnaireChange(data) {
         this.movieQuestionnaire = data;
     }

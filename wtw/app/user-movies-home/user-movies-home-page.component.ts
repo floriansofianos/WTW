@@ -81,19 +81,21 @@ export class UserMoviesHomePageComponent {
     }
 
     searchMovie() {
-        this.searchContainerState = 'searched';
-        this.loadingSearch = true;
-        this.searchResultsLoaded = 'notLoaded'
-        this.movieDBService.search(this.search).subscribe(
-            data => {
-                this.searchResults = data.json();
-                this.loadingSearch = false;
-                this.searchResultsLoaded = 'loaded'
-            },
-            error => {
-                this.router.navigate(['/error']);
-            }
-        );
+        if (this.search && this.search.trim()) {
+            this.searchContainerState = 'searched';
+            this.loadingSearch = true;
+            this.searchResultsLoaded = 'notLoaded'
+            this.movieDBService.search(this.search).subscribe(
+                data => {
+                    this.searchResults = data.json();
+                    this.loadingSearch = false;
+                    this.searchResultsLoaded = 'loaded'
+                },
+                error => {
+                    this.router.navigate(['/error']);
+                }
+            );
+        }
     }
 
     rateMovie(id) {

@@ -100,6 +100,9 @@ var UserMoviesQuestionnairesPageComponent = (function () {
                 _this.router.navigate(['error']);
             });
     };
+    UserMoviesQuestionnairesPageComponent.prototype.movieQuestionnaireSave = function (event) {
+        this.confirm();
+    };
     UserMoviesQuestionnairesPageComponent.prototype.movieQuestionnaireChange = function (data) {
         this.movieQuestionnaire = data;
     };
