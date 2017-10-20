@@ -50,3 +50,4 @@ var MovieDBService = (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
+//# sourceMappingURL=movieDB.service.js.map

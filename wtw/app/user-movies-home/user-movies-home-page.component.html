@@ -25,6 +25,7 @@
                             <wtw-button (click)="rateMovie(result.id)">{{ 'MOVIES.HOME.RATE_THIS_MOVIE' | translate }}</wtw-button>
                         </div>
                     </div>
+                    <div *ngIf="searchResults?.length < 1">{{ 'MOVIES.HOME.NO_RESULT' | translate }}</div>
                 </div>
                 <div *ngIf="loadingSearch" class="spinner-container">
                     <spinner></spinner>

@@ -59,6 +59,8 @@ var UserMoviesHomePageComponent = (function () {
             this.searchResultsLoaded = 'notLoaded';
             this.movieDBService.search(this.search).subscribe(function (data) {
                 _this.searchResults = data.json();
+                if (_this.searchResults.length < 1) {
+                }
                 _this.loadingSearch = false;
                 _this.searchResultsLoaded = 'loaded';
             }, function (error) {
@@ -154,3 +156,4 @@ var UserMoviesHomePageComponent = (function () {
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+//# sourceMappingURL=user-movies-home-page.component.js.map

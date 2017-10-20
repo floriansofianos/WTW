@@ -76,7 +76,8 @@
     },
     "MOVIES": {
         "HOME": {
-            "RATE_THIS_MOVIE": "Rate or add to wishlist."
+            "RATE_THIS_MOVIE": "Rate or add to wishlist.",
+            "NO_RESULT":  "No result"
         }
     },
     "QUESTIONNAIRE": {

@@ -88,6 +88,9 @@ export class UserMoviesHomePageComponent {
             this.movieDBService.search(this.search).subscribe(
                 data => {
                     this.searchResults = data.json();
+                    if (this.searchResults.length < 1) {
+
+                    }
                     this.loadingSearch = false;
                     this.searchResultsLoaded = 'loaded'
                 },
