@@ -29,4 +29,3 @@ var UserWelcomePageComponent = (function () {
     return UserWelcomePageComponent;
 }());
 exports.UserWelcomePageComponent = UserWelcomePageComponent;
-//# sourceMappingURL=user-welcome-page.component.js.map

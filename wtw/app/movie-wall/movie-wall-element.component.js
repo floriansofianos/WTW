@@ -73,4 +73,3 @@ var MovieWallElementComponent = (function () {
     return MovieWallElementComponent;
 }());
 exports.MovieWallElementComponent = MovieWallElementComponent;
-//# sourceMappingURL=movie-wall-element.component.js.map
