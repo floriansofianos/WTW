@@ -34,6 +34,7 @@ var UserWhatToWatchPageComponent = (function () {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
@@ -121,3 +122,4 @@ var UserWhatToWatchPageComponent = (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
+//# sourceMappingURL=user-what-to-watch-page.component.js.map

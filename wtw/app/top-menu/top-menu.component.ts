@@ -10,4 +10,5 @@ export class TopMenuComponent {
     @Input() showButtons: boolean;
     @Input() showLogin: boolean;
     @Input() selected: string;
+    @Input() username: string;
 }

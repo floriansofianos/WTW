@@ -21,6 +21,14 @@ var authRoutes = function () {
             res.json(userService.userToModelView(req.user));
         });
 
+    authRouter.route('/signout')
+        .get(function (req, res) {
+            // clear the remember me cookie when logging out
+            res.clearCookie('remember_me');
+            req.logout();
+            res.redirect('/');
+        });
+
     authRouter.route('/current')
         .get(function (req, res) {
             res.json(userService.userToModelView(req.user));

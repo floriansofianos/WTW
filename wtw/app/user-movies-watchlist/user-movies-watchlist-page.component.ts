@@ -25,6 +25,7 @@ export class UserMoviesWatchlistPageComponent {
     selectedMovie: any;
     showSaveSpinner: boolean;
     movieQuestionnaire: any;
+    username: string;
 
     constructor(private authService: AuthService, private router: Router, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService) { }
 
@@ -34,6 +35,7 @@ export class UserMoviesWatchlistPageComponent {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
         }
         else {
             this.router.navigate(['']);

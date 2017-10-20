@@ -8,6 +8,13 @@ var movieRecommandationService = require('../helpers/movieRecommandationservice'
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
+    wtwProcess(0, function () {
+        // We do not care about what happens when this finishes since we are in an infinite loop
+    });
+    done();
+}
+
+var wtwProcess = function (i, done) {
     console.log('Starting the WTW Tasks');
     console.log('Starting generating profiles...');
     generateUsersProfile(function (err, res) {
@@ -15,11 +22,10 @@ var wtwTasks = function (job, done) {
         generateUsersQuestionnaires(function (err, res) {
             generateUsersRecommandations(function (err, res) {
                 console.log('Finished!');
+                wtwProcess(i + 1, done);
             });
         });
     });
-    // call done when finished
-    done();
 }
 
 var generateUsersRecommandations = function (done) {

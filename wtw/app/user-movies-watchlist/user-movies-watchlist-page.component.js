@@ -34,6 +34,7 @@ var UserMoviesWatchlistPageComponent = (function () {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
         }
         else {
             this.router.navigate(['']);
@@ -102,3 +103,4 @@ var UserMoviesWatchlistPageComponent = (function () {
     return UserMoviesWatchlistPageComponent;
 }());
 exports.UserMoviesWatchlistPageComponent = UserMoviesWatchlistPageComponent;
+//# sourceMappingURL=user-movies-watchlist-page.component.js.map

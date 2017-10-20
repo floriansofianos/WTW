@@ -25,6 +25,10 @@ var TopMenuComponent = (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], TopMenuComponent.prototype, "selected", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], TopMenuComponent.prototype, "username", void 0);
     TopMenuComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -35,3 +39,4 @@ var TopMenuComponent = (function () {
     return TopMenuComponent;
 }());
 exports.TopMenuComponent = TopMenuComponent;
+//# sourceMappingURL=top-menu.component.js.map

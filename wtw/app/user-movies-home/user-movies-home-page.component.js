@@ -41,6 +41,7 @@ var UserMoviesHomePageComponent = (function () {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
@@ -156,3 +157,4 @@ var UserMoviesHomePageComponent = (function () {
     return UserMoviesHomePageComponent;
 }());
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+//# sourceMappingURL=user-movies-home-page.component.js.map

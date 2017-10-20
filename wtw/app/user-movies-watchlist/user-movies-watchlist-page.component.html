@@ -1,4 +1,4 @@
-<top-menu [showButtons]="true" [showLogin]="false" [selected]="'movies'"></top-menu>
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'movies'" [username]="username"></top-menu>
 <div class="content-container">
     <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
     <div class="inner-content-container">
@@ -9,6 +9,9 @@
             </div>
             <div class="category-movie-wall" *ngIf="movieIds && movieIds.length > 0">
                 <movie-wall [movieIds]="movieIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
+            </div>
+            <div class="category-movie-wall" *ngIf="movieIds && movieIds.length < 1">
+                {{ 'CAST.NO_RESULTS' | translate }}
             </div>
         </div>
         <div class="movie-questionnaire-container" *ngIf="selectedMovie && !loadingState">

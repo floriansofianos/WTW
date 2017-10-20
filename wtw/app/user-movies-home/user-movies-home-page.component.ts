@@ -54,6 +54,7 @@ export class UserMoviesHomePageComponent {
     loadingSearch = false;
     searchResultsLoaded = 'notLoaded';
     showSaveSpinner = false;
+    username: string;
     leftMenus = [
         { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME', selected: true },
         { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
@@ -68,6 +69,7 @@ export class UserMoviesHomePageComponent {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
             this.movieDBService.getMovieDBConfiguration().subscribe(response => {
                 this.configuration = response.json();
             },

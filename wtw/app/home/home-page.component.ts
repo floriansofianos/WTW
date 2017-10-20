@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Component({
     template: `
-<top-menu [showButtons]="false" [showLogin]="true"></top-menu>
+<top-menu [showButtons]="false" [showLogin]="true" [username]="username"></top-menu>
 <h2>{{ 'HOME.TITLE' | translate }}</h2>
 <div *ngIf="name">
 {{ 'HOME.WELCOME' | translate }} {{ name }}
@@ -12,12 +12,16 @@ import { AuthService } from '../auth/auth.service';
 })
 
 export class HomePageComponent {
-    name: string
+    name: string;
+    username: string;
 
     constructor(private authService: AuthService) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
-        if (currentUser) this.name = currentUser.firstName + ' ' + currentUser.lastName;
+        if (currentUser) {
+            this.name = currentUser.firstName + ' ' + currentUser.lastName;
+            this.username = currentUser.username;
+        }
     }
 }

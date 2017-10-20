@@ -26,6 +26,7 @@ export class UserWhatToWatchPageComponent {
     movieQuestionnaire: any;
     showSaveSpinner: boolean;
     isLoading: boolean;
+    username: string;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
 
@@ -36,6 +37,7 @@ export class UserWhatToWatchPageComponent {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
             this.movieDBService.getMovieDBConfiguration().subscribe(response => {
                 this.configuration = response.json();
             },

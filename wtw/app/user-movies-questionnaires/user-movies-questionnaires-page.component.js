@@ -35,6 +35,7 @@ var UserMoviesQuestionnairesPageComponent = (function () {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
+            this.username = currentUser.username;
         }
         else {
             this.router.navigate(['']);
@@ -119,3 +120,4 @@ var UserMoviesQuestionnairesPageComponent = (function () {
     return UserMoviesQuestionnairesPageComponent;
 }());
 exports.UserMoviesQuestionnairesPageComponent = UserMoviesQuestionnairesPageComponent;
+//# sourceMappingURL=user-movies-questionnaires-page.component.js.map

@@ -17,15 +17,18 @@ var HomePageComponent = (function () {
     }
     HomePageComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
-        if (currentUser)
+        if (currentUser) {
             this.name = currentUser.firstName + ' ' + currentUser.lastName;
+            this.username = currentUser.username;
+        }
     };
     HomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"true\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"true\" [username]=\"username\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService])
     ], HomePageComponent);
     return HomePageComponent;
 }());
 exports.HomePageComponent = HomePageComponent;
+//# sourceMappingURL=home-page.component.js.map
