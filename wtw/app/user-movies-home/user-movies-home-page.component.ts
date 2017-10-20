@@ -55,7 +55,7 @@ export class UserMoviesHomePageComponent {
     searchResultsLoaded = 'notLoaded';
     showSaveSpinner = false;
     leftMenus = [
-        { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
+        { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME', selected: true },
         { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
         { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
     ];

@@ -13,7 +13,7 @@ import * as _ from 'underscore';
 export class UserMoviesQuestionnairesPageComponent {
     leftMenus = [
         { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
-        { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
+        { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE', selected: true },
         { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
     ];
     startNewClicked: boolean;

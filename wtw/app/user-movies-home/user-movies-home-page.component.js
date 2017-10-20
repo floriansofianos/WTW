@@ -29,7 +29,7 @@ var UserMoviesHomePageComponent = (function () {
         this.searchResultsLoaded = 'notLoaded';
         this.showSaveSpinner = false;
         this.leftMenus = [
-            { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
+            { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME', selected: true },
             { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
             { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
         ];

@@ -23,7 +23,7 @@ var UserMoviesQuestionnairesPageComponent = (function () {
         this.movieDBService = movieDBService;
         this.leftMenus = [
             { icon: 'fa-home', path: 'home', title: 'LEFT_MENU.HOME' },
-            { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE' },
+            { icon: 'fa-question', path: 'questionnaires', title: 'LEFT_MENU.QUESTIONNAIRE', selected: true },
             { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
         ];
     }
