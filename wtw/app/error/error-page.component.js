@@ -18,4 +18,3 @@ var ErrorPageComponent = (function () {
     return ErrorPageComponent;
 }());
 exports.ErrorPageComponent = ErrorPageComponent;
-//# sourceMappingURL=error-page.component.js.map

@@ -176,14 +176,21 @@ export class QuestionnaireComponent {
                     });
             }
             else {
-                this.userQuestionnaireService.get(this.translate.currentLang).subscribe(response => {
-                    this.showMovieFromAPIResponse(response);
-                },
-                    error => {
-                        this.router.navigate(['error']);
-                    });
+                this.getMovieQuestionnaireFromUserQuestionnaire();
             }            
         }
+    }
+
+    getMovieQuestionnaireFromUserQuestionnaire() {
+        this.userQuestionnaireService.get(this.translate.currentLang).subscribe(response => {
+            if (response.json().reload) {
+                this.getMovieQuestionnaireFromUserQuestionnaire();
+            }
+            else this.showMovieFromAPIResponse(response);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
     }
 
     showMovieFromAPIResponse(response) {

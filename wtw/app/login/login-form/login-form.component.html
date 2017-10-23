@@ -1,17 +1,19 @@
-<form id="login-form" class="login-form" [formGroup]="loginForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
-    <div class="login-line">
-        <input id="login" formControlName="login" type="text" placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" />
-    </div>
-    <div class="login-line">
-        <input id="password" formControlName="password" type="password" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
-    </div>
-    <div class="login-line">
-        <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>
-    </div>
-    <div class="login-line login-error" *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
-    <div class="login-line button-line" *ngIf="!showSpinner">
-        <wtw-button class="button-ok" (click)="login(loginForm.value)">{{ 'FORM.OK' | translate }}</wtw-button>
-        <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
-    </div>
-    <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
-</form>
+<div class="login-form-container">
+    <form id="login-form" class="login-form" [formGroup]="loginForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
+        <div class="login-line">
+            <input id="login" formControlName="login" type="text" placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" />
+        </div>
+        <div class="login-line">
+            <input id="password" formControlName="password" type="password" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
+        </div>
+        <div class="login-line">
+            <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>
+        </div>
+        <div class="login-line login-error" *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>
+        <div class="login-line button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-ok" (click)="login(loginForm.value)">{{ 'FORM.OK' | translate }}</wtw-button>
+            <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </form>
+</div>

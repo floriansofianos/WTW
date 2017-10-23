@@ -141,13 +141,21 @@ var QuestionnaireComponent = (function () {
                 });
             }
             else {
-                this.userQuestionnaireService.get(this.translate.currentLang).subscribe(function (response) {
-                    _this.showMovieFromAPIResponse(response);
-                }, function (error) {
-                    _this.router.navigate(['error']);
-                });
+                this.getMovieQuestionnaireFromUserQuestionnaire();
             }
         }
+    };
+    QuestionnaireComponent.prototype.getMovieQuestionnaireFromUserQuestionnaire = function () {
+        var _this = this;
+        this.userQuestionnaireService.get(this.translate.currentLang).subscribe(function (response) {
+            if (response.json().reload) {
+                _this.getMovieQuestionnaireFromUserQuestionnaire();
+            }
+            else
+                _this.showMovieFromAPIResponse(response);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
     };
     QuestionnaireComponent.prototype.showMovieFromAPIResponse = function (response) {
         this.movie = response.json();
@@ -254,4 +262,3 @@ var QuestionnaireComponent = (function () {
     return QuestionnaireComponent;
 }());
 exports.QuestionnaireComponent = QuestionnaireComponent;
-//# sourceMappingURL=questionnaire.component.js.map

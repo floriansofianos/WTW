@@ -20,4 +20,3 @@ var LogoComponent = (function () {
     return LogoComponent;
 }());
 exports.LogoComponent = LogoComponent;
-//# sourceMappingURL=logo.component.js.map

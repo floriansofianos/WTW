@@ -12,10 +12,9 @@ var LoginPageComponent = (function () {
     }
     LoginPageComponent = __decorate([
         core_1.Component({
-            template: "\n<h2 class=\"login-title\">{{ 'LOGIN.TITLE' | translate }}</h2>\n<login-form></login-form>\n"
+            template: "\n<div class=\"login-top-container\"><logo></logo><div class=\"login-title\">{{ 'LOGIN.TITLE' | translate }}</div></div>\n<login-form></login-form>\n"
         })
     ], LoginPageComponent);
     return LoginPageComponent;
 }());
 exports.LoginPageComponent = LoginPageComponent;
-//# sourceMappingURL=login-page.component.js.map

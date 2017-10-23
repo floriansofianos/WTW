@@ -18,4 +18,3 @@ var SignUpPageComponent = (function () {
     return SignUpPageComponent;
 }());
 exports.SignUpPageComponent = SignUpPageComponent;
-//# sourceMappingURL=signup-page.component.js.map

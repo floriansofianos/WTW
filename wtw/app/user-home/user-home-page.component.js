@@ -39,4 +39,3 @@ var UserHomePageComponent = (function () {
     return UserHomePageComponent;
 }());
 exports.UserHomePageComponent = UserHomePageComponent;
-//# sourceMappingURL=user-home-page.component.js.map
