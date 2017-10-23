@@ -43,21 +43,26 @@ var generateRecommandations = function (users, i, done) {
         movieQuestionnaireService.getAll(u.id, function (err, questionnaires) {
             userProfileService.getAll(u.id, function (err, profiles) {
                 movieRecommandationService.getAll(u.id, function (err, movieRecommandations) {
-                    var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 });
-                    var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
-                    // Check favourite directors
-                    var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65; });
-                    generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                        // Check favourite writers
-                        var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65; });
-                        generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                            // Check favourite genres
-                            var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
-                            generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                    // We need to retrieve all the credits for the recommandations because we don't want to recommend the same writer/director over and over again.
+                    getAllCredits(movieRecommandations, 0, function (err, movieRecommandations) {
+                        var alreadyRecommandedDirectors = [].concat.apply([], _.map(movieRecommandations, function (r) { return _.map(r.directors, function (d) { return d.id }) }));
+                        var alreadyRecommandedWriters = [].concat.apply([], _.map(movieRecommandations, function (r) { return _.map(r.writers, function (d) { return d.id }) }));
+                        var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 });
+                        var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
+                        // Check favourite directors
+                        var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65 && _.size(_.filter(alreadyRecommandedDirectors), function (d) { return d == p.directorId}) < 2; });
+                        generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                            // Check favourite writers
+                            var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
+                            generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
                                 // Check favourite genres
-                                var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
-                                generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                                    generateRecommandations(users, i + 1, done);
+                                var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
+                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                                    // Check favourite genres
+                                    var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
+                                    generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                                        generateRecommandations(users, i + 1, done);
+                                    });
                                 });
                             });
                         });
@@ -67,6 +72,21 @@ var generateRecommandations = function (users, i, done) {
         });
     }
     else done(null, true);
+}
+
+var getAllCredits = function (reco, i, done) {
+    if (i < reco.length) {
+        var movieId = reco[i].movieDBId;
+        movieDBService.getMovieCredits(movieId, function (err, credits) {
+            if (err) return done(err);
+            else {
+                reco[i].directors = movieDBService.getDirectors(credits);
+                reco[i].writers = movieDBService.getWriters(credits);
+                getAllCredits(reco, i + 1, done);
+            }
+        });
+    }
+    else done(null, reco);
 }
 
 var generateUsersQuestionnaires = function (done) {
