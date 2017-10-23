@@ -58,8 +58,8 @@ var generateRecommandations = function (users, i, done) {
                                 // Check favourite genres
                                 var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
                                 generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                                    // Check favourite genres
-                                    var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
+                                    // Check favourite actors
+                                    var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
                                     generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
                                         generateRecommandations(users, i + 1, done);
                                     });

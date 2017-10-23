@@ -1,10 +1,14 @@
 <div class="login-form-container">
     <form id="login-form" class="login-form" [formGroup]="loginForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
         <div class="login-line">
-            <input id="login" formControlName="login" type="text" placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" />
+            <mat-form-field>
+                <input matInput placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" formControlName="login" (keydown)="keyDownFunction($event)" />
+            </mat-form-field>
         </div>
         <div class="login-line">
-            <input id="password" formControlName="password" type="password" placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" />
+            <mat-form-field>
+                <input matInput placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" formControlName="password" type="password" (keydown)="keyDownFunction($event)" />
+            </mat-form-field>
         </div>
         <div class="login-line">
             <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>

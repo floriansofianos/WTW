@@ -211,7 +211,7 @@ h6 {
     font-size: 30px;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 35px;
+    margin-left: 15px;
 }
 
 input {
@@ -270,8 +270,13 @@ input {
     }
 
     .login-line {
-        text-align: center;
         margin-bottom: 10px;
+        padding-left: 30px;
+
+        .mat-form-field {
+            width: 300px;
+            font-size: 19px;
+        }
     }
 
     .button-ok {
@@ -279,7 +284,9 @@ input {
     }
 
     .button-line {
+        text-align: center;
         margin-top: 30px;
+        padding-left: 0;
     }
 
     .login-error {
@@ -947,9 +954,13 @@ wtw-button {
 }
 
 .login-top-container {
-    margin-bottom: 20px;
     text-align: center;
-    padding-top: 40px;
+    padding-top: 20px;
+    border-left: 2px solid #DE5E60;
+    background-color: #26292e;
+    width: 400px;
+    margin: auto;
+    margin-top: 50px;
     logo {
         display: inline-block;
     }
