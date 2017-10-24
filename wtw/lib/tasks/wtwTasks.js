@@ -41,6 +41,8 @@ var generateRecommandations = function (users, i, done) {
         console.log('Starting generating recommandations for ' + u.username + '...');
         // Get all existing questionnaires and profiles
         movieQuestionnaireService.getAll(u.id, function (err, questionnaires) {
+            // Filter out questionnaires: if a movie is skipped we can still recommend it
+            questionnaires = _.filter(questionnaires, function(q) { return !q.isSkipped });
             userProfileService.getAll(u.id, function (err, profiles) {
                 movieRecommandationService.getAll(u.id, function (err, movieRecommandations) {
                     // We need to retrieve all the credits for the recommandations because we don't want to recommend the same writer/director over and over again.

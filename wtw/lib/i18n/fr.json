@@ -31,7 +31,6 @@
         "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
         "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
         "USERNAME_TAKEN": "Ce pseudo est déjà utilisé.",
-        "SEARCH": "Recherche...",
         "PASSWORD_NOT_STRONG": "Votre mot de passe doit faire au moins 8 caractères."
       }
     },
@@ -118,6 +117,7 @@
     "BACK": "Précédent",
     "NEXT": "Suivant",
     "SKIP": "Passer",
+    "SEARCH": "Recherche...",
     "PREVIOUS": "Précédent",
     "YES": "Oui",
     "NO": "Non"

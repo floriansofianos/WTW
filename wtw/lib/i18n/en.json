@@ -31,7 +31,6 @@
         "PASSWORD_NOT_NULL": "The password is mandatory.",
         "EMAIL_TAKEN": "This email address is already used.",
         "USERNAME_TAKEN": "This username has already been taken.",
-        "SEARCH": "Search...",
         "PASSWORD_NOT_STRONG":  "Your password should be at least 8 characters long."
       }
     },
@@ -110,16 +109,17 @@
     "HATE_GENRE": "You hate the movie genre",
     "HATE_ACTOR": "You hate movies with"
   },
-    "FORM": {
-        "OK": "OK",
-        "CANCEL": "Cancel",
-      "REQUIRED": "Required",
-      "SAVE":  "Save",
-        "BACK": "Back",
-        "NEXT": "Next",
-        "SKIP": "Skip",
-        "PREVIOUS": "Previous",
-        "YES": "Yes",
-        "NO": "No"
-    }
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "REQUIRED": "Required",
+    "SAVE": "Save",
+    "SEARCH": "Search...",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "SKIP": "Skip",
+    "PREVIOUS": "Previous",
+    "YES": "Yes",
+    "NO": "No"
+  }
 }
