@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var TopMenuComponent = /** @class */ (function () {
+var TopMenuComponent = (function () {
     function TopMenuComponent() {
     }
     __decorate([

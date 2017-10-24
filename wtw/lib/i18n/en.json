@@ -31,6 +31,7 @@
         "PASSWORD_NOT_NULL": "The password is mandatory.",
         "EMAIL_TAKEN": "This email address is already used.",
         "USERNAME_TAKEN": "This username has already been taken.",
+        "SEARCH": "Search...",
         "PASSWORD_NOT_STRONG":  "Your password should be at least 8 characters long."
       }
     },

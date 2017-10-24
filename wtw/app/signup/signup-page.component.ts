@@ -2,7 +2,7 @@
 
 @Component({
     template: `
-<h2 class="login-title">{{ 'SIGNUP.TITLE' | translate }}</h2>
+<div class="login-top-container"><logo></logo><div class="login-title">{{ 'SIGNUP.TITLE' | translate }}</div></div>
 <signup-form></signup-form>
 `
 })

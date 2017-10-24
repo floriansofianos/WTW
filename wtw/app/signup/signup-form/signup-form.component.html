@@ -1,35 +1,49 @@
-<form id="signup-form" class="login-form" [formGroup]="signupForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
-    <div class="login-line">
-        <em *ngIf="isEmailInvalid()">{{ 'SIGNUP.FORM.EMAIL_INVALID' | translate }}</em>
-        <em *ngIf="isEmailEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
-        <em *ngIf="isEmailTaken()">{{ 'SIGNUP.FORM.EMAIL_TAKEN' | translate }}</em>
-        <input id="email" formControlName="email" type="text" placeholder="{{ 'SIGNUP.FORM.EMAIL' | translate }}" validateEmail />
-    </div>
-    <div class="form-group" [formGroup]="passwordGroup" validateConfirmPassword>
+<div class="login-form-container">
+    <form id="signup-form" class="login-form" [formGroup]="signupForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
         <div class="login-line">
-            <em *ngIf="isPasswordStrongEnough()">{{ 'SIGNUP.FORM.PASSWORD_NOT_STRONG' | translate }}</em>
-            <input id="password" formControlName="password" type="password" placeholder="{{ 'SIGNUP.FORM.PASSWORD' | translate }}" validatePassword />
+            <em *ngIf="isEmailInvalid()">{{ 'SIGNUP.FORM.EMAIL_INVALID' | translate }}</em>
+            <em *ngIf="isEmailEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
+            <em *ngIf="isEmailTaken()">{{ 'SIGNUP.FORM.EMAIL_TAKEN' | translate }}</em>
+            <mat-form-field>
+                <input matInput id="email" formControlName="email" type="text" placeholder="{{ 'SIGNUP.FORM.EMAIL' | translate }}" validateEmail />
+            </mat-form-field>
+        </div>
+        <div class="form-group" [formGroup]="passwordGroup" validateConfirmPassword>
+            <div class="login-line">
+                <em *ngIf="isPasswordStrongEnough()">{{ 'SIGNUP.FORM.PASSWORD_NOT_STRONG' | translate }}</em>
+                <mat-form-field>
+                    <input matInput id="password" formControlName="password" type="password" placeholder="{{ 'SIGNUP.FORM.PASSWORD' | translate }}" validatePassword />
+                </mat-form-field>
+            </div>
+            <div class="login-line">
+                <em *ngIf="isConfirmPasswordInvalid()">{{ 'SIGNUP.FORM.CONFIRM_PASSWORD_INVALID' | translate }}</em>
+                <mat-form-field>
+                    <input matInput id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="{{ 'SIGNUP.FORM.CONFIRM_PASSWORD' | translate }}" />
+                </mat-form-field>
+            </div>
         </div>
         <div class="login-line">
-            <em *ngIf="isConfirmPasswordInvalid()">{{ 'SIGNUP.FORM.CONFIRM_PASSWORD_INVALID' | translate }}</em>
-            <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="{{ 'SIGNUP.FORM.CONFIRM_PASSWORD' | translate }}" />
+            <em *ngIf="isUsernameEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
+            <em *ngIf="isUsernameTaken()">{{ 'SIGNUP.FORM.USERNAME_TAKEN' | translate }}</em>
+            <mat-form-field>
+                <input matInput id="username" formControlName="username" type="text" placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}" validateUsername />
+            </mat-form-field>
         </div>
-    </div>
-    <div class="login-line">
-        <em *ngIf="isUsernameEmpty()">{{ 'FORM.REQUIRED' | translate }}</em>
-        <em *ngIf="isUsernameTaken()">{{ 'SIGNUP.FORM.USERNAME_TAKEN' | translate }}</em>
-        <input id="username" formControlName="username" type="text" placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}" validateUsername />
-    </div>
-    <div class="login-line">
-        <input id="firstName" formControlName="firstName" type="text" placeholder="{{ 'SIGNUP.FORM.FIRST_NAME' | translate }}" />
-    </div>
-    <div class="login-line">
-        <input id="lastName" formControlName="lastName" type="text" placeholder="{{ 'SIGNUP.FORM.LAST_NAME' | translate }}" />
-    </div>
-    <div class="login-line login-error" *ngIf="backendError">{{ backendError | translate }}</div>
-    <div class="login-line button-line" *ngIf="!showSpinner">
-        <wtw-button class="button-ok" (click)="signup(signupForm.value)">{{ 'FORM.OK' | translate }}</wtw-button>
-        <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
-    </div>
-    <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
-</form>
+        <div class="login-line">
+            <mat-form-field>
+                <input matInput id="firstName" formControlName="firstName" type="text" placeholder="{{ 'SIGNUP.FORM.FIRST_NAME' | translate }}" />
+            </mat-form-field>
+        </div>
+        <div class="login-line">
+            <mat-form-field>
+                <input matInput id="lastName" formControlName="lastName" type="text" placeholder="{{ 'SIGNUP.FORM.LAST_NAME' | translate }}" />
+            </mat-form-field>
+        </div>
+        <div class="login-line login-error" *ngIf="backendError">{{ backendError | translate }}</div>
+        <div class="login-line button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-ok" (click)="signup(signupForm.value)">{{ 'FORM.OK' | translate }}</wtw-button>
+            <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </form>
+</div>
