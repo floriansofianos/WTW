@@ -303,7 +303,7 @@ module.exports = function () {
     var getMoviesForGenreQuestionnaire = function (genreId, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
-        query.page = library.randomInt(0, 100);
+        query.page = library.randomInt(0, 50);
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {

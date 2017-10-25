@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ErrorPageComponent = /** @class */ (function () {
+var ErrorPageComponent = (function () {
     function ErrorPageComponent() {
     }
     ErrorPageComponent = __decorate([

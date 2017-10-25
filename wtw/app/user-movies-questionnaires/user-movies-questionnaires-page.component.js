@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserMoviesQuestionnairesPageComponent = /** @class */ (function () {
+var UserMoviesQuestionnairesPageComponent = (function () {
     function UserMoviesQuestionnairesPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
