@@ -26,9 +26,17 @@ module.exports = function () {
         });
     };
 
+    var getSimilarMovies = function (movieId, done) {
+        mdb.movieSimilar({id: movieId}, (err, data) => {
+            if (err) return done(err, null);
+            else return done(null, data);
+        });
+    };
+
     var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, done) {
         movieQuestionnaireService.getAll(id, function (err, res) {
-            var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen }), 'movieDBId');
+            var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
+            var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
             if (useWatchlist) {
                 movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
                     var movieDBIds = _.map(watchlist, 'movieDBId');
@@ -40,11 +48,11 @@ module.exports = function () {
                         });
                         data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds);
                         if (_.size(data) > 0) done(null, _.sample(data));
-                        else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, done);
+                        else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
                     });
                 });
             }
-            else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, done);
+            else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
         });
     }
 
@@ -54,7 +62,7 @@ module.exports = function () {
         return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d) });
     }
 
-    var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, done) {
+    var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done) {
         // Start by looking at the reco
         movieRecommandationService.getAll(id, function (err, recos) {
             var movieDBIds = _.map(recos, 'movieDBId');
@@ -89,12 +97,18 @@ module.exports = function () {
                                                     findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, function (err, res) {
                                                         if (res) return done(null, res);
                                                         else {
-                                                            // Nothing? Try popular movie
-                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, function (err, res) {
+                                                            // Nothing? Try find similar movies to loved movie
+                                                            findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
                                                                 if (res) return done(null, res);
                                                                 else {
-                                                                    // Nothing? Give up!
-                                                                    return done(null, false);
+                                                                    // Nothing? Try popular movie
+                                                                    findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, function (err, res) {
+                                                                        if (res) return done(null, res);
+                                                                        else {
+                                                                            // Nothing? Give up!
+                                                                            return done(null, false);
+                                                                        }
+                                                                    });
                                                                 }
                                                             });
                                                         }
@@ -240,6 +254,19 @@ module.exports = function () {
         });
     }
 
+    var findSimilarWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, lovedMovieIds, done) {
+        var movieId = _.sample(lovedMovieIds);
+        getSimilarMovies(movieId, function (err, data) {
+            if (data && data.results) {
+                if (data.results.length > 0) {
+                    return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, 0, done)
+                }
+                else return done(null, false);
+            }
+            else return done(null, false);
+        });
+    }
+
     var findMovieRelevantForWTW = function (movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, i, done) {
         if (i < movieIds.length) {
             var id = movieIds[i];
@@ -303,7 +330,7 @@ module.exports = function () {
     var getMoviesForGenreQuestionnaire = function (genreId, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
-        query.page = library.randomInt(0, 50);
+        query.page = library.randomInt(0, 20);
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -722,6 +749,7 @@ module.exports = function () {
         isMovieWriter: isMovieWriter,
         wtw: wtw,
         filterOutDirectorData: filterOutDirectorData,
-        filterOutWriterData: filterOutWriterData
+        filterOutWriterData: filterOutWriterData,
+        getSimilarMovies: getSimilarMovies
     }
 }

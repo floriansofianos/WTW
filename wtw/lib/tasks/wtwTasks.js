@@ -63,7 +63,9 @@ var generateRecommandations = function (users, i, done) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
                                     generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                                        generateRecommandations(users, i + 1, done);
+                                        generateSimilarMovieRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                                            generateRecommandations(users, i + 1, done);
+                                        });
                                     });
                                 });
                             });
@@ -140,7 +142,7 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
         // get movieDB movies
         movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
             if (data && data.results) {
-                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 5, function (err, res) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
                 });
             }
@@ -211,10 +213,10 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
                             generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, i + 1, done);
                         });
                     }
-                    else generateDirectorRecommandations(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
-            else generateDirectorRecommandations(directorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -233,10 +235,10 @@ var generateWriterRecommandations = function (writerIds, questionnaires, movieRe
                             generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
                         });
                     }
-                    else generateWriterRecommandations(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
-            else generateWriterRecommandations(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -252,7 +254,7 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
                     generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
-            else generateGenreRecommandations(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -268,7 +270,23 @@ var generateActorRecommandations = function (actorIds, questionnaires, movieReco
                     generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
                 });
             }
-            else generateActorRecommandations(actorIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateSimilarMovieRecommandations = function (movieIds, questionnaires, movieRecommandations, userId, i, done) {
+    if (i < movieIds.length) {
+        var movieId = movieIds[i];
+        // get movieDB similar movies
+        movieDBService.getSimilarMovies(movieId, function (err, data) {
+            if (data && data.results) {
+                handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
+                    generateSimilarMovieRecommandations(movieIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                });
+            }
+            else generateSimilarMovieRecommandations(movieIds, questionnaires, movieRecommandations, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -304,7 +322,7 @@ var generateActorQuestionnaire = function (castIds, questionnaires, userQuestion
         // get movieDB movies
         movieDBService.getMoviesForActorQuestionnaire(castIds, function (err, data) {
             if (data && data.results) {
-                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 2, function (err, res) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);
                 });
             }

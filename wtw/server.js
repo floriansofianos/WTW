@@ -23,6 +23,8 @@ var path = require('path');
 var movieDbService = require('./lib/helpers/movieDBService')();
 var Queue = require('bull');
 var wtwTasks = require('./lib/tasks/wtwTasks');
+var mailChimpService = require('./lib/helpers/mailChimpService')();
+var postmarkService = require('./lib/helpers/postmarkService')();
 
 var port = process.env.port || 1337;
 
@@ -32,10 +34,16 @@ winston.configure({
     ]
 });
 
-var tasksQueue = new Queue('background tasks');
-tasksQueue.process(wtwTasks);
+//var tasksQueue = new Queue('background tasks');
+//tasksQueue.process(wtwTasks);
 //tasksQueue.add(null, { repeat: { cron: '* 0/5 * * * * *' } });
-tasksQueue.add(null);
+//tasksQueue.add(null);
+wtwTasks(null, function () { });
+mailChimpService.getWelcomeCampaign(function (err, res) {
+    if (!err) {
+        postmarkService.sendEmail('WhaToWatch <info@whatowatch.net>', 'florian@sofianos.me', 'Welcome Message', res, []);
+    }
+});
 
 var app = express();
 

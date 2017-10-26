@@ -47,3 +47,4 @@ var WtwButtonComponent = (function () {
     return WtwButtonComponent;
 }());
 exports.WtwButtonComponent = WtwButtonComponent;
+//# sourceMappingURL=wtw.button.component.js.map

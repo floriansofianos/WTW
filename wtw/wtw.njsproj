@@ -143,6 +143,8 @@
     <Content Include="lib\helpers\userQuestionnaireService.js" />
     <Content Include="lib\helpers\userService.js" />
     <Content Include="lib\helpers\movieRecommandationService.js" />
+    <Content Include="lib\helpers\mailChimpService.js" />
+    <Content Include="lib\helpers\postmarkService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
