@@ -14,13 +14,13 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var LoginFormComponent = (function () {
-    function LoginFormComponent(router, authService, translate) {
+var ForgotPasswordFormComponent = (function () {
+    function ForgotPasswordFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
         this.translate = translate;
     }
-    LoginFormComponent.prototype.ngOnInit = function () {
+    ForgotPasswordFormComponent.prototype.ngOnInit = function () {
         var login = new forms_1.FormControl();
         var password = new forms_1.FormControl();
         var rememberMe = new forms_1.FormControl();
@@ -30,10 +30,10 @@ var LoginFormComponent = (function () {
             rememberMe: rememberMe
         });
     };
-    LoginFormComponent.prototype.cancel = function () {
+    ForgotPasswordFormComponent.prototype.cancel = function () {
         this.router.navigate(['']);
     };
-    LoginFormComponent.prototype.login = function (formValues) {
+    ForgotPasswordFormComponent.prototype.login = function (formValues) {
         var _this = this;
         this.showSpinner = true;
         this.authService.loginUser(formValues.login, formValues.password, formValues.rememberMe).subscribe(function (response) {
@@ -50,20 +50,20 @@ var LoginFormComponent = (function () {
             _this.showSpinner = false;
         });
     };
-    LoginFormComponent.prototype.keyDownFunction = function (event) {
+    ForgotPasswordFormComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
             // Enter pressed
             this.login(this.loginForm.value);
         }
     };
-    LoginFormComponent = __decorate([
+    ForgotPasswordFormComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'login-form',
             templateUrl: 'login-form.component.html'
         }),
         __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
-    ], LoginFormComponent);
-    return LoginFormComponent;
+    ], ForgotPasswordFormComponent);
+    return ForgotPasswordFormComponent;
 }());
-exports.LoginFormComponent = LoginFormComponent;
+exports.ForgotPasswordFormComponent = ForgotPasswordFormComponent;

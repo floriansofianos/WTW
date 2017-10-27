@@ -37,4 +37,3 @@ var LeftMenuComponent = (function () {
     return LeftMenuComponent;
 }());
 exports.LeftMenuComponent = LeftMenuComponent;
-//# sourceMappingURL=left-menu.component.js.map

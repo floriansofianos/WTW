@@ -7,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ErrorPageComponent = (function () {
-    function ErrorPageComponent() {
+var ForgotPasswordPageComponent = (function () {
+    function ForgotPasswordPageComponent() {
     }
-    ErrorPageComponent = __decorate([
+    ForgotPasswordPageComponent = __decorate([
         core_1.Component({
-            template: "\n<div class=\"error-container\">\n    <div class=\"error-content\">\n        <i class=\"fa fa-chain-broken\"></i>\n        <div class=\"error\">{{'ERROR.TEXT' | translate}}</div>\n    </div>\n</div>\n"
+            template: "\n<div class=\"login-top-container\"><logo></logo><div class=\"login-title\">{{ 'FORGOT_PWD.TITLE' | translate }}</div></div>\n<forgot-password-form></forgot-password-form>\n"
         })
-    ], ErrorPageComponent);
-    return ErrorPageComponent;
+    ], ForgotPasswordPageComponent);
+    return ForgotPasswordPageComponent;
 }());
-exports.ErrorPageComponent = ErrorPageComponent;
+exports.ForgotPasswordPageComponent = ForgotPasswordPageComponent;
