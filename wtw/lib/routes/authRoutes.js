@@ -47,6 +47,9 @@ var authRoutes = function () {
     authRouter.route('/verifyEmail')
         .get(userController.verifyEmail);
 
+    authRouter.route('/forgotPassword')
+        .get(userController.sendForgotPasswordEmail);
+
     return authRouter;
 }
 

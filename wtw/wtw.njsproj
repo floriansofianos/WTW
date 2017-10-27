@@ -62,6 +62,8 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="lib\helpers\userProfileService.js" />
+    <Content Include="lib\i18n\ForgotPasswordEmail-en.json" />
+    <Content Include="lib\i18n\ForgotPasswordEmail-fr.json" />
     <Content Include="lib\i18n\WelcomeEmail-fr.json" />
     <Content Include="lib\i18n\WelcomeEmail-en.json" />
     <Content Include="lib\i18n\fr.json" />

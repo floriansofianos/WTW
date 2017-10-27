@@ -1,5 +1,5 @@
 ﻿var postmark = require("postmark");
-var client = new postmark.Client("e5c9adff-f7d4-4b0d-b790-f65a20a35bf1");
+var client = new postmark.Client('be387452-edb6-4a5c-940e-d565624904ce');
 var from = 'WhaToWatch <info@whatowatch.net>';
 
 module.exports = function () {
@@ -21,7 +21,30 @@ module.exports = function () {
             console.info("Sent to postmark for delivery")
         });
     }
+
+    
+
+    var sendForgotPasswordEmail = function (lang, to, username, resetUrl) {
+        var templateModel = require('../i18n/ForgotPasswordEmail-' + lang + '.json');
+        templateModel.username = username;
+        templateModel.reset_url = resetUrl;
+        templateModel.year = new Date().getFullYear();
+        client.sendEmailWithTemplate({
+            "TemplateId": 3698581,
+            "TemplateModel": templateModel,
+            "From": from,
+            "To": to
+        }, function (error, result) {
+            if (error) {
+                console.error("Unable to send via postmark: " + error.message);
+                return;
+            }
+            console.info("Sent to postmark for delivery")
+        });
+    }
+
     return {
-        sendWelcomeEmail: sendWelcomeEmail
+        sendWelcomeEmail: sendWelcomeEmail,
+        sendForgotPasswordEmail: sendForgotPasswordEmail
     }
 }
