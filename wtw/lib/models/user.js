@@ -13,7 +13,9 @@ module.exports = function(sequelize, DataTypes) {
     firstQuestionnaireCompleted: DataTypes.BOOLEAN,
     profileRefresh: DataTypes.BOOLEAN,
     rememberMeCookie: DataTypes.STRING,
-    rememberMeExpiry: DataTypes.DATE
+    rememberMeExpiry: DataTypes.DATE,
+    emailValidated: DataTypes.BOOLEAN,
+    emailValidationGuid: DataTypes.STRING
   }, {});
 
   User.associate = function (models) {

@@ -62,6 +62,8 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="lib\helpers\userProfileService.js" />
+    <Content Include="lib\i18n\WelcomeEmail-fr.json" />
+    <Content Include="lib\i18n\WelcomeEmail-en.json" />
     <Content Include="lib\i18n\fr.json" />
     <Content Include="lib\i18n\en.json">
       <SubType>Code</SubType>

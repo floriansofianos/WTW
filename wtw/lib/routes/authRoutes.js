@@ -44,6 +44,9 @@ var authRoutes = function () {
     authRouter.route('/signup')
         .post(userController.createUser);
 
+    authRouter.route('/verifyEmail')
+        .get(userController.verifyEmail);
+
     return authRouter;
 }
 

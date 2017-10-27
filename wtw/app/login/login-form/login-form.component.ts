@@ -14,6 +14,7 @@ export class LoginFormComponent implements OnInit {
     loginForm: FormGroup;
     showError: boolean;
     showSpinner: boolean;
+    showErrorValidation: boolean;
 
     constructor(private router: Router, private authService: AuthService, private translate: TranslateService) { }
 
@@ -41,9 +42,10 @@ export class LoginFormComponent implements OnInit {
             if (currentUser.lang) this.translate.use(currentUser.lang)
             this.router.navigate(['/user/home']);
         },
-        error => {
-            this.showError = true;
-            this.showSpinner = false;
+            error => {
+                if (error == 500) this.showErrorValidation = true;
+                else this.showError = true;
+                this.showSpinner = false;
         });
     }
 

@@ -12,7 +12,9 @@
             "LOGIN": "Email",
             "PASSWORD": "Password",
             "REMEMBER_ME":  "Remember Me",
-            "WRONGPASSWORD": "Your email or password is incorrect."
+            "WRONGPASSWORD": "Your email or password is incorrect.",
+            "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
+            "RESEND":  "Send it to me"
         }
     },
     "SIGNUP": {

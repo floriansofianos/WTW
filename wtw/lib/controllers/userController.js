@@ -1,4 +1,6 @@
-﻿var userController = function (userService) {
+﻿var postmarkService = require('../helpers/postmarkService')();
+
+var userController = function (userService) {
     var isUsernameAlreadyUsed = function (req, res) {
         if (req.query.username) {
             userService.getUserByUsername(req.query.username, function (err, user) {
@@ -23,11 +25,30 @@
         var userValidation = userService.validateUser(req.body, function (err, valid) {
             if (valid) {
                 userService.createUser(req.body, function (err, user) {
-                    if (user) res.json(userService.userToModelView(user));
+                    if (user) {
+                        postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, 'localhost:1337/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
+                        res.json(userService.userToModelView(user));
+                    }
                     else res.send(500);
                 });
             }
             else res.status(400).send(err)
+        });
+    }
+
+    var verifyEmail = function (req, res) {
+        userService.getUserFromValidationToken(req.query.validationToken, function (err, user) {
+            if (user) {
+                user.emailValidated = true;
+                user.save().then(function (user, err) {
+                    if (!err) res.redirect('../login');
+                    else res.send(500);
+                })
+                    .catch(function (err) {
+                        next(err);
+                    });
+            }
+            else res.status(400).send(err);
         });
     }
 
@@ -53,7 +74,8 @@
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
         createUser: createUser,
-        updateUser: updateUser
+        updateUser: updateUser,
+        verifyEmail: verifyEmail
     }
 }
 

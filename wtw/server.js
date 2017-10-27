@@ -23,8 +23,6 @@ var path = require('path');
 var movieDbService = require('./lib/helpers/movieDBService')();
 var Queue = require('bull');
 var wtwTasks = require('./lib/tasks/wtwTasks');
-var mailChimpService = require('./lib/helpers/mailChimpService')();
-var postmarkService = require('./lib/helpers/postmarkService')();
 
 var port = process.env.port || 1337;
 
@@ -39,11 +37,6 @@ winston.configure({
 //tasksQueue.add(null, { repeat: { cron: '* 0/5 * * * * *' } });
 //tasksQueue.add(null);
 wtwTasks(null, function () { });
-mailChimpService.getWelcomeCampaign(function (err, res) {
-    if (!err) {
-        postmarkService.sendEmail('WhaToWatch <info@whatowatch.net>', 'florian@sofianos.me', 'Welcome Message', res, []);
-    }
-});
 
 var app = express();
 

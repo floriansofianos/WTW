@@ -21,6 +21,14 @@ var userService = function() {
         });
     }
 
+    var getUserFromValidationToken = function (token, done) {
+        models.User.findOne({ where: { emailValidationGuid: token } }).then(user => {
+            done(null, user);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var validateUser = function(user, done) {
         if (!user.username) done('SIGNUP.FORM.USERNAME_NOT_NULL', null);
         if (!user.email) done('SIGNUP.FORM.EMAIL_NOT_NULL', null);
@@ -38,14 +46,17 @@ var userService = function() {
         });
     }
 
-    var createUser = function(user, done) {
+    var createUser = function (user, done) {
+        var token = guid.raw();
         models.User.create({
             username: user.username,
             email: user.email,
             password: models.User.prototype.generateHash(user.password),
             firstName: user.firstName,
             lastName: user.lastName,
-            lang: user.lang
+            lang: user.lang,
+            emailValidated: false,
+            emailValidationGuid: token
         }).then(user => {
             done(null, user);
         }).catch(function(err) {
@@ -166,7 +177,8 @@ var userService = function() {
         getUsersForRecommandationRefresh: getUsersForRecommandationRefresh,
         userToModelView: userToModelView,
         issueToken: issueToken,
-        getUserFromToken: getUserFromToken
+        getUserFromToken: getUserFromToken,
+        getUserFromValidationToken: getUserFromValidationToken
     }
 }
 

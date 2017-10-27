@@ -25,6 +25,12 @@ module.exports = function () {
                     });
                 }
 
+                if (!user.emailValidated) {
+                    return done({
+                        message: 'EMAIL_NOT_VALIDATED'
+                    }, false);
+                }
+
                 return done(null, user);
             }).catch(function (err) {
 

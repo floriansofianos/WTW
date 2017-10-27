@@ -43,7 +43,10 @@ var LoginFormComponent = (function () {
                 _this.translate.use(currentUser.lang);
             _this.router.navigate(['/user/home']);
         }, function (error) {
-            _this.showError = true;
+            if (error == 500)
+                _this.showErrorValidation = true;
+            else
+                _this.showError = true;
             _this.showSpinner = false;
         });
     };
