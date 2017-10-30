@@ -198,7 +198,7 @@ var userService = function() {
         issueToken: issueToken,
         getUserFromToken: getUserFromToken,
         getUserFromValidationToken: getUserFromValidationToken,
-        getUserFromForgotPasswordToken: getUserFromForgotPasswordToken
+        changeUserPassword: changeUserPassword
     }
 }
 

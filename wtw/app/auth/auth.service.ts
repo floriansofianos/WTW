@@ -15,7 +15,7 @@ export class AuthService {
     }
 
     changePassword(token: string, newPassword: string): Observable<any> {
-        return this.http.post('/auth/newPassword', { token: token, password: newPassword })
+        return this.http.get('/auth/newPassword', { params: { token: token, password: newPassword } })
             .catch(this.handleErrors);
     }
 

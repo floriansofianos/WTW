@@ -15,7 +15,7 @@ var core_2 = require("@ngx-translate/core");
 var router_1 = require("@angular/router");
 var movie_recommandation_service_1 = require("./movie-recommandation.service");
 var _ = require("underscore");
-var MovieRecommandationComponent = (function () {
+var MovieRecommandationComponent = /** @class */ (function () {
     function MovieRecommandationComponent(domSanitizer, translate, movieRecommandationService, router) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -142,4 +142,3 @@ var MovieRecommandationComponent = (function () {
     return MovieRecommandationComponent;
 }());
 exports.MovieRecommandationComponent = MovieRecommandationComponent;
-//# sourceMappingURL=movie-recommandation.component.js.map

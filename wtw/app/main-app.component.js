@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var core_2 = require("@ngx-translate/core");
 var auth_service_1 = require("./auth/auth.service");
-var MainAppComponent = (function () {
+var MainAppComponent = /** @class */ (function () {
     function MainAppComponent(translate, authService) {
         this.translate = translate;
         this.authService = authService;
@@ -34,4 +34,3 @@ var MainAppComponent = (function () {
     return MainAppComponent;
 }());
 exports.MainAppComponent = MainAppComponent;
-//# sourceMappingURL=main-app.component.js.map

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
     }
@@ -21,7 +21,7 @@ var AuthService = (function () {
             .catch(this.handleErrors);
     };
     AuthService.prototype.changePassword = function (token, newPassword) {
-        return this.http.post('/auth/newPassword', { token: token, password: newPassword })
+        return this.http.get('/auth/newPassword', { params: { token: token, password: newPassword } })
             .catch(this.handleErrors);
     };
     AuthService.prototype.signUp = function (newUserForm) {

@@ -112,7 +112,8 @@ var userController = function (userService) {
         createUser: createUser,
         updateUser: updateUser,
         verifyEmail: verifyEmail,
-        sendForgotPasswordEmail: sendForgotPasswordEmail
+        sendForgotPasswordEmail: sendForgotPasswordEmail,
+        setNewPassword: setNewPassword
     }
 }
 
