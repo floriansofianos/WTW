@@ -6,8 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     moduleId: module.id,
-    selector: 'login-form',
-    templateUrl: 'login-form.component.html'
+    selector: 'forgot-password-form',
+    templateUrl: 'forgot-password-form.component.html'
 })
 
 export class ForgotPasswordFormComponent implements OnInit {
@@ -19,40 +19,23 @@ export class ForgotPasswordFormComponent implements OnInit {
     constructor(private router: Router, private authService: AuthService, private translate: TranslateService) { }
 
     ngOnInit(): void {
-        let login = new FormControl();
         let password = new FormControl();
-        let rememberMe = new FormControl();
+        let confirmPassword = new FormControl();
 
-        this.loginForm = new FormGroup({
-            login: login,
+        this.forgotPasswordForm = new FormGroup({
             password: password,
-            rememberMe: rememberMe
+            confirmPassword: confirmPassword
         });
     }
 
-    cancel() {
-        this.router.navigate(['']);
-    }
-
-    login(formValues: any) {
+    confirmPassword(formValues: any) {
         this.showSpinner = true;
-        this.authService.loginUser(formValues.login, formValues.password, formValues.rememberMe).subscribe(response => {
-            let currentUser = response.json();
-            this.authService.setCurrentUser(currentUser);
-            if (currentUser.lang) this.translate.use(currentUser.lang)
-            this.router.navigate(['/user/home']);
-        },
-            error => {
-                if (error == 500) this.showErrorValidation = true;
-                else this.showError = true;
-                this.showSpinner = false;
-        });
     }
 
     keyDownFunction(event) {
         if (event.keyCode == 13) {
             // Enter pressed
-            this.login(this.loginForm.value);
+            this.confirmPassword(this.forgotPasswordForm.value);
         }
     }
 }

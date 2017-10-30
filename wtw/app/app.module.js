@@ -38,6 +38,7 @@ var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
 var movie_recommandation_component_1 = require("./movie/movie-recommandation.component");
 var cast_member_component_1 = require("./movie/cast-member.component");
+var forgot_password_form_component_1 = require("./forgot-password/forgot-password-form/forgot-password-form.component");
 var forgot_password_page_component_1 = require("./forgot-password/forgot-password-page.component");
 var logo_component_1 = require("./logo/logo.component");
 var angular2_spinner_1 = require("angular2-spinner");
@@ -112,6 +113,7 @@ var AppModule = (function () {
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
                 movie_recommandation_component_1.MovieRecommandationComponent,
                 logo_component_1.LogoComponent,
+                forgot_password_form_component_1.ForgotPasswordFormComponent,
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
                 left_menu_component_1.LeftMenuComponent,
@@ -143,3 +145,4 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

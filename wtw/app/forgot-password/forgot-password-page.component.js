@@ -18,3 +18,4 @@ var ForgotPasswordPageComponent = (function () {
     return ForgotPasswordPageComponent;
 }());
 exports.ForgotPasswordPageComponent = ForgotPasswordPageComponent;
+//# sourceMappingURL=forgot-password-page.component.js.map

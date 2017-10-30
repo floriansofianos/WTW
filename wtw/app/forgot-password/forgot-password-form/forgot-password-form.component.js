@@ -21,49 +21,31 @@ var ForgotPasswordFormComponent = (function () {
         this.translate = translate;
     }
     ForgotPasswordFormComponent.prototype.ngOnInit = function () {
-        var login = new forms_1.FormControl();
         var password = new forms_1.FormControl();
-        var rememberMe = new forms_1.FormControl();
-        this.loginForm = new forms_1.FormGroup({
-            login: login,
+        var confirmPassword = new forms_1.FormControl();
+        this.forgotPasswordForm = new forms_1.FormGroup({
             password: password,
-            rememberMe: rememberMe
+            confirmPassword: confirmPassword
         });
     };
-    ForgotPasswordFormComponent.prototype.cancel = function () {
-        this.router.navigate(['']);
-    };
-    ForgotPasswordFormComponent.prototype.login = function (formValues) {
-        var _this = this;
+    ForgotPasswordFormComponent.prototype.confirmPassword = function (formValues) {
         this.showSpinner = true;
-        this.authService.loginUser(formValues.login, formValues.password, formValues.rememberMe).subscribe(function (response) {
-            var currentUser = response.json();
-            _this.authService.setCurrentUser(currentUser);
-            if (currentUser.lang)
-                _this.translate.use(currentUser.lang);
-            _this.router.navigate(['/user/home']);
-        }, function (error) {
-            if (error == 500)
-                _this.showErrorValidation = true;
-            else
-                _this.showError = true;
-            _this.showSpinner = false;
-        });
     };
     ForgotPasswordFormComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
             // Enter pressed
-            this.login(this.loginForm.value);
+            this.confirmPassword(this.forgotPasswordForm.value);
         }
     };
     ForgotPasswordFormComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'login-form',
-            templateUrl: 'login-form.component.html'
+            selector: 'forgot-password-form',
+            templateUrl: 'forgot-password-form.component.html'
         }),
         __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
     ], ForgotPasswordFormComponent);
     return ForgotPasswordFormComponent;
 }());
 exports.ForgotPasswordFormComponent = ForgotPasswordFormComponent;
+//# sourceMappingURL=forgot-password-form.component.js.map

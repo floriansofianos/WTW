@@ -32,6 +32,7 @@ import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { MovieRecommandationComponent } from './movie/movie-recommandation.component';
 import { CastMemberComponent } from './movie/cast-member.component';
+import { ForgotPasswordFormComponent } from './forgot-password/forgot-password-form/forgot-password-form.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { LogoComponent } from './logo/logo.component';
 import { SpinnerModule } from 'angular2-spinner';
@@ -105,6 +106,7 @@ export function createTranslateLoader(http: Http) {
         MovieQuestionnaireComponent,
         MovieRecommandationComponent,
         LogoComponent,
+        ForgotPasswordFormComponent,
         TopMenuComponent,
         UserMoviesHomePageComponent,
         LeftMenuComponent,
