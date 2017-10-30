@@ -15,21 +15,39 @@ var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
 var ForgotPasswordFormComponent = (function () {
-    function ForgotPasswordFormComponent(router, authService, translate) {
+    function ForgotPasswordFormComponent(activatedRoute, router, authService, translate) {
+        this.activatedRoute = activatedRoute;
         this.router = router;
         this.authService = authService;
         this.translate = translate;
     }
     ForgotPasswordFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var password = new forms_1.FormControl();
         var confirmPassword = new forms_1.FormControl();
         this.forgotPasswordForm = new forms_1.FormGroup({
             password: password,
             confirmPassword: confirmPassword
         });
+        this.activatedRoute.params.subscribe(function (params) {
+            _this.token = params['token'];
+        });
     };
     ForgotPasswordFormComponent.prototype.confirmPassword = function (formValues) {
+        var _this = this;
         this.showSpinner = true;
+        if (formValues.password != formValues.confirmPassword) {
+            this.showError = true;
+            this.showSpinner = false;
+        }
+        else {
+            this.authService.changePassword(this.token, formValues.password).subscribe(function (response) {
+                _this.router.navigate(['/login']);
+            }, function (error) {
+                _this.showError = true;
+                _this.showSpinner = false;
+            });
+        }
     };
     ForgotPasswordFormComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
@@ -43,9 +61,8 @@ var ForgotPasswordFormComponent = (function () {
             selector: 'forgot-password-form',
             templateUrl: 'forgot-password-form.component.html'
         }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, auth_service_1.AuthService, core_2.TranslateService])
     ], ForgotPasswordFormComponent);
     return ForgotPasswordFormComponent;
 }());
 exports.ForgotPasswordFormComponent = ForgotPasswordFormComponent;
-//# sourceMappingURL=forgot-password-form.component.js.map

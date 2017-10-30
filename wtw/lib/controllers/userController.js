@@ -76,6 +76,18 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var setNewPassword = function (req, res) {
+        if (req.query.token && req.query.password) {
+            userService.changeUserPassword(req.query.token, req.query.password, function (err, user) {
+                if (user) {
+                    res.json({ success: true });
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     var updateUser = function (req, res, next) {
         userService.getUserById(req.user.id, function (err, user) {
             if (!err) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,9 +14,9 @@ export class ForgotPasswordFormComponent implements OnInit {
     forgotPasswordForm: FormGroup;
     showError: boolean;
     showSpinner: boolean;
-    showErrorValidation: boolean;
+    token: string;
 
-    constructor(private router: Router, private authService: AuthService, private translate: TranslateService) { }
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private translate: TranslateService) { }
 
     ngOnInit(): void {
         let password = new FormControl();
@@ -26,10 +26,27 @@ export class ForgotPasswordFormComponent implements OnInit {
             password: password,
             confirmPassword: confirmPassword
         });
+
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.token = params['token'];
+        });
     }
 
     confirmPassword(formValues: any) {
         this.showSpinner = true;
+        if (formValues.password != formValues.confirmPassword) {
+            this.showError = true;
+            this.showSpinner = false;
+        }
+        else {
+            this.authService.changePassword(this.token, formValues.password).subscribe(response => {
+                this.router.navigate(['/login']);
+            },
+                error => {
+                    this.showError = true;
+                    this.showSpinner = false;
+                });
+        }
     }
 
     keyDownFunction(event) {

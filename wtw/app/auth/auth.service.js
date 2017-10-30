@@ -20,6 +20,10 @@ var AuthService = (function () {
         return this.http.post('/auth/signin', { email: login, password: password, remember_me: rememberMe })
             .catch(this.handleErrors);
     };
+    AuthService.prototype.changePassword = function (token, newPassword) {
+        return this.http.post('/auth/newPassword', { token: token, password: newPassword })
+            .catch(this.handleErrors);
+    };
     AuthService.prototype.signUp = function (newUserForm) {
         newUserForm.password = newUserForm.passwordGroup.password;
         return this.http.post('/auth/signup', newUserForm)
@@ -75,4 +79,3 @@ var AuthService = (function () {
     return AuthService;
 }());
 exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map

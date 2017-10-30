@@ -11,6 +11,7 @@
         "FORM": {
             "LOGIN": "Email",
             "PASSWORD": "Password",
+            "NEWPASSWORD": "New Password",
             "REMEMBER_ME":  "Remember Me",
             "WRONGPASSWORD": "Your email or password is incorrect.",
             "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",

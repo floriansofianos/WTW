@@ -29,6 +29,25 @@ var userService = function() {
         });
     }
 
+    var changeUserPassword = function (token, password, done) {
+        models.User.findOne({ where: { forgotPasswordGuid: token } }).then(user => {
+            if (user) {
+                user.password = models.User.prototype.generateHash(user.password);
+                user.forgotPasswordGuid = null;
+                user.save().then(function (user, err) {
+                    if (!err) done(null, user);
+                    else done(err);
+                })
+                    .catch(function (err) {
+                        done(err);
+                    });
+            }
+            else done('No User');
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var validateUser = function(user, done) {
         if (!user.username) done('SIGNUP.FORM.USERNAME_NOT_NULL', null);
         if (!user.email) done('SIGNUP.FORM.EMAIL_NOT_NULL', null);
@@ -178,7 +197,8 @@ var userService = function() {
         userToModelView: userToModelView,
         issueToken: issueToken,
         getUserFromToken: getUserFromToken,
-        getUserFromValidationToken: getUserFromValidationToken
+        getUserFromValidationToken: getUserFromValidationToken,
+        getUserFromForgotPasswordToken: getUserFromForgotPasswordToken
     }
 }
 

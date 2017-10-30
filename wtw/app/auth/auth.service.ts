@@ -14,6 +14,11 @@ export class AuthService {
             .catch(this.handleErrors);
     }
 
+    changePassword(token: string, newPassword: string): Observable<any> {
+        return this.http.post('/auth/newPassword', { token: token, password: newPassword })
+            .catch(this.handleErrors);
+    }
+
     signUp(newUserForm: any): Observable<any> {
         newUserForm.password = newUserForm.passwordGroup.password;
         return this.http.post('/auth/signup', newUserForm)
