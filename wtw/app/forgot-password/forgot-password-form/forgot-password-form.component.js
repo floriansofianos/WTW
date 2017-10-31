@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var ForgotPasswordFormComponent = /** @class */ (function () {
+var ForgotPasswordFormComponent = (function () {
     function ForgotPasswordFormComponent(activatedRoute, router, authService, translate) {
         this.activatedRoute = activatedRoute;
         this.router = router;
@@ -22,15 +22,11 @@ var ForgotPasswordFormComponent = /** @class */ (function () {
         this.translate = translate;
     }
     ForgotPasswordFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
         var password = new forms_1.FormControl();
         var confirmPassword = new forms_1.FormControl();
         this.forgotPasswordForm = new forms_1.FormGroup({
             password: password,
             confirmPassword: confirmPassword
-        });
-        this.activatedRoute.params.subscribe(function (params) {
-            _this.token = params['token'];
         });
     };
     ForgotPasswordFormComponent.prototype.confirmPassword = function (formValues) {
@@ -41,7 +37,7 @@ var ForgotPasswordFormComponent = /** @class */ (function () {
             this.showSpinner = false;
         }
         else {
-            this.authService.changePassword(this.token, formValues.password).subscribe(function (response) {
+            this.authService.changePassword(this.activatedRoute.snapshot.queryParams['token'], formValues.password).subscribe(function (response) {
                 _this.router.navigate(['/login']);
             }, function (error) {
                 _this.showError = true;

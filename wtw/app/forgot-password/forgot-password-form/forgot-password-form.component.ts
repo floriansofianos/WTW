@@ -26,10 +26,6 @@ export class ForgotPasswordFormComponent implements OnInit {
             password: password,
             confirmPassword: confirmPassword
         });
-
-        this.activatedRoute.params.subscribe((params: Params) => {
-            this.token = params['token'];
-        });
     }
 
     confirmPassword(formValues: any) {
@@ -39,7 +35,7 @@ export class ForgotPasswordFormComponent implements OnInit {
             this.showSpinner = false;
         }
         else {
-            this.authService.changePassword(this.token, formValues.password).subscribe(response => {
+            this.authService.changePassword(this.activatedRoute.snapshot.queryParams['token'], formValues.password).subscribe(response => {
                 this.router.navigate(['/login']);
             },
                 error => {

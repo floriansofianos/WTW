@@ -1,5 +1,5 @@
 <div class="login-form-container">
-    <form id="login-form" class="login-form" [formGroup]="loginForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate>
+    <form id="login-form" class="login-form" [formGroup]="loginForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate *ngIf="!showForgotPassword">
         <div class="login-line">
             <mat-form-field>
                 <input matInput placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" formControlName="login" (keydown)="keyDownFunction($event)" />
@@ -9,6 +9,7 @@
             <mat-form-field>
                 <input matInput placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" formControlName="password" type="password" (keydown)="keyDownFunction($event)" />
             </mat-form-field>
+            <div class="forgot-password" (click)="clickForgotPassword()">{{ 'LOGIN.FORM.I_FORGOT_MY_PASSWORD' | translate }}</div>
         </div>
         <div class="login-line">
             <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>
@@ -20,5 +21,19 @@
             <wtw-button (click)="cancel()">{{ 'FORM.CANCEL' | translate }}</wtw-button>
         </div>
         <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </form>
+    <form id="forgot-password-form" class="login-form" [formGroup]="forgotPasswordForm" autocomplete="off" (keydown)="keyDownFunction($event)" novalidate *ngIf="showForgotPassword">
+        <div class="login-line">
+            <mat-form-field>
+                <input matInput placeholder="{{ 'LOGIN.FORM.LOGIN' | translate }}" formControlName="email" (keydown)="keyDownFunction($event)" />
+            </mat-form-field>
+        </div>
+        <div class="login-line button-line" *ngIf="!showSpinnerForgotPassword">
+            <div class="forgot-password-fail" *ngIf="showForgotPasswordError && !showForgotPasswordEmailSent">{{ 'LOGIN.FORM.FORGOT_PASSWORD_EMAIL_ERROR' | translate }}</div>
+            <wtw-button class="button-ok" (click)="forgotPassword(forgotPasswordForm.value)" *ngIf="!showForgotPasswordEmailSent">{{ 'FORM.OK' | translate }}</wtw-button>
+            <wtw-button (click)="cancelForgotPassword()" *ngIf="!showForgotPasswordEmailSent">{{ 'FORM.CANCEL' | translate }}</wtw-button>
+            <div class="forgot-password-success" *ngIf="showForgotPasswordEmailSent">{{ 'LOGIN.FORM.FORGOT_PASSWORD_EMAIL_SENT' | translate }}</div>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinnerForgotPassword"><spinner></spinner></div>
     </form>
 </div>

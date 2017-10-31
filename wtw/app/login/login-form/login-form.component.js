@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var LoginFormComponent = /** @class */ (function () {
+var LoginFormComponent = (function () {
     function LoginFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
@@ -24,11 +24,16 @@ var LoginFormComponent = /** @class */ (function () {
         var login = new forms_1.FormControl();
         var password = new forms_1.FormControl();
         var rememberMe = new forms_1.FormControl();
+        var email = new forms_1.FormControl();
         this.loginForm = new forms_1.FormGroup({
             login: login,
             password: password,
             rememberMe: rememberMe
         });
+        this.forgotPasswordForm = new forms_1.FormGroup({
+            email: email
+        });
+        this.showForgotPassword = false;
     };
     LoginFormComponent.prototype.cancel = function () {
         this.router.navigate(['']);
@@ -50,11 +55,31 @@ var LoginFormComponent = /** @class */ (function () {
             _this.showSpinner = false;
         });
     };
+    LoginFormComponent.prototype.forgotPasswordClick = function () {
+        this.showForgotPassword = true;
+    };
     LoginFormComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
             // Enter pressed
             this.login(this.loginForm.value);
         }
+    };
+    LoginFormComponent.prototype.clickForgotPassword = function () {
+        this.showForgotPassword = true;
+    };
+    LoginFormComponent.prototype.cancelForgotPassword = function () {
+        this.showForgotPassword = false;
+    };
+    LoginFormComponent.prototype.forgotPassword = function (formValues) {
+        var _this = this;
+        this.showSpinnerForgotPassword = true;
+        this.authService.sendForgotPasswordEmail(formValues.email).subscribe(function (response) {
+            _this.showForgotPasswordEmailSent = true;
+            _this.showSpinnerForgotPassword = false;
+        }, function (error) {
+            _this.showForgotPasswordError = true;
+            _this.showSpinnerForgotPassword = false;
+        });
     };
     LoginFormComponent = __decorate([
         core_1.Component({
