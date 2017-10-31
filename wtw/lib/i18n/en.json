@@ -112,17 +112,20 @@
     "HATE_GENRE": "You hate the movie genre",
     "HATE_ACTOR": "You hate movies with"
   },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Cancel",
-    "REQUIRED": "Required",
-    "SAVE": "Save",
-    "SEARCH": "Search...",
-    "BACK": "Back",
-    "NEXT": "Next",
-    "SKIP": "Skip",
-    "PREVIOUS": "Previous",
-    "YES": "Yes",
-    "NO": "No"
-  }
+    "FORM": {
+        "OK": "OK",
+        "CANCEL": "Cancel",
+        "REQUIRED": "Required",
+        "SAVE": "Save",
+        "SEARCH": "Search...",
+        "BACK": "Back",
+        "NEXT": "Next",
+        "SKIP": "Skip",
+        "PREVIOUS": "Previous",
+        "YES": "Yes",
+        "NO": "No"
+    },
+    "FORGOT_PWD": {
+        "TITLE":  "Reset your password"
+    }
 }

@@ -112,17 +112,20 @@
     "HATE_GENRE": "Vous détestez le genre",
     "HATE_ACTOR": "Vous détestez les films avec"
   },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Annuler",
-    "REQUIRED": "Obligatoire",
-    "SAVE": "Sauvegarder",
-    "BACK": "Précédent",
-    "NEXT": "Suivant",
-    "SKIP": "Passer",
-    "SEARCH": "Recherche...",
-    "PREVIOUS": "Précédent",
-    "YES": "Oui",
-    "NO": "Non"
-  }
+    "FORM": {
+        "OK": "OK",
+        "CANCEL": "Annuler",
+        "REQUIRED": "Obligatoire",
+        "SAVE": "Sauvegarder",
+        "BACK": "Précédent",
+        "NEXT": "Suivant",
+        "SKIP": "Passer",
+        "SEARCH": "Recherche...",
+        "PREVIOUS": "Précédent",
+        "YES": "Oui",
+        "NO": "Non"
+    },
+    "FORGOT_PWD": {
+        "TITLE":  "Changer votre mot de passe"
+    }
 }
