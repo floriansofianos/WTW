@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieRecommandationService = (function () {
+var MovieRecommandationService = /** @class */ (function () {
     function MovieRecommandationService(http) {
         this.http = http;
     }

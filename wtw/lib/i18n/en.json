@@ -8,15 +8,19 @@
     },
     "LOGIN": {
         "TITLE": "Login",
-        "FORM": {
-            "LOGIN": "Email",
-            "PASSWORD": "Password",
-            "NEWPASSWORD": "New Password",
-            "REMEMBER_ME":  "Remember Me",
-            "WRONGPASSWORD": "Your email or password is incorrect.",
-            "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
-            "RESEND":  "Send it to me"
-        }
+      "FORM": {
+        "LOGIN": "Email",
+        "PASSWORD": "Password",
+        "NEWPASSWORD": "New Password",
+        "REMEMBER_ME": "Remember Me",
+        "WRONGPASSWORD": "Your email or password is incorrect.",
+        "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
+        "RESEND": "Send it to me",
+        "FORGOT_PWD_EXPLANATION": "Please enter your email address you use at signup.",
+        "FORGOT_PASSWORD_EMAIL_ERROR": "This email has not been recognised.",
+        "FORGOT_PASSWORD_EMAIL_SENT": "An email has been sent to you with a link to reset your password.",
+        "I_FORGOT_MY_PASSWORD":  "I forgot my password"
+      }
     },
     "SIGNUP": {
         "TITLE": "Sign Up",
