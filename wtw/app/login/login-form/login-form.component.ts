@@ -92,4 +92,13 @@ export class LoginFormComponent implements OnInit {
                 this.showSpinnerForgotPassword = false;
             });
     }
+
+    resendWelcomeEmail(formValues: any) {
+        this.authService.sendWelcomeEmail(formValues.login).subscribe(response => {
+            this.showErrorValidation = false;
+        },
+            error => {
+                this.router.navigate(['/error']);
+            });
+    }
 }

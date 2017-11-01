@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var ForgotPasswordFormComponent = /** @class */ (function () {
+var ForgotPasswordFormComponent = (function () {
     function ForgotPasswordFormComponent(activatedRoute, router, authService, translate) {
         this.activatedRoute = activatedRoute;
         this.router = router;
@@ -31,12 +31,9 @@ var ForgotPasswordFormComponent = /** @class */ (function () {
     };
     ForgotPasswordFormComponent.prototype.confirmPassword = function (formValues) {
         var _this = this;
-        this.showSpinner = true;
-        if (formValues.password != formValues.confirmPassword) {
-            this.showError = true;
-            this.showSpinner = false;
-        }
-        else {
+        this.isSubmitted = true;
+        if (this.forgotPasswordForm.valid) {
+            this.showSpinner = true;
             this.authService.changePassword(this.activatedRoute.snapshot.queryParams['token'], formValues.password).subscribe(function (response) {
                 _this.router.navigate(['/login']);
             }, function (error) {
@@ -44,6 +41,13 @@ var ForgotPasswordFormComponent = /** @class */ (function () {
                 _this.showSpinner = false;
             });
         }
+    };
+    ForgotPasswordFormComponent.prototype.isPasswordStrongEnough = function () {
+        return ((this.forgotPasswordForm.controls.password.touched && this.forgotPasswordForm.controls.password.dirty) || this.isSubmitted) && this.forgotPasswordForm.controls.password.errors != null;
+    };
+    ForgotPasswordFormComponent.prototype.isConfirmPasswordInvalid = function () {
+        return ((this.forgotPasswordForm.controls.password.touched && this.forgotPasswordForm.controls.password.dirty && this.forgotPasswordForm.controls.confirmPassword.touched && this.forgotPasswordForm.controls.confirmPassword.dirty) || this.isSubmitted)
+            && this.forgotPasswordForm.errors != null;
     };
     ForgotPasswordFormComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
@@ -62,3 +66,4 @@ var ForgotPasswordFormComponent = /** @class */ (function () {
     return ForgotPasswordFormComponent;
 }());
 exports.ForgotPasswordFormComponent = ForgotPasswordFormComponent;
+//# sourceMappingURL=forgot-password-form.component.js.map

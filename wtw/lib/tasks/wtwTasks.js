@@ -22,7 +22,9 @@ var wtwProcess = function (i, done) {
         generateUsersQuestionnaires(function (err, res) {
             generateUsersRecommandations(function (err, res) {
                 console.log('Finished!');
-                wtwProcess(i + 1, done);
+                setTimeout(function () {
+                    wtwProcess(i + 1, done);;
+                }, 300000);
             });
         });
     });

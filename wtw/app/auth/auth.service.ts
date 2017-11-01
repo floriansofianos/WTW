@@ -24,6 +24,11 @@ export class AuthService {
             .catch(this.handleErrors);
     }
 
+    sendWelcomeEmail(email: string): Observable<any> {
+        return this.http.get('/auth/sendWelcomeEmail', { params: { email: email } })
+            .catch(this.handleErrors);
+    }
+
     signUp(newUserForm: any): Observable<any> {
         newUserForm.password = newUserForm.passwordGroup.password;
         return this.http.post('/auth/signup', newUserForm)

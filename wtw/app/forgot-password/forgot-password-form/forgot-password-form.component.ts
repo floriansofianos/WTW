@@ -15,6 +15,7 @@ export class ForgotPasswordFormComponent implements OnInit {
     showError: boolean;
     showSpinner: boolean;
     token: string;
+    isSubmitted: boolean;
 
     constructor(private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private translate: TranslateService) { }
 
@@ -29,12 +30,9 @@ export class ForgotPasswordFormComponent implements OnInit {
     }
 
     confirmPassword(formValues: any) {
-        this.showSpinner = true;
-        if (formValues.password != formValues.confirmPassword) {
-            this.showError = true;
-            this.showSpinner = false;
-        }
-        else {
+        this.isSubmitted = true;
+        if (this.forgotPasswordForm.valid) {
+            this.showSpinner = true;
             this.authService.changePassword(this.activatedRoute.snapshot.queryParams['token'], formValues.password).subscribe(response => {
                 this.router.navigate(['/login']);
             },
@@ -43,6 +41,15 @@ export class ForgotPasswordFormComponent implements OnInit {
                     this.showSpinner = false;
                 });
         }
+    }
+
+    isPasswordStrongEnough(): boolean {
+        return ((this.forgotPasswordForm.controls.password.touched && this.forgotPasswordForm.controls.password.dirty) || this.isSubmitted) && this.forgotPasswordForm.controls.password.errors != null;
+    }
+
+    isConfirmPasswordInvalid(): boolean {
+        return ((this.forgotPasswordForm.controls.password.touched && this.forgotPasswordForm.controls.password.dirty && this.forgotPasswordForm.controls.confirmPassword.touched && this.forgotPasswordForm.controls.confirmPassword.dirty) || this.isSubmitted)
+            && this.forgotPasswordForm.errors != null;
     }
 
     keyDownFunction(event) {

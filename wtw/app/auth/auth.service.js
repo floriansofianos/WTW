@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var AuthService = /** @class */ (function () {
+var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
     }
@@ -26,6 +26,10 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.sendForgotPasswordEmail = function (email) {
         return this.http.get('/auth/forgotPassword', { params: { email: email } })
+            .catch(this.handleErrors);
+    };
+    AuthService.prototype.sendWelcomeEmail = function (email) {
+        return this.http.get('/auth/sendWelcomeEmail', { params: { email: email } })
             .catch(this.handleErrors);
     };
     AuthService.prototype.signUp = function (newUserForm) {
@@ -83,3 +87,4 @@ var AuthService = /** @class */ (function () {
     return AuthService;
 }());
 exports.AuthService = AuthService;
+//# sourceMappingURL=auth.service.js.map

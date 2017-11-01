@@ -27,3 +27,4 @@ exports.appRoutes = [
     { path: 'user/movies/watchlist', component: user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
+//# sourceMappingURL=routes.js.map

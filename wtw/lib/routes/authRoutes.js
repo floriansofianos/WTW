@@ -50,6 +50,9 @@ var authRoutes = function () {
     authRouter.route('/forgotPassword')
         .get(userController.sendForgotPasswordEmail);
 
+    authRouter.route('/sendWelcomeEmail')
+        .get(userController.sendWelcomeEmail);
+
     authRouter.route('/newPassword')
         .get(userController.setNewPassword);
 

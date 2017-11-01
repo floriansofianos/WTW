@@ -130,6 +130,7 @@
         "NO": "Non"
     },
     "FORGOT_PWD": {
-        "TITLE":  "Changer votre mot de passe"
+        "TITLE": "Changer votre mot de passe",
+        "WRONGTOKEN": "Une erreur est survenue, merci de réessayer ultérieurement."
     }
 }

@@ -106,6 +106,19 @@ var userController = function (userService) {
         });
     }
 
+    var sendWelcomeEmail = function (req, res) {
+        if (req.query.email) {
+            userService.getUserByEmail(req.query.email, function (err, user) {
+                if (user) {
+                    postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, 'localhost:1337/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
+                    res.json({success: true});
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
@@ -113,7 +126,8 @@ var userController = function (userService) {
         updateUser: updateUser,
         verifyEmail: verifyEmail,
         sendForgotPasswordEmail: sendForgotPasswordEmail,
-        setNewPassword: setNewPassword
+        setNewPassword: setNewPassword,
+        sendWelcomeEmail: sendWelcomeEmail
     }
 }
 

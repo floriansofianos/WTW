@@ -32,7 +32,7 @@ var userService = function() {
     var changeUserPassword = function (token, password, done) {
         models.User.findOne({ where: { forgotPasswordGuid: token } }).then(user => {
             if (user) {
-                user.password = models.User.prototype.generateHash(user.password);
+                user.password = models.User.prototype.generateHash(password);
                 user.forgotPasswordGuid = null;
                 user.save().then(function (user, err) {
                     if (!err) done(null, user);
