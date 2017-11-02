@@ -95,6 +95,8 @@
   "WTW": {
     "PERSONAL_RECO": "Here are some personal recommandations for you:",
     "WTW": "Find something to watch.",
+    "MIN_RELEASE": "Minimum release year",
+    "MAX_RELEASE": "Maximum release year",
     "RUNTIME_LIMIT": "Add a runtime limit to my search",
     "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
     "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
@@ -114,7 +116,8 @@
     "HATE_DIRECTOR": "You hate movies directed by",
     "HATE_WRITER": "You hate movies written by",
     "HATE_GENRE": "You hate the movie genre",
-    "HATE_ACTOR": "You hate movies with"
+    "HATE_ACTOR": "You hate movies with",
+    "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum."
   },
     "FORM": {
         "OK": "OK",

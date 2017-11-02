@@ -29,12 +29,15 @@ var UserWhatToWatchPageComponent = (function () {
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formWTW = {};
+        this.maxReleaseYear = new Date().getFullYear();
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.formWTW.minRelease = currentUser.age ? new Date().getFullYear() - currentUser.age : new Date().getFullYear() - 50;
+            this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
@@ -82,14 +85,24 @@ var UserWhatToWatchPageComponent = (function () {
     };
     UserWhatToWatchPageComponent.prototype.clickSearch = function () {
         var _this = this;
-        this.isLoading = true;
-        this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(function (response) {
-            // load existing data regarding this movie for the current user
-            var id = response.json().id;
-            _this.loadMovie(id);
-        }, function (error) {
-            _this.router.navigate(['error']);
-        });
+        if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
+            this.isLoading = true;
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease).subscribe(function (response) {
+                // load existing data regarding this movie for the current user
+                var id = response.json().id;
+                if (id)
+                    _this.loadMovie(id);
+                else {
+                    _this.isLoading = false;
+                    _this.noResults = true;
+                }
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
+        }
+        else {
+            this.notValidReleaseDates = true;
+        }
     };
     UserWhatToWatchPageComponent.prototype.movieQuestionnaireChange = function (event) {
         this.movieQuestionnaire = event;
@@ -122,4 +135,3 @@ var UserWhatToWatchPageComponent = (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

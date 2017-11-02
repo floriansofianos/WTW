@@ -9,6 +9,16 @@
                 </h1>
                 <div class="wtw-form-content">
                     <div class="wtw-form-field-container">
+                        <mat-form-field style="width: 200px; font-size: 17px;">
+                            <input matInput placeholder="{{ 'WTW.MIN_RELEASE' | translate }}" [(ngModel)]="formWTW.minRelease" type="number" min="1900" />
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-form-field style="width: 200px; font-size: 17px;">
+                            <input matInput placeholder="{{ 'WTW.MAX_RELEASE' | translate }}" [(ngModel)]="formWTW.maxRelease" type="number" min="1900" [max]="maxReleaseYear" />
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
                         <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
                             <mat-select placeholder="Genre" [(ngModel)]="formWTW.genreSelectValue">
                                 <mat-option *ngFor="let g of genres" [value]="g.id">
@@ -27,6 +37,8 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.isWatchlistChecked">{{ 'WTW.INCLUDE_WATCHLIST' | translate }}</mat-checkbox>
                     </div>
+                    <div *ngIf="noResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
+                    <div *ngIf="notValidReleaseDates" class="wtw-error">{{ 'WTW.NOT_VALID_RELEASE_DATES' | translate }}</div>
                     <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
                 </div>
             </div>

@@ -142,7 +142,7 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
@@ -184,7 +184,7 @@ var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQ
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForDirectorQuestionnaire(directorId, 1, function (err, data) {
+        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
@@ -206,7 +206,7 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForDirectorQuestionnaire(directorId, 1, function (err, data) {
+        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
@@ -228,7 +228,7 @@ var generateWriterRecommandations = function (writerIds, questionnaires, movieRe
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
@@ -250,7 +250,7 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
                     generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
@@ -266,7 +266,7 @@ var generateActorRecommandations = function (actorIds, questionnaires, movieReco
     if (i < actorIds.length) {
         var actorId = actorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(actorId, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(actorId, null, null, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
                     generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
@@ -298,7 +298,7 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
@@ -322,7 +322,7 @@ var generateActorQuestionnaire = function (castIds, questionnaires, userQuestion
     if (castIds.length < 1) done(null, true);
     else {
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(castIds, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);

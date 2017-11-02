@@ -27,17 +27,23 @@ export class UserWhatToWatchPageComponent {
     showSaveSpinner: boolean;
     isLoading: boolean;
     username: string;
+    noResults: boolean;
+    notValidReleaseDates: boolean;
+    maxReleaseYear: number;
 
     constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
 
     ngOnInit() {
         this.formWTW = {};
+        this.maxReleaseYear = new Date().getFullYear();
         let currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.formWTW.minRelease = currentUser.age ? new Date().getFullYear() - currentUser.age : new Date().getFullYear() - 50;
+            this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(response => {
                 this.configuration = response.json();
             },
@@ -95,15 +101,24 @@ export class UserWhatToWatchPageComponent {
     }
 
     clickSearch() {
-        this.isLoading = true;
-        this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit).subscribe(response => {
-            // load existing data regarding this movie for the current user
-            var id = response.json().id;
-            this.loadMovie(id);
-        },
-            error => {
-                this.router.navigate(['error']);
-            });
+        if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
+            this.isLoading = true;
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease).subscribe(response => {
+                // load existing data regarding this movie for the current user
+                var id = response.json().id;
+                if (id) this.loadMovie(id);
+                else {
+                    this.isLoading = false;
+                    this.noResults = true;
+                }
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
+        }
+        else {
+            this.notValidReleaseDates = true;
+        }
     }
 
     movieQuestionnaireChange(event) {

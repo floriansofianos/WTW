@@ -24,8 +24,8 @@ var MovieDBService = (function () {
         return this.http.get('/api/movieDBSearch', { params: { search: s } })
             .catch(this.handleErrors);
     };
-    MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit) {
-        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit } })
+    MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease) {
+        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.getMovie = function (id, lang) {
@@ -50,4 +50,3 @@ var MovieDBService = (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
-//# sourceMappingURL=movieDB.service.js.map

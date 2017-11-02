@@ -95,6 +95,8 @@
   "WTW": {
     "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
     "WTW": "Trouver votre prochaine séance.",
+    "MIN_RELEASE": "Date de sortie min",
+    "MAX_RELEASE": "Date de sortie max",
     "RUNTIME_LIMIT": "Ajouter une limite de temps",
     "RUNTIME_LIMIT_EXPLANATION": "Le film trouvé ne durera pas plus longtemps que la valeur ci-dessus (en minutes).",
     "INCLUDE_WATCHLIST": "Utiliser les films de ma liste à voir",
@@ -114,7 +116,8 @@
     "HATE_DIRECTOR": "Vous détestez les films de",
     "HATE_WRITER": "Vous détestez les films écrits par",
     "HATE_GENRE": "Vous détestez le genre",
-    "HATE_ACTOR": "Vous détestez les films avec"
+    "HATE_ACTOR": "Vous détestez les films avec",
+    "NOT_VALID_RELEASE_DATES": "Les dates de sortie ne sont pas correctes: le minimum doit être supérieur au maximum."
   },
     "FORM": {
         "OK": "OK",
