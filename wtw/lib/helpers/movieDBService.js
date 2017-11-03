@@ -715,7 +715,55 @@ module.exports = function () {
         return cache.get('movieDBConfiguration');
     }
 
-    var getCast = function (id, done) {
+    var getAlsoKnown = function (directorId, writerId, actorId, lang, done) {
+        getPeopleFromCache(directorId, writerId, actorId, lang, (err, people) => {
+            if (people) {
+                if (date.addMonths(people.updatedAt, 2) > new Date()) return done(null, people.data);
+                else {
+                    getPeopleFromMovieDB(directorId, writerId, actorId, lang, people, (err, people) => {
+                        if (err) return done(err, null);
+                        else return done(null, people);
+                    });
+                }
+            }
+            else {
+                // Retrieve all the information about this movie
+                getPeopleFromMovieDB(directorId, writerId, actorId, lang, null, (err, people) => {
+                    if (err) return done(err, null);
+                    else return done(null, people);
+                });
+            }
+        });
+    }
+
+    /// Gets cast from movieDB and sets the cache
+    var getPeopleFromMovieDB = function (directorId, writerId, actorId, lang, castCache, done) {
+        var id = directorId ? directorId : (writerId ? writerId : actorId);
+        mdb.personMovieCredits({ id: id, lang: lang }, (err, data) => {
+            if (err) return done(err, null);
+            if (directorId) data = getDirectors(data);
+            if (writerId) data = getWriters(data);
+            if (actorId) data = getActors(data);
+            var cast = data;
+            if (!castCache) {
+                setCastCache(id, cast, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, cast);
+                });
+            }
+            else {
+                castCache.data = cast;
+                castCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, cast);
+                });
+            }
+        });
+    }
+
+
+
+    /*var getCast = function (id, done) {
         getCastFromCache(id, (err, cast) => {
             if (cast) {
                 if (date.addMonths(cast.updatedAt, 1) > new Date()) return done(null, cast.data);
@@ -774,7 +822,7 @@ module.exports = function () {
             }).catch(function(err) {
                 done(err);
             });
-    }
+    }*/
 
     var search = function (s, done) {
         mdb.searchMovie({ query: s, include_adult: false }, (err, data) => {
