@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieQuestionnaireService = (function () {
+var MovieQuestionnaireService = /** @class */ (function () {
     function MovieQuestionnaireService(http) {
         this.http = http;
     }
@@ -32,8 +32,16 @@ var MovieQuestionnaireService = (function () {
         return this.http.get('/api/movieQuestionnaire/' + id)
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.getCast = function (id) {
-        return this.http.get('/api/cast?id=' + id)
+    MovieQuestionnaireService.prototype.getCast = function (directorId, writerId, actorId, lang) {
+        var params = {};
+        if (directorId)
+            params.directorId = directorId;
+        if (writerId)
+            params.writerId = writerId;
+        if (actorId)
+            params.actorId = actorId;
+        params.lang = lang;
+        return this.http.get('/api/cast', { params: params })
             .catch(this.handleErrors);
     };
     MovieQuestionnaireService.prototype.handleErrors = function (error) {

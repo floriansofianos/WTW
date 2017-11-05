@@ -18,7 +18,7 @@ var user_questionnaire_service_1 = require("./user-questionnaire.service");
 var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
-var QuestionnaireComponent = (function () {
+var QuestionnaireComponent = /** @class */ (function () {
     function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService) {
         this.authService = authService;
         this.translate = translate;
@@ -32,15 +32,16 @@ var QuestionnaireComponent = (function () {
     }
     QuestionnaireComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
-        if (currentUser.age)
-            this.age = currentUser.age;
+        if (currentUser.yearOfBirth)
+            this.yearOfBirth = currentUser.yearOfBirth;
         else
-            this.age = 30;
+            this.yearOfBirth = 1980;
         this.questionsToAnswer = this.isFirstQuestionnaire ? 12 : 10;
         this.username = currentUser.username;
         this.welcomeMessage = true;
         this.movieIndex = -1;
         this.questionAnswered = 0;
+        this.lang = this.translate.currentLang;
         if (currentUser.firstQuestionnaireCompleted && this.isFirstQuestionnaire) {
             this.questionAnswered = this.questionsToAnswer;
             this.setStateActive(2);
@@ -55,6 +56,7 @@ var QuestionnaireComponent = (function () {
     };
     QuestionnaireComponent.prototype.setTranslation = function (lang) {
         this.translate.use(lang);
+        this.lang = lang;
     };
     QuestionnaireComponent.prototype.isTranslation = function (lang) {
         return this.translate.currentLang === lang;
@@ -87,8 +89,8 @@ var QuestionnaireComponent = (function () {
         var _this = this;
         this.showSpinner = true;
         // Save data in DB
-        if (this.age)
-            this.authService.setUserProperty('age', this.age).subscribe(function (response) {
+        if (this.yearOfBirth)
+            this.authService.setUserProperty('yearOfBirth', this.yearOfBirth).subscribe(function (response) {
                 _this.getNextAgeStep();
             }, function (error) {
                 _this.router.navigate(['error']);

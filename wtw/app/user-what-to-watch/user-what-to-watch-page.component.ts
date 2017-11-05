@@ -42,7 +42,7 @@ export class UserWhatToWatchPageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
-            this.formWTW.minRelease = currentUser.age ? new Date().getFullYear() - currentUser.age : new Date().getFullYear() - 50;
+            this.formWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
             this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(response => {
                 this.configuration = response.json();

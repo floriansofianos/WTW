@@ -14,7 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var core_2 = require("@ngx-translate/core");
-var ForgotPasswordFormComponent = (function () {
+var ForgotPasswordFormComponent = /** @class */ (function () {
     function ForgotPasswordFormComponent(activatedRoute, router, authService, translate) {
         this.activatedRoute = activatedRoute;
         this.router = router;

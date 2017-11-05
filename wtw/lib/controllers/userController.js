@@ -92,7 +92,7 @@ var userController = function (userService) {
         userService.getUserById(req.user.id, function (err, user) {
             if (!err) {
                 if (req.body.lang) user.lang = req.body.lang;
-                if (req.body.age) user.age = req.body.age;
+                if (req.body.yearOfBirth) user.yearOfBirth = req.body.yearOfBirth;
                 if (req.body.firstQuestionnaireCompleted) user.firstQuestionnaireCompleted = req.body.firstQuestionnaireCompleted;
                 user.save().then(function (user, err) {
                     if (!err) res.json(userService.userToModelView(req.user));

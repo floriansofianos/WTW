@@ -737,7 +737,7 @@ module.exports = function () {
     }
 
     /// Gets cast from movieDB and sets the cache
-    var getPeopleFromMovieDB = function (directorId, writerId, actorId, lang, castCache, done) {
+    var getPeopleFromMovieDB = function (directorId, writerId, actorId, lang, peopleCache, done) {
         var id = directorId ? directorId : (writerId ? writerId : actorId);
         mdb.personMovieCredits({ id: id, lang: lang }, (err, data) => {
             if (err) return done(err, null);
@@ -745,15 +745,15 @@ module.exports = function () {
             if (writerId) data = getWriters(data);
             if (actorId) data = getActors(data);
             var cast = data;
-            if (!castCache) {
-                setCastCache(id, cast, (err, data) => {
+            if (!peopleCache) {
+                setPeopleCache(directorId, writerId, actorId, lang, data, (err, data) => {
                     if (err) return done(err, null);
                     else return done(null, cast);
                 });
             }
             else {
-                castCache.data = cast;
-                castCache.save().then(function (m, err) {
+                peopleCache.data = cast;
+                peopleCache.save().then(function (m, err) {
                     if (err) done(err, null);
                     else return done(null, cast);
                 });
@@ -761,6 +761,27 @@ module.exports = function () {
         });
     }
 
+    var getPeopleFromCache = function (directorId, writerId, actorId, lang, done) {
+        models.PeopleCache.findOne({ where: { directorId: directorId, writerId: writerId, actorId: actorId, lang: lang } }).then(cast => {
+            done(null, cast);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+    var setPeopleCache = function (directorId, writerId, actorId, lang, data, done) {
+        models.PeopleCache.create({
+            directorId: directorId,
+            writerId: writerId,
+            actorId: actorId,
+            lang: lang,
+            data: data
+        }).then(castCache => {
+            done(null, castCache);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
 
 
     /*var getCast = function (id, done) {
@@ -840,7 +861,7 @@ module.exports = function () {
         loadGenres: loadGenres,
         getGenres: getGenres,
         getMovieWithAdditionalInfo: getMovieWithAdditionalInfo,
-        getCast: getCast,
+        getAlsoKnown: getAlsoKnown,
         search: search,
         getMovie: getMovie,
         getMovieCredits: getMovieCredits,

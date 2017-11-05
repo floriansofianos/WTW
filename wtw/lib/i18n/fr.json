@@ -41,15 +41,15 @@
         "PASSWORD_NOT_STRONG": "Votre mot de passe doit faire au moins 8 caractères."
       }
     },
-    "FIRST_QUESTIONNAIRE": {
-        "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
-        "AGE_QUESTION": "Quel est votre âge ?",
-        "DONE": "Merci d'avoir terminé ce questionnaire.",
-        "CONTINUE": "Continuer",
-        "GO_TO": "Vous pouvez désormais accéder à votre ",
-        "HOMEPAGE": "page d'accueil",
-        "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
-    },
+  "FIRST_QUESTIONNAIRE": {
+    "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
+    "AGE_QUESTION": "Quel est votre année de naissance ?",
+    "DONE": "Merci d'avoir terminé ce questionnaire.",
+    "CONTINUE": "Continuer",
+    "GO_TO": "Vous pouvez désormais accéder à votre ",
+    "HOMEPAGE": "page d'accueil",
+    "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
+  },
     "CAST": {
         "ALSO_KNOWN": "Egalement connu pour :",
         "ALSO_SEEN": "Egalement vu dans :",

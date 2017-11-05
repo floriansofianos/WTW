@@ -164,6 +164,7 @@
     <Compile Include="lib\models\moviequestionnaire.js" />
     <Compile Include="lib\models\movierecommandation.js" />
     <Compile Include="lib\models\movievideocache.js" />
+    <Compile Include="lib\models\peoplecache.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />

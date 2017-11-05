@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
-var MovieQuestionnaireComponent = (function () {
+var MovieQuestionnaireComponent = /** @class */ (function () {
     function MovieQuestionnaireComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -101,6 +101,10 @@ var MovieQuestionnaireComponent = (function () {
         core_1.Input(),
         __metadata("design:type", Object)
     ], MovieQuestionnaireComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], MovieQuestionnaireComponent.prototype, "lang", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)

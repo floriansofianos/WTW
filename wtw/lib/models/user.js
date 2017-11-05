@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     lang: DataTypes.STRING,
-    age: DataTypes.INTEGER,
+    yearOfBirth: DataTypes.INTEGER,
     firstQuestionnaireCompleted: DataTypes.BOOLEAN,
     profileRefresh: DataTypes.BOOLEAN,
     rememberMeCookie: DataTypes.STRING,

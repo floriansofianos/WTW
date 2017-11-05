@@ -39,17 +39,17 @@
                         <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.directors.length > 2 }">
                             <div class="cast-card" *ngFor="let director of movie.directors">
-                                <cast-member [config]="config" [castMember]="director" [job]="jobDirector" [crewType]="0" [currentMovieId]="movie?.id"></cast-member>
+                                <cast-member [config]="config" [castMember]="director" [job]="jobDirector" [crewType]="0" [currentMovieId]="movie?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.writers.length > 2 }">
                             <div class="cast-card" *ngFor="let writer of movie.writers">
-                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [crewType]="1" [currentMovieId]="movie?.id"></cast-member>
+                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [crewType]="1" [currentMovieId]="movie?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>
                         <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.actors.length > 2 }">
                             <div class="cast-card" *ngFor="let actor of movie.actors">
-                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [crewType]="2" [currentMovieId]="movie?.id"></cast-member>
+                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [crewType]="2" [currentMovieId]="movie?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>
                     </div>

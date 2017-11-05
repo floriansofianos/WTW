@@ -15,6 +15,7 @@ export class MovieRecommandationComponent {
     @Input() movie: any;
     @Input() movieQuestionnaireInit: any;
     @Input() config: any;
+    @Input() lang: string;
     @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     @Output() notifySave: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;

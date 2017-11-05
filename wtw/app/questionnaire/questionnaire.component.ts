@@ -53,16 +53,19 @@ export class QuestionnaireComponent {
     movieQuestionnaireInit: any;
     welcomeMessage: boolean;
     username: string;
+    lang: string;
+    yearOfBirth: number;
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
-        if (currentUser.age) this.age = currentUser.age;
-        else this.age = 30;
+        if (currentUser.yearOfBirth) this.yearOfBirth = currentUser.yearOfBirth;
+        else this.yearOfBirth = 1980;
         this.questionsToAnswer = this.isFirstQuestionnaire ? 12 : 10;
         this.username = currentUser.username;
         this.welcomeMessage = true;
         this.movieIndex = -1;
         this.questionAnswered = 0;
+        this.lang = this.translate.currentLang;
         if (currentUser.firstQuestionnaireCompleted && this.isFirstQuestionnaire) {
             this.questionAnswered = this.questionsToAnswer;
             this.setStateActive(2);
@@ -83,6 +86,7 @@ export class QuestionnaireComponent {
 
     setTranslation(lang: string) {
         this.translate.use(lang);
+        this.lang = lang;
     }
 
     isTranslation(lang: string) {
@@ -120,7 +124,7 @@ export class QuestionnaireComponent {
     ageConfirm() {
         this.showSpinner = true;
         // Save data in DB
-        if (this.age) this.authService.setUserProperty('age', this.age).subscribe(response => {
+        if (this.yearOfBirth) this.authService.setUserProperty('yearOfBirth', this.yearOfBirth).subscribe(response => {
             this.getNextAgeStep();
         },
         error => {

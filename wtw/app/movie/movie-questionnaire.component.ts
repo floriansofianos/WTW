@@ -12,6 +12,7 @@ export class MovieQuestionnaireComponent {
     @Input() movie: any;
     @Input() movieQuestionnaireInit: any;
     @Input() config: any;
+    @Input() lang: string;
     @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;
     genres: string;

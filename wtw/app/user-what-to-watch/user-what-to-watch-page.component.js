@@ -17,7 +17,7 @@ var movie_recommandation_service_1 = require("../movie/movie-recommandation.serv
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate) {
         this.authService = authService;
         this.router = router;
@@ -36,7 +36,7 @@ var UserWhatToWatchPageComponent = (function () {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
-            this.formWTW.minRelease = currentUser.age ? new Date().getFullYear() - currentUser.age : new Date().getFullYear() - 50;
+            this.formWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
             this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();

@@ -28,8 +28,13 @@ export class MovieQuestionnaireService {
             .catch(this.handleErrors);
     }
 
-    getCast(id: number): Observable<any> {
-        return this.http.get('/api/cast?id=' + id)
+    getCast(directorId: number, writerId: number, actorId: number, lang: string): Observable<any> {
+        var params: any = {};
+        if (directorId) params.directorId = directorId;
+        if (writerId) params.writerId = writerId;
+        if (actorId) params.actorId = actorId;
+        params.lang = lang;
+        return this.http.get('/api/cast', { params: params })
             .catch(this.handleErrors);
     }
 

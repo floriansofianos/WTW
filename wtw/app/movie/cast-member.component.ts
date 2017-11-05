@@ -14,6 +14,7 @@ import * as _ from 'underscore';
 
 export class CastMemberComponent {
     @Input() castMember: any;
+    @Input() lang: string;
     @Input() config: any;
     @Input() job: string;
     @Input() crewType: number;
@@ -37,7 +38,7 @@ export class CastMemberComponent {
             .body(`
             <div class="loading-container"><i class="fa fa-circle-o-notch fa-spin"></i></div>`)
                 .open();
-        this.movieQuestionnaireService.getCast(this.castMember.id).subscribe(response => {
+        this.movieQuestionnaireService.getCast(this.crewType === 0 ? this.castMember.id : null, this.crewType === 1 ? this.castMember.id : null, this.crewType === 2 ? this.castMember.id : null, this.lang).subscribe(response => {
             let details = response.json();
             let modalTitleObservable = this.crewType < 2 ? this.translate.get('CAST.ALSO_KNOWN') : this.translate.get('CAST.ALSO_SEEN');
             let modalTitle = '';
@@ -67,17 +68,26 @@ export class CastMemberComponent {
     }
 
     getPosterHtml(movie: any) {
-        return `
+        if (movie.poster_path) return `
             <div class="movie-poster-container">
                 <img width="150" src="` + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + `" />
                 <div class="modal-movie-title">` + movie.title + `</div>
                 <div class="modal-movie-job">` + (this.crewType < 2 ? this.job : movie.character) + `</div>
             </div>
-            `
+            `;
+        else return `
+            <div class="movie-poster-container">
+                <div class="movie-poster-placeholder">
+                    <i class="fa fa-film"></i>
+                </div>
+                <div class="modal-movie-title">` + movie.title + `</div>
+                <div class="modal-movie-job">` + (this.crewType < 2 ? this.job : movie.character) + `</div>
+            </div>
+            `;
     }
 
     getAllMoviesHtml(details: any) {
-        let movies = this.crewType < 2 ? details.crew : details.cast;
+        let movies = details;
         let movieId = this.currentMovieId;
         let moviesFiltered = _.filter(movies, function (m) {
             return m.id !== movieId;
