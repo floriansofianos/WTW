@@ -61,7 +61,7 @@ var generateRecommandations = function (users, i, done) {
                             generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
                                 // Check favourite genres
                                 var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
-                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
                                     generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
@@ -112,7 +112,7 @@ var generateQuestionnaires = function (users, i, done) {
                 userQuestionnaireService.getAll(u.id, function (err, userQuestionnaires) {
                     // Deal with genres
                     var filteredGenreProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.genreId != null; });
-                    generateGenreQuestionnaire(_.map(filteredGenreProfiles, 'genreId'), questionnaires, userQuestionnaires, u.id, 0, function (err, res) {
+                    generateGenreQuestionnaire(_.map(filteredGenreProfiles, 'genreId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                         // Deal with directors
                         console.log('Generating questionnaires for directors...');
                         var filteredDirectorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.directorId != null; });
@@ -138,11 +138,11 @@ var generateQuestionnaires = function (users, i, done) {
     else done(null, true);
 }
 
-var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, userId, i, done) {
+var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
@@ -246,11 +246,11 @@ var generateWriterRecommandations = function (writerIds, questionnaires, movieRe
     else done(null, true);
 }
 
-var generateGenreRecommandations = function (genreIds, questionnaires, movieRecommandations, userId, i, done) {
+var generateGenreRecommandations = function (genreIds, questionnaires, movieRecommandations, certification, userId, i, done) {
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
                     generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
