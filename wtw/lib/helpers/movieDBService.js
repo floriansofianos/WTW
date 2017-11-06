@@ -171,7 +171,7 @@ module.exports = function () {
     }
 
     var findDirectorWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, directorId, page, done) {
-        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, 1, function (err, data) {
+        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, certification, 1, function (err, data) {
             if (data && data.results) {
                 filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
@@ -390,7 +390,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, page, done) {
+    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, certification, page, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = directorId;
         query.page = page;
@@ -402,7 +402,10 @@ module.exports = function () {
                 query['release_date.gte'] = minRelease + '-01-01';
             }
         }
-        
+        if (certification) {
+            query['certification_country'] = 'US';
+            query['certification.lte'] = certification;
+        }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
