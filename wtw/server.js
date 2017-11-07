@@ -11,6 +11,7 @@ var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
 var movieDBGenresRouter = require('./lib/routes/movieDBGenresRoutes')();
 var movieRouter = require('./lib/routes/movieRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
+var countriesRouter = require('./lib/routes/countriesRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -79,6 +80,7 @@ app.use('/api/movieDBSearch', movieSearchRouter);
 app.use('/api/movieDBGenres', movieDBGenresRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api/cast', castRouter);
+app.use('/api/countries', countriesRouter);
 
 app.get('/', function(req, res) {
     res.sendFile('index.html');

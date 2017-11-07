@@ -188,6 +188,7 @@
     <Content Include="lib\routes\movieDBGenresRoutes.js">
       <SubType>Code</SubType>
     </Content>
+    <Compile Include="lib\routes\countriesRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
