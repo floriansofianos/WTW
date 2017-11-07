@@ -73,6 +73,7 @@
     </Content>
     <Content Include="lib\index-aot.html" />
     <Content Include="lib\routes\movieDBConfigurationRoutes.js" />
+    <Content Include="lib\static\countries.json" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
     <TypeScriptCompile Include="app\auth\can-activate.auth.ts" />
@@ -246,6 +247,7 @@
     <Folder Include="app\user-what-to-watch\" />
     <Folder Include="lib\i18n\" />
     <Folder Include="lib\controllers\" />
+    <Folder Include="lib\static\" />
     <Folder Include="lib\tasks\" />
     <Folder Include="lib\routes\" />
     <Folder Include="lib\helpers\" />

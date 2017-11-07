@@ -55,16 +55,16 @@ var generateRecommandations = function (users, i, done) {
                         var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
                         // Check favourite directors
                         var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65 && _.size(_.filter(alreadyRecommandedDirectors), function (d) { return d == p.directorId}) < 2; });
-                        generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, movieRecommandations, u.id, movieDBService.getRatingCertification(u.yearOfBirth), 0, function (err, res) {
+                        generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                             // Check favourite writers
                             var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
-                            generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                            generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                 // Check favourite genres
                                 var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
                                 generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
-                                    generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
+                                    generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                         generateSimilarMovieRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
                                             generateRecommandations(users, i + 1, done);
                                         });
@@ -116,15 +116,15 @@ var generateQuestionnaires = function (users, i, done) {
                         // Deal with directors
                         console.log('Generating questionnaires for directors...');
                         var filteredDirectorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.directorId != null; });
-                        generateDirectorQuestionnaire(_.map(filteredDirectorsProfiles, 'directorId'), questionnaires, userQuestionnaires, u.id, movieDBService.getRatingCertification(u.yearOfBirth), 0, function (err, res) {
+                        generateDirectorQuestionnaire(_.map(filteredDirectorsProfiles, 'directorId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                             // Deal with writers
                             console.log('Generating questionnaires for writers...');
                             var filteredWritersProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.writerId != null; });
-                            generateWriterQuestionnaire(_.map(filteredWritersProfiles, 'writerId'), questionnaires, userQuestionnaires, u.id, 0, function (err, res) {
+                            generateWriterQuestionnaire(_.map(filteredWritersProfiles, 'writerId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                 // Deal with actors
                                 console.log('Generating questionnaires for actors...');
                                 var filteredActorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 50 && p.castId != null; });
-                                generateActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, u.id, function (err, res) {
+                                generateActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, function (err, res) {
                                     // Done!
                                     generateQuestionnaires(users, i + 1, done);
                                 });
@@ -145,10 +145,10 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
         movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
-                    generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                 });
             }
-            else generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateGenreQuestionnaire(genreIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -180,7 +180,7 @@ var handleDataRecommandations = function (allMovies, questionnaires, movieRecomm
     else done(null, true);
 }
 
-var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQuestionnaires, userId, certification, i, done) {
+var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
@@ -190,19 +190,19 @@ var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQ
                     data = res;
                     if (data.results.length > 0) {
                         handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
-                            generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, userId, certification, i + 1, done);
+                            generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                         });
                     }
-                    else generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, userId, certification, i + 1, done);
+                    else generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                 });
             }
-            else generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, userId, certification, i + 1, done);
+            else generateDirectorQuestionnaire(directorIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
 }
 
-var generateDirectorRecommandations = function (directorIds, questionnaires, movieRecommandations, userId, certification, i, done) {
+var generateDirectorRecommandations = function (directorIds, questionnaires, movieRecommandations, certification, userId, i, done) {
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
@@ -212,35 +212,35 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
                     data = res;
                     if (data.results.length > 0) {
                         handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                            generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, certification, i + 1, done);
+                            generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                         });
                     }
-                    else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, certification, i + 1, done);
+                    else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                 });
             }
-            else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, userId, certification, i + 1, done);
+            else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
 }
 
-var generateWriterRecommandations = function (writerIds, questionnaires, movieRecommandations, userId, i, done) {
+var generateWriterRecommandations = function (writerIds, questionnaires, movieRecommandations, certification, userId, i, done) {
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, certification, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
-                            generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                            generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                         });
                     }
-                    else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                    else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                 });
             }
-            else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, userId, i + 1, done);
+            else generateWriterRecommandations(writerIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -253,26 +253,26 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
         movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
-                    generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                    generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                 });
             }
-            else generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, userId, i + 1, done);
+            else generateGenreRecommandations(genreIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
 }
 
-var generateActorRecommandations = function (actorIds, questionnaires, movieRecommandations, userId, i, done) {
+var generateActorRecommandations = function (actorIds, questionnaires, movieRecommandations, certification, userId, i, done) {
     if (i < actorIds.length) {
         var actorId = actorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(actorId, null, null, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(actorId, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
-                    generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                    generateActorRecommandations(actorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
                 });
             }
-            else generateActorRecommandations(actorIds, questionnaires, movieRecommandations, userId, i + 1, done);
+            else generateActorRecommandations(actorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -294,23 +294,23 @@ var generateSimilarMovieRecommandations = function (movieIds, questionnaires, mo
     else done(null, true);
 }
 
-var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuestionnaires, userId, i, done) {
+var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, certification, 1, function (err, data) {
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
                         handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
-                            generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                            generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                         });
                     }
-                    else generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+                    else generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                 });
             }
-            else generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, userId, i + 1, done);
+            else generateWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -318,11 +318,11 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
 
 
 
-var generateActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, userId, done) {
+var generateActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, certification, userId, done) {
     if (castIds.length < 1) done(null, true);
     else {
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);
