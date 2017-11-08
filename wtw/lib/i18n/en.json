@@ -119,7 +119,8 @@
     "HATE_WRITER": "You hate movies written by",
     "HATE_GENRE": "You hate the movie genre",
     "HATE_ACTOR": "You hate movies with",
-    "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum."
+    "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
+    "ONLY_NOW_PLAYING":  "Only show movies now playing in theaters"
   },
     "FORM": {
         "OK": "OK",

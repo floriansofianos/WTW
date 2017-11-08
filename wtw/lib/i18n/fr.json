@@ -119,7 +119,8 @@
     "HATE_WRITER": "Vous détestez les films écrits par",
     "HATE_GENRE": "Vous détestez le genre",
     "HATE_ACTOR": "Vous détestez les films avec",
-    "NOT_VALID_RELEASE_DATES": "Les dates de sortie ne sont pas correctes: le minimum doit être supérieur au maximum."
+    "NOT_VALID_RELEASE_DATES": "Les dates de sortie ne sont pas correctes: le minimum doit être supérieur au maximum.",
+    "ONLY_NOW_PLAYING": "Uniquement utiliser les films à l'affiche au cinéma"
   },
     "FORM": {
         "OK": "OK",
