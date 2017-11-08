@@ -6,6 +6,7 @@ import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service'
 import { UserQuestionnaireService } from './user-questionnaire.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { MovieDBService } from '../movieDB/movieDB.service';
+import { CountriesService } from '../countries/countries.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,7 +42,7 @@ import { Router } from '@angular/router';
 })
 
 export class QuestionnaireComponent {
-    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: QuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService, private userQuestionnaireService: UserQuestionnaireService) { }
+    constructor(private authService: AuthService, private translate: TranslateService, private router: Router, private firstQuestionnaireService: QuestionnaireService, private movieQuestionnaireService: MovieQuestionnaireService, private movieDBService: MovieDBService, private userQuestionnaireService: UserQuestionnaireService, private countriesService: CountriesService) { }
     @Input() isFirstQuestionnaire: boolean;
     movie: any;
     configuration: any;
@@ -55,11 +56,14 @@ export class QuestionnaireComponent {
     username: string;
     lang: string;
     yearOfBirth: number;
+    countriesList: any;
+    selectedCountry: any;
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser.yearOfBirth) this.yearOfBirth = currentUser.yearOfBirth;
         else this.yearOfBirth = 1980;
+        if (currentUser.country) this.selectedCountry = currentUser.country;
         this.questionsToAnswer = this.isFirstQuestionnaire ? 12 : 10;
         this.username = currentUser.username;
         this.welcomeMessage = true;
@@ -107,9 +111,15 @@ export class QuestionnaireComponent {
         this.showSpinner = true;
         // Save data in DB
         this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(response => {
-            this.setStateActive(1);
-            this.showSpinner = false;
-            this.questionAnswered++;
+            this.countriesService.getAll().subscribe(response => {
+                this.countriesList = response.json().countries;
+                this.setStateActive(1);
+                this.showSpinner = false;
+                this.questionAnswered++;
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
         },
         error => {
             this.router.navigate(['error']);
@@ -125,7 +135,13 @@ export class QuestionnaireComponent {
         this.showSpinner = true;
         // Save data in DB
         if (this.yearOfBirth) this.authService.setUserProperty('yearOfBirth', this.yearOfBirth).subscribe(response => {
-            this.getNextAgeStep();
+            if (this.selectedCountry) this.authService.setUserProperty('country', this.selectedCountry).subscribe(response => {
+                this.getNextAgeStep();
+            },
+                error => {
+                    this.router.navigate(['error']);
+                }); 
+            else this.getNextAgeStep();
         },
         error => {
             this.router.navigate(['error']);

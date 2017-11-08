@@ -103,7 +103,7 @@ export class UserWhatToWatchPageComponent {
     clickSearch() {
         if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
             this.isLoading = true;
-            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease).subscribe(response => {
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked).subscribe(response => {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
                 if (id) this.loadMovie(id);

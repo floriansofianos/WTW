@@ -68,11 +68,29 @@ module.exports = function () {
         else return null;
     }
 
-    var wtw = function (id, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, done) {
+    var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
         movieQuestionnaireService.getAll(id, function (err, res) {
             var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
             var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
-            if (useWatchlist) {
+            if (nowPlaying) {
+                // Only consider movies now playing in theaters
+                getNowPlayingMovies(country, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
+                    if (_.size(data) < 1) return done(null, false);
+                    else {
+                        // we need to calculate the score of each movie and then choose the best choice
+                        getScores(id, data, movieRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                            var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
+                            if (_.size(data) < 1) return done(null, _.sample(data));
+                            else {
+                                var highestCertainty = _.sortBy(filteredData, function (d) { return d.wtwScore.certaintyLevel; })[0].wtwScore.certaintyLevel;
+                                return done(null, _.max(_.filter(filteredData, function (d) { return d.wtwScore.certaintyLevel == highestCertainty }), function (d) { return d.wtwScore.score; }))
+                            }
+
+                        });                        
+                    }
+                });
+            }
+            else if (useWatchlist) {
                 movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
                     var movieDBIds = _.map(watchlist, 'movieDBId');
                     movieCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
@@ -91,11 +109,40 @@ module.exports = function () {
         });
     }
 
+    var getNowPlayingMovies = function (country, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, done) {
+        var query = { language: lang };
+        // Check MovieDB: the release dates for movies in other regions are very unreliable. Now Playing for Australia gives a very limited amount of results
+        //TODO: contact MovieDB see if they have the reason why the release dates are so crap and now playing is not useable for Australia
+        if (country == 'US' || country == 'FR') {
+            query.region = country
+        }
+        mdb.miscNowPlayingMovies(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                getAllMovies(_.map(data.results, 'id'), lang, movieCacheService, function (err, data) {
+                    data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, null, null);
+                    done(null, data);
+                });
+            }
+        });
+    }
+
+    var getScores = function (userId, data, movieRecommandationService, userProfileService, movieDBService, i, done) {
+        if (i < data.length) {
+            var d = data[i];
+            movieRecommandationService.getScore(userId, d.id, userProfileService, movieDBService, function (err, res) {
+                d.wtwScore = res;
+                getScores(userId, data, movieRecommandationService, userProfileService, movieDBService, i + 1, done);
+            });
+        }
+        else done(null, data);
+    }
+
     var filterMoviesForWTW = function (data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease) {
-        data = _.filter(data, function (d) { return (new Date(d.release_date).getFullYear() >= minRelease) && (new Date(d.release_date).getFullYear() <= maxRelease) });
+        if(minRelease && maxRelease) data = _.filter(data, function (d) { return (new Date(d.release_date).getFullYear() >= minRelease) && (new Date(d.release_date).getFullYear() <= maxRelease) });
         if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { return g.id == genreId }) });
         if (useRuntimeLimit) data = _.filter(data, function (m) { return m.runtime <= runtimeLimit });
-        return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d) });
+        return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d.id) });
     }
 
     var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done) {
@@ -332,6 +379,7 @@ module.exports = function () {
     }
 
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
+        console.log('Yep Im here!!');
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
             data = _.map(data, 'data');

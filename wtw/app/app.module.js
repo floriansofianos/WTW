@@ -61,6 +61,7 @@ var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
 var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
 var movie_recommandation_service_1 = require("./movie/movie-recommandation.service");
+var countries_service_1 = require("./countries/countries.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
@@ -132,6 +133,7 @@ var AppModule = (function () {
                 movieDB_service_1.MovieDBService,
                 user_questionnaire_service_1.UserQuestionnaireService,
                 movie_recommandation_service_1.MovieRecommandationService,
+                countries_service_1.CountriesService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,

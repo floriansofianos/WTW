@@ -48,7 +48,9 @@
     "CONTINUE": "Continuer",
     "GO_TO": "Vous pouvez désormais accéder à votre ",
     "HOMEPAGE": "page d'accueil",
-    "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations."
+    "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations.",
+    "LOCATION": "Où habitez-vous ?",
+    "COUNTRY":  "Pays"
   },
     "CAST": {
         "ALSO_KNOWN": "Egalement connu pour :",

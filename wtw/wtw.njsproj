@@ -80,6 +80,7 @@
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\countries\countries.service.ts" />
     <TypeScriptCompile Include="app\error\error-page.component.ts" />
     <TypeScriptCompile Include="app\forgot-password\forgot-password-form\forgot-password-form.component.ts" />
     <TypeScriptCompile Include="app\forgot-password\forgot-password-page.component.ts" />
@@ -188,7 +189,7 @@
     <Content Include="lib\routes\movieDBGenresRoutes.js">
       <SubType>Code</SubType>
     </Content>
-    <Compile Include="lib\routes\countriesRoutes.js" />
+    <Content Include="lib\routes\countriesRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -230,6 +231,7 @@
     <Folder Include="app\movie-wall\" />
     <Folder Include="app\error\" />
     <Folder Include="app\forgot-password\" />
+    <Folder Include="app\countries\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />

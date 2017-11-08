@@ -156,7 +156,8 @@ var userService = function() {
             lastName: user.lastName,
             lang: user.lang,
             yearOfBirth: user.yearOfBirth,
-            firstQuestionnaireCompleted: user.firstQuestionnaireCompleted
+            firstQuestionnaireCompleted: user.firstQuestionnaireCompleted,
+            country: user.country
         }
     }
 

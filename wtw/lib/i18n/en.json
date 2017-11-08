@@ -48,7 +48,9 @@
         "GO_TO": "You can now go to your ",
         "CONTINUE": "Continue",
         "HOMEPAGE": "homepage",
-        "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations."
+        "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations.",
+        "LOCATION": "Where do you live?",
+        "COUNTRY":  "Country"
     },
     "CAST": {
         "ALSO_KNOWN": "Also known for:",

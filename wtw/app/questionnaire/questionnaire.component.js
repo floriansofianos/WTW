@@ -17,9 +17,10 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var user_questionnaire_service_1 = require("./user-questionnaire.service");
 var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
+var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
 var QuestionnaireComponent = (function () {
-    function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService) {
+    function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
         this.router = router;
@@ -27,6 +28,7 @@ var QuestionnaireComponent = (function () {
         this.movieQuestionnaireService = movieQuestionnaireService;
         this.movieDBService = movieDBService;
         this.userQuestionnaireService = userQuestionnaireService;
+        this.countriesService = countriesService;
         this.previousMovies = [];
         this.states = ['active', null, null];
     }
@@ -36,6 +38,8 @@ var QuestionnaireComponent = (function () {
             this.yearOfBirth = currentUser.yearOfBirth;
         else
             this.yearOfBirth = 1980;
+        if (currentUser.country)
+            this.selectedCountry = currentUser.country;
         this.questionsToAnswer = this.isFirstQuestionnaire ? 12 : 10;
         this.username = currentUser.username;
         this.welcomeMessage = true;
@@ -74,9 +78,14 @@ var QuestionnaireComponent = (function () {
         this.showSpinner = true;
         // Save data in DB
         this.authService.setUserProperty('lang', this.translate.currentLang).subscribe(function (response) {
-            _this.setStateActive(1);
-            _this.showSpinner = false;
-            _this.questionAnswered++;
+            _this.countriesService.getAll().subscribe(function (response) {
+                _this.countriesList = response.json().countries;
+                _this.setStateActive(1);
+                _this.showSpinner = false;
+                _this.questionAnswered++;
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }, function (error) {
             _this.router.navigate(['error']);
         });
@@ -91,7 +100,14 @@ var QuestionnaireComponent = (function () {
         // Save data in DB
         if (this.yearOfBirth)
             this.authService.setUserProperty('yearOfBirth', this.yearOfBirth).subscribe(function (response) {
-                _this.getNextAgeStep();
+                if (_this.selectedCountry)
+                    _this.authService.setUserProperty('country', _this.selectedCountry).subscribe(function (response) {
+                        _this.getNextAgeStep();
+                    }, function (error) {
+                        _this.router.navigate(['error']);
+                    });
+                else
+                    _this.getNextAgeStep();
             }, function (error) {
                 _this.router.navigate(['error']);
             });
@@ -259,7 +275,7 @@ var QuestionnaireComponent = (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, questionnaire_service_1.QuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, questionnaire_service_1.QuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService, countries_service_1.CountriesService])
     ], QuestionnaireComponent);
     return QuestionnaireComponent;
 }());

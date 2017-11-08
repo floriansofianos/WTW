@@ -26,6 +26,12 @@
     <div class="question-block" [@areaState]="'active'" *ngIf="states[1] && isFirstQuestionnaire">
         <div>{{ 'FIRST_QUESTIONNAIRE.AGE_QUESTION' | translate }}</div>
         <input class="input-invert-color" type="number" min="1900" max="2017" [(ngModel)]="yearOfBirth" />
+        <div>{{ 'FIRST_QUESTIONNAIRE.LOCATION' | translate }}</div>
+        <mat-form-field [style.fontSize.px]="14" [style.width.px]="300">
+            <mat-select placeholder="{{ 'FIRST_QUESTIONNAIRE.COUNTRY' | translate }}" [(ngModel)]="selectedCountry">
+                <mat-option *ngFor="let country of countriesList" [value]="country.code">{{ country.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
         <div class="button-line" *ngIf="!showSpinner">
             <wtw-button class="button-left" (click)="agePrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
             <wtw-button class="button-center" (click)="ageSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>

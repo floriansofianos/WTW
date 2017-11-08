@@ -37,6 +37,9 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.isWatchlistChecked">{{ 'WTW.INCLUDE_WATCHLIST' | translate }}</mat-checkbox>
                     </div>
+                    <div class="wtw-form-field-container">
+                        <mat-checkbox [(ngModel)]="formWTW.isNowPlayingChecked">{{ 'WTW.ONLY_NOW_PLAYING' | translate }}</mat-checkbox>
+                    </div>
                     <div *ngIf="noResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
                     <div *ngIf="notValidReleaseDates" class="wtw-error">{{ 'WTW.NOT_VALID_RELEASE_DATES' | translate }}</div>
                     <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
