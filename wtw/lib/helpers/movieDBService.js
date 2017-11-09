@@ -6,15 +6,19 @@ var _ = require('underscore');
 var models = require('../models');
 
 module.exports = function () {
-    var getFirstTenMovies = function (lang, movieQuestionnaires, certification, yearOfBirth, done) {
+    var getFirstTenMovies = function (lang, movieQuestionnaires, certification, yearOfBirth, language, done) {
         var query = JSON.parse(JSON.stringify(firstTenQuery));
         query.page = library.randomInt(1, 36);
+        if (language) query.page = library.randomInt(1, 4);
         if (certification) {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
         }
         if (yearOfBirth) {
             query['release_date.gte'] = yearOfBirth + '-01-01';
+        }
+        if (language) {
+            query['with_original_language'] = language;
         }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);

@@ -16,6 +16,7 @@ var userProfileService = function() {
                 if (data) {
                     data.score = userProfile.score;
                     data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
                     data.save().then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -28,7 +29,8 @@ var userProfileService = function() {
                         genreId: userProfile.genreId,
                         name: userProfile.name,
                         score: userProfile.score,
-                        scoreRelevance: userProfile.scoreRelevance
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
                     }).then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -44,6 +46,7 @@ var userProfileService = function() {
                 if (data) {
                     data.score = userProfile.score;
                     data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
                     data.save().then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -56,7 +59,8 @@ var userProfileService = function() {
                         castId: userProfile.castId,
                         name: userProfile.name,
                         score: userProfile.score,
-                        scoreRelevance: userProfile.scoreRelevance
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
                     }).then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -72,6 +76,7 @@ var userProfileService = function() {
                 if (data) {
                     data.score = userProfile.score;
                     data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
                     data.save().then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -84,7 +89,8 @@ var userProfileService = function() {
                         writerId: userProfile.writerId,
                         name: userProfile.name,
                         score: userProfile.score,
-                        scoreRelevance: userProfile.scoreRelevance
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
                     }).then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -100,6 +106,7 @@ var userProfileService = function() {
                 if (data) {
                     data.score = userProfile.score;
                     data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
                     data.save().then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -112,7 +119,8 @@ var userProfileService = function() {
                         directorId: userProfile.directorId,
                         name: userProfile.name,
                         score: userProfile.score,
-                        scoreRelevance: userProfile.scoreRelevance
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
                     }).then(profile => {
                         done(null, profile);
                     }).catch(function(err) {
@@ -120,6 +128,36 @@ var userProfileService = function() {
                     });
                 }
             }).catch(function(err) {
+                done(err);
+            });
+        }
+        else if (userProfile.country) {
+            models.UserProfile.findOne({ where: { userId: userProfile.userId, country: userProfile.country } }).then(data => {
+                if (data) {
+                    data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
+                    data.save().then(profile => {
+                        done(null, profile);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+                else {
+                    models.UserProfile.create({
+                        userId: userProfile.userId,
+                        country: userProfile.country,
+                        name: userProfile.name,
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
+                    }).then(profile => {
+                        done(null, profile);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+            }).catch(function (err) {
                 done(err);
             });
         }

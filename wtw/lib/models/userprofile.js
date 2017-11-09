@@ -8,7 +8,9 @@ module.exports = function (sequelize, DataTypes) {
         score: DataTypes.FLOAT,
         scoreRelevance: DataTypes.FLOAT,
         directorId: DataTypes.INTEGER,
-        writerId: DataTypes.INTEGER
+        writerId: DataTypes.INTEGER,
+        country: DataTypes.STRING,
+        seenCount: DataTypes.INTEGER
     }, {
             classMethods: {
                 associate: function (models) {

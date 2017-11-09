@@ -74,6 +74,7 @@
     <Content Include="lib\index-aot.html" />
     <Content Include="lib\routes\movieDBConfigurationRoutes.js" />
     <Content Include="lib\static\countries.json" />
+    <Content Include="lib\static\supported-languages.json" />
     <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
     <TypeScriptCompile Include="app\auth\can-activate.auth.ts" />
@@ -154,6 +155,7 @@
     <Content Include="lib\helpers\movieRecommandationService.js" />
     <Content Include="lib\helpers\mailChimpService.js" />
     <Content Include="lib\helpers\postmarkService.js" />
+    <Content Include="lib\helpers\movieLanguageService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />

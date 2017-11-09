@@ -1,7 +1,8 @@
 ﻿var express = require('express');
 var movieDBService = require('../helpers/movieDBService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
-var firstQuestionnaireController = require('../controllers/firstQuestionnaireController')(movieDBService, movieQuestionnaireService);
+var movieLanguageService = require('../helpers/movieLanguageService')();
+var firstQuestionnaireController = require('../controllers/firstQuestionnaireController')(movieDBService, movieQuestionnaireService, movieLanguageService);
 
 var firstQuestionnaireRoutes = function () {
     var firstQuestionnaireRouter = express.Router();

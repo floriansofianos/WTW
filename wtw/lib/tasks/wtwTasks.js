@@ -355,7 +355,7 @@ var generateUserProfile = function (users, i, done) {
                     var moviesGenres = [];
                     _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                         _.each(q.movieInfo.genres, function (g) {
-                            moviesGenres.push({ movieDBId: q.movieDBId, genreId: g.id, name: g.name, score: getQuestionnaireScore(q) });
+                            moviesGenres.push({ movieDBId: q.movieDBId, genreId: g.id, name: g.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                         });
                     });
                     var moviesGrouped = _.groupBy(moviesGenres, 'genreId');
@@ -367,7 +367,7 @@ var generateUserProfile = function (users, i, done) {
                         _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                             var directors = movieDBService.getDirectors(q.movieCredits);
                             _.each(directors, function (d) {
-                                moviesDirectors.push({ movieDBId: q.movieDBId, directorId: d.id, name: d.name, score: getQuestionnaireScore(q) });
+                                moviesDirectors.push({ movieDBId: q.movieDBId, directorId: d.id, name: d.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                             });
                         });
                         var moviesGrouped = _.groupBy(moviesDirectors, 'directorId');
@@ -379,7 +379,7 @@ var generateUserProfile = function (users, i, done) {
                             _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                                 var writers = movieDBService.getWriters(q.movieCredits);
                                 _.each(writers, function (w) {
-                                    moviesWriters.push({ movieDBId: q.movieDBId, writerId: w.id, name: w.name, score: getQuestionnaireScore(q) });
+                                    moviesWriters.push({ movieDBId: q.movieDBId, writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                 });
                             });
                             var moviesGrouped = _.groupBy(moviesWriters, 'writerId');
@@ -391,15 +391,27 @@ var generateUserProfile = function (users, i, done) {
                                 _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                                     var actors = movieDBService.getActors(q.movieCredits);
                                     _.each(actors, function (a) {
-                                        moviesActors.push({ movieDBId: q.movieDBId, castId: a.id, name: a.name, score: getQuestionnaireScore(q) });
+                                        moviesActors.push({ movieDBId: q.movieDBId, castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                     });
                                 });
                                 var moviesGrouped = _.groupBy(moviesActors, 'castId');
                                 processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
-                                    console.log('User profile created!');
-                                    userService.setUserProfileRefresh(u.id, false, function (err, user) {
-                                        generateUserProfile(users, i + 1, done)
+
+                                    // Deal with countries
+                                    console.log('Starting generating countries profile...');
+                                    var movieCountries = [];
+                                    _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                        movieCountries.push({ movieDBId: q.movieDBId, country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                     });
+                                    var moviesGrouped = _.groupBy(movieCountries, 'country');
+                                    processMovieCountryGroups(moviesGrouped, u.id, function (err, res) {
+                                        console.log('User profile created!');
+                                        userService.setUserProfileRefresh(u.id, false, function (err, user) {
+                                            generateUserProfile(users, i + 1, done)
+                                        });
+                                    });
+
+
                                 });
                             });
                         });
@@ -429,6 +441,28 @@ var processQuestionnaire = function (questionnaires, allMoviesCache, i, done) {
     else done(null, questionnaires);
 }
 
+var processMovieCountryGroups = function (moviesGrouped, userId, done) {
+    processCountryGroup(moviesGrouped, 0, userId, done);
+}
+
+var processCountryGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
+        var userProfile = {
+            userId: userId,
+            name: g[0].name,
+            country: g[0].country,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
+            score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
+            scoreRelevance: getGenreScoreRelevance(_.size(g))
+        }
+        userProfileService.createOrUpdate(userProfile, function (err, res) {
+            processCountryGroup(moviesGrouped, i + 1, userId, done);
+        });
+    }
+    else done(null, true);
+}
+
 
 var processMovieGenreGroups = function (moviesGrouped, userId, done) {
     processGenreGroup(moviesGrouped, 0, userId, done);
@@ -441,6 +475,7 @@ var processGenreGroup = function (moviesGrouped, i, userId, done) {
             userId: userId,
             name: g[0].name,
             genreId: g[0].genreId,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getGenreScoreRelevance(_.size(g))
         }
@@ -462,6 +497,7 @@ var processDirectorGroup = function (moviesGrouped, i, userId, done) {
             userId: userId,
             name: g[0].name,
             directorId: g[0].directorId,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
         }
@@ -483,6 +519,7 @@ var processWriterGroup = function (moviesGrouped, i, userId, done) {
             userId: userId,
             name: g[0].name,
             writerId: g[0].writerId,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
         }
@@ -504,6 +541,7 @@ var processActorGroup = function (moviesGrouped, i, userId, done) {
             userId: userId,
             name: g[0].name,
             castId: g[0].castId,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getGenreScoreRelevance(_.size(g))
         }
