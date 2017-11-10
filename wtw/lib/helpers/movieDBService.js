@@ -184,16 +184,22 @@ module.exports = function () {
                                                     findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                         if (res) return done(null, res);
                                                         else {
-                                                            // Nothing? Try find similar movies to loved movie
-                                                            findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
+                                                            // Nothing? what about favourite actor
+                                                            findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                                 if (res) return done(null, res);
                                                                 else {
-                                                                    // Nothing? Try popular movie
-                                                                    findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                    // Nothing? Try find similar movies to loved movie
+                                                                    findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
                                                                         if (res) return done(null, res);
                                                                         else {
-                                                                            // Nothing? Give up!
-                                                                            return done(null, false);
+                                                                            // Nothing? Try popular movie
+                                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                                if (res) return done(null, res);
+                                                                                else {
+                                                                                    // Nothing? Give up!
+                                                                                    return done(null, false);
+                                                                                }
+                                                                            });
                                                                         }
                                                                     });
                                                                 }
@@ -301,6 +307,24 @@ module.exports = function () {
         var favouriteGenre = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.genreId }));
         if (favouriteGenre) {
             getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, certification, function (err, data) {
+                if (data && data.results) {
+                    if (data.results.length > 0) {
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                    }
+                    else return done(null, false);
+                }
+                else return done(null, false);
+            });
+        }
+        else done(null, false);
+    }
+
+    var findCountryWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+        // We can't do anything if the country is already provided
+        if (country) return done(null, false);
+        var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
+        if (favouriteCountry) {
+            getMoviesForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
                 if (data && data.results) {
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
@@ -422,6 +446,30 @@ module.exports = function () {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
         query.page = library.randomInt(0, 20);
+        if (minRelease || maxRelease) {
+            if (maxRelease) {
+                query['release_date.lte'] = maxRelease + '-12-31';
+            }
+            if (minRelease) {
+                query['release_date.gte'] = minRelease + '-01-01';
+            }
+        }
+        if (certification) {
+            query['certification_country'] = 'US';
+            query['certification.lte'] = certification;
+        }
+        mdb.discoverMovie(query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        });
+    }
+
+    var getMoviesForCountryQuestionnaire = function (country, minRelease, maxRelease, certification, done) {
+        var query = JSON.parse(JSON.stringify(questionnaireQuery));
+        query.with_original_language = country;
+        query.page = library.randomInt(0, 5);
         if (minRelease || maxRelease) {
             if (maxRelease) {
                 query['release_date.lte'] = maxRelease + '-12-31';
@@ -895,6 +943,7 @@ module.exports = function () {
         getMoviesForDirectorQuestionnaire: getMoviesForDirectorQuestionnaire,
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
+        getMoviesForCountryQuestionnaire: getMoviesForCountryQuestionnaire,
         getAllMovies: getAllMovies,
         isMovieDirector: isMovieDirector,
         isMovieWriter: isMovieWriter,
