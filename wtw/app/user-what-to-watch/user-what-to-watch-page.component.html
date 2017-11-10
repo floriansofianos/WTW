@@ -28,6 +28,15 @@
                         </mat-form-field>
                     </div>
                     <div class="wtw-form-field-container">
+                        <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
+                            <mat-select placeholder="{{ 'WTW.LANGUAGE' | translate }}" [(ngModel)]="formWTW.countrySelectValue">
+                                <mat-option *ngFor="let c of countries" [value]="c.code">
+                                    {{ c.code }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.isRuntimeChecked">{{ 'WTW.RUNTIME_LIMIT' | translate }}</mat-checkbox>
                     </div>
                     <div class="wtw-form-field-container" *ngIf="formWTW.isRuntimeChecked">
