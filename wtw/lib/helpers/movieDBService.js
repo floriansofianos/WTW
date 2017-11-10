@@ -72,7 +72,7 @@ module.exports = function () {
         else return null;
     }
 
-    var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
+    var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
         movieQuestionnaireService.getAll(id, function (err, res) {
             var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
             var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');

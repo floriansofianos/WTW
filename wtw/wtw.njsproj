@@ -88,6 +88,7 @@
     <TypeScriptCompile Include="app\home\home-page.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\languages\languages.service.ts" />
     <TypeScriptCompile Include="app\login\login-form\login-form.component.ts" />
     <TypeScriptCompile Include="app\login\login-page.component.ts">
       <SubType>Code</SubType>
@@ -192,6 +193,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\routes\countriesRoutes.js" />
+    <Compile Include="lib\routes\languagesRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
@@ -234,6 +236,7 @@
     <Folder Include="app\error\" />
     <Folder Include="app\forgot-password\" />
     <Folder Include="app\countries\" />
+    <Folder Include="app\languages\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />

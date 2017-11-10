@@ -62,12 +62,13 @@ var movieDB_service_1 = require("./movieDB/movieDB.service");
 var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
 var movie_recommandation_service_1 = require("./movie/movie-recommandation.service");
 var countries_service_1 = require("./countries/countries.service");
+var languages_service_1 = require("./languages/languages.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -134,6 +135,7 @@ var AppModule = (function () {
                 user_questionnaire_service_1.UserQuestionnaireService,
                 movie_recommandation_service_1.MovieRecommandationService,
                 countries_service_1.CountriesService,
+                languages_service_1.LanguagesService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,
@@ -147,4 +149,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

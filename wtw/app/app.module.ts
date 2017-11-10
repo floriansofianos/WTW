@@ -58,6 +58,7 @@ import { MovieDBService } from './movieDB/movieDB.service';
 import { UserQuestionnaireService } from './questionnaire/user-questionnaire.service';
 import { MovieRecommandationService } from './movie/movie-recommandation.service';
 import { CountriesService } from './countries/countries.service';
+import { LanguagesService } from './languages/languages.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -127,6 +128,7 @@ export function createTranslateLoader(http: Http) {
         UserQuestionnaireService,
         MovieRecommandationService,
         CountriesService,
+        LanguagesService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

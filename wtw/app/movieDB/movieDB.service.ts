@@ -18,8 +18,8 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
-    wtw(lang: string, genreId: number, useWatchlist: boolean, useRuntimeLimit: boolean, runtimeLimit: number, minRelease: number, maxRelease: number, nowPlaying: boolean) {
-        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, nowPlaying: nowPlaying } })
+    wtw(lang: string, genreId: number, useWatchlist: boolean, useRuntimeLimit: boolean, runtimeLimit: number, minRelease: number, maxRelease: number, nowPlaying: boolean, languageSelected: boolean) {
+        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, nowPlaying: nowPlaying, languageSelected: languageSelected } })
             .catch(this.handleErrors);
     }
 

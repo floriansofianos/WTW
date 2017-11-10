@@ -30,7 +30,7 @@
                     <div class="wtw-form-field-container">
                         <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
                             <mat-select placeholder="{{ 'WTW.LANGUAGE' | translate }}" [(ngModel)]="formWTW.countrySelectValue">
-                                <mat-option *ngFor="let c of countries" [value]="c.code">
+                                <mat-option *ngFor="let c of languages" [value]="c.code">
                                     {{ c.code }}
                                 </mat-option>
                             </mat-select>

@@ -12,21 +12,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var CountriesService = /** @class */ (function () {
-    function CountriesService(http) {
+var LanguagesService = /** @class */ (function () {
+    function LanguagesService(http) {
         this.http = http;
     }
-    CountriesService.prototype.getAll = function () {
-        return this.http.get('/api/countries')
+    LanguagesService.prototype.getAll = function () {
+        return this.http.get('/api/languages')
             .catch(this.handleErrors);
     };
-    CountriesService.prototype.handleErrors = function (error) {
+    LanguagesService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    CountriesService = __decorate([
+    LanguagesService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
-    ], CountriesService);
-    return CountriesService;
+    ], LanguagesService);
+    return LanguagesService;
 }());
-exports.CountriesService = CountriesService;
+exports.LanguagesService = LanguagesService;

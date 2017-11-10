@@ -16,15 +16,17 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_recommandation_service_1 = require("../movie/movie-recommandation.service");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var core_2 = require("@ngx-translate/core");
+var languages_service_1 = require("../languages/languages.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
-    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate) {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
+    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
         this.movieRecommandation = movieRecommandation;
         this.movieQuestionnaireService = movieQuestionnaireService;
         this.translate = translate;
+        this.languagesService = languagesService;
     }
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -51,12 +53,17 @@ var UserWhatToWatchPageComponent = (function () {
         this.formWTW.isRuntimeChecked = false;
         this.movieDBService.getAllGenres().subscribe(function (response) {
             _this.genres = response.json();
-            _this.movieRecommandation.getAll().subscribe(function (response) {
-                if (response.json().length > 0) {
-                    _this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
-                }
-                else
-                    _this.noReco = true;
+            _this.languagesService.getAll().subscribe(function (response) {
+                _this.languages = response.json().languages;
+                _this.movieRecommandation.getAll().subscribe(function (response) {
+                    if (response.json().length > 0) {
+                        _this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+                    }
+                    else
+                        _this.noReco = true;
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
             }, function (error) {
                 _this.router.navigate(['error']);
             });
@@ -87,7 +94,7 @@ var UserWhatToWatchPageComponent = (function () {
         var _this = this;
         if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
             this.isLoading = true;
-            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked).subscribe(function (response) {
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked, this.formWTW.countrySelectValue).subscribe(function (response) {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
                 if (id)
@@ -130,9 +137,8 @@ var UserWhatToWatchPageComponent = (function () {
             moduleId: module.id,
             templateUrl: 'user-what-to-watch-page.component.html',
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService])
     ], UserWhatToWatchPageComponent);
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

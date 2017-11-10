@@ -6,6 +6,7 @@ import { MovieRecommandationService } from '../movie/movie-recommandation.servic
 import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule, MatCheckboxModule, MatSliderModule } from '@angular/material';
+import { LanguagesService } from '../languages/languages.service';
 import * as _ from 'underscore';
 
 @Component({
@@ -30,8 +31,9 @@ export class UserWhatToWatchPageComponent {
     noResults: boolean;
     notValidReleaseDates: boolean;
     maxReleaseYear: number;
+    languages: Array<any>;
 
-    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService) { }
+    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService, private languagesService: LanguagesService) { }
 
     ngOnInit() {
         this.formWTW = {};
@@ -58,11 +60,17 @@ export class UserWhatToWatchPageComponent {
         this.formWTW.isRuntimeChecked = false;
         this.movieDBService.getAllGenres().subscribe(response => {
             this.genres = response.json();
-            this.movieRecommandation.getAll().subscribe(response => {
-                if (response.json().length > 0) {
-                    this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
-                }
-                else this.noReco = true;
+            this.languagesService.getAll().subscribe(response => {
+                this.languages = response.json().languages;
+                this.movieRecommandation.getAll().subscribe(response => {
+                    if (response.json().length > 0) {
+                        this.recommandationIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+                    }
+                    else this.noReco = true;
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
             },
                 error => {
                     this.router.navigate(['error']);
@@ -103,7 +111,7 @@ export class UserWhatToWatchPageComponent {
     clickSearch() {
         if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
             this.isLoading = true;
-            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked).subscribe(response => {
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked, this.formWTW.countrySelectValue).subscribe(response => {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
                 if (id) this.loadMovie(id);

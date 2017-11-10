@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var PasswordValidator = (function () {
+var PasswordValidator = /** @class */ (function () {
     function PasswordValidator() {
     }
     PasswordValidator_1 = PasswordValidator;
@@ -31,4 +31,3 @@ var PasswordValidator = (function () {
     var PasswordValidator_1;
 }());
 exports.PasswordValidator = PasswordValidator;
-//# sourceMappingURL=password-validator.directive.js.map

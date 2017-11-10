@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieDBService = (function () {
+var MovieDBService = /** @class */ (function () {
     function MovieDBService(http) {
         this.http = http;
     }
@@ -24,8 +24,8 @@ var MovieDBService = (function () {
         return this.http.get('/api/movieDBSearch', { params: { search: s } })
             .catch(this.handleErrors);
     };
-    MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, nowPlaying) {
-        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, nowPlaying: nowPlaying } })
+    MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, nowPlaying, languageSelected) {
+        return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, nowPlaying: nowPlaying, languageSelected: languageSelected } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.getMovie = function (id, lang) {
@@ -50,4 +50,3 @@ var MovieDBService = (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
-//# sourceMappingURL=movieDB.service.js.map
