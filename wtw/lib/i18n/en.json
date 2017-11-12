@@ -13,6 +13,7 @@
         "PASSWORD": "Password",
         "NEWPASSWORD": "New Password",
         "REMEMBER_ME": "Remember Me",
+        "SIGNUP":  "I don't have an account.",
         "WRONGPASSWORD": "Your email or password is incorrect.",
         "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
         "RESEND": "Send it to me",

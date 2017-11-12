@@ -10,6 +10,7 @@
                 <input matInput placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}" formControlName="password" type="password" (keydown)="keyDownFunction($event)" />
             </mat-form-field>
             <div class="forgot-password" (click)="clickForgotPassword()">{{ 'LOGIN.FORM.I_FORGOT_MY_PASSWORD' | translate }}</div>
+            <div class="forgot-password" (click)="clickSignup()">{{ 'LOGIN.FORM.SIGNUP' | translate }}</div>
         </div>
         <div class="login-line">
             <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>

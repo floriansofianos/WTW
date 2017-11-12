@@ -77,6 +77,10 @@ export class LoginFormComponent implements OnInit {
         this.showForgotPassword = true;
     }
 
+    clickSignup() {
+        this.router.navigate(['/signup']);
+    }
+
     cancelForgotPassword() {
         this.showForgotPassword = false;
     }

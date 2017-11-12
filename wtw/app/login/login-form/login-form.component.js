@@ -67,6 +67,9 @@ var LoginFormComponent = /** @class */ (function () {
     LoginFormComponent.prototype.clickForgotPassword = function () {
         this.showForgotPassword = true;
     };
+    LoginFormComponent.prototype.clickSignup = function () {
+        this.router.navigate(['/signup']);
+    };
     LoginFormComponent.prototype.cancelForgotPassword = function () {
         this.showForgotPassword = false;
     };
