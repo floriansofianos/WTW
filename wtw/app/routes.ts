@@ -11,6 +11,7 @@ import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-m
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { ErrorPageComponent } from './error/error-page.component';
+import { SocialPageComponent } from './social/social-page.component';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 
 export const appRoutes: Routes = [
@@ -25,5 +26,6 @@ export const appRoutes: Routes = [
     { path: 'user/movies/questionnaires', component: UserMoviesQuestionnairesPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/dummyQuestionnaires', component: DummyUserMoviesQuestionnairesComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/watchlist', component: UserMoviesWatchlistPageComponent, canActivate: [CanActivateAuthGuard] },
+    { path: 'user/social', component: SocialPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: '', component: HomePageComponent }
 ]

@@ -63,12 +63,12 @@ var movieRecommandationService = function() {
                 var averageWriters = writerProfiles.length > 0 ? (_.reduce(_.map(writerProfiles, 'score'), function(memo, p) { return memo + p }, 0)) / (_.size(writerProfiles)) : 0;
                 var averageActors = actorProfiles.length > 0 ? (_.reduce(_.map(actorProfiles, 'score'), function(memo, p) { return memo + p }, 0)) / (_.size(actorProfiles)) : 0;
 
-                var certaintyLevel = (directorProfiles.length > 0 ? 3 : 0) + (genreProfiles.length > 0 ? 1 : 0) + (writerProfiles.length > 0 ? 2 : 0) + (actorProfiles.length > 0 ? 1 : 0) + (countryProfile ? 1 : 0);
+                var certaintyLevel = (directorProfiles.length > 0 ? 3 : 0) + (genreProfiles.length > 0 ? 1 : 0) + (writerProfiles.length > 0 ? 2 : 0) + (actorProfiles.length > 0 ? 1 : 0) + (countryProfile[0] ? 1 : 0);
 
                 done(null, {
                     certaintyLevel: certaintyLevel,
                     comments: allComments,
-                    score: certaintyLevel == 0 ? 0 : (((averageDirectors * 3) + (averageGenres) + countryProfile.score + (averageActors) + (averageWriters * 2)) / certaintyLevel)
+                    score: certaintyLevel == 0 ? 0 : (((averageDirectors * 3) + (averageGenres) + (countryProfile[0] ? countryProfile[0].score : 0) + (averageActors) + (averageWriters * 2)) / certaintyLevel)
                 });
             });
 

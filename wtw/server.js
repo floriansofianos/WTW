@@ -100,6 +100,9 @@ app.get('/user/welcome', function(req, res) {
 app.get('/user/home', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/user/social', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 app.get('/user/movies/home', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });

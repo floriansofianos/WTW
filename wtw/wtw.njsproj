@@ -51,6 +51,7 @@
     <Content Include="app\questionnaire\questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\left-menu\left-menu.component.html" />
+    <Content Include="app\social\social-page.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
@@ -125,6 +126,7 @@
     <TypeScriptCompile Include="app\signup\signup-form\confirm-password-validator.directive.ts" />
     <TypeScriptCompile Include="app\signup\signup-form\signup-form.component.ts" />
     <TypeScriptCompile Include="app\signup\signup-page.component.ts" />
+    <TypeScriptCompile Include="app\social\social-page.component.ts" />
     <TypeScriptCompile Include="app\spinner\spinner.component.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
     <Compile Include="config\gulp.config.js" />
@@ -237,6 +239,7 @@
     <Folder Include="app\forgot-password\" />
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
+    <Folder Include="app\social\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />
     <Folder Include="app\movie\" />

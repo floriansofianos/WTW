@@ -3,17 +3,11 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-    template: `
-<top-menu [showButtons]="false" [showLogin]="true" [username]="username"></top-menu>
-<h2>{{ 'HOME.TITLE' | translate }}</h2>
-<div *ngIf="name">
-{{ 'HOME.WELCOME' | translate }} {{ name }}
-</div>
-`
+    moduleId: module.id,
+    templateUrl: 'social-page.component.html'
 })
 
-export class HomePageComponent {
-    name: string;
+export class SocialPageComponent {
     username: string;
 
     constructor(private authService: AuthService, private router: Router) { }
@@ -21,8 +15,13 @@ export class HomePageComponent {
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser) {
-            this.router.navigate(['/user/home']);
+            if (!currentUser.firstQuestionnaireCompleted) {
+                this.router.navigate(['/user/welcome']);
+            }
+            this.username = currentUser.username;
         }
-        else this.router.navigate(['/login']);
+        else {
+            this.router.navigate(['']);
+        }
     }
 }

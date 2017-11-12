@@ -39,6 +39,7 @@
     "libphonenumber-js": "^0.4.24",
     "mailchimp-api-v3": "^1.7.1",
     "memory-cache": "^0.2.0",
+    "moment": "^2.19.1",
     "moviedb": "^0.2.8",
     "ng2-nouislider": "^1.6.1",
     "ng2-validation": "^4.2.0",

@@ -48,6 +48,7 @@ import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
 import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
 import { ErrorPageComponent } from './error/error-page.component';
+import { SocialPageComponent } from './social/social-page.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -120,6 +121,7 @@ export function createTranslateLoader(http: Http) {
         MovieWallElementComponent,
         ForgotPasswordPageComponent,
         ErrorPageComponent,
+        SocialPageComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,

@@ -4,6 +4,7 @@ var cache = require('memory-cache');
 var date = require('date-and-time');
 var _ = require('underscore');
 var models = require('../models');
+var moment = require('moment');
 
 module.exports = function () {
     var getFirstTenMovies = function (lang, movieQuestionnaires, certification, yearOfBirth, language, done) {
@@ -34,7 +35,7 @@ module.exports = function () {
         });
     };
 
-    var getPopularMovies = function (minRelease, maxRelease, certification, done) {
+    var getPopularMovies = function (minRelease, maxRelease, language, certification, done) {
         var query = JSON.parse(JSON.stringify(firstTenQuery));
         query.page = library.randomInt(0, 25);
         if (minRelease || maxRelease) {
@@ -49,6 +50,9 @@ module.exports = function () {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
         }
+        if (language) {
+            query['with_original_language'] = language;
+        }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else return done(null, data);
@@ -56,7 +60,7 @@ module.exports = function () {
     };
 
     var getSimilarMovies = function (movieId, done) {
-        mdb.movieSimilar({id: movieId}, (err, data) => {
+        mdb.movieSimilar({ id: movieId }, (err, data) => {
             if (err) return done(err, null);
             else return done(null, data);
         });
@@ -78,19 +82,19 @@ module.exports = function () {
             var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
             if (nowPlaying) {
                 // Only consider movies now playing in theaters
-                getNowPlayingMovies(country, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
+                getNowPlayingMovies(country, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
                     if (_.size(data) < 1) return done(null, false);
                     else {
                         // we need to calculate the score of each movie and then choose the best choice
                         getScores(id, data, movieRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
                             var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
-                            if (_.size(data) < 1) return done(null, _.sample(data));
+                            if (_.size(filteredData) < 1) return done(null, _.sample(data));
                             else {
                                 var highestCertainty = _.sortBy(filteredData, function (d) { return d.wtwScore.certaintyLevel; })[0].wtwScore.certaintyLevel;
                                 return done(null, _.max(_.filter(filteredData, function (d) { return d.wtwScore.certaintyLevel == highestCertainty }), function (d) { return d.wtwScore.score; }))
                             }
 
-                        });                        
+                        });
                     }
                 });
             }
@@ -103,28 +107,36 @@ module.exports = function () {
                         data = _.map(_.groupBy(data, 'id'), function (g) {
                             return g[0];
                         });
-                        data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease);
+                        data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, languageSelected);
                         if (_.size(data) > 0) done(null, _.sample(data));
-                        else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
+                        else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
                     });
                 });
             }
-            else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
+            else return findMovieWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done);
         });
     }
 
-    var getNowPlayingMovies = function (country, lang, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, movieCacheService, done) {
-        var query = { language: lang };
+    var getNowPlayingMovies = function (country, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, movieCacheService, done) {
         // Check MovieDB: the release dates for movies in other regions are very unreliable. Now Playing for Australia gives a very limited amount of results
         //TODO: contact MovieDB see if they have the reason why the release dates are so crap and now playing is not useable for Australia
         if (country == 'US' || country == 'FR') {
             query.region = country
         }
-        mdb.miscNowPlayingMovies(query, (err, data) => {
+        var query = JSON.parse(JSON.stringify(firstTenQuery));
+        query.language = lang;
+        query['release_date.lte'] = moment().format("YYYY-MM-DD");
+        query['release_date.gte'] = moment().add(-20, 'days').format("YYYY-MM-DD");
+
+        if (language) {
+            query['with_original_language'] = language;
+        }
+
+        mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
                 getAllMovies(_.map(data.results, 'id'), lang, movieCacheService, function (err, data) {
-                    data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, null, null);
+                    data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, null, null, null);
                     done(null, data);
                 });
             }
@@ -142,14 +154,15 @@ module.exports = function () {
         else done(null, data);
     }
 
-    var filterMoviesForWTW = function (data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease) {
-        if(minRelease && maxRelease) data = _.filter(data, function (d) { return (new Date(d.release_date).getFullYear() >= minRelease) && (new Date(d.release_date).getFullYear() <= maxRelease) });
+    var filterMoviesForWTW = function (data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language) {
+        if (minRelease && maxRelease) data = _.filter(data, function (d) { return (new Date(d.release_date).getFullYear() >= minRelease) && (new Date(d.release_date).getFullYear() <= maxRelease) });
         if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { return g.id == genreId }) });
         if (useRuntimeLimit) data = _.filter(data, function (m) { return m.runtime <= runtimeLimit });
+        if (language) data = _.filter(data, function (m) { return m.original_language == language })
         return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d.id) });
     }
 
-    var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done) {
+    var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, language, alreadyAnsweredMovieIds, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done) {
         // Start by looking at the reco
         movieRecommandationService.getAll(id, function (err, recos) {
             var movieDBIds = _.map(recos, 'movieDBId');
@@ -159,41 +172,41 @@ module.exports = function () {
                 data = _.map(_.groupBy(data, 'id'), function (g) {
                     return g[0];
                 });
-                data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease);
+                data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
                 if (_.size(data) > 0) return done(null, _.sample(data));
                 // maybe some of the movies were not in the cache
                 var notFoundMovieIds = _.filter(movieDBIds, function (id) { return !_.find(data, function (d) { return d.id == id }) });
-                findMovieRelevantForWTW(notFoundMovieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, function (err, res) {
+                findMovieRelevantForWTW(notFoundMovieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, function (err, res) {
                     if (res) return done(null, res);
                     else {
                         // Nothing? then try one of our favourite director - go more than 1 page in movieDB discover
                         // First get all profiles
                         userProfileService.getAll(id, function (err, profiles) {
-                            findDirectorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                            findDirectorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                 if (res) return done(null, res);
                                 else {
                                     // Nothing? try writer - go more than 1 page in movieDB discover
-                                    findWriterWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                    findWriterWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                         if (res) return done(null, res);
                                         else {
                                             // Nothing? what about favourite genre if not provided
-                                            findGenreWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                            findGenreWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                 if (res) return done(null, res);
                                                 else {
                                                     // Nothing? what about favourite actor
-                                                    findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                    findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                         if (res) return done(null, res);
                                                         else {
                                                             // Nothing? what about favourite actor
-                                                            findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                            findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                                 if (res) return done(null, res);
                                                                 else {
                                                                     // Nothing? Try find similar movies to loved movie
-                                                                    findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
+                                                                    findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
                                                                         if (res) return done(null, res);
                                                                         else {
                                                                             // Nothing? Try popular movie
-                                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                                                 if (res) return done(null, res);
                                                                                 else {
                                                                                     // Nothing? Give up!
@@ -212,32 +225,32 @@ module.exports = function () {
                                     })
                                 }
                             })
-                        });              
+                        });
                     }
                 })
             });
         });
     }
 
-    var findDirectorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+    var findDirectorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteDirector = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.directorId }));
         if (favouriteDirector) {
-            return findDirectorWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, favouriteDirector.directorId, 1, done)
+            return findDirectorWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, favouriteDirector.directorId, 1, done)
         }
         else done(null, false);
     }
 
-    var findDirectorWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, directorId, page, done) {
-        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, certification, 1, function (err, data) {
+    var findDirectorWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, directorId, page, done) {
+        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, language, certification, 1, function (err, data) {
             if (data && data.results) {
                 filterOutDirectorData(directorId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else {
                         // Go to next page
-                        if (page < 5) return findDirectorWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, directorId, page + 1, done);
+                        if (page < 5) return findDirectorWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, directorId, page + 1, done);
                         else return done(null, false);
                     };
                 });
@@ -260,25 +273,25 @@ module.exports = function () {
         else done(null, data);
     }
 
-    var findWriterWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+    var findWriterWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteWriter = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.writerId }));
         if (favouriteWriter) {
-            return findWriterWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, favouriteWriter.writerId, 1, done)
+            return findWriterWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, favouriteWriter.writerId, 1, done)
         }
         else done(null, false);
     }
 
-    var findWriterWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, writerId, page, done) {
-        getMoviesForWriterQuestionnaire(writerId, minRelease, maxRelease, certification, 1, function (err, data) {
+    var findWriterWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, writerId, page, done) {
+        getMoviesForWriterQuestionnaire(writerId, minRelease, maxRelease, language, certification, 1, function (err, data) {
             if (data && data.results) {
                 filterOutWriterData(writerId, data, 0, function (err, res) {
                     data = res;
                     if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else {
                         // Go to next page
-                        if (page < 5) return findWriterWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, writerId, page + 1, done);
+                        if (page < 5) return findWriterWTWMovieOnPage(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, writerId, page + 1, done);
                         else return done(null, false);
                     };
                 });
@@ -301,15 +314,15 @@ module.exports = function () {
         else done(null, data);
     }
 
-    var findGenreWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+    var findGenreWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         // We can't do anything if the genre is already provided
         if (genreId) return done(null, false);
         var favouriteGenre = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.genreId }));
         if (favouriteGenre) {
-            getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, certification, function (err, data) {
+            getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
                 if (data && data.results) {
                     if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else return done(null, false);
                 }
@@ -319,15 +332,15 @@ module.exports = function () {
         else done(null, false);
     }
 
-    var findCountryWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+    var findCountryWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         // We can't do anything if the country is already provided
-        if (country) return done(null, false);
+        if (language) return done(null, false);
         var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
         if (favouriteCountry) {
             getMoviesForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
                 if (data && data.results) {
                     if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else return done(null, false);
                 }
@@ -337,13 +350,13 @@ module.exports = function () {
         else done(null, false);
     }
 
-    var findActorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
+    var findActorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
         if (favouriteActor) {
-            getMoviesForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, certification, function (err, data) {
+            getMoviesForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
                 if (data && data.results) {
                     if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else return done(null, false);
                 }
@@ -353,11 +366,11 @@ module.exports = function () {
         else done(null, false);
     }
 
-    var findPopularWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, alreadyAnsweredMovieIds, done) {
-        getPopularMovies(minRelease, maxRelease, certification, function (err, data) {
+    var findPopularWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
+        getPopularMovies(minRelease, maxRelease, language, certification, function (err, data) {
             if (data && data.results) {
                 if (data.results.length > 0) {
-                    return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                    return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
                 else return done(null, false);
             }
@@ -365,12 +378,12 @@ module.exports = function () {
         });
     }
 
-    var findSimilarWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, lovedMovieIds, done) {
+    var findSimilarWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, done) {
         var movieId = _.sample(lovedMovieIds);
         getSimilarMovies(movieId, function (err, data) {
             if (data && data.results) {
                 if (data.results.length > 0) {
-                    return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, 0, done)
+                    return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
                 else return done(null, false);
             }
@@ -378,25 +391,30 @@ module.exports = function () {
         });
     }
 
-    var findMovieRelevantForWTW = function (movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, i, done) {
+    var findMovieRelevantForWTW = function (movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i, done) {
         if (i < movieIds.length) {
             var id = movieIds[i];
             if (_.contains(alreadyAnsweredMovieIds, id)) {
-                return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, i + 1, done);
+                return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
             }
             else {
                 getMovie(id, lang, function (err, m) {
                     if (!(new Date(m.release_date).getFullYear() >= minRelease) || !(new Date(m.release_date).getFullYear() <= maxRelease)) {
-                        return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, i + 1, done);
+                        return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
                     }
                     if (genreId) {
                         if (!_.find(m.genres, function (g) { return g.id == genreId })) {
-                            return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, i + 1, done);
+                            return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
                         }
                     }
                     if (useRuntimeLimit) {
                         if (m.runtime > runtimeLimit) {
-                            return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, alreadyAnsweredMovieIds, i + 1, done);
+                            return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+                        }
+                    }
+                    if (language) {
+                        if (m.original_language != language) {
+                            return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
                         }
                     }
                     return done(null, m);
@@ -407,7 +425,6 @@ module.exports = function () {
     }
 
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
-        console.log('Yep Im here!!');
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
             data = _.map(data, 'data');
@@ -442,7 +459,7 @@ module.exports = function () {
         else done(null, data);
     }
 
-    var getMoviesForGenreQuestionnaire = function (genreId, minRelease, maxRelease, certification, done) {
+    var getMoviesForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
         query.page = library.randomInt(0, 20);
@@ -457,6 +474,9 @@ module.exports = function () {
         if (certification) {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
+        }
+        if (language) {
+            query['with_original_language'] = language;
         }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
@@ -490,7 +510,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, certification, page, done) {
+    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, language, certification, page, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = directorId;
         query.page = page;
@@ -506,6 +526,9 @@ module.exports = function () {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
         }
+        if (language) {
+            query['with_original_language'] = language;
+        }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -514,7 +537,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForWriterQuestionnaire = function (writerId, minRelease, maxRelease, certification, page, done) {
+    var getMoviesForWriterQuestionnaire = function (writerId, minRelease, maxRelease, language, certification, page, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = writerId;
         query.page = page;
@@ -530,6 +553,9 @@ module.exports = function () {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
         }
+        if (language) {
+            query['with_original_language'] = language;
+        }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -538,7 +564,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForActorQuestionnaire = function (castIds, minRelease, maxRelease, certification, done) {
+    var getMoviesForActorQuestionnaire = function (castIds, minRelease, maxRelease, language, certification, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         var allCastIds = _.reduce(castIds, function (memo, c) { memo + (memo == '' ? '' : ',') + c });
         query.with_cast = allCastIds;
@@ -553,6 +579,9 @@ module.exports = function () {
         if (certification) {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
+        }
+        if (language) {
+            query['with_original_language'] = language;
         }
         mdb.discoverMovie(query, (err, data) => {
             if (err) return done(err, null);
@@ -632,7 +661,7 @@ module.exports = function () {
         models.MovieInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(movie => {
             done(null, movie);
         })
-            .catch(function(err) {
+            .catch(function (err) {
                 done(err);
             });
     }
@@ -644,8 +673,8 @@ module.exports = function () {
             data: data
         }).then(movieCache => {
             done(null, movieCache);
-            })
-            .catch(function(err) {
+        })
+            .catch(function (err) {
                 done(err);
             });
     }
@@ -695,7 +724,7 @@ module.exports = function () {
     var getMovieTrailersFromCache = function (id, done) {
         models.MovieVideoCache.findOne({ where: { movieDBId: id } }).then(trailers => {
             done(null, trailers);
-        }).catch(function(err) {
+        }).catch(function (err) {
             done(err);
         });
     }
@@ -706,9 +735,9 @@ module.exports = function () {
             data: data
         }).then(trailersCache => {
             done(null, trailersCache);
-            }).catch(function(err) {
-                done(err);
-            });
+        }).catch(function (err) {
+            done(err);
+        });
     }
 
     var getMovieCredits = function (id, done) {
@@ -756,7 +785,7 @@ module.exports = function () {
     var getMovieCreditsFromCache = function (id, done) {
         models.MovieCreditsCache.findOne({ where: { movieDBId: id } }).then(credits => {
             done(null, credits);
-        }).catch(function(err) {
+        }).catch(function (err) {
             done(err);
         });
     }
@@ -767,9 +796,9 @@ module.exports = function () {
             data: data
         }).then(creditsCache => {
             done(null, creditsCache);
-            }).catch(function(err) {
-                done(err);
-            });
+        }).catch(function (err) {
+            done(err);
+        });
     }
 
     var getActors = function (credits) {

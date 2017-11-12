@@ -12,25 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var HomePageComponent = /** @class */ (function () {
-    function HomePageComponent(authService, router) {
+var SocialPageComponent = /** @class */ (function () {
+    function SocialPageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
     }
-    HomePageComponent.prototype.ngOnInit = function () {
+    SocialPageComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
-            this.router.navigate(['/user/home']);
+            if (!currentUser.firstQuestionnaireCompleted) {
+                this.router.navigate(['/user/welcome']);
+            }
+            this.username = currentUser.username;
         }
-        else
-            this.router.navigate(['/login']);
+        else {
+            this.router.navigate(['']);
+        }
     };
-    HomePageComponent = __decorate([
+    SocialPageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"true\" [username]=\"username\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+            moduleId: module.id,
+            templateUrl: 'social-page.component.html'
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-    ], HomePageComponent);
-    return HomePageComponent;
+    ], SocialPageComponent);
+    return SocialPageComponent;
 }());
-exports.HomePageComponent = HomePageComponent;
+exports.SocialPageComponent = SocialPageComponent;

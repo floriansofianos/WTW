@@ -97,6 +97,7 @@
   "WTW": {
     "PERSONAL_RECO": "Here are some personal recommandations for you:",
     "WTW": "Find something to watch.",
+    "LANGUAGE": "Language",
     "MIN_RELEASE": "Minimum release year",
     "MAX_RELEASE": "Maximum release year",
     "RUNTIME_LIMIT": "Add a runtime limit to my search",
@@ -120,7 +121,7 @@
     "HATE_GENRE": "You hate the movie genre",
     "HATE_ACTOR": "You hate movies with",
     "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
-    "ONLY_NOW_PLAYING":  "Only show movies now playing in theaters"
+    "ONLY_NOW_PLAYING": "Only show movies now playing in theaters"
   },
     "FORM": {
         "OK": "OK",

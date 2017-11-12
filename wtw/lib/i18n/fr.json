@@ -97,6 +97,7 @@
   "WTW": {
     "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
     "WTW": "Trouver votre prochaine séance.",
+    "LANGUAGE": "Langue",
     "MIN_RELEASE": "Date de sortie min",
     "MAX_RELEASE": "Date de sortie max",
     "RUNTIME_LIMIT": "Ajouter une limite de temps",
