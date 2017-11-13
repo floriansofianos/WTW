@@ -195,7 +195,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\routes\countriesRoutes.js" />
-    <Compile Include="lib\routes\languagesRoutes.js" />
+    <Content Include="lib\routes\languagesRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>

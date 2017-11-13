@@ -61,7 +61,7 @@ var userController = function (userService) {
                     user.forgotPasswordGuid = token;
                     user.save().then(function (user, err) {
                         if (!err) {
-                            postmarkService.sendForgotPasswordEmail(user.lang, user.email, user.username, 'localhost:1337/auth/changePassword?token=' + user.forgotPasswordGuid);
+                            postmarkService.sendForgotPasswordEmail(user.lang, user.email, user.username, req.protocol + '://' + req.get('host') + '/auth/changePassword?token=' + user.forgotPasswordGuid);
                             res.send({success: true});
                         }
                         else res.send(500);
@@ -111,7 +111,7 @@ var userController = function (userService) {
         if (req.query.email) {
             userService.getUserByEmail(req.query.email, function (err, user) {
                 if (user) {
-                    postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, 'localhost:1337/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
+                    postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, req.protocol + '://' + req.get('host') + '/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
                     res.json({success: true});
                 }
                 else return res.send(400);
