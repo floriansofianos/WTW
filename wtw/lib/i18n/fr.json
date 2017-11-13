@@ -11,6 +11,7 @@
       "FORM": {
         "LOGIN": "Email",
         "PASSWORD": "Mot de passe",
+        "SIGNUP": "Je ne suis pas encore inscrit.",
         "NEWPASSWORD": "Nouveau mot de passe",
         "REMEMBER_ME": "Se souvenir de moi",
         "WRONGPASSWORD": "Votre email ou mot de passe est incorrect.",
@@ -28,7 +29,6 @@
         "EMAIL": "Email",
         "EMAIL_INVALID": "L'adresse email est invalide.",
         "PASSWORD": "Mot de passe",
-        "SIGNUP": "Je ne suis pas encore inscrit.",
         "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
         "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
         "USERNAME": "Pseudo",
