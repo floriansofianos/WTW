@@ -17,6 +17,8 @@ var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var filter = require('gulp-filter');
 var gulpCopy = require('gulp-copy');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 gulp.task('lint-server-code', function() {
     return gulp.src(config.alljs)
@@ -96,12 +98,19 @@ gulp.task('aot-transpile-prod', function (cb) {
     });
 });
 
-gulp.task('bundle-minify-prod', function (cb) {
-    exec('rollup -c rollup-config.js', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+gulp.task('minify-prod', function () {
+    return gulp.src('public/dist/build.js')
+        .pipe($.uglify())
+        .pipe(gulp.dest('public/dist'));
+});
+
+gulp.task('bundle-prod', function () {
+    return browserify('./app/main-aot.ts', {})
+        .plugin(require('tsify'), { target: 'es5' })
+        .transform('./ng2inlinetransform')
+        .bundle()
+        .pipe(source('.'))
+        .pipe(gulp.dest('public/dist/build.js'));
 });
 
 gulp.task('assets-revision', function () {
@@ -114,10 +123,12 @@ gulp.task('assets-revision', function () {
 
 gulp.task('serve-prod', function () {
     console.log('Make sure the dev version works!');
+    console.log('You also need to mo0dify angular-star-rating: delete index.js and rename .umd.js to index.js');
     return runSequence('clean',
-        'aot-transpile-prod',
-        'bundle-minify-prod',
+        'bundle-prod',
+        'minify-prod',
         'compile-less',
+        'copy-angular-material-theme',
         'inject-front-end-dependancies-prod',
         'assets-revision');
 });

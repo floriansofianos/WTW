@@ -58,6 +58,7 @@
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
+    <Content Include="tsconfig.json" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <SubType>Content</SubType>
@@ -76,7 +77,6 @@
     <Content Include="lib\routes\movieDBConfigurationRoutes.js" />
     <Content Include="lib\static\countries.json" />
     <Content Include="lib\static\supported-languages.json" />
-    <Content Include="tsconfig-aot.json" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
     <TypeScriptCompile Include="app\auth\can-activate.auth.ts" />
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
@@ -197,6 +197,7 @@
     <Content Include="lib\routes\countriesRoutes.js" />
     <Content Include="lib\routes\languagesRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
+    <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">
       <SubType>Code</SubType>
     </Compile>

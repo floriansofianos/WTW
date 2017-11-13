@@ -1,4 +1,4 @@
-﻿describe('Main App Component', () => {
+﻿/*describe('Main App Component', () => {
 
     describe('testVariable', () => {
         it('should have the correct value', () => {
@@ -6,4 +6,4 @@
             expect(test).toBe(true);
         });
     });
-});
+});*/

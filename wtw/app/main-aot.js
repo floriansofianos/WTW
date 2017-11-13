@@ -1,6 +1,8 @@
-var platform_browser_1 = require('@angular/platform-browser');
-var app_module_ngfactory_1 = require('../aot/app/app.module.ngfactory');
-var core_1 = require('@angular/core');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
+var app_module_1 = require("./app.module");
+var core_1 = require("@angular/core");
 core_1.enableProdMode();
-platform_browser_1.platformBrowser().bootstrapModuleFactory(app_module_ngfactory_1.AppModuleNgFactory);
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 //# sourceMappingURL=main-aot.js.map
