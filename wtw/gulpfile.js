@@ -123,7 +123,7 @@ gulp.task('assets-revision', function () {
 
 gulp.task('serve-prod', function () {
     console.log('Make sure the dev version works!');
-    console.log('You also need to mo0dify angular-star-rating: delete index.js and rename .umd.js to index.js');
+    console.log('You also need to modify angular-star-rating: delete index.js and rename .umd.js to index.js');
     return runSequence('clean',
         'bundle-prod',
         'minify-prod',
