@@ -45,7 +45,17 @@ var movieRecommandationService = function() {
                 var country = selectedMovie.original_language;
 
                 var directorProfiles = _.filter(profiles, function(p) { return p.directorId && _.contains(directorIds, p.directorId); });
-                var genreProfiles = _.filter(profiles, function(p) { return p.genreId && _.contains(genreIds, p.genreId); });
+                var genreProfiles = _.filter(profiles, function (p) { return p.genreId && _.contains(genreIds, p.genreId); });
+                // Modify the genre profiles a bit: if we watch a lot of some genres, the score needs to be higher than it is
+                var seenCountForGenres = _.reduce(_.filter(profiles, function (p) { return p.genreId; }), function (memo, p) { return memo + p.seenCount; }, 0);
+                var numberOfGenres = _.size(_.filter(profiles, function (p) { return p.genreId; }));
+                var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
+                _.each(genreProfiles, function (p) {
+                    // For genres where the score is in the middle and we watch a lot of those, it needs a big push in the score
+                    if (p.score > 30 && p.score < 70 && ((p.seenCount - seenCountAverage) > (seenCountAverage / 2))) {
+                        p.score += 30
+                    }                    
+                });
                 var writerProfiles = _.filter(profiles, function(p) { return p.writerId && _.contains(writerIds, p.writerId); });
                 var actorProfiles = _.filter(profiles, function (p) { return p.castId && _.contains(actorIds, p.castId); });
                 var countryProfile = _.filter(profiles, function (p) { return p.country && p.country == country; });
