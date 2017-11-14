@@ -29,3 +29,4 @@ exports.appRoutes = [
     { path: 'user/social', component: social_page_component_1.SocialPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
+//# sourceMappingURL=routes.js.map

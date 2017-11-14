@@ -60,7 +60,10 @@ var generateRecommandations = function (users, i, done) {
                             var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
                             generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                 // Check favourite genres
-                                var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && p.score > 85; });
+                                var seenCountForGenres = _.reduce(_.filter(filteredProfiles, function (p) { return p.genreId; }), function (memo, p) { return memo + p.seenCount; }, 0);
+                                var numberOfGenres = _.size(_.filter(filteredProfiles, function (p) { return p.genreId; }));
+                                var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
+                                var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && (p.score > 85 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); });
                                 generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });

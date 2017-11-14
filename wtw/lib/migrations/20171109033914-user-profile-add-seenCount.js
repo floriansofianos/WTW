@@ -6,7 +6,7 @@ module.exports = {
             'UserProfiles',
             'seenCount',
             {
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER
             }
         );
   },
@@ -16,7 +16,7 @@ module.exports = {
             'UserProfiles',
             'seenCount',
             {
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER
             }
         );
   }

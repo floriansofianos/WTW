@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var SocialPageComponent = /** @class */ (function () {
+var SocialPageComponent = (function () {
     function SocialPageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -39,3 +39,4 @@ var SocialPageComponent = /** @class */ (function () {
     return SocialPageComponent;
 }());
 exports.SocialPageComponent = SocialPageComponent;
+//# sourceMappingURL=social-page.component.js.map

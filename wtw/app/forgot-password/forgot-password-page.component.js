@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ForgotPasswordPageComponent = /** @class */ (function () {
+var ForgotPasswordPageComponent = (function () {
     function ForgotPasswordPageComponent() {
     }
     ForgotPasswordPageComponent = __decorate([
@@ -18,3 +18,4 @@ var ForgotPasswordPageComponent = /** @class */ (function () {
     return ForgotPasswordPageComponent;
 }());
 exports.ForgotPasswordPageComponent = ForgotPasswordPageComponent;
+//# sourceMappingURL=forgot-password-page.component.js.map
