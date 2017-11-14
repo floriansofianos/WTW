@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var auth_service_1 = require("../../auth/auth.service");
 var ng2_validation_1 = require("ng2-validation");
 var core_2 = require("@ngx-translate/core");
-var SignUpFormComponent = (function () {
+var SignUpFormComponent = /** @class */ (function () {
     function SignUpFormComponent(router, authService, translate) {
         this.router = router;
         this.authService = authService;
@@ -44,7 +44,8 @@ var SignUpFormComponent = (function () {
             this.showSpinner = true;
             formValues.lang = this.translate.currentLang;
             this.authService.signUp(formValues).subscribe(function (response) {
-                _this.authService.setCurrentUser(response.json());
+                // We do not want to login the user since he needs to click on the accept link in the email
+                //this.authService.setCurrentUser(response.json());
                 _this.router.navigate(['']);
             }, function (error) {
                 _this.backendError = error;
@@ -91,4 +92,3 @@ var SignUpFormComponent = (function () {
     return SignUpFormComponent;
 }());
 exports.SignUpFormComponent = SignUpFormComponent;
-//# sourceMappingURL=signup-form.component.js.map

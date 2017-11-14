@@ -15,7 +15,7 @@
         "NEWPASSWORD": "Nouveau mot de passe",
         "REMEMBER_ME": "Se souvenir de moi",
         "WRONGPASSWORD": "Votre email ou mot de passe est incorrect.",
-        "VALIDATE_EMAIL": "Merci de vérifier que vous avez cliquer sur le lien de validation dans le mail de bienvenue.",
+        "VALIDATE_EMAIL": "Merci de vérifier que vous avez cliqué sur le lien de validation dans le mail de bienvenue.",
         "RESEND": "Me le renvoyer",
         "FORGOT_PWD_EXPLANATION": "Entrez l'adresse email utilisée lors de votre inscription.",
         "FORGOT_PASSWORD_EMAIL_ERROR": "Cette adresse email n'est pas reconnue",

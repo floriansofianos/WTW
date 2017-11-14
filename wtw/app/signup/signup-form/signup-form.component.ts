@@ -45,7 +45,8 @@ export class SignUpFormComponent implements OnInit {
             this.showSpinner = true;
             formValues.lang = this.translate.currentLang;
             this.authService.signUp(formValues).subscribe(response => {
-                this.authService.setCurrentUser(response.json());
+                // We do not want to login the user since he needs to click on the accept link in the email
+                //this.authService.setCurrentUser(response.json());
                 this.router.navigate(['']);
             },
                 error => {

@@ -11,22 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
-var UserWelcomePageComponent = (function () {
-    function UserWelcomePageComponent(authService) {
+var router_1 = require("@angular/router");
+var UserWelcomePageComponent = /** @class */ (function () {
+    function UserWelcomePageComponent(authService, router) {
         this.authService = authService;
+        this.router = router;
     }
     UserWelcomePageComponent.prototype.ngOnInit = function () {
         var currentUser = this.authService.getCurrentUser();
         if (currentUser)
             this.username = currentUser.username;
+        else
+            this.router.navigate(['login']);
     };
     UserWelcomePageComponent = __decorate([
         core_1.Component({
             template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n"
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
     ], UserWelcomePageComponent);
     return UserWelcomePageComponent;
 }());
 exports.UserWelcomePageComponent = UserWelcomePageComponent;
-//# sourceMappingURL=user-welcome-page.component.js.map

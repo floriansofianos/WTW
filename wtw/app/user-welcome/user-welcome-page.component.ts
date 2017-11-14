@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     template: `
@@ -11,10 +12,11 @@ import { AuthService } from '../auth/auth.service';
 export class UserWelcomePageComponent {
     username: string
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
         if (currentUser) this.username = currentUser.username;
+        else this.router.navigate(['login']);
     }
 }
