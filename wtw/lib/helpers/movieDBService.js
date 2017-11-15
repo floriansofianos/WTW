@@ -156,7 +156,9 @@ module.exports = function () {
         if (minRelease && maxRelease) data = _.filter(data, function (d) { return (new Date(d.release_date).getFullYear() >= minRelease) && (new Date(d.release_date).getFullYear() <= maxRelease) });
         if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { return g.id == genreId }) });
         if (useRuntimeLimit) data = _.filter(data, function (m) { return m.runtime <= runtimeLimit });
-        if (language) data = _.filter(data, function (m) { return m.original_language == language })
+        if (language) data = _.filter(data, function (m) { return m.original_language == language });
+        // filter out videos, movies that are not out yet, movies that are too short
+        data = _.filter(data, function (m) { return !m.video && m.runtime > 60 && new Date(m.release_date) <= new Date(); })
         return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d.id) });
     }
 

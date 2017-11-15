@@ -169,7 +169,7 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
 var handleData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i];
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && !m.video && new Date(m.release_date) < new Date()) {
             userQuestionnaireService.create(userId, m.id, function (err, data) {
                 handleData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
             });
@@ -182,7 +182,7 @@ var handleData = function (allMovies, questionnaires, userQuestionnaires, userId
 var handleDataRecommandations = function (allMovies, questionnaires, movieRecommandations, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i];
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(movieRecommandations, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(movieRecommandations, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && !m.video && new Date(m.release_date) < new Date()) {
             movieRecommandationService.create(userId, m.id, function (err, data) {
                 handleDataRecommandations(allMovies, questionnaires, movieRecommandations, userId, i + 1, limitAdd - 1, done);
             });
