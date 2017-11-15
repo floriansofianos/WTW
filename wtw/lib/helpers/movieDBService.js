@@ -317,11 +317,11 @@ module.exports = function () {
     var findGenreWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         // We can't do anything if the genre is already provided
         if (genreId) return done(null, false);
-        var filteresProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.genreId });
+        var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.genreId });
         var seenCountForGenres = _.reduce(filteredProfiles, function (memo, p) { return memo + p.seenCount; }, 0);
         var numberOfGenres = _.size(filteredProfiles);
         var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
-        var favouriteGenre = _.sample(_.filter(filteresProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
+        var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
         if (favouriteGenre) {
             getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
                 if (data && data.results) {
