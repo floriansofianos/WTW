@@ -29,6 +29,8 @@ var SocialPageComponent = (function () {
             this.router.navigate(['']);
         }
     };
+    SocialPageComponent.prototype.clickSearch = function () {
+    };
     SocialPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

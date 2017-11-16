@@ -126,6 +126,7 @@
     <TypeScriptCompile Include="app\signup\signup-form\confirm-password-validator.directive.ts" />
     <TypeScriptCompile Include="app\signup\signup-form\signup-form.component.ts" />
     <TypeScriptCompile Include="app\signup\signup-page.component.ts" />
+    <TypeScriptCompile Include="app\social\social.service.ts" />
     <TypeScriptCompile Include="app\social\social-page.component.ts" />
     <TypeScriptCompile Include="app\spinner\spinner.component.ts" />
     <TypeScriptCompile Include="app\systemjs.config.ts" />
@@ -166,12 +167,14 @@
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.rememberme.strategy.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />
+    <Compile Include="lib\models\friendship.js" />
     <Compile Include="lib\models\index.js" />
     <Compile Include="lib\models\moviecreditscache.js" />
     <Compile Include="lib\models\movieinfocache.js" />
     <Compile Include="lib\models\moviequestionnaire.js" />
     <Compile Include="lib\models\movierecommandation.js" />
     <Compile Include="lib\models\movievideocache.js" />
+    <Compile Include="lib\models\pendingfriendship.js" />
     <Compile Include="lib\models\peoplecache.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
@@ -197,6 +200,7 @@
     </Content>
     <Content Include="lib\routes\countriesRoutes.js" />
     <Content Include="lib\routes\languagesRoutes.js" />
+    <Content Include="lib\routes\userRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">

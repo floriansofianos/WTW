@@ -120,6 +120,25 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var search = function (req, res) {
+        if (req.query.search) {
+            userService.searchUser(req.query.search, function (err, user) {
+                if (user) {
+                    res.json(userService.userToModelView(user));
+                }
+                else return res.json({ success: false });
+            });
+        }
+        else return res.send(400);
+    }
+
+    var getUserProfile = function (req, res) {
+        if (req.params.userId) {
+
+        }
+        else return res.send(400);
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
@@ -128,7 +147,9 @@ var userController = function (userService) {
         verifyEmail: verifyEmail,
         sendForgotPasswordEmail: sendForgotPasswordEmail,
         setNewPassword: setNewPassword,
-        sendWelcomeEmail: sendWelcomeEmail
+        sendWelcomeEmail: sendWelcomeEmail,
+        search: search,
+        getUserProfile: getUserProfile
     }
 }
 

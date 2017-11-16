@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 export class SocialPageComponent {
     username: string;
+    search: string;
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -23,5 +24,9 @@ export class SocialPageComponent {
         else {
             this.router.navigate(['']);
         }
+    }
+
+    clickSearch() {
+
     }
 }

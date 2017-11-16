@@ -2,8 +2,18 @@
 <div class="content-container">
     <left-menu [rootPath]="'user/social/'" [leftMenus]="[]"></left-menu>
     <div class="inner-content-container">
-        <div>
-            Available soon...
+        <div class="login-form-container" style="width: 500px;margin: 0;">
+            <h1 class="wtw-title-container">
+                {{ 'SOCIAL.FIND_FRIENDS' | translate }}
+            </h1>
+            <div class="wtw-form-content">
+                <div class="wtw-form-field-container">
+                    <mat-form-field>
+                        <input matInput id="search" [(ngModel)]="search" type="text" placeholder="{{ 'SOCIAL.SEARCH' | translate }}" />
+                    </mat-form-field>
+                </div>
+                <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
+            </div>
         </div>
     </div>
 </div>
