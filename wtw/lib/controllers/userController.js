@@ -134,7 +134,12 @@ var userController = function (userService) {
 
     var getUserProfile = function (req, res) {
         if (req.params.userId) {
-
+            userService.getUserById(req.query.search, function (err, user) {
+                if (user) {
+                    res.json(userService.userToModelView(user));
+                }
+                else return res.send(400);
+            });
         }
         else return res.send(400);
     }

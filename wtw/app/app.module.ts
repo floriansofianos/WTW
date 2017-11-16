@@ -60,6 +60,7 @@ import { UserQuestionnaireService } from './questionnaire/user-questionnaire.ser
 import { MovieRecommandationService } from './movie/movie-recommandation.service';
 import { CountriesService } from './countries/countries.service';
 import { LanguagesService } from './languages/languages.service';
+import { SocialService } from './social/social.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -131,6 +132,7 @@ export function createTranslateLoader(http: Http) {
         MovieRecommandationService,
         CountriesService,
         LanguagesService,
+        SocialService,
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,
