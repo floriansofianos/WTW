@@ -134,7 +134,7 @@ var userController = function (userService) {
 
     var getUserProfile = function (req, res) {
         if (req.params.userId) {
-            userService.getUserById(req.query.search, function (err, user) {
+            userService.getUserById(req.params.userId, function (err, user) {
                 if (user) {
                     res.json(userService.userToModelView(user));
                 }

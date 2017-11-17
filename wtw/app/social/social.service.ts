@@ -23,8 +23,13 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
-    followUser(id: number): Observable<any> {
-        return this.http.post('/api/follow', { userId: id })
+    removeFromFriend(id: number): Observable<any> {
+        return this.http.delete('/api/friend/' + id)
+            .catch(this.handleErrors);
+    }
+
+    unfollowUser(id: number): Observable<any> {
+        return this.http.delete('/api/follow/' + id)
             .catch(this.handleErrors);
     }
 

@@ -28,8 +28,12 @@ var SocialService = (function () {
         return this.http.post('/api/friend', { userId: id })
             .catch(this.handleErrors);
     };
-    SocialService.prototype.followUser = function (id) {
-        return this.http.post('/api/follow', { userId: id })
+    SocialService.prototype.removeFromFriend = function (id) {
+        return this.http.delete('/api/friend/' + id)
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.unfollowUser = function (id) {
+        return this.http.delete('/api/follow/' + id)
             .catch(this.handleErrors);
     };
     SocialService.prototype.handleErrors = function (error) {

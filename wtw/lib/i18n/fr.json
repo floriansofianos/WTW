@@ -140,5 +140,8 @@
     "FORGOT_PWD": {
         "TITLE": "Changer votre mot de passe",
         "WRONGTOKEN": "Une erreur est survenue, merci de réessayer ultérieurement."
+    },
+    "SOCIAL": {
+        "FIND_FRIENDS":  "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
     }
 }

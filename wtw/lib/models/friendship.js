@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Friendship = sequelize.define('friendship', {
+  var Friendship = sequelize.define('Friendship', {
     currentUserId: DataTypes.INTEGER,
     friendUserId: DataTypes.INTEGER,
     following: DataTypes.BOOLEAN

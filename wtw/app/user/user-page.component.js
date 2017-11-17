@@ -12,14 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var social_service_1 = require("./social.service");
-var SocialPageComponent = (function () {
-    function SocialPageComponent(authService, router, socialService) {
+var social_service_1 = require("../social/social.service");
+var router_2 = require("@angular/router");
+var UserPageComponent = (function () {
+    function UserPageComponent(authService, router, socialService, route) {
         this.authService = authService;
         this.router = router;
         this.socialService = socialService;
+        this.route = route;
     }
-    SocialPageComponent.prototype.ngOnInit = function () {
+    UserPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.isLoading = true;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -30,34 +34,32 @@ var SocialPageComponent = (function () {
         else {
             this.router.navigate(['']);
         }
-    };
-    SocialPageComponent.prototype.clickSearch = function () {
-        var _this = this;
-        this.isLoading = true;
-        this.socialService.search(this.search).subscribe(function (data) {
-            if (data) {
-                data = data.json();
-                if (data.success != undefined) {
+        // Load the asked user profile
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.id = +params['id']; // (+) converts string 'id' to a number
+            _this.socialService.getUserProfile(_this.id).subscribe(function (data) {
+                if (data) {
+                    _this.user = data.json();
                     _this.isLoading = false;
-                    _this.noResults = true;
                 }
                 else
-                    _this.router.navigate(['/user/' + data.id]);
-            }
-            else
+                    _this.router.navigate(['error']);
+            }, function (error) {
                 _this.router.navigate(['error']);
-        }, function (error) {
-            _this.router.navigate(['error']);
+            });
         });
     };
-    SocialPageComponent = __decorate([
+    UserPageComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    UserPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'social-page.component.html'
+            templateUrl: 'user-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService])
-    ], SocialPageComponent);
-    return SocialPageComponent;
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
+    ], UserPageComponent);
+    return UserPageComponent;
 }());
-exports.SocialPageComponent = SocialPageComponent;
-//# sourceMappingURL=social-page.component.js.map
+exports.UserPageComponent = UserPageComponent;
+//# sourceMappingURL=user-page.component.js.map

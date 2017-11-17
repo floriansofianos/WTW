@@ -58,6 +58,7 @@
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
     <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
+    <Content Include="app\user\user-page.component.html" />
     <Content Include="tsconfig.json" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
@@ -135,6 +136,7 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\friendController.js" />
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
@@ -232,6 +234,7 @@
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
     <TypeScriptCompile Include="app\user-what-to-watch\user-what-to-watch-page.component.ts" />
+    <TypeScriptCompile Include="app\user\user-page.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\auth\" />
@@ -245,6 +248,7 @@
     <Folder Include="app\forgot-password\" />
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
+    <Folder Include="app\user\" />
     <Folder Include="app\social\" />
     <Folder Include="app\questionnaire\" />
     <Folder Include="app\button\" />

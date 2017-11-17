@@ -13,6 +13,7 @@ var user_what_to_watch_page_component_1 = require("./user-what-to-watch/user-wha
 var forgot_password_page_component_1 = require("./forgot-password/forgot-password-page.component");
 var error_page_component_1 = require("./error/error-page.component");
 var social_page_component_1 = require("./social/social-page.component");
+var user_page_component_1 = require("./user/user-page.component");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 exports.appRoutes = [
     { path: 'login', component: login_page_component_1.LoginPageComponent },
@@ -27,6 +28,7 @@ exports.appRoutes = [
     { path: 'user/movies/dummyQuestionnaires', component: user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/movies/watchlist', component: user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/social', component: social_page_component_1.SocialPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
+    { path: 'user/:id', component: user_page_component_1.UserPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
 //# sourceMappingURL=routes.js.map

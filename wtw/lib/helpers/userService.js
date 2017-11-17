@@ -185,6 +185,15 @@ var userService = function() {
         });
     }
 
+    var searchUser = function (search, done) {
+        var Op = sequelize.Op;
+        models.User.findOne({ where: { [Op.or]: [{ email: search }, { username: search }] } }).then(user => {
+            done(null, user)
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
@@ -199,7 +208,8 @@ var userService = function() {
         issueToken: issueToken,
         getUserFromToken: getUserFromToken,
         getUserFromValidationToken: getUserFromValidationToken,
-        changeUserPassword: changeUserPassword
+        changeUserPassword: changeUserPassword,
+        searchUser: searchUser
     }
 }
 

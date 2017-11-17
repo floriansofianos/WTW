@@ -10,6 +10,7 @@ var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
 var movieDBGenresRouter = require('./lib/routes/movieDBGenresRoutes')();
 var movieRouter = require('./lib/routes/movieRoutes')();
+var userRouter = require('./lib/routes/userRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
 var countriesRouter = require('./lib/routes/countriesRoutes')();
 var languagesRouter = require('./lib/routes/languagesRoutes')();
@@ -83,6 +84,9 @@ app.use('/api/movie', movieRouter);
 app.use('/api/cast', castRouter);
 app.use('/api/countries', countriesRouter);
 app.use('/api/languages', languagesRouter);
+app.use('/api/user', userRouter);
+app.use('/api/friend', friendRouter);
+app.use('/api/follow', followRouter);
 
 app.get('/', function(req, res) {
     res.sendFile('index.html');
@@ -95,6 +99,9 @@ app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/welcome', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/:id', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/home', function(req, res) {

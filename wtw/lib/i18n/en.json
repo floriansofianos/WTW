@@ -140,5 +140,8 @@
     "FORGOT_PWD": {
         "TITLE": "Reset your password",
         "WRONGTOKEN": "An error occured, please try to send the forgotten password email again"
+    },
+    "SOCIAL": {
+        "FIND_FRIENDS": "Find other people using their email or username."
     }
 }

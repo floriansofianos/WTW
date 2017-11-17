@@ -2,18 +2,22 @@
 <div class="content-container">
     <left-menu [rootPath]="'user/social/'" [leftMenus]="[]"></left-menu>
     <div class="inner-content-container">
-        <div class="login-form-container" style="width: 500px;margin: 0;">
-            <h1 class="wtw-title-container">
+        <div class="login-form-container" style="width: 500px;margin: 0;" *ngIf="!isLoading">
+            <div class="wtw-title-container">
                 {{ 'SOCIAL.FIND_FRIENDS' | translate }}
-            </h1>
+            </div>
             <div class="wtw-form-content">
                 <div class="wtw-form-field-container">
-                    <mat-form-field>
-                        <input matInput id="search" [(ngModel)]="search" type="text" placeholder="{{ 'SOCIAL.SEARCH' | translate }}" />
+                    <mat-form-field [style.fontSize.px]="17" [style.margin-top.px]="10" [style.width.px]="350">
+                        <input matInput id="search" [(ngModel)]="search" type="text" placeholder="{{ 'FORM.SEARCH' | translate }}" />
                     </mat-form-field>
                 </div>
+                <div *ngIf="noResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
                 <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
             </div>
+        </div>
+        <div class="spinner-container" *ngIf="isLoading">
+            <spinner></spinner>
         </div>
     </div>
 </div>
