@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('friendships', {
+    return queryInterface.createTable('Friendships', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -25,6 +25,9 @@ module.exports = {
       following: {
         type: Sequelize.BOOLEAN
       },
+	  isFriend: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -36,6 +39,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('friendships');
+    return queryInterface.dropTable('Friendships');
   }
 };

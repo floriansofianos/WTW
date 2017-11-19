@@ -1,17 +1,19 @@
-﻿var castController = function (movieDBService) {
-    var get = function (req, res) {
-        if (req.query.directorId || req.query.writerId || req.query.actorId) {
-            movieDBService.getAlsoKnown(req.query.directorId, req.query.writerId, req.query.actorId, req.query.lang, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
-            });
+﻿var friendController = function (movieDBService) {
+    var post = function (req, res) {
+        if (req.body.userId) {
+
         }
-        else res.send(400);
+        else res.send(400)
+    };
+
+    var deleteFriend = function (req, res) {
+
     };
 
     return {
-        get: get
+        post: post,
+        delete: deleteFriend
     }
 }
 
-module.exports = castController;
+module.exports = friendController;

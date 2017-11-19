@@ -32,6 +32,10 @@ var SocialService = (function () {
         return this.http.delete('/api/friend/' + id)
             .catch(this.handleErrors);
     };
+    SocialService.prototype.followUser = function (id) {
+        return this.http.post('/api/follow', { userId: id })
+            .catch(this.handleErrors);
+    };
     SocialService.prototype.unfollowUser = function (id) {
         return this.http.delete('/api/follow/' + id)
             .catch(this.handleErrors);
@@ -39,11 +43,11 @@ var SocialService = (function () {
     SocialService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    SocialService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], SocialService);
     return SocialService;
 }());
+SocialService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], SocialService);
 exports.SocialService = SocialService;
 //# sourceMappingURL=social.service.js.map

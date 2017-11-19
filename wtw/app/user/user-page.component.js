@@ -52,14 +52,14 @@ var UserPageComponent = (function () {
     UserPageComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    UserPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
-    ], UserPageComponent);
     return UserPageComponent;
 }());
+UserPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
+], UserPageComponent);
 exports.UserPageComponent = UserPageComponent;
 //# sourceMappingURL=user-page.component.js.map

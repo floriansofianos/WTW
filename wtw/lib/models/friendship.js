@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   var Friendship = sequelize.define('Friendship', {
     currentUserId: DataTypes.INTEGER,
     friendUserId: DataTypes.INTEGER,
-    following: DataTypes.BOOLEAN
+    following: DataTypes.BOOLEAN,
+    isFriend: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate: function(models) {

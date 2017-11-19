@@ -50,14 +50,14 @@ var SocialPageComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
-    SocialPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'social-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService])
-    ], SocialPageComponent);
     return SocialPageComponent;
 }());
+SocialPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'social-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService])
+], SocialPageComponent);
 exports.SocialPageComponent = SocialPageComponent;
 //# sourceMappingURL=social-page.component.js.map
