@@ -85,6 +85,14 @@ var friendshipService = function () {
         });
     }
 
+    var deletePendingFriendship = function (currentUserId, userId, done) {
+        models.PendingFriendship.destroy({ where: { [Op.or]: [{ fromUserId: userId, toUserId: currentUserId }, { fromUserId: currentUserId, toUserId: userId}] } }).then(result => {
+            done(null, result);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var acceptFriendRequest = function (currentUserId, userId, done) {
         if (currentUserId == userId) return done(null, false);
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
@@ -100,7 +108,7 @@ var friendshipService = function () {
                                 if (data.length > 1) {
                                     data[1].isFriend = true;
                                     data[1].save().then(function (data, err) {
-                                        if (!err) done(null, true);
+                                        if (!err) deletePendingFriendship(currentUserId, userId, done);
                                         else done(err);
                                     })
                                         .catch(function (err) {
@@ -116,7 +124,7 @@ var friendshipService = function () {
                                         following: true,
                                         isFriend: true
                                     }).then(data => {
-                                        done(null, true);
+                                        deletePendingFriendship(currentUserId, userId, done);
                                     }).catch(function (err) {
                                         done(err);
                                     });
@@ -141,7 +149,7 @@ var friendshipService = function () {
                                 following: true,
                                 isFriend: true
                             }).then(data => {
-                                done(null, true);
+                                deletePendingFriendship(currentUserId, userId, done);
                             }).catch(function (err) {
                                 done(err);
                             });
