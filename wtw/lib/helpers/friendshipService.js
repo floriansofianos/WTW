@@ -98,7 +98,6 @@ var friendshipService = function () {
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
             if (pendingFriendship) {
                 //TODO Send email to notify userId
-                //TODO delete pending friendship
                 // Check if we have existing friendship first!!!
                 models.Friendship.find({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
                     if (data && data.length > 0) {
