@@ -40,7 +40,15 @@ var UserPageComponent = (function () {
             _this.socialService.getUserProfile(_this.id).subscribe(function (data) {
                 if (data) {
                     _this.user = data.json();
-                    _this.isLoading = false;
+                    _this.socialService.getPendingFriend(_this.id).subscribe(function (data) {
+                        if (data) {
+                            _this.isLoading = false;
+                        }
+                        else
+                            _this.router.navigate(['error']);
+                    }, function (error) {
+                        _this.router.navigate(['error']);
+                    });
                 }
                 else
                     _this.router.navigate(['error']);
@@ -52,14 +60,14 @@ var UserPageComponent = (function () {
     UserPageComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
+    UserPageComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            templateUrl: 'user-page.component.html'
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
+    ], UserPageComponent);
     return UserPageComponent;
 }());
-UserPageComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        templateUrl: 'user-page.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
-], UserPageComponent);
 exports.UserPageComponent = UserPageComponent;
 //# sourceMappingURL=user-page.component.js.map

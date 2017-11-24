@@ -19,7 +19,12 @@ export class SocialService {
     }
 
     addToFriend(id: number): Observable<any> {
-        return this.http.post('/api/friend', { userId: id })
+        return this.http.post('/api/friend/' + id, { })
+            .catch(this.handleErrors);
+    }
+
+    getFriend(id: number): Observable<any> {
+        return this.http.get('/api/friend/' + id)
             .catch(this.handleErrors);
     }
 
@@ -29,12 +34,27 @@ export class SocialService {
     }
 
     followUser(id: number): Observable<any> {
-        return this.http.post('/api/follow', { userId: id })
+        return this.http.post('/api/follow/' + id, { })
             .catch(this.handleErrors);
     }
 
     unfollowUser(id: number): Observable<any> {
         return this.http.delete('/api/follow/' + id)
+            .catch(this.handleErrors);
+    }
+
+    getPendingFriend(id: number): Observable<any> {
+        return this.http.get('/api/friend/pending/' + id)
+            .catch(this.handleErrors);
+    }
+
+    deletePendingFriend(id: number): Observable<any> {
+        return this.http.delete('/api/friend/pending/' + id)
+            .catch(this.handleErrors);
+    }
+
+    acceptFriend(id: number): Observable<any> {
+        return this.http.post('/api/friend/accept/' + id, {})
             .catch(this.handleErrors);
     }
 

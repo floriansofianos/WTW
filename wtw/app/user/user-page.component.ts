@@ -37,7 +37,16 @@ export class UserPageComponent {
             this.socialService.getUserProfile(this.id).subscribe(data => {
                 if (data) {
                     this.user = data.json();
-                    this.isLoading = false;
+                    this.socialService.getPendingFriend(this.id).subscribe(data => {
+                        if (data) {
+                            this.isLoading = false;
+                        }
+                        else this.router.navigate(['error']);
+                    },
+                        error => {
+                            this.router.navigate(['error']);
+                        });
+
                 }
                 else this.router.navigate(['error']);
             },

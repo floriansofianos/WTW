@@ -25,7 +25,11 @@ var SocialService = (function () {
             .catch(this.handleErrors);
     };
     SocialService.prototype.addToFriend = function (id) {
-        return this.http.post('/api/friend', { userId: id })
+        return this.http.post('/api/friend/' + id, {})
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.getFriend = function (id) {
+        return this.http.get('/api/friend/' + id)
             .catch(this.handleErrors);
     };
     SocialService.prototype.removeFromFriend = function (id) {
@@ -33,21 +37,33 @@ var SocialService = (function () {
             .catch(this.handleErrors);
     };
     SocialService.prototype.followUser = function (id) {
-        return this.http.post('/api/follow', { userId: id })
+        return this.http.post('/api/follow/' + id, {})
             .catch(this.handleErrors);
     };
     SocialService.prototype.unfollowUser = function (id) {
         return this.http.delete('/api/follow/' + id)
             .catch(this.handleErrors);
     };
+    SocialService.prototype.getPendingFriend = function (id) {
+        return this.http.get('/api/friend/pending/' + id)
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.deletePendingFriend = function (id) {
+        return this.http.delete('/api/friend/pending/' + id)
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.acceptFriend = function (id) {
+        return this.http.post('/api/friend/accept/' + id, {})
+            .catch(this.handleErrors);
+    };
     SocialService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
+    SocialService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], SocialService);
     return SocialService;
 }());
-SocialService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], SocialService);
 exports.SocialService = SocialService;
 //# sourceMappingURL=social.service.js.map
