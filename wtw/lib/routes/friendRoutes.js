@@ -1,15 +1,22 @@
 ﻿var express = require('express');
 var isAuthenticated = require('../middlewares/isAuthenticated');
-var friendController = require('../controllers/friendController')();
+var friendService = require('../helpers/friendshipService')();
+var friendController = require('../controllers/friendController')(friendService);
 
 var friendRoutes = function () {
-    var friendRouter = express.Router();
-
-    friendRouter.route('/')
-        .post(isAuthenticated, friendController.post);
+    var friendRouter = express.Router();      
 
     friendRouter.route('/:id')
+        .get(isAuthenticated, friendController.get)
+        .post(isAuthenticated, friendController.post)
         .delete(isAuthenticated, friendController.deleteFriend);
+
+    friendRouter.route('/pending/:id')
+        .get(isAuthenticated, friendController.getPending)
+        .delete(isAuthenticated, friendController.deletePendingFriend);
+
+    friendRouter.route('/accept/:id')
+        .post(isAuthenticated, friendController.acceptFriendRequest)
 
     return friendRouter;
 }

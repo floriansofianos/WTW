@@ -54,7 +54,7 @@ var friendshipService = function () {
         });
     }
 
-    var friendUser = function (currentUserId, currentUserEmail, userId, userEmail, done) {
+    var friendUser = function (currentUserId, userId, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
@@ -194,13 +194,34 @@ var friendshipService = function () {
         });
     }
 
+    var getPendingFriendship = function (currentUserId, userId, done) {
+        if (currentUserId == userId) return done(null, false);
+        models.PendingFriendship.find({ where: { [Op.or]: [{ fromUserId: userId, toUserId: currentUserId }, { fromUserId: currentUserId, toUserId: userId }] } }).then(result => {
+            done(null, result);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+    var getFriendship = function (currentUserId, userId, done) {
+        if (currentUserId == userId) return done(null, false);
+        models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+
     return {
         followUser: followUser,
         unfollowUser: unfollowUser,
         friendUser: friendUser,
         deletePendingFriendship: deletePendingFriendship,
         acceptFriendRequest: acceptFriendRequest,
-        unfriendUser: unfriendUser
+        unfriendUser: unfriendUser,
+        getPendingFriendship: getPendingFriendship,
+        getFriendship: getFriendship
     }
 }
 
