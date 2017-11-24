@@ -1,5 +1,6 @@
 var models = require('../models');
 const Sequelize = require('../models').sequelize;
+var _ = require('underscore');
 
 var friendshipService = function () {
 
@@ -168,13 +169,38 @@ var friendshipService = function () {
         });
     }
 
-    var unfriendUser = function (userId, movieDBId, done) {
+    var unfriendUser = function (currentUserId, userId, done) {
+        if (currentUserId == userId) return done(null, false);
+        models.Friendship.find({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
+            if (data && data.length > 0) {
+                var friendshipToDelete = _.find(data, function (f) { return f.currentUserId == currentUserId });
+                models.Friendship.destroy({ where: { id: friendshipToDelete.id } }).then(result => {
+                    var friendshipToUpdate = _.find(data, function (f) { return f.currentUserId == userId });
+                    friendshipToUpdate.isFriend = false;
+                    friendshipToUpdate.save().then(function (data, err) {
+                        if (!err) return done(null, true);
+                        else done(err);
+                    })
+                        .catch(function (err) {
+                            done(err);
+                        });
 
+                }).catch(function (err) {
+                    done(err);
+                });
+
+            }
+            else done(null, false);
+        });
     }
 
     return {
         followUser: followUser,
         unfollowUser: unfollowUser,
+        friendUser: friendUser,
+        deletePendingFriendship: deletePendingFriendship,
+        acceptFriendRequest: acceptFriendRequest,
+        unfriendUser: unfriendUser
     }
 }
 
