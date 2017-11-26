@@ -15,6 +15,9 @@ export class UserPageComponent {
     isLoading: boolean;
     user: any;
     private sub: any;
+    isPendingFriend: boolean;
+    isFriend: boolean;
+    friendship: any;
 
     constructor(private authService: AuthService, private router: Router, private socialService: SocialService, private route: ActivatedRoute) { }
 
@@ -37,16 +40,7 @@ export class UserPageComponent {
             this.socialService.getUserProfile(this.id).subscribe(data => {
                 if (data) {
                     this.user = data.json();
-                    this.socialService.getPendingFriend(this.id).subscribe(data => {
-                        if (data) {
-                            this.isLoading = false;
-                        }
-                        else this.router.navigate(['error']);
-                    },
-                        error => {
-                            this.router.navigate(['error']);
-                        });
-
+                    this.updateFriendStatus();
                 }
                 else this.router.navigate(['error']);
             },
@@ -55,6 +49,103 @@ export class UserPageComponent {
                 }
             );
         });
+    }
+
+    updateFriendStatus() {
+        this.isLoading = true;
+        this.socialService.getPendingFriend(this.id).subscribe(data => {
+            if (data) {
+                if (data.json().length > 0) {
+                    this.isPendingFriend = true;
+                    this.friendship = null;
+                    this.isFriend = false;
+                    this.isLoading = false;
+                }
+                else {
+                    this.socialService.getFriend(this.id).subscribe(data => {
+                        if (data) {
+                            this.friendship = data.json();
+                            this.isFriend = this.friendship != undefined;
+                            this.isPendingFriend = false;
+                            this.isLoading = false;
+                        }
+                        else this.router.navigate(['error']);
+                    },
+                        error => {
+                            this.router.navigate(['error']);
+                        })
+                }
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    requestFriend() {
+        this.isLoading = true;
+        this.socialService.addToFriend(this.id).subscribe(data => {
+            if (data) {
+                this.updateFriendStatus();
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    follow() {
+        this.isLoading = true;
+        this.socialService.followUser(this.id).subscribe(data => {
+            if (data) {
+                this.updateFriendStatus();
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    unfollow() {
+        this.isLoading = true;
+        this.socialService.unfollowUser(this.id).subscribe(data => {
+            if (data) {
+                this.updateFriendStatus();
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    unfriend() {
+        this.isLoading = true;
+        this.socialService.removeFromFriend(this.id).subscribe(data => {
+            if (data) {
+                this.updateFriendStatus();
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
+
+    acceptFriendship() {
+        this.isLoading = true;
+        this.socialService.acceptFriend(this.id).subscribe(data => {
+            if (data) {
+                this.updateFriendStatus();
+            }
+            else this.router.navigate(['error']);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
     }
 
     ngOnDestroy() {

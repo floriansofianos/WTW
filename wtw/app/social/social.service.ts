@@ -18,6 +18,11 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
+    getUsersThatAlsoLiked(): Observable<any> {
+        return this.http.get('/api/user/usersThatLiked')
+            .catch(this.handleErrors);
+    }
+
     addToFriend(id: number): Observable<any> {
         return this.http.post('/api/friend/' + id, { })
             .catch(this.handleErrors);

@@ -13,19 +13,29 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var social_service_1 = require("./social.service");
-var SocialPageComponent = (function () {
+var SocialPageComponent = /** @class */ (function () {
     function SocialPageComponent(authService, router, socialService) {
         this.authService = authService;
         this.router = router;
         this.socialService = socialService;
     }
     SocialPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.socialService.getUsersThatAlsoLiked().subscribe(function (data) {
+                if (data) {
+                    _this.usersThatAlsoLiked = data.json();
+                    console.log(_this.usersThatAlsoLiked);
+                }
+                _this.isLoading = false;
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }
         else {
             this.router.navigate(['']);
@@ -50,14 +60,13 @@ var SocialPageComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
+    SocialPageComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            templateUrl: 'social-page.component.html'
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService])
+    ], SocialPageComponent);
     return SocialPageComponent;
 }());
-SocialPageComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        templateUrl: 'social-page.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService])
-], SocialPageComponent);
 exports.SocialPageComponent = SocialPageComponent;
-//# sourceMappingURL=social-page.component.js.map

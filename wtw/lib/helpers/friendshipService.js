@@ -1,12 +1,12 @@
 var models = require('../models');
-const Sequelize = require('../models').sequelize;
+const sequelize = require('sequelize');
 var _ = require('underscore');
 
 var friendshipService = function () {
 
     var followUser = function (currentUserId, userId, done) {
         if (currentUserId == userId) return done(null, false);
-        models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
+        models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId } }).then(data => {
             if (data) {
                 data.following = true;
                 data.save().then(function (data, err) {
@@ -35,7 +35,7 @@ var friendshipService = function () {
     }
 
     var unfollowUser = function (currentUserId, userId, done) {
-        models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
+        models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId } }).then(data => {
             if (data) {
                 data.following = false;
                 data.save().then(function (data, err) {
@@ -57,12 +57,12 @@ var friendshipService = function () {
     var friendUser = function (currentUserId, userId, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
-        models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
+        models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId, isFriend: true } }).then(data => {
             if (data) {
                 return done(null, false);
             }
             else {
-                models.PendingFriendship.find({ where: { [Op.or]: [{ fromUserId: currentUserId, toUserId: userId }, { fromUserId: userId, toUserId: currentUserId }] } }).then(data => {
+                models.PendingFriendship.findAll({ where: { [Op.or]: [{ fromUserId: currentUserId, toUserId: userId }, { fromUserId: userId, toUserId: currentUserId }] } }).then(data => {
                     if (data && data.length > 0) {
                         return done(null, false);
                     }
@@ -87,6 +87,7 @@ var friendshipService = function () {
     }
 
     var deletePendingFriendship = function (currentUserId, userId, done) {
+        var Op = sequelize.Op;
         models.PendingFriendship.destroy({ where: { [Op.or]: [{ fromUserId: userId, toUserId: currentUserId }, { fromUserId: currentUserId, toUserId: userId}] } }).then(result => {
             done(null, result);
         }).catch(function (err) {
@@ -95,12 +96,13 @@ var friendshipService = function () {
     }
 
     var acceptFriendRequest = function (currentUserId, userId, done) {
+        var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
             if (pendingFriendship) {
                 //TODO Send email to notify userId
                 // Check if we have existing friendship first!!!
-                models.Friendship.find({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
+                models.Friendship.findAll({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
                     if (data && data.length > 0) {
                         data[0].isFriend = true;
                         data[0].save().then(function (res, err) {
@@ -170,8 +172,9 @@ var friendshipService = function () {
     }
 
     var unfriendUser = function (currentUserId, userId, done) {
+        var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
-        models.Friendship.find({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
+        models.Friendship.findAll({ where: { [Op.or]: [{ currentUserId: currentUserId, friendUserId: userId }, { currentUserId: userId, friendUserId: currentUserId }] } }).then(data => {
             if (data && data.length > 0) {
                 var friendshipToDelete = _.find(data, function (f) { return f.currentUserId == currentUserId });
                 models.Friendship.destroy({ where: { id: friendshipToDelete.id } }).then(result => {
@@ -195,8 +198,9 @@ var friendshipService = function () {
     }
 
     var getPendingFriendship = function (currentUserId, userId, done) {
+        var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
-        models.PendingFriendship.find({ where: { [Op.or]: [{ fromUserId: userId, toUserId: currentUserId }, { fromUserId: currentUserId, toUserId: userId }] } }).then(result => {
+        models.PendingFriendship.findAll({ where: { [Op.or]: [{ fromUserId: userId, toUserId: currentUserId }, { fromUserId: currentUserId, toUserId: userId }] } }).then(result => {
             done(null, result);
         }).catch(function (err) {
             done(err);
@@ -205,7 +209,7 @@ var friendshipService = function () {
 
     var getFriendship = function (currentUserId, userId, done) {
         if (currentUserId == userId) return done(null, false);
-        models.Friendship.findOne({ where: { currentUserId: userId, friendUserId: userId } }).then(data => {
+        models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId } }).then(data => {
             done(null, data);
         }).catch(function (err) {
             done(err);

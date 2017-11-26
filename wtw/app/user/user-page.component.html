@@ -1,5 +1,13 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
 <h2 *ngIf="!isLoading">{{ 'HOME.USERPROFILE' | translate }} {{ user.username }}</h2>
+<div *ngIf="!isLoading">
+    <div *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
+    <div *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
+    <div *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
+    <div *ngIf="isPendingFriend">Waiting for a response</div>
+    <div *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
+    <div *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
+</div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>
 </div>

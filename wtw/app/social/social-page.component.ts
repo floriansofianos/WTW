@@ -13,6 +13,7 @@ export class SocialPageComponent {
     search: string;
     isLoading: boolean;
     noResults: boolean;
+    usersThatAlsoLiked: any;
 
     constructor(private authService: AuthService, private router: Router, private socialService: SocialService) { }
 
@@ -23,6 +24,16 @@ export class SocialPageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.socialService.getUsersThatAlsoLiked().subscribe(data => {
+                if (data) {
+                    this.usersThatAlsoLiked = data.json();
+                    console.log(this.usersThatAlsoLiked);
+                }
+                this.isLoading = false;
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
         }
         else {
             this.router.navigate(['']);

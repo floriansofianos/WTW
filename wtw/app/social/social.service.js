@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var SocialService = (function () {
+var SocialService = /** @class */ (function () {
     function SocialService(http) {
         this.http = http;
     }
@@ -22,6 +22,10 @@ var SocialService = (function () {
     };
     SocialService.prototype.getUserProfile = function (id) {
         return this.http.get('/api/user/' + id)
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.getUsersThatAlsoLiked = function () {
+        return this.http.get('/api/user/usersThatLiked')
             .catch(this.handleErrors);
     };
     SocialService.prototype.addToFriend = function (id) {
@@ -66,4 +70,3 @@ var SocialService = (function () {
     return SocialService;
 }());
 exports.SocialService = SocialService;
-//# sourceMappingURL=social.service.js.map

@@ -14,7 +14,7 @@ var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var router_2 = require("@angular/router");
-var UserPageComponent = (function () {
+var UserPageComponent = /** @class */ (function () {
     function UserPageComponent(authService, router, socialService, route) {
         this.authService = authService;
         this.router = router;
@@ -40,8 +40,32 @@ var UserPageComponent = (function () {
             _this.socialService.getUserProfile(_this.id).subscribe(function (data) {
                 if (data) {
                     _this.user = data.json();
-                    _this.socialService.getPendingFriend(_this.id).subscribe(function (data) {
+                    _this.updateFriendStatus();
+                }
+                else
+                    _this.router.navigate(['error']);
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
+        });
+    };
+    UserPageComponent.prototype.updateFriendStatus = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.getPendingFriend(this.id).subscribe(function (data) {
+            if (data) {
+                if (data.json().length > 0) {
+                    _this.isPendingFriend = true;
+                    _this.friendship = null;
+                    _this.isFriend = false;
+                    _this.isLoading = false;
+                }
+                else {
+                    _this.socialService.getFriend(_this.id).subscribe(function (data) {
                         if (data) {
+                            _this.friendship = data.json();
+                            _this.isFriend = _this.friendship != undefined;
+                            _this.isPendingFriend = false;
                             _this.isLoading = false;
                         }
                         else
@@ -50,11 +74,76 @@ var UserPageComponent = (function () {
                         _this.router.navigate(['error']);
                     });
                 }
-                else
-                    _this.router.navigate(['error']);
-            }, function (error) {
+            }
+            else
                 _this.router.navigate(['error']);
-            });
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
+    UserPageComponent.prototype.requestFriend = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.addToFriend(this.id).subscribe(function (data) {
+            if (data) {
+                _this.updateFriendStatus();
+            }
+            else
+                _this.router.navigate(['error']);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
+    UserPageComponent.prototype.follow = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.followUser(this.id).subscribe(function (data) {
+            if (data) {
+                _this.updateFriendStatus();
+            }
+            else
+                _this.router.navigate(['error']);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
+    UserPageComponent.prototype.unfollow = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.unfollowUser(this.id).subscribe(function (data) {
+            if (data) {
+                _this.updateFriendStatus();
+            }
+            else
+                _this.router.navigate(['error']);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
+    UserPageComponent.prototype.unfriend = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.removeFromFriend(this.id).subscribe(function (data) {
+            if (data) {
+                _this.updateFriendStatus();
+            }
+            else
+                _this.router.navigate(['error']);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
+    UserPageComponent.prototype.acceptFriendship = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.socialService.acceptFriend(this.id).subscribe(function (data) {
+            if (data) {
+                _this.updateFriendStatus();
+            }
+            else
+                _this.router.navigate(['error']);
+        }, function (error) {
+            _this.router.navigate(['error']);
         });
     };
     UserPageComponent.prototype.ngOnDestroy = function () {
@@ -70,4 +159,3 @@ var UserPageComponent = (function () {
     return UserPageComponent;
 }());
 exports.UserPageComponent = UserPageComponent;
-//# sourceMappingURL=user-page.component.js.map

@@ -31,4 +31,3 @@ exports.appRoutes = [
     { path: 'user/:id', component: user_page_component_1.UserPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
-//# sourceMappingURL=routes.js.map
