@@ -12,7 +12,7 @@ import * as _ from 'underscore';
 
 export class AlsoLikeComponent {
     @Input() lang: string;
-    numberOfElements = 60;
+    numberOfElements = 5;
     loadedElements = 0;
     movies: Array<any> = [];
     isLoading: boolean = true;
