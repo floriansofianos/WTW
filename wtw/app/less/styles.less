@@ -564,6 +564,7 @@ em {
     .movie-poster-placeholder {
         width: 150px;
         height: 225px;
+
         i {
             margin-top: 80px;
         }
@@ -827,6 +828,59 @@ modal-content {
     }
 }
 
+.also-like-movie-container {
+    .movie-container {
+        display: inline-block;
+        position: relative;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        vertical-align: bottom;
+
+        img {
+            .border-radius(5px;)
+        }
+    }
+
+    .movie-title {
+        position: absolute;
+        top: 20px;
+        padding: 10px;
+        line-height: 1;
+        text-align: center;
+        font-weight: bold;
+    }
+    margin-bottom: 25px;
+}
+
+.also-like-users-container {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+
+    i {
+        margin-right: 5px;
+    }
+
+    .also-like-user {
+        cursor: pointer;
+        line-height: 0px;
+        margin-bottom: 5px;
+    }
+
+    .also-like-user:hover {
+        text-decoration: underline;
+    }
+}
+
+.also-like-container {
+    margin-top: 35px;
+    .also-like-title {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+}
+
 .category-container {
     margin-bottom: 30px;
 }
@@ -949,6 +1003,7 @@ wtw-button {
     height: 300px;
     text-align: center;
     .border-radius(5px);
+
     i {
         color: #fff;
         font-size: 60px;
@@ -964,6 +1019,7 @@ wtw-button {
     width: 400px;
     margin: auto;
     margin-top: 50px;
+
     logo {
         display: inline-block;
     }

@@ -143,5 +143,8 @@
     },
     "SOCIAL": {
         "FIND_FRIENDS": "Find other people using their email or username."
+    },
+    "ALSO_LIKE": {
+        "PEOPLE_ALSO_LIKE":  "People that also liked:"
     }
 }

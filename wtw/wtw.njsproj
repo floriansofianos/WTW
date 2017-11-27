@@ -35,6 +35,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\also-like\also-like.component.html" />
     <Content Include="app\forgot-password\forgot-password-form\forgot-password-form.component.html" />
     <Content Include="app\less\angular-material.css" />
     <Content Include="app\less\angular-material.min.css" />
@@ -78,6 +79,7 @@
     <Content Include="lib\routes\movieDBConfigurationRoutes.js" />
     <Content Include="lib\static\countries.json" />
     <Content Include="lib\static\supported-languages.json" />
+    <TypeScriptCompile Include="app\also-like\also-like.component.ts" />
     <TypeScriptCompile Include="app\auth\auth.service.ts" />
     <TypeScriptCompile Include="app\auth\can-activate.auth.ts" />
     <TypeScriptCompile Include="app\button\wtw.button.component.ts">
@@ -252,6 +254,7 @@
     <Folder Include="app\forgot-password\" />
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
+    <Folder Include="app\also-like\" />
     <Folder Include="app\user\" />
     <Folder Include="app\social\" />
     <Folder Include="app\questionnaire\" />

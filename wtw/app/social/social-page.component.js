@@ -20,22 +20,12 @@ var SocialPageComponent = /** @class */ (function () {
         this.socialService = socialService;
     }
     SocialPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        var currentUser = this.authService.getCurrentUser();
-        if (currentUser) {
-            if (!currentUser.firstQuestionnaireCompleted) {
+        this.currentUser = this.authService.getCurrentUser();
+        if (this.currentUser) {
+            if (!this.currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
-            this.username = currentUser.username;
-            this.socialService.getUsersThatAlsoLiked().subscribe(function (data) {
-                if (data) {
-                    _this.usersThatAlsoLiked = data.json();
-                    console.log(_this.usersThatAlsoLiked);
-                }
-                _this.isLoading = false;
-            }, function (error) {
-                _this.router.navigate(['error']);
-            });
+            this.username = this.currentUser.username;
         }
         else {
             this.router.navigate(['']);

@@ -16,6 +16,7 @@
                 <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
             </div>
         </div>
+        <also-like [lang]="currentUser.lang"></also-like>
         <div class="spinner-container" *ngIf="isLoading">
             <spinner></spinner>
         </div>

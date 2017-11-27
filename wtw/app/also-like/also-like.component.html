@@ -1,0 +1,12 @@
+<div class="also-like-container" *ngIf="!isLoading">
+    <div class="also-like-title">{{ 'ALSO_LIKE.PEOPLE_ALSO_LIKE' | translate }}</div>
+    <div *ngFor="let m of movies" class="also-like-movie-container">
+        <movie-wall-element [movie]="m.movie" [config]="config" [width]="150"></movie-wall-element>
+        <div class="also-like-users-container">
+            <div class="also-like-user" *ngFor="let u of m.users" [routerLink]="['/user/' + u.id]"><i class="fa fa-user"></i>{{u.username}}</div>
+        </div>
+    </div>
+</div>
+<div class="spinner-container" *ngIf="isLoading">
+    <spinner></spinner>
+</div>

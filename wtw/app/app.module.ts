@@ -50,6 +50,7 @@ import { MovieWallElementComponent } from './movie-wall/movie-wall-element.compo
 import { ErrorPageComponent } from './error/error-page.component';
 import { SocialPageComponent } from './social/social-page.component';
 import { UserPageComponent } from './user/user-page.component';
+import { AlsoLikeComponent } from './also-like/also-like.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -125,6 +126,7 @@ export function createTranslateLoader(http: Http) {
         ErrorPageComponent,
         SocialPageComponent,
         UserPageComponent,
+        AlsoLikeComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,

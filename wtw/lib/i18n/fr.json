@@ -142,6 +142,9 @@
         "WRONGTOKEN": "Une erreur est survenue, merci de réessayer ultérieurement."
     },
     "SOCIAL": {
-        "FIND_FRIENDS":  "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
+        "FIND_FRIENDS": "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
+    },
+    "ALSO_LIKE": {
+        "PEOPLE_ALSO_LIKE":  "Utilisateurs ayant également aimé:"
     }
 }

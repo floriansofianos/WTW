@@ -34,7 +34,10 @@ var movieQuestionnaireService = function() {
                     where: {
                         movieDBId: movieId,
                         isSeen: true,
-                        rating: 5
+                        rating: 5,
+                        userId: {
+                            [Op.ne]: userId
+                        }
                     },
                     order: [
                         Sequelize.fn('RANDOM')
@@ -42,6 +45,8 @@ var movieQuestionnaireService = function() {
                     limit: 5
                 }).then(users => {
                     var userIds = _.map(users, 'userId');
+                    // Check if we have at least one result
+                    if (userIds.length < 1) return done(null, false);
                     models.User.findAll({
                         where: {
                             id: {
