@@ -14,6 +14,9 @@ var userRoutes = function () {
     userRouter.route('/usersThatLiked')
         .get(isAuthenticated, movieQuestionnaireController.getUsersThatAlsoLiked);
 
+    userRouter.route('/distance/:userId')
+        .get(isAuthenticated, userController.getDistance);
+
     userRouter.route('/:userId')
         .get(isAuthenticated, userController.getUserProfile);
 

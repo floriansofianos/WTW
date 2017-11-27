@@ -144,6 +144,18 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var getUserDistance = function (req, res) {
+        if (req.params.userId) {
+            userService.getDistance(req.user.id, req.params.userId, function (err, distance) {
+                if (distance) {
+                    res.json(distance);
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,

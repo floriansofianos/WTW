@@ -194,6 +194,15 @@ var userService = function() {
         });
     }
 
+    var getDistance = function (currentUserId, userId, done) {
+        var Op = sequelize.Op;
+        models.UserProfile.findAll({ where: { userId: { [Op.or]: [currentUserId, userId] } } }).then(profiles => {
+            done(null, profiles)
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
