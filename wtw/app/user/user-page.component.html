@@ -8,6 +8,11 @@
     <div *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
     <div *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
 </div>
+<div class="grade-column" *ngIf="averageDistance">
+    <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
+        {{averageDistance | number:'1.0-1'}} %
+    </div>
+</div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>
 </div>

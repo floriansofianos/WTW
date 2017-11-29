@@ -166,7 +166,8 @@ var userController = function (userService) {
         setNewPassword: setNewPassword,
         sendWelcomeEmail: sendWelcomeEmail,
         search: search,
-        getUserProfile: getUserProfile
+        getUserProfile: getUserProfile,
+        getUserDistance: getUserDistance
     }
 }
 

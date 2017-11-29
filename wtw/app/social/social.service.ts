@@ -18,6 +18,11 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
+    getUserDistance(id: number): Observable<any> {
+        return this.http.get('/api/user/distance/' + id)
+            .catch(this.handleErrors);
+    }
+
     getUsersThatAlsoLiked(): Observable<any> {
         return this.http.get('/api/user/usersThatLiked')
             .catch(this.handleErrors);

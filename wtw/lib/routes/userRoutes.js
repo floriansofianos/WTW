@@ -15,7 +15,7 @@ var userRoutes = function () {
         .get(isAuthenticated, movieQuestionnaireController.getUsersThatAlsoLiked);
 
     userRouter.route('/distance/:userId')
-        .get(isAuthenticated, userController.getDistance);
+        .get(isAuthenticated, userController.getUserDistance);
 
     userRouter.route('/:userId')
         .get(isAuthenticated, userController.getUserProfile);

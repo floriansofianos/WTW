@@ -197,7 +197,26 @@ var userService = function() {
     var getDistance = function (currentUserId, userId, done) {
         var Op = sequelize.Op;
         models.UserProfile.findAll({ where: { userId: { [Op.or]: [currentUserId, userId] } } }).then(profiles => {
-            done(null, profiles)
+            var distance = {
+                profiles: []
+            };
+            // Filter the relevant profiles
+            profiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 && (p.score < 30 || p.score > 70) });
+            var currentUserProfiles = _.filter(profiles, function (p) { return p.userId == currentUserId; });
+            var otherUserProfiles = _.filter(profiles, function (p) { return p.userId == userId });
+            _.each(currentUserProfiles, function (p) {
+                // Try to find the relevant profile on the other user
+                var otherUserProfile = _.find(otherUserProfiles, function (op) { return (p.genreId && op.genreId == p.genreId) || (p.castId && p.castId == op.castId) || (p.writerId && op.writerId == p.writerId) || (p.directorId && op.directorId == p.directorId) || (p.country && op.country == p.country) });
+                if (otherUserProfile) {
+                    distance.profiles.push({ profile: p, distance: Math.abs(p.score - otherUserProfile.score) });
+                }
+            });
+            if (_.size(distance.profiles) > 0) {
+                distance.averageDistance = _.reduce(distance.profiles, function (memo, p) {
+                    return memo + p.distance;
+                }, 0) / distance.profiles.length;
+            }
+            done(null, distance);
         }).catch(function (err) {
             done(err);
         });
@@ -218,7 +237,8 @@ var userService = function() {
         getUserFromToken: getUserFromToken,
         getUserFromValidationToken: getUserFromValidationToken,
         changeUserPassword: changeUserPassword,
-        searchUser: searchUser
+        searchUser: searchUser,
+        getDistance: getDistance
     }
 }
 

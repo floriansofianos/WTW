@@ -14,6 +14,7 @@ export class UserPageComponent {
     username: string;
     isLoading: boolean;
     user: any;
+    averageDistance: number;
     private sub: any;
     isPendingFriend: boolean;
     isFriend: boolean;
@@ -48,7 +49,22 @@ export class UserPageComponent {
                     this.router.navigate(['error']);
                 }
             );
+
+            this.socialService.getUserDistance(this.id).subscribe(data => {
+                if (data) {
+                    this.updateDistance(data.json());
+                }
+                else this.router.navigate(['error']);
+            },
+                error => {
+                    this.router.navigate(['error']);
+                }
+            );
         });
+    }
+
+    updateDistance(distance: any) {
+        this.averageDistance = 100 - distance.averageDistance;
     }
 
     updateFriendStatus() {

@@ -47,7 +47,19 @@ var UserPageComponent = /** @class */ (function () {
             }, function (error) {
                 _this.router.navigate(['error']);
             });
+            _this.socialService.getUserDistance(_this.id).subscribe(function (data) {
+                if (data) {
+                    _this.updateDistance(data.json());
+                }
+                else
+                    _this.router.navigate(['error']);
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         });
+    };
+    UserPageComponent.prototype.updateDistance = function (distance) {
+        this.averageDistance = 100 - distance.averageDistance;
     };
     UserPageComponent.prototype.updateFriendStatus = function () {
         var _this = this;

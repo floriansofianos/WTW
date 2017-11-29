@@ -24,6 +24,10 @@ var SocialService = /** @class */ (function () {
         return this.http.get('/api/user/' + id)
             .catch(this.handleErrors);
     };
+    SocialService.prototype.getUserDistance = function (id) {
+        return this.http.get('/api/user/distance/' + id)
+            .catch(this.handleErrors);
+    };
     SocialService.prototype.getUsersThatAlsoLiked = function () {
         return this.http.get('/api/user/usersThatLiked')
             .catch(this.handleErrors);
