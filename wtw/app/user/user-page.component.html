@@ -1,12 +1,12 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
 <h2 *ngIf="!isLoading">{{ 'HOME.USERPROFILE' | translate }} {{ user.username }}</h2>
-<div *ngIf="!isLoading && !isCurrentUser">
-    <div *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
-    <div *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
-    <div *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
-    <div *ngIf="isPendingFriend">Waiting for a response</div>
-    <div *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
-    <div *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
+<div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
+    <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
+    <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
+    <div class="button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
+    <div class="button not-clickable" *ngIf="isPendingFriend">Waiting for a response</div>
+    <div class="button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
+    <div class="button" *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
 </div>
 <div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
     <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">

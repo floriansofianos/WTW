@@ -1,8 +1,10 @@
 ﻿{
-    "HOME": {
-        "TITLE": "Bienvenue sur Angular avec le module de traduction !",
-        "WELCOME": "Bienvenue"
-    },
+  "HOME": {
+    "TITLE": "Bienvenue sur Angular avec le module de traduction !",
+    "WELCOME": "Bienvenue",
+    "USERLIKE": "J'aime",
+    "USERDISLIKE": "Je n'aime pas"
+  },
      "ERROR": {
         "TEXT":  "Une erreur est survenue lors de l'affichage de la page."
     },

@@ -1,8 +1,10 @@
 ﻿{
-    "HOME": {
-        "TITLE": "Hello Angular with ngx-translate!",
-        "WELCOME": "Welcome"
-    },
+  "HOME": {
+    "TITLE": "Hello Angular with ngx-translate!",
+    "WELCOME": "Welcome",
+    "USERLIKE": "I like",
+    "USERDISLIKE":  "I dislike"
+  },
     "ERROR": {
         "TEXT":  "Something went wrong when displaying the page."
     },
