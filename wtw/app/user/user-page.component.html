@@ -1,6 +1,6 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
 <h2 *ngIf="!isLoading">{{ 'HOME.USERPROFILE' | translate }} {{ user.username }}</h2>
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoading && !isCurrentUser">
     <div *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
     <div *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
     <div *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
@@ -8,9 +8,23 @@
     <div *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
     <div *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
 </div>
-<div class="grade-column" *ngIf="averageDistance">
+<div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
     <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
         {{averageDistance | number:'1.0-1'}} %
+    </div>
+</div>
+<div class="like-dislike-container" *ngIf="!isLoading">
+    <div class="questionnaires-container" *ngIf="likeMovieIds">
+        <div class="questionnaires-title">
+            {{ 'HOME.USERLIKE' | translate }}
+        </div>
+        <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config"></movie-wall>
+    </div>
+    <div class="questionnaires-container" *ngIf="dislikeMovieIds">
+        <div class="questionnaires-title">
+            {{ 'HOME.USERDISLIKE' | translate }}
+        </div>
+        <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config"></movie-wall>
     </div>
 </div>
 <div class="spinner-container" *ngIf="isLoading">

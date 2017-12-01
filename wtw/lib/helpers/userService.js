@@ -2,6 +2,7 @@
 var sequelize = require('sequelize');
 var _ = require('underscore');
 var guid = require('guid');
+const Sequelize = require('../models').sequelize;
 
 var userService = function() {
 
@@ -222,6 +223,24 @@ var userService = function() {
         });
     }
 
+    var getLikedDislikedMovies = function (userId, done) {
+        var Op = sequelize.Op;
+        models.MovieQuestionnaire.findAll({
+            where: {
+                userId: userId, isSeen: true, rating: { [Op.or]: [5, 4, 1] }
+            },
+            order: [
+                Sequelize.fn('RANDOM')
+            ],
+            limit: 20
+        }).then(questionnaires => {
+            done(null, questionnaires);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+
     return {
         getUserByUsername: getUserByUsername,
         getUserByEmail: getUserByEmail,
@@ -238,7 +257,8 @@ var userService = function() {
         getUserFromValidationToken: getUserFromValidationToken,
         changeUserPassword: changeUserPassword,
         searchUser: searchUser,
-        getDistance: getDistance
+        getDistance: getDistance,
+        getLikedDislikedMovies: getLikedDislikedMovies
     }
 }
 

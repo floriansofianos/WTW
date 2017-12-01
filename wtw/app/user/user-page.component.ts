@@ -3,6 +3,8 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { SocialService } from '../social/social.service';
 import { ActivatedRoute } from '@angular/router';
+import { MovieDBService } from '../movieDB/movieDB.service';
+import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
@@ -11,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class UserPageComponent {
     id: number;
+    currentUserId: number;
     username: string;
     isLoading: boolean;
     user: any;
@@ -19,13 +22,20 @@ export class UserPageComponent {
     isPendingFriend: boolean;
     isFriend: boolean;
     friendship: any;
+    isCurrentUser: boolean;
+    likeMovieIds: Array<any>;
+    dislikeMovieIds: Array<any>;
+    config: any;
+    lang: string;
 
-    constructor(private authService: AuthService, private router: Router, private socialService: SocialService, private route: ActivatedRoute) { }
+    constructor(private authService: AuthService, private router: Router, private socialService: SocialService, private route: ActivatedRoute, private movieDBService: MovieDBService) { }
 
     ngOnInit() {
         this.isLoading = true;
         let currentUser = this.authService.getCurrentUser();
+        this.currentUserId = currentUser.id;
         if (currentUser) {
+            this.lang = currentUser.lang;
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
@@ -34,33 +44,46 @@ export class UserPageComponent {
         else {
             this.router.navigate(['']);
         }
-        // Load the asked user profile
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number
 
-            this.socialService.getUserProfile(this.id).subscribe(data => {
-                if (data) {
-                    this.user = data.json();
-                    this.updateFriendStatus();
+        this.movieDBService.getMovieDBConfiguration().subscribe(response => {
+            this.config = response.json();
+            // Load the asked user profile
+            this.sub = this.route.params.subscribe(params => {
+                this.id = +params['id']; // (+) converts string 'id' to a number
+                this.isCurrentUser = this.currentUserId == this.id;
+                this.socialService.getUserProfile(this.id).subscribe(data => {
+                    if (data) {
+                        var response = data.json();
+                        this.user = response.user;
+                        this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
+                        this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
+                        
+                        this.updateFriendStatus();
+                    }
+                    else this.router.navigate(['error']);
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    }
+                );
+                if (!this.isCurrentUser) {
+                    this.socialService.getUserDistance(this.id).subscribe(data => {
+                        if (data) {
+                            this.updateDistance(data.json());
+                        }
+                        else this.router.navigate(['error']);
+                    },
+                        error => {
+                            this.router.navigate(['error']);
+                        }
+                    );
                 }
-                else this.router.navigate(['error']);
-            },
-                error => {
-                    this.router.navigate(['error']);
-                }
-            );
+            });
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
 
-            this.socialService.getUserDistance(this.id).subscribe(data => {
-                if (data) {
-                    this.updateDistance(data.json());
-                }
-                else this.router.navigate(['error']);
-            },
-                error => {
-                    this.router.navigate(['error']);
-                }
-            );
-        });
     }
 
     updateDistance(distance: any) {

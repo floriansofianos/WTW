@@ -14,18 +14,23 @@ var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var router_2 = require("@angular/router");
+var movieDB_service_1 = require("../movieDB/movieDB.service");
+var _ = require("underscore");
 var UserPageComponent = /** @class */ (function () {
-    function UserPageComponent(authService, router, socialService, route) {
+    function UserPageComponent(authService, router, socialService, route, movieDBService) {
         this.authService = authService;
         this.router = router;
         this.socialService = socialService;
         this.route = route;
+        this.movieDBService = movieDBService;
     }
     UserPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
         var currentUser = this.authService.getCurrentUser();
+        this.currentUserId = currentUser.id;
         if (currentUser) {
+            this.lang = currentUser.lang;
             if (!currentUser.firstQuestionnaireCompleted) {
                 this.router.navigate(['/user/welcome']);
             }
@@ -34,28 +39,39 @@ var UserPageComponent = /** @class */ (function () {
         else {
             this.router.navigate(['']);
         }
-        // Load the asked user profile
-        this.sub = this.route.params.subscribe(function (params) {
-            _this.id = +params['id']; // (+) converts string 'id' to a number
-            _this.socialService.getUserProfile(_this.id).subscribe(function (data) {
-                if (data) {
-                    _this.user = data.json();
-                    _this.updateFriendStatus();
-                }
-                else
+        this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
+            _this.config = response.json();
+            // Load the asked user profile
+            _this.sub = _this.route.params.subscribe(function (params) {
+                _this.id = +params['id']; // (+) converts string 'id' to a number
+                _this.isCurrentUser = _this.currentUserId == _this.id;
+                _this.socialService.getUserProfile(_this.id).subscribe(function (data) {
+                    if (data) {
+                        var response = data.json();
+                        _this.user = response.user;
+                        _this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
+                        _this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
+                        _this.updateFriendStatus();
+                    }
+                    else
+                        _this.router.navigate(['error']);
+                }, function (error) {
                     _this.router.navigate(['error']);
-            }, function (error) {
-                _this.router.navigate(['error']);
-            });
-            _this.socialService.getUserDistance(_this.id).subscribe(function (data) {
-                if (data) {
-                    _this.updateDistance(data.json());
+                });
+                if (!_this.isCurrentUser) {
+                    _this.socialService.getUserDistance(_this.id).subscribe(function (data) {
+                        if (data) {
+                            _this.updateDistance(data.json());
+                        }
+                        else
+                            _this.router.navigate(['error']);
+                    }, function (error) {
+                        _this.router.navigate(['error']);
+                    });
                 }
-                else
-                    _this.router.navigate(['error']);
-            }, function (error) {
-                _this.router.navigate(['error']);
             });
+        }, function (error) {
+            _this.router.navigate(['error']);
         });
     };
     UserPageComponent.prototype.updateDistance = function (distance) {
@@ -166,7 +182,7 @@ var UserPageComponent = /** @class */ (function () {
             moduleId: module.id,
             templateUrl: 'user-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute, movieDB_service_1.MovieDBService])
     ], UserPageComponent);
     return UserPageComponent;
 }());

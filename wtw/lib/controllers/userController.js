@@ -136,7 +136,16 @@ var userController = function (userService) {
         if (req.params.userId) {
             userService.getUserById(req.params.userId, function (err, user) {
                 if (user) {
-                    res.json(userService.userToModelView(user));
+                    var result = {
+                        user: userService.userToModelView(user)
+                    };
+                    userService.getLikedDislikedMovies(req.params.userId, function (err, questionnaires) {
+                        if (questionnaires) {
+                            result.questionnaires = questionnaires;
+                            res.json(result);
+                        }
+                        else return res.send(400);
+                    });
                 }
                 else return res.send(400);
             });
