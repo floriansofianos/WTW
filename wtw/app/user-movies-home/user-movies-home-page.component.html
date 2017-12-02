@@ -32,15 +32,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
-            <movie-recommandation [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)" (notifySave)="movieQuestionnaireSave($event)" [lang]="lang"></movie-recommandation>
-            <div class="button-line" *ngIf="!showSaveSpinner" style="text-align: center">
-                <wtw-button (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
-            </div>
-            <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
-                <spinner></spinner>
-            </div>
-        </div>
     </div>
 </div>

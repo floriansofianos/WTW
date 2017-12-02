@@ -106,56 +106,9 @@ export class UserMoviesHomePageComponent {
     }
 
     rateMovie(id) {
-        this.searchResultsLoaded = 'notLoaded';
-        this.loadingSearch = true;
-        // load existing data regarding this movie for the current user
-        this.movieQuestionnaireService.get(id).subscribe(
-            data => {
-                this.movieQuestionnaireInit = data.json();
-                this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
-                    data => {
-                        this.movie = data.json();
-                        this.movieQuestionnaireInitLoaded = true;
-                        this.hideSearch = true;
-                        this.loadingSearch = false;
-                    },
-                    error => {
-                        this.router.navigate(['/error']);
-                    }
-                );
-            },
-            error => {
-                this.router.navigate(['/error']);
-            }
-        );
+        this.router.navigate(['/movie/' + id]);
     }
 
-    back() {
-        this.searchResultsLoaded = 'loaded';
-        this.movieQuestionnaireInitLoaded = false;
-        this.hideSearch = false;
-    }
-
-    movieQuestionnaireSave(event) {
-        this.confirm();
-    }
-
-    confirm() {
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
-            this.showSaveSpinner = false;
-            this.back();
-        },
-        error => {
-            this.router.navigate(['error']);
-        });
-    }
-
-    movieQuestionnaireChange(data) {
-        this.movieQuestionnaire = data;
-    }
 
     keyDownFunction(event) {
         if (event.keyCode == 13) {

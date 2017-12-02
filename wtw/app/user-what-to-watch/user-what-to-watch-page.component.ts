@@ -84,29 +84,10 @@ export class UserWhatToWatchPageComponent {
 
     onClickMovie(event) {
         this.isLoading = true;
-        this.loadMovie(event.movieId);
+        this.router.navigate(['/movie/' + event.movieId]);
     }
 
-    loadMovie(id: number) {
-        this.movieQuestionnaireService.get(id).subscribe(
-            data => {
-                this.movieQuestionnaireInit = data.json();
-                this.movieDBService.getMovie(id, this.translate.currentLang).subscribe(
-                    data => {
-                        this.movie = data.json();
-                        this.movieQuestionnaireInitLoaded = true;
-                        this.isLoading = false;
-                    },
-                    error => {
-                        this.router.navigate(['/error']);
-                    }
-                );
-            },
-            error => {
-                this.router.navigate(['/error']);
-            }
-        );
-    }
+    
 
     clickSearch() {
         if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
@@ -114,7 +95,7 @@ export class UserWhatToWatchPageComponent {
             this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked, this.formWTW.countrySelectValue).subscribe(response => {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
-                if (id) this.loadMovie(id);
+                if (id) this.router.navigate(['/movie/' + id]);
                 else {
                     this.isLoading = false;
                     this.noResults = true;
@@ -127,29 +108,5 @@ export class UserWhatToWatchPageComponent {
         else {
             this.notValidReleaseDates = true;
         }
-    }
-
-    movieQuestionnaireChange(event) {
-        this.movieQuestionnaire = event;
-    }
-
-    back() {
-        this.movieQuestionnaire = null;
-        this.movie = null;
-        this.movieQuestionnaireInitLoaded = false;
-    }
-
-    movieQuestionnaireSave() {
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
-            this.showSaveSpinner = false;
-            this.back();
-        },
-            error => {
-                this.router.navigate(['error']);
-            });
-    }
-    
+    }    
 }

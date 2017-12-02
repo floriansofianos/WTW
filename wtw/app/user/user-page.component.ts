@@ -190,4 +190,8 @@ export class UserPageComponent {
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
+
+    onClickMovie(event) {
+        this.router.navigate(['/movie/' + event.movieId])
+    }
 }

@@ -49,6 +49,7 @@
     </Content>
     <Content Include="app\movie\movie-recommandation.component.html" />
     <Content Include="app\movie\movie-questionnaire.component.html" />
+    <Content Include="app\movie\movie.component.html" />
     <Content Include="app\questionnaire\questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\left-menu\left-menu.component.html" />
@@ -117,6 +118,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\movie\movie-recommandation.service.ts" />
+    <TypeScriptCompile Include="app\movie\movie.component.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.component.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.service.ts" />
     <TypeScriptCompile Include="app\questionnaire\user-questionnaire.service.ts" />

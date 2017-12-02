@@ -68,44 +68,7 @@ var UserMoviesQuestionnairesPageComponent = /** @class */ (function () {
         });
     };
     UserMoviesQuestionnairesPageComponent.prototype.onClickMovie = function (event) {
-        var _this = this;
-        this.loadingState = true;
-        // load existing data regarding this movie for the current user
-        this.movieQuestionnaireService.get(event.movieId).subscribe(function (data) {
-            _this.movieQuestionnaireInit = data.json();
-            _this.movieDBService.getMovie(event.movieId, _this.lang).subscribe(function (data) {
-                _this.selectedMovie = data.json();
-                _this.loadingState = false;
-            }, function (error) {
-                _this.router.navigate(['/error']);
-            });
-        }, function (error) {
-            _this.router.navigate(['/error']);
-        });
-    };
-    UserMoviesQuestionnairesPageComponent.prototype.back = function () {
-        this.selectedMovie = null;
-        this.categories = null;
-        this.ngOnInit();
-    };
-    UserMoviesQuestionnairesPageComponent.prototype.confirm = function () {
-        var _this = this;
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire)
-            this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
-                _this.showSaveSpinner = false;
-                _this.back();
-            }, function (error) {
-                _this.router.navigate(['error']);
-            });
-    };
-    UserMoviesQuestionnairesPageComponent.prototype.movieQuestionnaireSave = function (event) {
-        this.confirm();
-    };
-    UserMoviesQuestionnairesPageComponent.prototype.movieQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
+        this.router.navigate(['/movie/' + event.movieId]);
     };
     UserMoviesQuestionnairesPageComponent.prototype.startNewQuestionnaire = function () {
         this.startNewClicked = true;

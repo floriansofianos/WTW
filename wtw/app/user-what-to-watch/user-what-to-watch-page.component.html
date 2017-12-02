@@ -61,17 +61,6 @@
             </div>
             <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" [width]="150" (notify)="onClickMovie($event)"></movie-wall>
         </div>
-        
-        <div class="movie-questionnaire-container" *ngIf="movie && movieQuestionnaireInitLoaded">
-            <movie-recommandation [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)" (notifySave)="movieQuestionnaireSave($event)" [lang]="lang"></movie-recommandation>
-            <div class="button-line" style="text-align: center;" *ngIf="!showSaveSpinner">
-                <wtw-button class="button-center" (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
-            </div>
-            <div class="button-line" style="text-align: center;" *ngIf="showSaveSpinner">
-                <spinner></spinner>
-            </div>
-        </div>
-
         <div class="spinner-container" *ngIf="isLoading">
             <spinner></spinner>
         </div>

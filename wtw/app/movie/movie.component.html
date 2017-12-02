@@ -1,0 +1,13 @@
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'movie'" [username]="username"></top-menu>
+<div class="movie-questionnaire-container" *ngIf="!isLoading">
+    <movie-recommandation [movie]="movie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)" (notifySave)="movieQuestionnaireSave($event)" [lang]="lang"></movie-recommandation>
+    <div class="button-line" *ngIf="!showSaveSpinner" style="text-align: center">
+        <wtw-button (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
+    </div>
+    <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
+        <spinner></spinner>
+    </div>
+</div>
+<div class="spinner-container" *ngIf="isLoading">
+    <spinner></spinner>
+</div>

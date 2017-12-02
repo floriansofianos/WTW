@@ -71,47 +71,7 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
         }
     };
     UserMoviesHomePageComponent.prototype.rateMovie = function (id) {
-        var _this = this;
-        this.searchResultsLoaded = 'notLoaded';
-        this.loadingSearch = true;
-        // load existing data regarding this movie for the current user
-        this.movieQuestionnaireService.get(id).subscribe(function (data) {
-            _this.movieQuestionnaireInit = data.json();
-            _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
-                _this.movie = data.json();
-                _this.movieQuestionnaireInitLoaded = true;
-                _this.hideSearch = true;
-                _this.loadingSearch = false;
-            }, function (error) {
-                _this.router.navigate(['/error']);
-            });
-        }, function (error) {
-            _this.router.navigate(['/error']);
-        });
-    };
-    UserMoviesHomePageComponent.prototype.back = function () {
-        this.searchResultsLoaded = 'loaded';
-        this.movieQuestionnaireInitLoaded = false;
-        this.hideSearch = false;
-    };
-    UserMoviesHomePageComponent.prototype.movieQuestionnaireSave = function (event) {
-        this.confirm();
-    };
-    UserMoviesHomePageComponent.prototype.confirm = function () {
-        var _this = this;
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire)
-            this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
-                _this.showSaveSpinner = false;
-                _this.back();
-            }, function (error) {
-                _this.router.navigate(['error']);
-            });
-    };
-    UserMoviesHomePageComponent.prototype.movieQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
+        this.router.navigate(['/movie/' + id]);
     };
     UserMoviesHomePageComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {

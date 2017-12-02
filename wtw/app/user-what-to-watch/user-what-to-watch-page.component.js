@@ -73,22 +73,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
     };
     UserWhatToWatchPageComponent.prototype.onClickMovie = function (event) {
         this.isLoading = true;
-        this.loadMovie(event.movieId);
-    };
-    UserWhatToWatchPageComponent.prototype.loadMovie = function (id) {
-        var _this = this;
-        this.movieQuestionnaireService.get(id).subscribe(function (data) {
-            _this.movieQuestionnaireInit = data.json();
-            _this.movieDBService.getMovie(id, _this.translate.currentLang).subscribe(function (data) {
-                _this.movie = data.json();
-                _this.movieQuestionnaireInitLoaded = true;
-                _this.isLoading = false;
-            }, function (error) {
-                _this.router.navigate(['/error']);
-            });
-        }, function (error) {
-            _this.router.navigate(['/error']);
-        });
+        this.router.navigate(['/movie/' + event.movieId]);
     };
     UserWhatToWatchPageComponent.prototype.clickSearch = function () {
         var _this = this;
@@ -98,7 +83,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
                 if (id)
-                    _this.loadMovie(id);
+                    _this.router.navigate(['/movie/' + id]);
                 else {
                     _this.isLoading = false;
                     _this.noResults = true;
@@ -110,27 +95,6 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
         else {
             this.notValidReleaseDates = true;
         }
-    };
-    UserWhatToWatchPageComponent.prototype.movieQuestionnaireChange = function (event) {
-        this.movieQuestionnaire = event;
-    };
-    UserWhatToWatchPageComponent.prototype.back = function () {
-        this.movieQuestionnaire = null;
-        this.movie = null;
-        this.movieQuestionnaireInitLoaded = false;
-    };
-    UserWhatToWatchPageComponent.prototype.movieQuestionnaireSave = function () {
-        var _this = this;
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire)
-            this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
-                _this.showSaveSpinner = false;
-                _this.back();
-            }, function (error) {
-                _this.router.navigate(['error']);
-            });
     };
     UserWhatToWatchPageComponent = __decorate([
         core_1.Component({

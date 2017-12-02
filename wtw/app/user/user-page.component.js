@@ -177,6 +177,9 @@ var UserPageComponent = /** @class */ (function () {
     UserPageComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
+    UserPageComponent.prototype.onClickMovie = function (event) {
+        this.router.navigate(['/movie/' + event.movieId]);
+    };
     UserPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

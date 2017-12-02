@@ -18,13 +18,13 @@
         <div class="questionnaires-title">
             {{ 'HOME.USERLIKE' | translate }}
         </div>
-        <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config"></movie-wall>
+        <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
     </div>
     <div class="questionnaires-container" *ngIf="dislikeMovieIds">
         <div class="questionnaires-title">
             {{ 'HOME.USERDISLIKE' | translate }}
         </div>
-        <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config"></movie-wall>
+        <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
     </div>
 </div>
 <div class="spinner-container" *ngIf="isLoading">

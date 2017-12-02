@@ -59,51 +59,6 @@ export class UserMoviesWatchlistPageComponent {
     }
 
     onClickMovie(event) {
-        this.loadingState = true;
-        // load existing data regarding this movie for the current user
-        this.movieQuestionnaireService.get(event.movieId).subscribe(
-            data => {
-                this.movieQuestionnaireInit = data.json();
-                this.movieDBService.getMovie(event.movieId, this.lang).subscribe(
-                    data => {
-                        this.selectedMovie = data.json();
-                        this.loadingState = false;
-                    },
-                    error => {
-                        this.router.navigate(['/error']);
-                    }
-                );
-            },
-            error => {
-                this.router.navigate(['/error']);
-            }
-        );
-    }
-
-    movieQuestionnaireSave(event) {
-        this.confirm();
-    }
-
-    back() {
-        this.selectedMovie = null;
-        this.movieIds = null;
-        this.ngOnInit();
-    }
-
-    confirm() {
-        // Add the questionnaire to DB
-        this.showSaveSpinner = true;
-        // Save data in DB
-        if (this.movieQuestionnaire) this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(response => {
-            this.showSaveSpinner = false;
-            this.back();
-        },
-            error => {
-                this.router.navigate(['error']);
-            });
-    }
-
-    movieQuestionnaireChange(data) {
-        this.movieQuestionnaire = data;
+        this.router.navigate(['/movie/' + event.movieId]);
     }
 }

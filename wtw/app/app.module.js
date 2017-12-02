@@ -57,6 +57,7 @@ var error_page_component_1 = require("./error/error-page.component");
 var social_page_component_1 = require("./social/social-page.component");
 var user_page_component_1 = require("./user/user-page.component");
 var also_like_component_1 = require("./also-like/also-like.component");
+var movie_component_1 = require("./movie/movie.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -132,6 +133,7 @@ var AppModule = /** @class */ (function () {
                 forgot_password_page_component_1.ForgotPasswordPageComponent,
                 error_page_component_1.ErrorPageComponent,
                 social_page_component_1.SocialPageComponent,
+                movie_component_1.MoviePageComponent,
                 user_page_component_1.UserPageComponent,
                 also_like_component_1.AlsoLikeComponent,
                 cast_member_component_1.CastMemberComponent],
