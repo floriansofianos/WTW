@@ -59,6 +59,7 @@
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
+    <Content Include="app\user-profile\user-profile-page.component.html" />
     <Content Include="app\user-what-to-watch\user-what-to-watch-page.component.html" />
     <Content Include="app\user\user-page.component.html" />
     <Content Include="tsconfig.json" />
@@ -240,6 +241,7 @@
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-dummy-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-home\user-movies-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-profile\user-profile-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
     <TypeScriptCompile Include="app\user-what-to-watch\user-what-to-watch-page.component.ts" />
     <TypeScriptCompile Include="app\user\user-page.component.ts" />
@@ -257,6 +259,7 @@
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
+    <Folder Include="app\user-profile\" />
     <Folder Include="app\user\" />
     <Folder Include="app\social\" />
     <Folder Include="app\questionnaire\" />

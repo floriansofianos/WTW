@@ -1,0 +1,6 @@
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
+<h2 *ngIf="!isLoading">{{ username }}</h2>
+
+<div class="spinner-container" *ngIf="isLoading">
+    <spinner></spinner>
+</div>

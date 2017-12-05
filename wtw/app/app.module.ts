@@ -51,7 +51,8 @@ import { ErrorPageComponent } from './error/error-page.component';
 import { SocialPageComponent } from './social/social-page.component';
 import { UserPageComponent } from './user/user-page.component';
 import { AlsoLikeComponent } from './also-like/also-like.component';
-import { MoviePageComponent } from './movie/movie.component'
+import { MoviePageComponent } from './movie/movie.component';
+import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -127,6 +128,7 @@ export function createTranslateLoader(http: Http) {
         ErrorPageComponent,
         SocialPageComponent,
         MoviePageComponent,
+        UserProfilePageComponent,
         UserPageComponent,
         AlsoLikeComponent,
         CastMemberComponent],

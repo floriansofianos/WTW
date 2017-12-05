@@ -15,6 +15,7 @@ import { SocialPageComponent } from './social/social-page.component';
 import { UserPageComponent } from './user/user-page.component';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MoviePageComponent } from './movie/movie.component';
+import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginPageComponent },
@@ -22,6 +23,7 @@ export const appRoutes: Routes = [
     { path: 'signup', component: SignUpPageComponent },
     { path: 'auth/changePassword', component: ForgotPasswordPageComponent },
     { path: 'user/welcome', component: UserWelcomePageComponent, canActivate: [CanActivateAuthGuard] },
+    { path: 'user/profile', component: UserProfilePageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/home', component: UserHomePageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/what-to-watch', component: UserWhatToWatchPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/home', component: UserMoviesHomePageComponent, canActivate: [CanActivateAuthGuard] },

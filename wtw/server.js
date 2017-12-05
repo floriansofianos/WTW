@@ -106,6 +106,12 @@ app.get('/user/welcome', function(req, res) {
 app.get('/user/:id', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/movie/:id', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/profile', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 app.get('/user/home', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });

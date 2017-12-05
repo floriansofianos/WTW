@@ -16,12 +16,14 @@ var social_page_component_1 = require("./social/social-page.component");
 var user_page_component_1 = require("./user/user-page.component");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movie_component_1 = require("./movie/movie.component");
+var user_profile_page_component_1 = require("./user-profile/user-profile-page.component");
 exports.appRoutes = [
     { path: 'login', component: login_page_component_1.LoginPageComponent },
     { path: 'error', component: error_page_component_1.ErrorPageComponent },
     { path: 'signup', component: signup_page_component_1.SignUpPageComponent },
     { path: 'auth/changePassword', component: forgot_password_page_component_1.ForgotPasswordPageComponent },
     { path: 'user/welcome', component: user_welcome_page_component_1.UserWelcomePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
+    { path: 'user/profile', component: user_profile_page_component_1.UserProfilePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/home', component: user_home_page_component_1.UserHomePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/what-to-watch', component: user_what_to_watch_page_component_1.UserWhatToWatchPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/movies/home', component: user_movies_home_page_component_1.UserMoviesHomePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
