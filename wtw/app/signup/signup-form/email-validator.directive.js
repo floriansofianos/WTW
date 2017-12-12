@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../../auth/auth.service");
-var EmailValidator = (function () {
+var EmailValidator = /** @class */ (function () {
     function EmailValidator(authService) {
         this.authService = authService;
     }
@@ -46,4 +46,3 @@ var EmailValidator = (function () {
     var EmailValidator_1;
 }());
 exports.EmailValidator = EmailValidator;
-//# sourceMappingURL=email-validator.directive.js.map

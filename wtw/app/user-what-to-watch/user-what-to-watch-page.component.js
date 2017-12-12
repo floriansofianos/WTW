@@ -18,7 +18,7 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService) {
         this.authService = authService;
         this.router = router;
@@ -106,4 +106,3 @@ var UserWhatToWatchPageComponent = (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

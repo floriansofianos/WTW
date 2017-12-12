@@ -195,6 +195,8 @@ ClientBin/
 node_modules/
 bower_components/
 public/
+wtw/avatars
+wtw/uploads
 orleans.codegen.cs
 
 # Since there are multiple workflows, uncomment next line to ignore bower_components

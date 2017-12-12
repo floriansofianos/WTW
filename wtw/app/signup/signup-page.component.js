@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SignUpPageComponent = (function () {
+var SignUpPageComponent = /** @class */ (function () {
     function SignUpPageComponent() {
     }
     SignUpPageComponent = __decorate([
@@ -18,4 +18,3 @@ var SignUpPageComponent = (function () {
     return SignUpPageComponent;
 }());
 exports.SignUpPageComponent = SignUpPageComponent;
-//# sourceMappingURL=signup-page.component.js.map

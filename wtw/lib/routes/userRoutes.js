@@ -25,15 +25,21 @@ var userRoutes = function () {
             var appDir = path.dirname(require.main.filename);
             form.uploadDir = path.join(appDir, '/uploads');
 
-            var output = path.join(appDir, '/avatars', '/' + req.user.id, "/profile-small.jpg");
+            var outputBig = path.join(appDir, '/avatars', '/' + req.user.id, "/profile-big.jpg");
+            var outputSmall = path.join(appDir, '/avatars', '/' + req.user.id, "/profile-small.jpg");
 
             // every time a file has been uploaded successfully,
             // rename it to it's orignal name
             form.on('file', function (field, file) {
                 Jimp.read(file.path).then(function (img) {
-                    img.resize(256, 256)            // resize
-                        .quality(60)                 // set JPEG quality
-                        .write(output); // save
+                    // Big avatar
+                     img.scaleToFit(600, 800)           // resize
+                        .quality(70)                 // set JPEG quality
+                         .write(outputBig); // save
+                    // Small avatar
+                     img.scaleToFit(150, 200)           // resize
+                         .quality(60)                 // set JPEG quality
+                         .write(outputSmall); // save
                 }).catch(function (err) {
                     console.error(err);
                 });

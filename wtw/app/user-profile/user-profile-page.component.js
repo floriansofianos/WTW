@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var user_service_1 = require("../user/user.service");
 var router_1 = require("@angular/router");
-var UserProfilePageComponent = (function () {
+var UserProfilePageComponent = /** @class */ (function () {
     function UserProfilePageComponent(authService, router, userService) {
         this.authService = authService;
         this.router = router;
@@ -58,4 +58,3 @@ var UserProfilePageComponent = (function () {
     return UserProfilePageComponent;
 }());
 exports.UserProfilePageComponent = UserProfilePageComponent;
-//# sourceMappingURL=user-profile-page.component.js.map
