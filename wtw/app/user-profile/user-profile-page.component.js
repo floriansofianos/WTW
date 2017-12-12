@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
+var user_service_1 = require("../user/user.service");
 var router_1 = require("@angular/router");
-var UserProfilePageComponent = /** @class */ (function () {
-    function UserProfilePageComponent(authService, router) {
+var UserProfilePageComponent = (function () {
+    function UserProfilePageComponent(authService, router, userService) {
         this.authService = authService;
         this.router = router;
+        this.userService = userService;
     }
     UserProfilePageComponent.prototype.ngOnInit = function () {
         this.isLoading = true;
@@ -31,13 +33,29 @@ var UserProfilePageComponent = /** @class */ (function () {
             this.router.navigate(['']);
         }
     };
+    UserProfilePageComponent.prototype.upload = function () {
+        var fileBrowser = this.fileInput.nativeElement;
+        if (fileBrowser.files && fileBrowser.files[0]) {
+            var formData = new FormData();
+            formData.append("image", fileBrowser.files[0]);
+            this.userService.uploadAvatar(formData).subscribe(function (res) {
+                // do stuff w/my uploaded file
+                console.log('It works!!!');
+            });
+        }
+    };
+    __decorate([
+        core_1.ViewChild('fileInput'),
+        __metadata("design:type", Object)
+    ], UserProfilePageComponent.prototype, "fileInput", void 0);
     UserProfilePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'user-profile-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, user_service_1.UserService])
     ], UserProfilePageComponent);
     return UserProfilePageComponent;
 }());
 exports.UserProfilePageComponent = UserProfilePageComponent;
+//# sourceMappingURL=user-profile-page.component.js.map

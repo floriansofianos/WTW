@@ -244,6 +244,7 @@
     <TypeScriptCompile Include="app\user-profile\user-profile-page.component.ts" />
     <TypeScriptCompile Include="app\user-welcome\user-welcome-page.component.ts" />
     <TypeScriptCompile Include="app\user-what-to-watch\user-what-to-watch-page.component.ts" />
+    <TypeScriptCompile Include="app\user\user.service.ts" />
     <TypeScriptCompile Include="app\user\user-page.component.ts" />
   </ItemGroup>
   <ItemGroup>

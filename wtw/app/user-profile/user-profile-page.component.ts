@@ -1,5 +1,6 @@
-﻿import { Component } from '@angular/core'
+﻿import { Component, ViewChild } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
 
@@ -12,8 +13,9 @@ export class UserProfilePageComponent {
     username: string;
     isLoading: boolean;
     user: any;
+    @ViewChild('fileInput') fileInput;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
     ngOnInit() {
         this.isLoading = true;
@@ -28,9 +30,17 @@ export class UserProfilePageComponent {
         else {
             this.router.navigate(['']);
         }
-
-
     }
 
-    
+    upload() {
+        let fileBrowser = this.fileInput.nativeElement;
+        if (fileBrowser.files && fileBrowser.files[0]) {
+            const formData = new FormData();
+            formData.append("image", fileBrowser.files[0]);
+            this.userService.uploadAvatar(formData).subscribe(res => {
+                // do stuff w/my uploaded file
+                console.log('It works!!!');
+            });
+        }
+    }
 }
