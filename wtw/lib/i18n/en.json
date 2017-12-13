@@ -22,7 +22,7 @@
         "FORGOT_PWD_EXPLANATION": "Please enter your email address you use at signup.",
         "FORGOT_PASSWORD_EMAIL_ERROR": "This email has not been recognised.",
         "FORGOT_PASSWORD_EMAIL_SENT": "An email has been sent to you with a link to reset your password.",
-        "I_FORGOT_MY_PASSWORD":  "I forgot my password"
+        "I_FORGOT_MY_PASSWORD": "I forgot my password"        
       }
     },
     "SIGNUP": {
@@ -126,19 +126,20 @@
     "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
     "ONLY_NOW_PLAYING": "Only show movies now playing in theaters"
   },
-    "FORM": {
-        "OK": "OK",
-        "CANCEL": "Cancel",
-        "REQUIRED": "Required",
-        "SAVE": "Save",
-        "SEARCH": "Search...",
-        "BACK": "Back",
-        "NEXT": "Next",
-        "SKIP": "Skip",
-        "PREVIOUS": "Previous",
-        "YES": "Yes",
-        "NO": "No"
-    },
+  "FORM": {
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "REQUIRED": "Required",
+    "SAVE": "Save",
+    "SEARCH": "Search...",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "SKIP": "Skip",
+    "PREVIOUS": "Previous",
+    "YES": "Yes",
+    "NO": "No",
+    "UPLOAD": "Upload"
+  },
     "FORGOT_PWD": {
         "TITLE": "Reset your password",
         "WRONGTOKEN": "An error occured, please try to send the forgotten password email again"

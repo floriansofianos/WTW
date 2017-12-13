@@ -1,12 +1,16 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
-<h2 *ngIf="!isLoading">{{ username }}</h2>
-<div *ngIf="!isLoading">
-    <div class="profile-picture" *ngIf="photoData">
-        <img [src]="photoData" style="height: 200px;" />
+<div *ngIf="!isLoading" style="padding-top: 10px;padding-left: 15px">
+    <div class="profile-picture-container">
+        <div class="profile-picture" *ngIf="photoData">
+            <img [src]="photoData" style="height: 200px;" />
+        </div>
+        <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
+        <input type="file" #fileInput placeholder="{{ 'FORM.UPLOAD_FILE' | translate }}" />
+        <div style="text-align: center"><wtw-button (click)="upload()">{{ 'FORM.UPLOAD' | translate }}</wtw-button></div>
     </div>
-    <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
-    <input type="file" #fileInput placeholder="Upload file..." />
-    <button type="button" (click)="upload()">Upload</button>
+    <div class="profile-name-container">
+        <h2 *ngIf="!isLoading">{{ username }}</h2>
+    </div>
 </div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>
