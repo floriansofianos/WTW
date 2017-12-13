@@ -13,6 +13,7 @@ export class UserProfilePageComponent {
     username: string;
     isLoading: boolean;
     user: any;
+    photoData: any;
     @ViewChild('fileInput') fileInput;
 
     constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
@@ -26,10 +27,26 @@ export class UserProfilePageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.updatePhoto();
         }
         else {
             this.router.navigate(['']);
         }
+    }
+
+    updatePhoto() {
+        this.isLoading = true;
+        this.userService.getAvatar(this.user.id, 'big').subscribe(res => {
+            var data = res.json();
+            if (data && data.success) {
+                this.photoData = data.data;
+            }
+            this.isLoading = false;
+        },
+            error => {
+                this.router.navigate(['error']);
+            }
+        );
     }
 
     upload() {
@@ -38,9 +55,12 @@ export class UserProfilePageComponent {
             const formData = new FormData();
             formData.append("image", fileBrowser.files[0]);
             this.userService.uploadAvatar(formData).subscribe(res => {
-                // do stuff w/my uploaded file
-                console.log('It works!!!');
-            });
+                this.updatePhoto();
+            },
+                error => {
+                    this.router.navigate(['error']);
+                }
+            );
         }
     }
 }

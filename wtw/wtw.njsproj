@@ -146,6 +146,7 @@
     <Compile Include="lib\controllers\castController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\avatarController.js" />
     <Compile Include="lib\controllers\movieDBGenresController.js">
       <SubType>Code</SubType>
     </Compile>

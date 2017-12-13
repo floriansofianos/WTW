@@ -28,19 +28,35 @@ var UserProfilePageComponent = /** @class */ (function () {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.updatePhoto();
         }
         else {
             this.router.navigate(['']);
         }
     };
+    UserProfilePageComponent.prototype.updatePhoto = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.userService.getAvatar(this.user.id, 'big').subscribe(function (res) {
+            var data = res.json();
+            if (data && data.success) {
+                _this.photoData = data.data;
+            }
+            _this.isLoading = false;
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
     UserProfilePageComponent.prototype.upload = function () {
+        var _this = this;
         var fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
             var formData = new FormData();
             formData.append("image", fileBrowser.files[0]);
             this.userService.uploadAvatar(formData).subscribe(function (res) {
-                // do stuff w/my uploaded file
-                console.log('It works!!!');
+                _this.updatePhoto();
+            }, function (error) {
+                _this.router.navigate(['error']);
             });
         }
     };

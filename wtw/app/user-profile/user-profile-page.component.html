@@ -1,9 +1,13 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
 <h2 *ngIf="!isLoading">{{ username }}</h2>
-
-<input type="file" #fileInput placeholder="Upload file..." />
-<button type="button" (click)="upload()">Upload</button>
-
+<div *ngIf="!isLoading">
+    <div class="profile-picture" *ngIf="photoData">
+        <img [src]="photoData" style="height: 200px;" />
+    </div>
+    <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
+    <input type="file" #fileInput placeholder="Upload file..." />
+    <button type="button" (click)="upload()">Upload</button>
+</div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>
 </div>
