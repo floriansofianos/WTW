@@ -20,6 +20,10 @@ var UserService = /** @class */ (function () {
         return this.http.post('/api/user/avatar', formData)
             .catch(this.handleErrors);
     };
+    UserService.prototype.deleteAvatar = function () {
+        return this.http.delete('/api/user/avatar')
+            .catch(this.handleErrors);
+    };
     UserService.prototype.getAvatar = function (userId, size) {
         return this.http.get('/api/user/avatar/' + userId, { params: { size: size } })
             .catch(this.handleErrors);

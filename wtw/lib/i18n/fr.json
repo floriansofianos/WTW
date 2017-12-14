@@ -66,7 +66,8 @@
         "LOGOUT": "Déconnexion",
         "HOME": "Accueil",
         "MOVIES": "Films",
-        "SOCIAL": "Social"
+        "SOCIAL": "Social",
+        "USERPROFILE":  "Mon Profil"
     },
     "LEFT_MENU": {
         "HOME": "Accueil",

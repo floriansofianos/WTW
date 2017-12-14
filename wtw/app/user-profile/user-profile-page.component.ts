@@ -41,6 +41,7 @@ export class UserProfilePageComponent {
             if (data && data.success) {
                 this.photoData = data.data;
             }
+            else this.photoData = null;
             this.isLoading = false;
         },
             error => {
@@ -50,6 +51,7 @@ export class UserProfilePageComponent {
     }
 
     upload() {
+        this.isLoading = true;
         let fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
             const formData = new FormData();
@@ -62,5 +64,15 @@ export class UserProfilePageComponent {
                 }
             );
         }
+    }
+
+    delete() {
+        this.userService.deleteAvatar().subscribe(res => {
+            this.updatePhoto();
+        },
+            error => {
+                this.router.navigate(['error']);
+            }
+        );
     }
 }

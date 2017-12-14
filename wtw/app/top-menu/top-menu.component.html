@@ -19,10 +19,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"><span class="glyphicon glyphicon-user"></span> {{ username }}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" [routerLink]="'/user/profile'">{{ 'TOP_MENU.USERPROFILE' | translate }}</a>
-                        </div>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ username }}</a>
+                        <ul class="dropdown-menu">
+                            <li class="top-menu-dropdown-item"><a class="dropdown-item" [routerLink]="'/user/profile'"><i class="fa fa-cogs"></i>{{ 'TOP_MENU.USERPROFILE' | translate }}</a></li>
+                        </ul>
                     </li>
                     <li><a href="/auth/signout"><span class="glyphicon glyphicon-log-out"></span> {{ 'TOP_MENU.LOGOUT' | translate }}</a></li>
                 </ul>

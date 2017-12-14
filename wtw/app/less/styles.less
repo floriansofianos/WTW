@@ -1098,10 +1098,33 @@ wtw-button {
 
     .profile-picture {
         border: 4px solid #26292E;
+        i {
+            display: none;
+        }
+    }
+
+    .profile-picture:hover {
+        i {
+            position: absolute;
+            color: #DE5E60;
+            display: block;
+            font-size: 20px;
+        }
+    }
+
+    .no-picture-container {
+        font-size: 100px;
+        text-align: center;
     }
 }
 .profile-name-container {
     display: inline-block;
     vertical-align: top;
     padding-left: 15px;
+}
+
+.top-menu-dropdown-item {
+    i {
+        margin-right: 10px;
+    }
 }

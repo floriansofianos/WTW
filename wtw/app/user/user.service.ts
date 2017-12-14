@@ -13,6 +13,11 @@ export class UserService {
             .catch(this.handleErrors);
     }
 
+    deleteAvatar(): Observable<any> {
+        return this.http.delete('/api/user/avatar')
+            .catch(this.handleErrors);
+    }
+
     getAvatar(userId: number, size: string): Observable<any> {
         return this.http.get('/api/user/avatar/' + userId, { params: { size: size } })
             .catch(this.handleErrors);

@@ -42,6 +42,8 @@ var UserProfilePageComponent = /** @class */ (function () {
             if (data && data.success) {
                 _this.photoData = data.data;
             }
+            else
+                _this.photoData = null;
             _this.isLoading = false;
         }, function (error) {
             _this.router.navigate(['error']);
@@ -49,6 +51,7 @@ var UserProfilePageComponent = /** @class */ (function () {
     };
     UserProfilePageComponent.prototype.upload = function () {
         var _this = this;
+        this.isLoading = true;
         var fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
             var formData = new FormData();
@@ -59,6 +62,14 @@ var UserProfilePageComponent = /** @class */ (function () {
                 _this.router.navigate(['error']);
             });
         }
+    };
+    UserProfilePageComponent.prototype.delete = function () {
+        var _this = this;
+        this.userService.deleteAvatar().subscribe(function (res) {
+            _this.updatePhoto();
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
     };
     __decorate([
         core_1.ViewChild('fileInput'),

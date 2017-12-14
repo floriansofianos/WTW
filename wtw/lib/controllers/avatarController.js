@@ -1,6 +1,8 @@
 ﻿var formidable = require('formidable');
 var path = require('path');
 var Jimp = require("jimp");
+var fs = require('fs');
+var _ = require('underscore');
 
 var avatarController = function () {
     var create = function (req, res) {
@@ -69,9 +71,38 @@ var avatarController = function () {
         else return res.send(400);
     }
 
+    var deleteAvatar = function (req, res) {
+        var appDir = path.dirname(require.main.filename);
+        var fileNames = ["/profile-small.jpg", "/profile-big.jpg"];
+        // delete small picture
+        deleteFile(path.join(appDir, '/avatars', '/' + req.user.id, fileNames[0]), function (err, result) {
+            // delete big picture
+            deleteFile(path.join(appDir, '/avatars', '/' + req.user.id, fileNames[1]), function (err, result) {
+                res.send({ success: true });
+            });
+        });
+    }
+
+    var deleteFile = function (path, done) {
+        fs.stat(path, function (err, stat) {
+            if (err == null) {
+                // delete file
+                fs.unlinkSync(path);
+                done(null, true);
+            } else if (err.code == 'ENOENT') {
+                // file does not exist
+                done(null, true);
+            } else {
+                console.log('Some other error: ', err.code);
+                done(null, true);
+            }
+        });
+    }
+
     return {
         create: create,
-        get: get
+        get: get,
+        deleteAvatar: deleteAvatar
     }
 }
 

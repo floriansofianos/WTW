@@ -16,7 +16,8 @@ var userRoutes = function () {
         .get(isAuthenticated, movieQuestionnaireController.getUsersThatAlsoLiked);
 
     userRouter.route('/avatar')
-        .post(isAuthenticated, avatarController.create);
+        .post(isAuthenticated, avatarController.create)
+        .delete(isAuthenticated, avatarController.deleteAvatar);
 
     userRouter.route('/avatar/:userId')
         .get(isAuthenticated, avatarController.get);
