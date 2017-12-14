@@ -16,7 +16,7 @@ var social_service_1 = require("../social/social.service");
 var router_2 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserPageComponent = /** @class */ (function () {
+var UserPageComponent = (function () {
     function UserPageComponent(authService, router, socialService, route, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -190,3 +190,4 @@ var UserPageComponent = /** @class */ (function () {
     return UserPageComponent;
 }());
 exports.UserPageComponent = UserPageComponent;
+//# sourceMappingURL=user-page.component.js.map
