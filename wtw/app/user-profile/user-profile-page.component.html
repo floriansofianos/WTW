@@ -9,8 +9,37 @@
         <input type="file" #fileInput placeholder="{{ 'FORM.UPLOAD_FILE' | translate }}" />
         <div style="text-align: center"><wtw-button (click)="upload()">{{ 'FORM.UPLOAD' | translate }}</wtw-button></div>
     </div>
-    <div class="profile-name-container">
-        <h2 *ngIf="!isLoading">{{ username }}</h2>
+    <div class="profile-name-container" *ngIf="!isLoading">
+        <div class="login-form-container" style="width: 500px;margin: 0;">
+            <h1 class="wtw-title-container">
+                {{ username }}
+            </h1>
+            <div class="wtw-form-content">
+                <div class="wtw-form-field-container">
+                    <mat-form-field [style.fontSize.px]="14" [style.width.px]="400">
+                        <input matInput [(ngModel)]="profileForm.firstName" type="text" placeholder="{{ 'SIGNUP.FORM.FIRST_NAME' | translate }}" />
+                    </mat-form-field>
+                </div>
+                <div class="wtw-form-field-container">
+                    <mat-form-field [style.fontSize.px]="14" [style.width.px]="400">
+                        <input matInput [(ngModel)]="profileForm.lastName" type="text" placeholder="{{ 'SIGNUP.FORM.LAST_NAME' | translate }}" />
+                    </mat-form-field>
+                </div>
+                <div class="wtw-form-field-container">
+                    <mat-form-field [style.fontSize.px]="14" [style.width.px]="150">
+                        <input matInput class="input-invert-color" type="number" min="1900" max="2017" placeholder="{{ 'FORM.YEAR_OF_BIRTH' | translate }}" [(ngModel)]="profileForm.yearOfBirth" />
+                    </mat-form-field>
+                </div>
+                <div class="wtw-form-field-container">
+                    <mat-form-field [style.fontSize.px]="14" [style.width.px]="400">
+                        <mat-select placeholder="{{ 'FIRST_QUESTIONNAIRE.COUNTRY' | translate }}" [(ngModel)]="profileForm.selectedCountry">
+                            <mat-option *ngFor="let country of countriesList" [value]="country.code">{{ country.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <wtw-button (click)="save()">{{ 'FORM.SAVE' | translate }}</wtw-button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="spinner-container" *ngIf="isLoading">

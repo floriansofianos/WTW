@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-
+import * as _ from 'underscore';
 
 @Injectable()
 export class AuthService {
@@ -54,6 +54,12 @@ export class AuthService {
         let requestBody = {}
         requestBody[prop] = value
         return this.http.put('/auth/current', requestBody)
+            .catch(this.handleErrors);
+    }
+
+    setUserProperties(values: any) {
+        _.each(values, function (value, key, obj) { this.currentUser[key] = value; });
+        return this.http.put('/auth/current', values)
             .catch(this.handleErrors);
     }
 

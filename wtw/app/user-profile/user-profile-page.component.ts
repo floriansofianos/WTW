@@ -1,6 +1,7 @@
 ﻿import { Component, ViewChild } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
+import { CountriesService } from '../countries/countries.service';
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
 
@@ -14,9 +15,11 @@ export class UserProfilePageComponent {
     isLoading: boolean;
     user: any;
     photoData: any;
+    countriesList: Array<any>;
+    profileForm: any;
     @ViewChild('fileInput') fileInput;
 
-    constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
+    constructor(private authService: AuthService, private router: Router, private userService: UserService, private countriesService: CountriesService) { }
 
     ngOnInit() {
         this.isLoading = true;
@@ -27,7 +30,20 @@ export class UserProfilePageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
-            this.updatePhoto();
+            this.countriesService.getAll().subscribe(response => {
+                this.countriesList = response.json().countries;
+                this.profileForm = {
+                    firstName: this.user.firstName,
+                    lastName: this.user.lastName,
+                    yearOfBirth: this.user.yearOfBirth,
+                    selectedCountry: this.user.country
+                }
+                this.updatePhoto();
+            },
+                error => {
+                    this.router.navigate(['error']);
+                });
+            
         }
         else {
             this.router.navigate(['']);
@@ -69,6 +85,17 @@ export class UserProfilePageComponent {
     delete() {
         this.userService.deleteAvatar().subscribe(res => {
             this.updatePhoto();
+        },
+            error => {
+                this.router.navigate(['error']);
+            }
+        );
+    }
+
+    save() {
+        this.isLoading = true
+        this.authService.setUserProperties(this.profileForm).subscribe(res => {
+            this.isLoading = false;
         },
             error => {
                 this.router.navigate(['error']);

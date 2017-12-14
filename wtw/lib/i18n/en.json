@@ -139,7 +139,8 @@
     "PREVIOUS": "Previous",
     "YES": "Yes",
     "NO": "No",
-    "UPLOAD": "Upload"
+    "UPLOAD": "Upload",
+    "YEAR_OF_BIRTH":  "Year of birth"
   },
     "FORGOT_PWD": {
         "TITLE": "Reset your password",

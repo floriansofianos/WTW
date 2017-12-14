@@ -94,6 +94,8 @@ var userController = function (userService) {
                 if (req.body.lang) user.lang = req.body.lang;
                 if (req.body.yearOfBirth) user.yearOfBirth = req.body.yearOfBirth;
                 if (req.body.country) user.country = req.body.country;
+                if (req.body.firstName) user.firstName = req.body.firstName;
+                if (req.body.lastName) user.lastName = req.body.lastName;
                 if (req.body.firstQuestionnaireCompleted) user.firstQuestionnaireCompleted = req.body.firstQuestionnaireCompleted;
                 user.save().then(function (user, err) {
                     if (!err) res.json(userService.userToModelView(req.user));

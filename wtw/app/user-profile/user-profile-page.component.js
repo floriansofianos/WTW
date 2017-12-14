@@ -12,14 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var user_service_1 = require("../user/user.service");
+var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
 var UserProfilePageComponent = /** @class */ (function () {
-    function UserProfilePageComponent(authService, router, userService) {
+    function UserProfilePageComponent(authService, router, userService, countriesService) {
         this.authService = authService;
         this.router = router;
         this.userService = userService;
+        this.countriesService = countriesService;
     }
     UserProfilePageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.isLoading = true;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
@@ -28,7 +31,18 @@ var UserProfilePageComponent = /** @class */ (function () {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
-            this.updatePhoto();
+            this.countriesService.getAll().subscribe(function (response) {
+                _this.countriesList = response.json().countries;
+                _this.profileForm = {
+                    firstName: _this.user.firstName,
+                    lastName: _this.user.lastName,
+                    yearOfBirth: _this.user.yearOfBirth,
+                    selectedCountry: _this.user.country
+                };
+                _this.updatePhoto();
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }
         else {
             this.router.navigate(['']);
@@ -71,6 +85,15 @@ var UserProfilePageComponent = /** @class */ (function () {
             _this.router.navigate(['error']);
         });
     };
+    UserProfilePageComponent.prototype.save = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.authService.setUserProperties(this.profileForm).subscribe(function (res) {
+            _this.isLoading = false;
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
     __decorate([
         core_1.ViewChild('fileInput'),
         __metadata("design:type", Object)
@@ -80,7 +103,7 @@ var UserProfilePageComponent = /** @class */ (function () {
             moduleId: module.id,
             templateUrl: 'user-profile-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, user_service_1.UserService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, user_service_1.UserService, countries_service_1.CountriesService])
     ], UserProfilePageComponent);
     return UserProfilePageComponent;
 }());

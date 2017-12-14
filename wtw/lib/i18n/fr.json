@@ -139,7 +139,8 @@
     "PREVIOUS": "Précédent",
     "YES": "Oui",
     "NO": "Non",
-    "UPLOAD": "Envoyer"
+    "UPLOAD": "Envoyer",
+    "YEAR_OF_BIRTH":  "Année de naissance"
   },
     "FORGOT_PWD": {
         "TITLE": "Changer votre mot de passe",

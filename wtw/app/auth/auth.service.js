@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
+var _ = require("underscore");
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
@@ -53,6 +54,11 @@ var AuthService = /** @class */ (function () {
         var requestBody = {};
         requestBody[prop] = value;
         return this.http.put('/auth/current', requestBody)
+            .catch(this.handleErrors);
+    };
+    AuthService.prototype.setUserProperties = function (values) {
+        _.each(values, function (value, key, obj) { this.currentUser[key] = value; });
+        return this.http.put('/auth/current', values)
             .catch(this.handleErrors);
     };
     AuthService.prototype.isLoggedIn = function () {
