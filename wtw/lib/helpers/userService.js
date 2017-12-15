@@ -93,6 +93,7 @@ var userService = function() {
     }
 
     var getUserByIds = function (ids, done) {
+        if (ids.constructor !== Array) ids = [ids];
         models.User.findAll({ where: { id: { $in: ids } } }).then(users => {
             done(null, users);
         }).catch(function (err) {

@@ -125,7 +125,9 @@
     "HATE_GENRE": "Vous détestez le genre",
     "HATE_ACTOR": "Vous détestez les films avec",
     "NOT_VALID_RELEASE_DATES": "Les dates de sortie ne sont pas correctes: le minimum doit être supérieur au maximum.",
-    "ONLY_NOW_PLAYING": "Uniquement utiliser les films à l'affiche au cinéma"
+    "ONLY_NOW_PLAYING": "Uniquement utiliser les films à l'affiche au cinéma",
+    "FRIEND": "Ami",
+    "WATCH_WITH_FRIEND": "Regarder un film avec un ami"
   },
   "FORM": {
     "OK": "OK",
