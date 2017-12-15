@@ -216,6 +216,14 @@ var friendshipService = function () {
         });
     }
 
+    var getAllFriendships = function (currentUserId, done) {
+        models.Friendship.findAll({ where: { currentUserId: currentUserId, isFriend: true } }).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
 
     return {
         followUser: followUser,
@@ -225,7 +233,8 @@ var friendshipService = function () {
         acceptFriendRequest: acceptFriendRequest,
         unfriendUser: unfriendUser,
         getPendingFriendship: getPendingFriendship,
-        getFriendship: getFriendship
+        getFriendship: getFriendship,
+        getAllFriendships: getAllFriendships
     }
 }
 

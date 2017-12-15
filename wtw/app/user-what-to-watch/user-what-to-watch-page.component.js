@@ -17,9 +17,10 @@ var movie_recommandation_service_1 = require("../movie/movie-recommandation.serv
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
+var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
 var UserWhatToWatchPageComponent = /** @class */ (function () {
-    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService) {
+    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
@@ -27,6 +28,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
         this.movieQuestionnaireService = movieQuestionnaireService;
         this.translate = translate;
         this.languagesService = languagesService;
+        this.socialService = socialService;
     }
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -51,6 +53,18 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
         }
         this.lang = currentUser.lang;
         this.formWTW.isRuntimeChecked = false;
+        this.socialService.getAllFriends().subscribe(function (response) {
+            var allFriends = response.json();
+            if (allFriends.length > 0) {
+                _this.socialService.getUserProfiles(_.map(allFriends, function (f) { return f.friendUserId; })).subscribe(function (response) {
+                    _this.friends = response.json().users;
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
+            }
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
         this.movieDBService.getAllGenres().subscribe(function (response) {
             _this.genres = response.json();
             _this.languagesService.getAll().subscribe(function (response) {
@@ -101,7 +115,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
             moduleId: module.id,
             templateUrl: 'user-what-to-watch-page.component.html',
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService, social_service_1.SocialService])
     ], UserWhatToWatchPageComponent);
     return UserWhatToWatchPageComponent;
 }());

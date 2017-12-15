@@ -92,6 +92,14 @@ var userService = function() {
         });
     }
 
+    var getUserByIds = function (ids, done) {
+        models.User.findAll({ where: { id: { $in: ids } } }).then(users => {
+            done(null, users);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var getUsersForPorfileRefresh = function(done) {
         models.User.findAll({ where: { profileRefresh: true } }).then(users => {
             done(null, users);
@@ -247,6 +255,7 @@ var userService = function() {
         validateUser: validateUser,
         createUser: createUser,
         getUserById: getUserById,
+        getUserByIds: getUserByIds,
         getUsersForPorfileRefresh: getUsersForPorfileRefresh,
         setUserProfileRefresh: setUserProfileRefresh,
         getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh,

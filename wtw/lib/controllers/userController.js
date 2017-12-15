@@ -1,5 +1,6 @@
 ﻿var postmarkService = require('../helpers/postmarkService')();
 var guid = require('guid');
+var _ = require('underscore');
 
 var userController = function (userService) {
     var isUsernameAlreadyUsed = function (req, res) {
@@ -155,6 +156,21 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var getAllUserInformations = function (req, res) {
+        if (req.query.userIds) {
+            userService.getUserByIds(req.query.userIds, function (err, users) {
+                if (users) {
+                    var result = {
+                        users: _.map(users, function (u) { return userService.userToModelView(u); })
+                    };
+                    res.send(result);
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     var getUserDistance = function (req, res) {
         if (req.params.userId) {
             userService.getDistance(req.user.id, req.params.userId, function (err, distance) {
@@ -178,7 +194,8 @@ var userController = function (userService) {
         sendWelcomeEmail: sendWelcomeEmail,
         search: search,
         getUserProfile: getUserProfile,
-        getUserDistance: getUserDistance
+        getUserDistance: getUserDistance,
+        getAllUserInformations: getAllUserInformations
     }
 }
 

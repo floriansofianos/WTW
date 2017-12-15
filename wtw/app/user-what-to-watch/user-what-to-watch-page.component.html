@@ -49,6 +49,18 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.isNowPlayingChecked">{{ 'WTW.ONLY_NOW_PLAYING' | translate }}</mat-checkbox>
                     </div>
+                    <div class="wtw-form-field-container">
+                        <mat-checkbox [(ngModel)]="formWTW.watchWithFriend">{{ 'WTW.WATCH_WITH_FRIEND' | translate }}</mat-checkbox>
+                    </div>
+                    <div class="wtw-form-field-container" *ngIf="formWTW.watchWithFriend">
+                        <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
+                            <mat-select placeholder="{{ 'WTW.FRIEND' | translate }}" [(ngModel)]="formWTW.withFriend">
+                                <mat-option *ngFor="let f of friends" [value]="f.id">
+                                    {{ f.username }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                     <div *ngIf="noResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
                     <div *ngIf="notValidReleaseDates" class="wtw-error">{{ 'WTW.NOT_VALID_RELEASE_DATES' | translate }}</div>
                     <wtw-button (click)="clickSearch()">{{ 'FORM.OK' | translate }}</wtw-button>

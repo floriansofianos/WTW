@@ -59,13 +59,21 @@
         else res.send(400);
     }
 
+    var getAll = function (req, res) {
+        friendshipService.getAllFriendships(req.user.id, function (err, friendships) {
+            if (!err) res.json(friendships);
+            else res.send(500);
+        });
+    }
+
     return {
         post: post,
         deleteFriend: deleteFriend,
         get: get,
         getPending: getPending,
         deletePendingFriend: deletePendingFriend,
-        acceptFriendRequest: acceptFriendRequest
+        acceptFriendRequest: acceptFriendRequest,
+        getAll: getAll
     }
 }
 

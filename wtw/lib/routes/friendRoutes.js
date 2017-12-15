@@ -4,7 +4,10 @@ var friendService = require('../helpers/friendshipService')();
 var friendController = require('../controllers/friendController')(friendService);
 
 var friendRoutes = function () {
-    var friendRouter = express.Router();      
+    var friendRouter = express.Router();
+
+    friendRouter.route('/')
+        .get(isAuthenticated, friendController.getAll); 
 
     friendRouter.route('/:id')
         .get(isAuthenticated, friendController.get)

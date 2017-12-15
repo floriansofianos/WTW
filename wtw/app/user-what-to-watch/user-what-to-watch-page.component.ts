@@ -7,6 +7,7 @@ import { MovieQuestionnaireService } from '../movie/movie-questionnaire.service'
 import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule, MatCheckboxModule, MatSliderModule } from '@angular/material';
 import { LanguagesService } from '../languages/languages.service';
+import { SocialService } from '../social/social.service';
 import * as _ from 'underscore';
 
 @Component({
@@ -32,8 +33,9 @@ export class UserWhatToWatchPageComponent {
     notValidReleaseDates: boolean;
     maxReleaseYear: number;
     languages: Array<any>;
+    friends: Array<any>;
 
-    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService, private languagesService: LanguagesService) { }
+    constructor(private authService: AuthService, private router: Router, private movieDBService: MovieDBService, private movieRecommandation: MovieRecommandationService, private movieQuestionnaireService: MovieQuestionnaireService, private translate: TranslateService, private languagesService: LanguagesService, private socialService: SocialService) { }
 
     ngOnInit() {
         this.formWTW = {};
@@ -58,6 +60,20 @@ export class UserWhatToWatchPageComponent {
         }
         this.lang = currentUser.lang;
         this.formWTW.isRuntimeChecked = false;
+        this.socialService.getAllFriends().subscribe(response => {
+            let allFriends = response.json();
+            if (allFriends.length > 0) {
+                this.socialService.getUserProfiles(_.map(allFriends, function (f) { return f.friendUserId; })).subscribe(response => {
+                    this.friends = response.json().users;
+                },
+                    error => {
+                        this.router.navigate(['error']);
+                    });
+            }
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
         this.movieDBService.getAllGenres().subscribe(response => {
             this.genres = response.json();
             this.languagesService.getAll().subscribe(response => {

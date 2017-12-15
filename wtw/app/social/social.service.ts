@@ -18,6 +18,11 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
+    getUserProfiles(ids: Array<number>): Observable<any> {
+        return this.http.get('/api/user/profiles', { params: { userIds: ids } })
+            .catch(this.handleErrors);
+    }
+
     getUserDistance(id: number): Observable<any> {
         return this.http.get('/api/user/distance/' + id)
             .catch(this.handleErrors);
@@ -35,6 +40,11 @@ export class SocialService {
 
     getFriend(id: number): Observable<any> {
         return this.http.get('/api/friend/' + id)
+            .catch(this.handleErrors);
+    }
+
+    getAllFriends(): Observable<any> {
+        return this.http.get('/api/friend/')
             .catch(this.handleErrors);
     }
 

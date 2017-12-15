@@ -24,6 +24,10 @@ var SocialService = /** @class */ (function () {
         return this.http.get('/api/user/' + id)
             .catch(this.handleErrors);
     };
+    SocialService.prototype.getUserProfiles = function (ids) {
+        return this.http.get('/api/user/profiles', { params: { userIds: ids } })
+            .catch(this.handleErrors);
+    };
     SocialService.prototype.getUserDistance = function (id) {
         return this.http.get('/api/user/distance/' + id)
             .catch(this.handleErrors);
@@ -38,6 +42,10 @@ var SocialService = /** @class */ (function () {
     };
     SocialService.prototype.getFriend = function (id) {
         return this.http.get('/api/friend/' + id)
+            .catch(this.handleErrors);
+    };
+    SocialService.prototype.getAllFriends = function () {
+        return this.http.get('/api/friend/')
             .catch(this.handleErrors);
     };
     SocialService.prototype.removeFromFriend = function (id) {

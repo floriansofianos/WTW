@@ -25,6 +25,9 @@ var userRoutes = function () {
     userRouter.route('/distance/:userId')
         .get(isAuthenticated, userController.getUserDistance);
 
+    userRouter.route('/profiles')
+        .get(isAuthenticated, userController.getAllUserInformations);
+
     userRouter.route('/:userId')
         .get(isAuthenticated, userController.getUserProfile);
 
