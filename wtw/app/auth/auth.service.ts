@@ -58,7 +58,8 @@ export class AuthService {
     }
 
     setUserProperties(values: any) {
-        _.each(values, function (value, key, obj) { this.currentUser[key] = value; });
+        let currentUser = this.currentUser;
+        _.each(values, function (value, key, obj) { currentUser[key] = value; });
         return this.http.put('/auth/current', values)
             .catch(this.handleErrors);
     }

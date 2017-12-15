@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { SocialService } from '../social/social.service';
 import { ActivatedRoute } from '@angular/router';
 import { MovieDBService } from '../movieDB/movieDB.service';
+import { UserService } from '../user/user.service';
+import { CountriesService } from '../countries/countries.service';
 import * as _ from 'underscore';
 
 @Component({
@@ -27,8 +29,11 @@ export class UserPageComponent {
     dislikeMovieIds: Array<any>;
     config: any;
     lang: string;
+    userCountry: string;
+    photoData: any;
+    isPendingFriendForMe: boolean;
 
-    constructor(private authService: AuthService, private router: Router, private socialService: SocialService, private route: ActivatedRoute, private movieDBService: MovieDBService) { }
+    constructor(private authService: AuthService, private router: Router, private socialService: SocialService, private route: ActivatedRoute, private movieDBService: MovieDBService, private userService: UserService, private countriesService: CountriesService) { }
 
     ngOnInit() {
         this.isLoading = true;
@@ -57,8 +62,15 @@ export class UserPageComponent {
                         this.user = response.user;
                         this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
                         this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
-                        
-                        this.updateFriendStatus();
+                        this.countriesService.getAll().subscribe(response => {
+                            let countriesList = response.json().countries;
+                            let profileUser = this.user;
+                            this.userCountry = _.find(countriesList, function (c) { return c.code == profileUser.country; });
+                            this.updateFriendStatus();
+                        },
+                            error => {
+                                this.router.navigate(['error']);
+                            });
                     }
                     else this.router.navigate(['error']);
                 },
@@ -86,6 +98,21 @@ export class UserPageComponent {
 
     }
 
+    updatePhoto() {
+        this.userService.getAvatar(this.user.id, 'big').subscribe(res => {
+            var data = res.json();
+            if (data && data.success) {
+                this.photoData = data.data;
+            }
+            else this.photoData = null;
+            this.isLoading = false;
+        },
+            error => {
+                this.router.navigate(['error']);
+            }
+        );
+    }
+
     updateDistance(distance: any) {
         this.averageDistance = 100 - distance.averageDistance;
     }
@@ -95,10 +122,13 @@ export class UserPageComponent {
         this.socialService.getPendingFriend(this.id).subscribe(data => {
             if (data) {
                 if (data.json().length > 0) {
+                    let pendingFriendships = data.json();
+                    let currentUserId = this.currentUserId;
+                    if (_.find(pendingFriendships, function (p) { return p.toUserId == currentUserId; })) this.isPendingFriendForMe = true;
                     this.isPendingFriend = true;
                     this.friendship = null;
                     this.isFriend = false;
-                    this.isLoading = false;
+                    this.updatePhoto();
                 }
                 else {
                     this.socialService.getFriend(this.id).subscribe(data => {
@@ -106,7 +136,8 @@ export class UserPageComponent {
                             this.friendship = data.json();
                             this.isFriend = this.friendship != undefined;
                             this.isPendingFriend = false;
-                            this.isLoading = false;
+                            this.isPendingFriendForMe = false;
+                            this.updatePhoto();
                         }
                         else this.router.navigate(['error']);
                     },

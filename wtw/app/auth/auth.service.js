@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var _ = require("underscore");
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
     }
@@ -57,7 +57,8 @@ var AuthService = (function () {
             .catch(this.handleErrors);
     };
     AuthService.prototype.setUserProperties = function (values) {
-        _.each(values, function (value, key, obj) { this.currentUser[key] = value; });
+        var currentUser = this.currentUser;
+        _.each(values, function (value, key, obj) { currentUser[key] = value; });
         return this.http.put('/auth/current', values)
             .catch(this.handleErrors);
     };
@@ -93,4 +94,3 @@ var AuthService = (function () {
     return AuthService;
 }());
 exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map

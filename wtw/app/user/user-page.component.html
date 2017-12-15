@@ -1,12 +1,23 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
-<h2 *ngIf="!isLoading">{{ 'HOME.USERPROFILE' | translate }} {{ user.username }}</h2>
-<div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
-    <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
-    <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
-    <div class="button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
-    <div class="button not-clickable" *ngIf="isPendingFriend">Waiting for a response</div>
-    <div class="button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
-    <div class="button" *ngIf="isPendingFriend" (click)="acceptFriendship()">Accept friend</div>
+<div class="profile-card-container" *ngIf="!isLoading">
+    <div class="profile-picture-container">
+        <div class="profile-picture" *ngIf="photoData">
+            <img [src]="photoData" style="height: 200px;" />
+        </div>
+        <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
+    </div>
+    <div class="profile-information-container">
+        <h2>{{ user.username }}</h2>
+        <div class="country-container">{{ userCountry?.name }}</div>
+        <div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
+            <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">Request Friend</div>
+            <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">Follow</div>
+            <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">Unfollow</div>
+            <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">Waiting for a response</div>
+            <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">Unfriend</div>
+            <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">Accept friend</div>
+        </div>
+    </div>
 </div>
 <div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
     <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
@@ -14,13 +25,13 @@
     </div>
 </div>
 <div class="like-dislike-container" *ngIf="!isLoading">
-    <div class="questionnaires-container" *ngIf="likeMovieIds">
+    <div class="questionnaires-container" *ngIf="likeMovieIds && likeMovieIds.length > 0">
         <div class="questionnaires-title">
             {{ 'HOME.USERLIKE' | translate }}
         </div>
         <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
     </div>
-    <div class="questionnaires-container" *ngIf="dislikeMovieIds">
+    <div class="questionnaires-container" *ngIf="dislikeMovieIds && dislikeMovieIds.length > 0">
         <div class="questionnaires-title">
             {{ 'HOME.USERDISLIKE' | translate }}
         </div>

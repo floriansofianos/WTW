@@ -15,14 +15,18 @@ var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var router_2 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
+var user_service_1 = require("../user/user.service");
+var countries_service_1 = require("../countries/countries.service");
 var _ = require("underscore");
-var UserPageComponent = (function () {
-    function UserPageComponent(authService, router, socialService, route, movieDBService) {
+var UserPageComponent = /** @class */ (function () {
+    function UserPageComponent(authService, router, socialService, route, movieDBService, userService, countriesService) {
         this.authService = authService;
         this.router = router;
         this.socialService = socialService;
         this.route = route;
         this.movieDBService = movieDBService;
+        this.userService = userService;
+        this.countriesService = countriesService;
     }
     UserPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -51,7 +55,14 @@ var UserPageComponent = (function () {
                         _this.user = response.user;
                         _this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
                         _this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
-                        _this.updateFriendStatus();
+                        _this.countriesService.getAll().subscribe(function (response) {
+                            var countriesList = response.json().countries;
+                            var profileUser = _this.user;
+                            _this.userCountry = _.find(countriesList, function (c) { return c.code == profileUser.country; });
+                            _this.updateFriendStatus();
+                        }, function (error) {
+                            _this.router.navigate(['error']);
+                        });
                     }
                     else
                         _this.router.navigate(['error']);
@@ -74,6 +85,20 @@ var UserPageComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
+    UserPageComponent.prototype.updatePhoto = function () {
+        var _this = this;
+        this.userService.getAvatar(this.user.id, 'big').subscribe(function (res) {
+            var data = res.json();
+            if (data && data.success) {
+                _this.photoData = data.data;
+            }
+            else
+                _this.photoData = null;
+            _this.isLoading = false;
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
     UserPageComponent.prototype.updateDistance = function (distance) {
         this.averageDistance = 100 - distance.averageDistance;
     };
@@ -83,10 +108,14 @@ var UserPageComponent = (function () {
         this.socialService.getPendingFriend(this.id).subscribe(function (data) {
             if (data) {
                 if (data.json().length > 0) {
+                    var pendingFriendships = data.json();
+                    var currentUserId_1 = _this.currentUserId;
+                    if (_.find(pendingFriendships, function (p) { return p.toUserId == currentUserId_1; }))
+                        _this.isPendingFriendForMe = true;
                     _this.isPendingFriend = true;
                     _this.friendship = null;
                     _this.isFriend = false;
-                    _this.isLoading = false;
+                    _this.updatePhoto();
                 }
                 else {
                     _this.socialService.getFriend(_this.id).subscribe(function (data) {
@@ -94,7 +123,8 @@ var UserPageComponent = (function () {
                             _this.friendship = data.json();
                             _this.isFriend = _this.friendship != undefined;
                             _this.isPendingFriend = false;
-                            _this.isLoading = false;
+                            _this.isPendingFriendForMe = false;
+                            _this.updatePhoto();
                         }
                         else
                             _this.router.navigate(['error']);
@@ -185,9 +215,8 @@ var UserPageComponent = (function () {
             moduleId: module.id,
             templateUrl: 'user-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute, movieDB_service_1.MovieDBService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute, movieDB_service_1.MovieDBService, user_service_1.UserService, countries_service_1.CountriesService])
     ], UserPageComponent);
     return UserPageComponent;
 }());
 exports.UserPageComponent = UserPageComponent;
-//# sourceMappingURL=user-page.component.js.map
