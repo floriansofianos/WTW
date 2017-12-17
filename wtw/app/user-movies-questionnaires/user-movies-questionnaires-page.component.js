@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserMoviesQuestionnairesPageComponent = /** @class */ (function () {
+var UserMoviesQuestionnairesPageComponent = (function () {
     function UserMoviesQuestionnairesPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -73,13 +73,14 @@ var UserMoviesQuestionnairesPageComponent = /** @class */ (function () {
     UserMoviesQuestionnairesPageComponent.prototype.startNewQuestionnaire = function () {
         this.startNewClicked = true;
     };
-    UserMoviesQuestionnairesPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-movies-questionnaires-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
-    ], UserMoviesQuestionnairesPageComponent);
     return UserMoviesQuestionnairesPageComponent;
 }());
+UserMoviesQuestionnairesPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-movies-questionnaires-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
+], UserMoviesQuestionnairesPageComponent);
 exports.UserMoviesQuestionnairesPageComponent = UserMoviesQuestionnairesPageComponent;
+//# sourceMappingURL=user-movies-questionnaires-page.component.js.map

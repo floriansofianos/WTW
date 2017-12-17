@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserMoviesWatchlistPageComponent = /** @class */ (function () {
+var UserMoviesWatchlistPageComponent = (function () {
     function UserMoviesWatchlistPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -56,13 +56,14 @@ var UserMoviesWatchlistPageComponent = /** @class */ (function () {
     UserMoviesWatchlistPageComponent.prototype.onClickMovie = function (event) {
         this.router.navigate(['/movie/' + event.movieId]);
     };
-    UserMoviesWatchlistPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-movies-watchlist-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
-    ], UserMoviesWatchlistPageComponent);
     return UserMoviesWatchlistPageComponent;
 }());
+UserMoviesWatchlistPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-movies-watchlist-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
+], UserMoviesWatchlistPageComponent);
 exports.UserMoviesWatchlistPageComponent = UserMoviesWatchlistPageComponent;
+//# sourceMappingURL=user-movies-watchlist-page.component.js.map

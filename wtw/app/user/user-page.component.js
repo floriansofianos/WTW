@@ -18,7 +18,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
 var _ = require("underscore");
-var UserPageComponent = /** @class */ (function () {
+var UserPageComponent = (function () {
     function UserPageComponent(authService, router, socialService, route, movieDBService, userService, countriesService) {
         this.authService = authService;
         this.router = router;
@@ -210,13 +210,14 @@ var UserPageComponent = /** @class */ (function () {
     UserPageComponent.prototype.onClickMovie = function (event) {
         this.router.navigate(['/movie/' + event.movieId]);
     };
-    UserPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute, movieDB_service_1.MovieDBService, user_service_1.UserService, countries_service_1.CountriesService])
-    ], UserPageComponent);
     return UserPageComponent;
 }());
+UserPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, social_service_1.SocialService, router_2.ActivatedRoute, movieDB_service_1.MovieDBService, user_service_1.UserService, countries_service_1.CountriesService])
+], UserPageComponent);
 exports.UserPageComponent = UserPageComponent;
+//# sourceMappingURL=user-page.component.js.map

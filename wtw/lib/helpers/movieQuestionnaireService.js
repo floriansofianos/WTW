@@ -8,7 +8,8 @@ var _ = require('underscore');
 
 var movieQuestionnaireService = function() {
 
-    var getAll = function(userId, done) {
+    var getAll = function (userId, done) {
+        if (!userId) return [];
         models.MovieQuestionnaire.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         }).catch(function(err) {
@@ -77,7 +78,8 @@ var movieQuestionnaireService = function() {
         });
     }
 
-    var getWatchlist = function(userId, done) {
+    var getWatchlist = function (userId, done) {
+        if (!userId) return [];
         models.MovieQuestionnaire.findAll({ where: { userId: userId, isSeen: false, wantToSee: true } }).then(data => {
             done(null, data);
         }).catch(function(err) {

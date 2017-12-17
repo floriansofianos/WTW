@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_questionnaire_service_1 = require("./movie-questionnaire.service");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
-var MoviePageComponent = /** @class */ (function () {
+var MoviePageComponent = (function () {
     function MoviePageComponent(authService, router, movieDBService, route, movieQuestionnaireService, location) {
         this.authService = authService;
         this.router = router;
@@ -84,13 +84,14 @@ var MoviePageComponent = /** @class */ (function () {
     MoviePageComponent.prototype.back = function () {
         this.location.back();
     };
-    MoviePageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'movie.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, router_2.ActivatedRoute, movie_questionnaire_service_1.MovieQuestionnaireService, common_1.Location])
-    ], MoviePageComponent);
     return MoviePageComponent;
 }());
+MoviePageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'movie.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, router_2.ActivatedRoute, movie_questionnaire_service_1.MovieQuestionnaireService, common_1.Location])
+], MoviePageComponent);
 exports.MoviePageComponent = MoviePageComponent;
+//# sourceMappingURL=movie.component.js.map

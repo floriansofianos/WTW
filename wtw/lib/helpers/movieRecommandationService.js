@@ -4,7 +4,8 @@ var _ = require('underscore');
 
 var movieRecommandationService = function() {
 
-    var getAll = function(userId, done) {
+    var getAll = function (userId, done) {
+        if (!userId) return [];
         models.MovieRecommandation.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         }).catch(function(err) {
@@ -30,6 +31,29 @@ var movieRecommandationService = function() {
             done(err);
         });
     }
+
+    var getScoreForUsers = function (userId, otherUserId, movieDBId, userProfileService, movieDBService, done) {
+        if (otherUserId) {
+            getScore(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
+                var userScore = res;
+                if (err) return done(err);
+                getScore(otherUserId, movieDBId, userProfileService, movieDBService, function (err, res) {
+                    if (err) return done(err);
+                    // calculate the average between the 2 scores
+                    done(err, {
+                        certaintyLevel: userScore.certaintyLevel,
+                        comments: userScore.allComments,
+                        score: (userScore.score + res.score) / 2
+                    });
+                });
+            });
+        }
+        else {
+            getScore(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
+                done(err, res);
+            });
+        }
+    };
 
     var getScore = function(userId, movieDBId, userProfileService, movieDBService, done) {
         userProfileService.getAll(userId, function(err, profiles) {
@@ -89,7 +113,8 @@ var movieRecommandationService = function() {
         getAll: getAll,
         create: create,
         deleteRecommandation: deleteRecommandation,
-        getScore: getScore
+        getScore: getScore,
+        getScoreForUsers: getScoreForUsers
     }
 }
 

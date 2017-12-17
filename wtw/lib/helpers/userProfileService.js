@@ -2,7 +2,8 @@ var models = require('../models');
 
 var userProfileService = function() {
 
-    var getAll = function(userId, done) {
+    var getAll = function (userId, done) {
+        if (!userId) return [];
         models.UserProfile.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         }).catch(function(err) {
