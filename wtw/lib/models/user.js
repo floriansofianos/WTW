@@ -29,6 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Friendship, { as: 'followings', foreignKey: 'currentUserId' });
       User.hasMany(models.PendingFriendship, { as: 'froms', foreignKey: 'fromUserId' });
       User.hasMany(models.PendingFriendship, { as: 'tos', foreignKey: 'toUserId' });
+      User.hasMany(models.Notification, { foreignKey: 'userId' });
   }
 
   User.prototype.generateHash = function (password) {

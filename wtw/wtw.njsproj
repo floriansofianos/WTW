@@ -141,6 +141,7 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\notificationController.js" />
     <Compile Include="lib\controllers\followingController.js" />
     <Compile Include="lib\controllers\friendController.js" />
     <Compile Include="lib\controllers\castController.js">
@@ -171,6 +172,7 @@
     <Content Include="lib\helpers\movieLanguageService.js" />
     <Content Include="lib\helpers\movieDBRequestHelper.js" />
     <Content Include="lib\helpers\friendshipService.js" />
+    <Content Include="lib\helpers\notificationService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -184,6 +186,7 @@
     <Compile Include="lib\models\moviequestionnaire.js" />
     <Compile Include="lib\models\movierecommandation.js" />
     <Compile Include="lib\models\movievideocache.js" />
+    <Compile Include="lib\models\notification.js" />
     <Compile Include="lib\models\pendingfriendship.js" />
     <Compile Include="lib\models\peoplecache.js" />
     <Compile Include="lib\models\user.js" />
@@ -192,7 +195,7 @@
     <Content Include="lib\routes\firstQuestionnaireRoutes.js" />
     <Content Include="lib\routes\testRoutes.js" />
     <Content Include="lib\routes\movieQuestionnaireRoutes.js" />
-    <Content Include="lib\routes\castRoutes.js">
+    <Content Include="lib\routes\notificationRoutes.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="lib\routes\movieDBSearchRoutes.js">
@@ -213,6 +216,7 @@
     <Content Include="lib\routes\userRoutes.js" />
     <Content Include="lib\routes\followingRoutes.js" />
     <Content Include="lib\routes\friendRoutes.js" />
+    <Content Include="lib\routes\castRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">

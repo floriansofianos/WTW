@@ -4,13 +4,23 @@ var _ = require('underscore');
 
 var friendshipService = function () {
 
-    var followUser = function (currentUserId, userId, done) {
+    var followUser = function (currentUserId, userId, userService, notificationService, done) {
         if (currentUserId == userId) return done(null, false);
         models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId } }).then(data => {
             if (data) {
                 data.following = true;
                 data.save().then(function (data, err) {
-                    if (!err) done(null, true);
+                    if (!err) {
+                        userService.getUserById(userId, function (err, user) {
+                            if (!err) {
+                                notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                                    if (!err) done(null, true);
+                                    else done(err);
+                                });
+                            }
+                            else done(err);
+                        });
+                    }
                     else done(err);
                 })
                     .catch(function (err) {
@@ -24,7 +34,15 @@ var friendshipService = function () {
                     following: true,
                     isFriend: false
                 }).then(data => {
-                    done(null, true);
+                    userService.getUserById(userId, function (err, user) {
+                        if (!err) {
+                            notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                                if (!err) done(null, true);
+                                else done(err);
+                            });
+                        }
+                        else done(err);
+                    });
                 }).catch(function (err) {
                     done(err);
                 });
@@ -224,6 +242,13 @@ var friendshipService = function () {
         });
     }
 
+    var getAllFollowings = function (currentUserId, done) {
+        models.Friendship.findAll({ where: { currentUserId: currentUserId, following: true } }).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
 
     return {
         followUser: followUser,
@@ -234,7 +259,8 @@ var friendshipService = function () {
         unfriendUser: unfriendUser,
         getPendingFriendship: getPendingFriendship,
         getFriendship: getFriendship,
-        getAllFriendships: getAllFriendships
+        getAllFriendships: getAllFriendships,
+        getAllFollowings: getAllFollowings
     }
 }
 

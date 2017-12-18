@@ -1,4 +1,4 @@
-﻿var friendController = function (friendshipService) {
+﻿var friendController = function (friendshipService, notificationService) {
     var post = function (req, res) {
         if (req.params.id) {
             friendshipService.friendUser(req.user.id, +req.params.id, function (err, data) {

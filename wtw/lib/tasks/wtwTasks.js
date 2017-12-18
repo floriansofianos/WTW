@@ -5,6 +5,7 @@ var movieDBService = require('../helpers/movieDBService')();
 var userProfileService = require('../helpers/userProfileService')();
 var userQuestionnaireService = require('../helpers/userQuestionnaireService')();
 var movieRecommandationService = require('../helpers/movieRecommandationservice')();
+var friendshipService = require('../helpers/friendshipService')();
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
@@ -72,7 +73,11 @@ var generateRecommandations = function (users, i, done) {
                                         var countriesProfiles = _.filter(filteredProfiles, function (p) { return (p.country && p.score > 85) || (p.country && p.country != 'en' && p.seenCount > 10); });
                                         generateCountryRecommandations(_.map(countriesProfiles, 'country'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                             generateSimilarMovieRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, movieRecommandations, u.id, 0, function (err, res) {
-                                                generateRecommandations(users, i + 1, done);
+                                                var followingUserIds = friendshipService.getAllFollowings(u.id, function (err, res) {
+                                                    generateFollowingRecommandations(_.map(res, 'friendUserId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                                        generateRecommandations(users, i + 1, done);
+                                                    });
+                                                });
                                             });
                                         });
                                     });
@@ -301,6 +306,28 @@ var generateCountryRecommandations = function (countries, questionnaires, movieR
                 });
             }
             else generateCountryRecommandations(countries, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateFollowingRecommandations = function (followingUserIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < followingUserIds.length) {
+        var followingUserId = followingUserIds[i];
+        // get movieDB movies
+        movieQuestionnaireService.getSampleLikedMovies(followingUserId, function (err, data) {
+            if (data && data.length > 0) {
+                var movieIds = _.map(data, 'movieDBId');
+                movieDBService.getAllMovies(movieIds, 'en', movieCacheService, function (err, data) {
+                    if (data) {
+                        handleDataRecommandations(data, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
+                            generateFollowingRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                        });
+                    }
+                    else generateFollowingRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateFollowingRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);

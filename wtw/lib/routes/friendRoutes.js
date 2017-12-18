@@ -1,7 +1,8 @@
 ﻿var express = require('express');
 var isAuthenticated = require('../middlewares/isAuthenticated');
 var friendService = require('../helpers/friendshipService')();
-var friendController = require('../controllers/friendController')(friendService);
+var notificationService = require('../helpers/notificationService')();
+var friendController = require('../controllers/friendController')(friendService, notificationService);
 
 var friendRoutes = function () {
     var friendRouter = express.Router();

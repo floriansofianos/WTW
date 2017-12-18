@@ -17,6 +17,25 @@ var movieQuestionnaireService = function() {
         });
     }
 
+    var getSampleLikedMovies = function (userId, done) {
+        if (!userId) return done(null, []);
+        models.MovieQuestionnaire.findAll({
+            where: {
+                userId: userId,
+                isSeen: true,
+                rating: { $in: [4, 5] }
+            },
+            order: [
+                Sequelize.fn('RANDOM')
+            ],
+            limit: 2
+        }).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var getUsersThatAlsoLiked = function (userId, done) {
         var Op = Sequelize.Op;
         models.MovieQuestionnaire.find({
@@ -136,7 +155,8 @@ var movieQuestionnaireService = function() {
         createOrUpdate: createOrUpdate,
         get: get,
         getWatchlist: getWatchlist,
-        getUsersThatAlsoLiked: getUsersThatAlsoLiked
+        getUsersThatAlsoLiked: getUsersThatAlsoLiked,
+        getSampleLikedMovies: getSampleLikedMovies
     }
 }
 
