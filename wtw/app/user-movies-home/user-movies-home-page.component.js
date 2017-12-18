@@ -79,43 +79,43 @@ var UserMoviesHomePageComponent = (function () {
             this.searchMovie();
         }
     };
+    UserMoviesHomePageComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            templateUrl: 'user-movies-home-page.component.html',
+            animations: [
+                animations_1.trigger('searchState', [
+                    animations_1.state('notSearched', animations_1.style({
+                        transform: 'translateY(150px)'
+                    })),
+                    animations_1.transition('notSearched => searched', animations_1.animate('800ms ease-in')),
+                    animations_1.state('searched', animations_1.style({
+                        transform: 'translateY(0px)'
+                    }))
+                ]),
+                animations_1.trigger('searchResultsState', [
+                    animations_1.state('notSearched', animations_1.style({
+                        opacity: 0
+                    })),
+                    animations_1.transition('notSearched => searched', animations_1.animate('300ms 200ms ease-in')),
+                    animations_1.state('searched', animations_1.style({
+                        opacity: 1
+                    }))
+                ]),
+                animations_1.trigger('searchResultsLoadedState', [
+                    animations_1.state('notLoaded', animations_1.style({
+                        opacity: 0
+                    })),
+                    animations_1.transition('notLoaded <=> loaded', animations_1.animate('200ms ease-in')),
+                    animations_1.state('loaded', animations_1.style({
+                        opacity: 1
+                    }))
+                ]),
+            ]
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService, movie_questionnaire_service_1.MovieQuestionnaireService])
+    ], UserMoviesHomePageComponent);
     return UserMoviesHomePageComponent;
 }());
-UserMoviesHomePageComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        templateUrl: 'user-movies-home-page.component.html',
-        animations: [
-            animations_1.trigger('searchState', [
-                animations_1.state('notSearched', animations_1.style({
-                    transform: 'translateY(150px)'
-                })),
-                animations_1.transition('notSearched => searched', animations_1.animate('800ms ease-in')),
-                animations_1.state('searched', animations_1.style({
-                    transform: 'translateY(0px)'
-                }))
-            ]),
-            animations_1.trigger('searchResultsState', [
-                animations_1.state('notSearched', animations_1.style({
-                    opacity: 0
-                })),
-                animations_1.transition('notSearched => searched', animations_1.animate('300ms 200ms ease-in')),
-                animations_1.state('searched', animations_1.style({
-                    opacity: 1
-                }))
-            ]),
-            animations_1.trigger('searchResultsLoadedState', [
-                animations_1.state('notLoaded', animations_1.style({
-                    opacity: 0
-                })),
-                animations_1.transition('notLoaded <=> loaded', animations_1.animate('200ms ease-in')),
-                animations_1.state('loaded', animations_1.style({
-                    opacity: 1
-                }))
-            ]),
-        ]
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService, movie_questionnaire_service_1.MovieQuestionnaireService])
-], UserMoviesHomePageComponent);
 exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
 //# sourceMappingURL=user-movies-home-page.component.js.map

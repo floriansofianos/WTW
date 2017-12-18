@@ -70,19 +70,19 @@ var AlsoLikeComponent = (function () {
             _this.router.navigate(['error']);
         });
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], AlsoLikeComponent.prototype, "lang", void 0);
+    AlsoLikeComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'also-like',
+            templateUrl: 'also-like.component.html'
+        }),
+        __metadata("design:paramtypes", [router_1.Router, social_service_1.SocialService, movieDB_service_1.MovieDBService])
+    ], AlsoLikeComponent);
     return AlsoLikeComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], AlsoLikeComponent.prototype, "lang", void 0);
-AlsoLikeComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'also-like',
-        templateUrl: 'also-like.component.html'
-    }),
-    __metadata("design:paramtypes", [router_1.Router, social_service_1.SocialService, movieDB_service_1.MovieDBService])
-], AlsoLikeComponent);
 exports.AlsoLikeComponent = AlsoLikeComponent;
 //# sourceMappingURL=also-like.component.js.map

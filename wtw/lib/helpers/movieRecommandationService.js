@@ -5,7 +5,7 @@ var _ = require('underscore');
 var movieRecommandationService = function() {
 
     var getAll = function (userId, done) {
-        if (!userId) return [];
+        if (!userId) return done(null, []);
         models.MovieRecommandation.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         }).catch(function(err) {

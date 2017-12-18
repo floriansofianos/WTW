@@ -43,11 +43,11 @@ var MovieDBService = (function () {
     MovieDBService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
+    MovieDBService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], MovieDBService);
     return MovieDBService;
 }());
-MovieDBService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], MovieDBService);
 exports.MovieDBService = MovieDBService;
 //# sourceMappingURL=movieDB.service.js.map

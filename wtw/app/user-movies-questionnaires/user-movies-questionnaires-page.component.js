@@ -73,14 +73,14 @@ var UserMoviesQuestionnairesPageComponent = (function () {
     UserMoviesQuestionnairesPageComponent.prototype.startNewQuestionnaire = function () {
         this.startNewClicked = true;
     };
+    UserMoviesQuestionnairesPageComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            templateUrl: 'user-movies-questionnaires-page.component.html'
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
+    ], UserMoviesQuestionnairesPageComponent);
     return UserMoviesQuestionnairesPageComponent;
 }());
-UserMoviesQuestionnairesPageComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        templateUrl: 'user-movies-questionnaires-page.component.html'
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
-], UserMoviesQuestionnairesPageComponent);
 exports.UserMoviesQuestionnairesPageComponent = UserMoviesQuestionnairesPageComponent;
 //# sourceMappingURL=user-movies-questionnaires-page.component.js.map
