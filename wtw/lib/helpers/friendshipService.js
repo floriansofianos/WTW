@@ -91,7 +91,7 @@ var friendshipService = function () {
                         }).then(data => {
                             userService.getUserById(currentUserId, function (err, user) {
                                 if (!err) {
-                                    notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                                    notificationService.create(userId, 1, { username: user.username }, function (err, data) {
                                         if (!err) done(null, true);
                                         else done(err);
                                     });
@@ -120,7 +120,7 @@ var friendshipService = function () {
         });
     }
 
-    var acceptFriendRequest = function (currentUserId, userId, done) {
+    var acceptFriendRequest = function (currentUserId, userId, userService, notificationService, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
@@ -135,7 +135,17 @@ var friendshipService = function () {
                                 if (data.length > 1) {
                                     data[1].isFriend = true;
                                     data[1].save().then(function (data, err) {
-                                        if (!err) deletePendingFriendship(currentUserId, userId, done);
+                                        if (!err) deletePendingFriendship(currentUserId, userId, function (err, result) {
+                                            userService.getUserById(currentUserId, function (err, user) {
+                                                if (!err) {
+                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                        if (!err) done(null, true);
+                                                        else done(err);
+                                                    });
+                                                }
+                                                else done(err);
+                                            });
+                                        });
                                         else done(err);
                                     })
                                         .catch(function (err) {
@@ -151,7 +161,16 @@ var friendshipService = function () {
                                         following: true,
                                         isFriend: true
                                     }).then(data => {
-                                        deletePendingFriendship(currentUserId, userId, done);
+                                        deletePendingFriendship(currentUserId, userId, function (err, result) {
+                                            userService.getUserById(currentUserId, function (err, user) {
+                                                if (!err) {
+                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                        if (!err) done(null, true);
+                                                        else done(err);
+                                                    });
+                                                }
+                                                else done(err);
+                                            });
                                     }).catch(function (err) {
                                         done(err);
                                     });
@@ -176,7 +195,16 @@ var friendshipService = function () {
                                 following: true,
                                 isFriend: true
                             }).then(data => {
-                                deletePendingFriendship(currentUserId, userId, done);
+                                deletePendingFriendship(currentUserId, userId, function (err, result) {
+                                    userService.getUserById(currentUserId, function (err, user) {
+                                        if (!err) {
+                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                if (!err) done(null, true);
+                                                else done(err);
+                                            });
+                                        }
+                                        else done(err);
+                                    });
                             }).catch(function (err) {
                                 done(err);
                             });
