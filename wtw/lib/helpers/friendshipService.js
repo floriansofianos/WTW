@@ -11,7 +11,7 @@ var friendshipService = function () {
                 data.following = true;
                 data.save().then(function (data, err) {
                     if (!err) {
-                        userService.getUserById(userId, function (err, user) {
+                        userService.getUserById(currentUserId, function (err, user) {
                             if (!err) {
                                 notificationService.create(userId, 0, { username: user.username }, function (err, data) {
                                     if (!err) done(null, true);
@@ -34,7 +34,7 @@ var friendshipService = function () {
                     following: true,
                     isFriend: false
                 }).then(data => {
-                    userService.getUserById(userId, function (err, user) {
+                    userService.getUserById(currentUserId, function (err, user) {
                         if (!err) {
                             notificationService.create(userId, 0, { username: user.username }, function (err, data) {
                                 if (!err) done(null, true);
@@ -72,7 +72,7 @@ var friendshipService = function () {
         });
     }
 
-    var friendUser = function (currentUserId, userId, done) {
+    var friendUser = function (currentUserId, userId, userService, notificationService, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId, isFriend: true } }).then(data => {
@@ -85,12 +85,19 @@ var friendshipService = function () {
                         return done(null, false);
                     }
                     else {
-                        //TODO Send email to notify userId
                         models.PendingFriendship.create({
                             fromUserId: currentUserId,
                             toUserId: userId
                         }).then(data => {
-                            done(null, true);
+                            userService.getUserById(currentUserId, function (err, user) {
+                                if (!err) {
+                                    notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                                        if (!err) done(null, true);
+                                        else done(err);
+                                    });
+                                }
+                                else done(err);
+                            });
                         }).catch(function (err) {
                             done(err);
                         });
