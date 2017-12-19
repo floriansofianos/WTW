@@ -19,7 +19,7 @@ module.exports = function () {
     // Types
     // 0: Someone following you
     // 1: Someone asks you as a friend
-    // 2: accept friend
+    // 2: accept friend request
     var create = function (userId, type, variables, done) {
         models.Notification.create({
             userId: userId,

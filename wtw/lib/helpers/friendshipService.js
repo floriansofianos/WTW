@@ -91,7 +91,7 @@ var friendshipService = function () {
                         }).then(data => {
                             userService.getUserById(currentUserId, function (err, user) {
                                 if (!err) {
-                                    notificationService.create(userId, 1, { username: user.username }, function (err, data) {
+                                    notificationService.create(userId, 1, { username: user.username, userId: user.id }, function (err, data) {
                                         if (!err) done(null, true);
                                         else done(err);
                                     });
@@ -171,6 +171,7 @@ var friendshipService = function () {
                                                 }
                                                 else done(err);
                                             });
+                                        });
                                     }).catch(function (err) {
                                         done(err);
                                     });
@@ -205,6 +206,7 @@ var friendshipService = function () {
                                         }
                                         else done(err);
                                     });
+                                });
                             }).catch(function (err) {
                                 done(err);
                             });
