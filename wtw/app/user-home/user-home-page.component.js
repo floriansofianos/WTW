@@ -20,7 +20,6 @@ var UserHomePageComponent = /** @class */ (function () {
         this.notificationService = notificationService;
     }
     UserHomePageComponent.prototype.ngOnInit = function () {
-        var _this = this;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -31,12 +30,6 @@ var UserHomePageComponent = /** @class */ (function () {
         else {
             this.router.navigate(['']);
         }
-        this.notificationService.get().subscribe(function (response) {
-            _this.notifications = response.json();
-            _this.notificationsLoaded = true;
-        }, function (error) {
-            _this.router.navigate(['error']);
-        });
     };
     UserHomePageComponent = __decorate([
         core_1.Component({

@@ -34,9 +34,21 @@ module.exports = function () {
         });
     }
 
+    var readAllReadOnly = function (userId, done) {
+        models.Notification.update(
+            { read: true },
+            { where: { userId: userId, type: { $in: [0, 2, 3] }, read: false } } 
+        ).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     
     return {
         getAll: getAll,
-        create: create
+        create: create,
+        readAllReadOnly: readAllReadOnly
     }
 }

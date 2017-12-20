@@ -10,8 +10,6 @@ import { NotificationService } from '../notification/notification.service';
 
 export class UserHomePageComponent {
     username: string;
-    notifications: Array<any>;
-    notificationsLoaded: boolean;
 
     constructor(private authService: AuthService, private router: Router, private notificationService: NotificationService) { }
 
@@ -26,12 +24,5 @@ export class UserHomePageComponent {
         else {
             this.router.navigate(['']);
         }
-        this.notificationService.get().subscribe(response => {
-            this.notifications = response.json();
-            this.notificationsLoaded = true;
-        },
-            error => {
-                this.router.navigate(['error']);
-            });
     }
 }

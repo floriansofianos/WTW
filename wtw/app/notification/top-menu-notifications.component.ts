@@ -2,6 +2,8 @@
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialService } from '../social/social.service';
+import { NotificationService } from './notification.service';
+import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
@@ -12,12 +14,31 @@ import { SocialService } from '../social/social.service';
 export class TopMenuNotificationsComponent {
     @Input() notifications: Array<any>;
     @Input() notificationsLoaded: boolean;
+    @Output() notify: EventEmitter<any> = new EventEmitter<any>();
     isLoading: boolean;
 
-    constructor(private router: Router, private translate: TranslateService, private socialService: SocialService) { }
+    constructor(private router: Router, private translate: TranslateService, private socialService: SocialService, private notificationService: NotificationService) { }
 
     ngOnInit() {
-        this.isLoading = false;
+        this.updateNotifications();
+    }
+
+    updateNotifications() {
+        this.isLoading = true;
+        this.notificationService.get().subscribe(response => {
+            let allNotifications = response.json();
+            // Show the non-read ones first
+            let unreadNotifications = _.filter(allNotifications, (n) => { return !n.read });
+            this.notifications = unreadNotifications;
+            this.notifications = this.notifications.concat(_.filter(allNotifications, (n) => { return n.read }));
+            this.notify.emit({
+                newNotifications: _.size(unreadNotifications)
+            });
+            this.isLoading = false;
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
     }
 
     acceptFriend(userId: number) {

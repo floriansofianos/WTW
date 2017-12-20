@@ -20,6 +20,10 @@ var NotificationService = /** @class */ (function () {
         return this.http.get('/api/notification')
             .catch(this.handleErrors);
     };
+    NotificationService.prototype.readAllReadOnly = function () {
+        return this.http.post('/api/notification/read', {})
+            .catch(this.handleErrors);
+    };
     NotificationService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };

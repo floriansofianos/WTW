@@ -13,14 +13,35 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
 var social_service_1 = require("../social/social.service");
+var notification_service_1 = require("./notification.service");
+var _ = require("underscore");
 var TopMenuNotificationsComponent = /** @class */ (function () {
-    function TopMenuNotificationsComponent(router, translate, socialService) {
+    function TopMenuNotificationsComponent(router, translate, socialService, notificationService) {
         this.router = router;
         this.translate = translate;
         this.socialService = socialService;
+        this.notificationService = notificationService;
+        this.notify = new core_1.EventEmitter();
     }
     TopMenuNotificationsComponent.prototype.ngOnInit = function () {
-        this.isLoading = false;
+        this.updateNotifications();
+    };
+    TopMenuNotificationsComponent.prototype.updateNotifications = function () {
+        var _this = this;
+        this.isLoading = true;
+        this.notificationService.get().subscribe(function (response) {
+            var allNotifications = response.json();
+            // Show the non-read ones first
+            var unreadNotifications = _.filter(allNotifications, function (n) { return !n.read; });
+            _this.notifications = unreadNotifications;
+            _this.notifications = _this.notifications.concat(_.filter(allNotifications, function (n) { return n.read; }));
+            _this.notify.emit({
+                newNotifications: _.size(unreadNotifications)
+            });
+            _this.isLoading = false;
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
     };
     TopMenuNotificationsComponent.prototype.acceptFriend = function (userId) {
         var _this = this;
@@ -56,13 +77,17 @@ var TopMenuNotificationsComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Boolean)
     ], TopMenuNotificationsComponent.prototype, "notificationsLoaded", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], TopMenuNotificationsComponent.prototype, "notify", void 0);
     TopMenuNotificationsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'top-menu-notifications',
             templateUrl: 'top-menu-notifications.component.html'
         }),
-        __metadata("design:paramtypes", [router_1.Router, core_2.TranslateService, social_service_1.SocialService])
+        __metadata("design:paramtypes", [router_1.Router, core_2.TranslateService, social_service_1.SocialService, notification_service_1.NotificationService])
     ], TopMenuNotificationsComponent);
     return TopMenuNotificationsComponent;
 }());

@@ -19,11 +19,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ username }}<span class="notifications-count-container" *ngIf="notifications && notifications.length > 0">{{ notifications.length }}</span></a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" (click)="readNotifications()"><span class="glyphicon glyphicon-user"></span> {{ username }}<span class="notifications-count-container" *ngIf="notificationCount && notificationCount > 0">{{ notificationCount }}</span></a>
                         <ul class="dropdown-menu">
                             <li class="top-menu-dropdown-item"><a class="dropdown-item" [routerLink]="'/user/profile'"><i class="fa fa-cogs"></i>{{ 'TOP_MENU.USERPROFILE' | translate }}</a></li>
-                            <li class="top-menu-dropdown-item" *ngIf="!notificationsLoaded"><spinner></spinner></li>
-                            <top-menu-notifications [notifications]="notifications" *ngIf="notificationsLoaded"></top-menu-notifications>
+                            <top-menu-notifications (notify)="notificationCountChange($event)"></top-menu-notifications>
                         </ul>
                     </li>
                     <li><a href="/auth/signout"><span class="glyphicon glyphicon-log-out"></span> {{ 'TOP_MENU.LOGOUT' | translate }}</a></li>

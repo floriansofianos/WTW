@@ -13,6 +13,11 @@ export class NotificationService {
             .catch(this.handleErrors);
     }
 
+    readAllReadOnly(): Observable<any> {
+        return this.http.post('/api/notification/read', {})
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

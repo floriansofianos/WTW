@@ -9,6 +9,9 @@ var notificationRoutes = function () {
     notificationRouter.route('/')
         .get(isAuthenticated, notificationController.getAll);
 
+    notificationRouter.route('/read')
+        .post(isAuthenticated, notificationController.readAllReadOnly);
+
     return notificationRouter;
 }
 

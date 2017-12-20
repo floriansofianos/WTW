@@ -10,9 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var notification_service_1 = require("../notification/notification.service");
+var router_1 = require("@angular/router");
 var TopMenuComponent = /** @class */ (function () {
-    function TopMenuComponent() {
+    function TopMenuComponent(router, notificationService) {
+        this.router = router;
+        this.notificationService = notificationService;
     }
+    TopMenuComponent.prototype.notificationCountChange = function (data) {
+        this.notificationCount = data.newNotifications;
+    };
+    TopMenuComponent.prototype.readNotifications = function () {
+        var _this = this;
+        this.notificationService.readAllReadOnly().subscribe(function (response) {
+            _this.notificationCount -= response.json()[0];
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Boolean)
@@ -29,20 +44,13 @@ var TopMenuComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], TopMenuComponent.prototype, "username", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Array)
-    ], TopMenuComponent.prototype, "notifications", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Boolean)
-    ], TopMenuComponent.prototype, "notificationsLoaded", void 0);
     TopMenuComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'top-menu',
             templateUrl: 'top-menu.component.html'
-        })
+        }),
+        __metadata("design:paramtypes", [router_1.Router, notification_service_1.NotificationService])
     ], TopMenuComponent);
     return TopMenuComponent;
 }());

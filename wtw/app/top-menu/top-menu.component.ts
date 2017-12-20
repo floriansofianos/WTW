@@ -1,4 +1,6 @@
 ﻿import { Component, Input } from '@angular/core';
+import { NotificationService } from '../notification/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -11,6 +13,20 @@ export class TopMenuComponent {
     @Input() showLogin: boolean;
     @Input() selected: string;
     @Input() username: string;
-    @Input() notifications: Array<any>;
-    @Input() notificationsLoaded: boolean;
+    notificationCount: number;
+
+    constructor(private router: Router, private notificationService: NotificationService) { }
+
+    notificationCountChange(data) {
+        this.notificationCount = data.newNotifications;
+    }
+
+    readNotifications() {
+        this.notificationService.readAllReadOnly().subscribe(response => {
+            this.notificationCount -= response.json()[0];
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+    }
 }

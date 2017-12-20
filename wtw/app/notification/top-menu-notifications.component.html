@@ -1,11 +1,13 @@
 <ng-container *ngIf="isLoading">
     <li class="top-menu-dropdown-item">
-        <spinner></spinner>
+        <div class="notification-spinner-container">
+            <spinner></spinner>
+        </div>
     </li>
 </ng-container>
 <ng-container *ngIf="!isLoading">
-    <li class="top-menu-dropdown-item" *ngFor="let n of notifications">
-        <div class="notification-container">
+    <li class="top-menu-dropdown-item" *ngFor="let n of notifications" style="margin-top: 5px;">
+        <div class="notification-container" [ngClass]="{ 'unread-notification': !n.read }">
             <div class="notification-text-container" [ngSwitch]="n.type">
                 <span *ngSwitchCase="0">{{ 'NOTIFICATION.FOLLOW' | translate:n.variables }}</span>
                 <span *ngSwitchCase="1">{{ 'NOTIFICATION.FRIEND_REQUEST' | translate:n.variables }}</span>
