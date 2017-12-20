@@ -53,6 +53,7 @@ import { UserPageComponent } from './user/user-page.component';
 import { AlsoLikeComponent } from './also-like/also-like.component';
 import { MoviePageComponent } from './movie/movie.component';
 import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
+import { TopMenuNotificationsComponent } from './notification/top-menu-notifications.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -66,6 +67,7 @@ import { CountriesService } from './countries/countries.service';
 import { LanguagesService } from './languages/languages.service';
 import { SocialService } from './social/social.service';
 import { UserService } from './user/user.service';
+import { NotificationService } from './notification/notification.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -132,6 +134,7 @@ export function createTranslateLoader(http: Http) {
         UserProfilePageComponent,
         UserPageComponent,
         AlsoLikeComponent,
+        TopMenuNotificationsComponent,
         CastMemberComponent],
     providers: [AuthService,
         QuestionnaireService,
@@ -142,6 +145,7 @@ export function createTranslateLoader(http: Http) {
         CountriesService,
         LanguagesService,
         SocialService,
+        NotificationService,
         UserService,
         CanActivateAuthGuard,
         {

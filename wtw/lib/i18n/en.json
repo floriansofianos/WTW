@@ -152,6 +152,16 @@
         "FIND_FRIENDS": "Find other people using their email or username."
     },
     "ALSO_LIKE": {
-        "PEOPLE_ALSO_LIKE":  "People that also liked:"
+        "PEOPLE_ALSO_LIKE": "People that also liked:"
+    },
+    "NOTIFICATION": {
+        "FOLLOW": "{{username}} is now following you.",
+        "FRIEND_REQUEST": "{{username}} wants to add you as a friend.",
+        "FRIEND_REQUEST_ACCEPTED": "Your friend request to {{username}} has been accepted.",
+        "FRIEND_REQUEST_REFUSED": "Your friend request to {{username}} has been refused."
+    },
+    "SOCIAL": {
+        "ACCEPT_FRIEND": "Accept",
+        "REFUSE_FRIEND": "Refuse"
     }
 }

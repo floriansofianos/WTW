@@ -21,7 +21,9 @@ var friendRoutes = function () {
         .delete(isAuthenticated, friendController.deletePendingFriend);
 
     friendRouter.route('/accept/:id')
-        .post(isAuthenticated, friendController.acceptFriendRequest)
+        .post(isAuthenticated, friendController.acceptFriendRequest);
+    friendRouter.route('/refuse/:id')
+        .post(isAuthenticated, friendController.refuseFriendRequest)
 
     return friendRouter;
 }

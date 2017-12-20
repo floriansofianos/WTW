@@ -226,6 +226,22 @@ var friendshipService = function () {
         });
     }
 
+    var refuseFriendRequest = function (currentUserId, userId, userService, notificationService, done) {
+        var Op = sequelize.Op;
+        if (currentUserId == userId) return done(null, false);
+        deletePendingFriendship(currentUserId, userId, function (err, result) {
+            userService.getUserById(currentUserId, function (err, user) {
+                if (!err) {
+                    notificationService.create(userId, 3, { username: user.username }, function (err, data) {
+                        if (!err) done(null, true);
+                        else done(err);
+                    });
+                }
+                else done(err);
+            });
+        });
+    }
+
     var unfriendUser = function (currentUserId, userId, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
@@ -297,7 +313,8 @@ var friendshipService = function () {
         getPendingFriendship: getPendingFriendship,
         getFriendship: getFriendship,
         getAllFriendships: getAllFriendships,
-        getAllFollowings: getAllFollowings
+        getAllFollowings: getAllFollowings,
+        refuseFriendRequest: refuseFriendRequest
     }
 }
 

@@ -152,6 +152,16 @@
         "FIND_FRIENDS": "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
     },
     "ALSO_LIKE": {
-        "PEOPLE_ALSO_LIKE":  "Utilisateurs ayant également aimé:"
+        "PEOPLE_ALSO_LIKE": "Utilisateurs ayant également aimé:"
+    },
+    "NOTIFICATION": {
+        "FOLLOW": "{{username}} suit désormais votre activité.",
+        "FRIEND_REQUEST": "{{username}} veut vous ajouter à sa liste d'amis.",
+        "FRIEND_REQUEST_ACCEPTED": "{{username}} a accepté votre demande d'ami.",
+        "FRIEND_REQUEST_REFUSED": "{{username}} a refusé votre demande d'ami."
+    },
+    "SOCIAL": {
+        "ACCEPT_FRIEND": "Accepter",
+        "REFUSE_FRIEND": "Refuser"
     }
 }

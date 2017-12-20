@@ -1,0 +1,21 @@
+<ng-container *ngIf="isLoading">
+    <li class="top-menu-dropdown-item">
+        <spinner></spinner>
+    </li>
+</ng-container>
+<ng-container *ngIf="!isLoading">
+    <li class="top-menu-dropdown-item" *ngFor="let n of notifications">
+        <div class="notification-container">
+            <div class="notification-text-container" [ngSwitch]="n.type">
+                <span *ngSwitchCase="0">{{ 'NOTIFICATION.FOLLOW' | translate:n.variables }}</span>
+                <span *ngSwitchCase="1">{{ 'NOTIFICATION.FRIEND_REQUEST' | translate:n.variables }}</span>
+                <span *ngSwitchCase="2">{{ 'NOTIFICATION.FRIEND_REQUEST_ACCEPTED' | translate:n.variables }}</span>
+                <span *ngSwitchCase="3">{{ 'NOTIFICATION.FRIEND_REQUEST_REFUSED' | translate:n.variables }}</span>
+            </div>
+            <div class="notification-button-container" *ngIf="n.type == 1">
+                <div class="notification-button" (click)="acceptFriend(n.variables.userId)">{{ 'SOCIAL.ACCEPT_FRIEND' | translate }}</div>
+                <div class="notification-button" (click)="refuseFriend(n.variables.userId)">{{ 'SOCIAL.REFUSE_FRIEND' | translate }}</div>
+            </div>
+        </div>
+    </li>
+</ng-container>

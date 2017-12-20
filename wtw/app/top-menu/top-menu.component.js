@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var TopMenuComponent = (function () {
+var TopMenuComponent = /** @class */ (function () {
     function TopMenuComponent() {
     }
     __decorate([
@@ -29,6 +29,14 @@ var TopMenuComponent = (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], TopMenuComponent.prototype, "username", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array)
+    ], TopMenuComponent.prototype, "notifications", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], TopMenuComponent.prototype, "notificationsLoaded", void 0);
     TopMenuComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -39,4 +47,3 @@ var TopMenuComponent = (function () {
     return TopMenuComponent;
 }());
 exports.TopMenuComponent = TopMenuComponent;
-//# sourceMappingURL=top-menu.component.js.map

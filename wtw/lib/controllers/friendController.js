@@ -19,6 +19,16 @@
         else res.send(400)
     }
 
+    var refuseFriendRequest = function (req, res) {
+        if (req.params.id) {
+            friendshipService.refuseFriendRequest(req.user.id, +req.params.id, function (err, data) {
+                if (!err) res.json(data);
+                else res.send(500);
+            });
+        }
+        else res.send(400)
+    }
+
     var get = function (req, res) {
         if (req.params.id) {
             friendshipService.getFriendship(req.user.id, +req.params.id, function (err, friendship) {
@@ -73,7 +83,8 @@
         getPending: getPending,
         deletePendingFriend: deletePendingFriend,
         acceptFriendRequest: acceptFriendRequest,
-        getAll: getAll
+        getAll: getAll,
+        refuseFriendRequest: refuseFriendRequest
     }
 }
 

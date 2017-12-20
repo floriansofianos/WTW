@@ -11,4 +11,6 @@ export class TopMenuComponent {
     @Input() showLogin: boolean;
     @Input() selected: string;
     @Input() username: string;
+    @Input() notifications: Array<any>;
+    @Input() notificationsLoaded: boolean;
 }

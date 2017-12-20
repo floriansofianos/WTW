@@ -59,6 +59,7 @@ var user_page_component_1 = require("./user/user-page.component");
 var also_like_component_1 = require("./also-like/also-like.component");
 var movie_component_1 = require("./movie/movie.component");
 var user_profile_page_component_1 = require("./user-profile/user-profile-page.component");
+var top_menu_notifications_component_1 = require("./notification/top-menu-notifications.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -70,12 +71,13 @@ var countries_service_1 = require("./countries/countries.service");
 var languages_service_1 = require("./languages/languages.service");
 var social_service_1 = require("./social/social.service");
 var user_service_1 = require("./user/user.service");
+var notification_service_1 = require("./notification/notification.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -139,6 +141,7 @@ var AppModule = (function () {
                 user_profile_page_component_1.UserProfilePageComponent,
                 user_page_component_1.UserPageComponent,
                 also_like_component_1.AlsoLikeComponent,
+                top_menu_notifications_component_1.TopMenuNotificationsComponent,
                 cast_member_component_1.CastMemberComponent],
             providers: [auth_service_1.AuthService,
                 questionnaire_service_1.QuestionnaireService,
@@ -149,6 +152,7 @@ var AppModule = (function () {
                 countries_service_1.CountriesService,
                 languages_service_1.LanguagesService,
                 social_service_1.SocialService,
+                notification_service_1.NotificationService,
                 user_service_1.UserService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
@@ -163,4 +167,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

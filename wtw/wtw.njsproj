@@ -50,6 +50,7 @@
     <Content Include="app\movie\movie-recommandation.component.html" />
     <Content Include="app\movie\movie-questionnaire.component.html" />
     <Content Include="app\movie\movie.component.html" />
+    <Content Include="app\notification\top-menu-notifications.component.html" />
     <Content Include="app\questionnaire\questionnaire.component.html" />
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\left-menu\left-menu.component.html" />
@@ -120,6 +121,8 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\movie\movie-recommandation.service.ts" />
     <TypeScriptCompile Include="app\movie\movie.component.ts" />
+    <TypeScriptCompile Include="app\notification\notification.service.ts" />
+    <TypeScriptCompile Include="app\notification\top-menu-notifications.component.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.component.ts" />
     <TypeScriptCompile Include="app\questionnaire\questionnaire.service.ts" />
     <TypeScriptCompile Include="app\questionnaire\user-questionnaire.service.ts" />
@@ -265,6 +268,7 @@
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
+    <Folder Include="app\notification\" />
     <Folder Include="app\user-profile\" />
     <Folder Include="app\user\" />
     <Folder Include="app\social\" />
