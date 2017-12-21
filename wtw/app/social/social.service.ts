@@ -73,13 +73,13 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
-    acceptFriend(id: number): Observable<any> {
-        return this.http.post('/api/friend/accept/' + id, {})
+    acceptFriend(id: number, notificationId: number): Observable<any> {
+        return this.http.post('/api/friend/accept/' + id, { notificationId: notificationId })
             .catch(this.handleErrors);
     }
 
-    refuseFriend(id: number): Observable<any> {
-        return this.http.post('/api/friend/refuse/' + id, {})
+    refuseFriend(id: number, notificationId: number): Observable<any> {
+        return this.http.post('/api/friend/refuse/' + id, { notificationId: notificationId })
             .catch(this.handleErrors);
     }
 

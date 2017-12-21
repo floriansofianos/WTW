@@ -207,7 +207,7 @@ export class UserPageComponent {
 
     acceptFriendship() {
         this.isLoading = true;
-        this.socialService.acceptFriend(this.id).subscribe(data => {
+        this.socialService.acceptFriend(this.id, null).subscribe(data => {
             if (data) {
                 this.updateFriendStatus();
             }

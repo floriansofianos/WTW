@@ -41,11 +41,11 @@ export class TopMenuNotificationsComponent {
             });
     }
 
-    acceptFriend(userId: number) {
+    acceptFriend(userId: number, notificationId: number) {
         this.isLoading = true;
-        this.socialService.acceptFriend(userId).subscribe(data => {
+        this.socialService.acceptFriend(userId, notificationId).subscribe(data => {
             if (data) {
-                // TODO Update all notifications
+                this.updateNotifications();
             }
             else this.router.navigate(['error']);
         },
@@ -54,11 +54,11 @@ export class TopMenuNotificationsComponent {
             });
     }
 
-    refuseFriend(userId: number) {
+    refuseFriend(userId: number, notificationId: number) {
         this.isLoading = true;
-        this.socialService.refuseFriend(userId).subscribe(data => {
+        this.socialService.refuseFriend(userId, notificationId).subscribe(data => {
             if (data) {
-                // TODO Update all notifications
+                this.updateNotifications();
             }
             else this.router.navigate(['error']);
         },

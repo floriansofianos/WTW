@@ -1,4 +1,5 @@
 ﻿var models = require('../models');
+var _ = require('underscore');
 
 module.exports = function () {
     var getAll = function (userId, done) {
@@ -45,10 +46,19 @@ module.exports = function () {
         });
     }
 
+    var findFriendRequestNotification = function (currentUserId, userId, done) {
+        models.Notification.findAll({ where: { userId: currentUserId, type: 1 } }).then(data => {
+            done(null, _.find(data, function (n) { return n.variables.userId == userId }));
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     
     return {
         getAll: getAll,
         create: create,
-        readAllReadOnly: readAllReadOnly
+        readAllReadOnly: readAllReadOnly,
+        findFriendRequestNotification: findFriendRequestNotification
     }
 }

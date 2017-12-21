@@ -15,8 +15,8 @@
                 <span *ngSwitchCase="3">{{ 'NOTIFICATION.FRIEND_REQUEST_REFUSED' | translate:n.variables }}</span>
             </div>
             <div class="notification-button-container" *ngIf="n.type == 1">
-                <div class="notification-button" (click)="acceptFriend(n.variables.userId)">{{ 'SOCIAL.ACCEPT_FRIEND' | translate }}</div>
-                <div class="notification-button" (click)="refuseFriend(n.variables.userId)">{{ 'SOCIAL.REFUSE_FRIEND' | translate }}</div>
+                <div class="notification-button" (click)="refuseFriend(n.variables.userId, n.id)">{{ 'SOCIAL.REFUSE_FRIEND' | translate }}</div>
+                <div class="notification-button" (click)="acceptFriend(n.variables.userId, n.id)">{{ 'SOCIAL.ACCEPT_FRIEND' | translate }}</div>
             </div>
         </div>
     </li>

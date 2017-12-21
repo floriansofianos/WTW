@@ -68,12 +68,12 @@ var SocialService = /** @class */ (function () {
         return this.http.delete('/api/friend/pending/' + id)
             .catch(this.handleErrors);
     };
-    SocialService.prototype.acceptFriend = function (id) {
-        return this.http.post('/api/friend/accept/' + id, {})
+    SocialService.prototype.acceptFriend = function (id, notificationId) {
+        return this.http.post('/api/friend/accept/' + id, { notificationId: notificationId })
             .catch(this.handleErrors);
     };
-    SocialService.prototype.refuseFriend = function (id) {
-        return this.http.post('/api/friend/refuse/' + id, {})
+    SocialService.prototype.refuseFriend = function (id, notificationId) {
+        return this.http.post('/api/friend/refuse/' + id, { notificationId: notificationId })
             .catch(this.handleErrors);
     };
     SocialService.prototype.handleErrors = function (error) {

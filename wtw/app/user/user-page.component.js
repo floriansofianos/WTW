@@ -194,7 +194,7 @@ var UserPageComponent = /** @class */ (function () {
     UserPageComponent.prototype.acceptFriendship = function () {
         var _this = this;
         this.isLoading = true;
-        this.socialService.acceptFriend(this.id).subscribe(function (data) {
+        this.socialService.acceptFriend(this.id, null).subscribe(function (data) {
             if (data) {
                 _this.updateFriendStatus();
             }

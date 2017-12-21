@@ -120,7 +120,16 @@ var friendshipService = function () {
         });
     }
 
-    var acceptFriendRequest = function (currentUserId, userId, userService, notificationService, done) {
+    var deleteFriendRequestNotification = function (notificationId, done) {
+        if (!notificationId) done(null, false);
+        models.Notification.destroy({ where: { id: notificationId } }).then(result => {
+            done(null, result);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+    var acceptFriendRequest = function (currentUserId, userId, notificationId, userService, notificationService, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
@@ -138,8 +147,13 @@ var friendshipService = function () {
                                         if (!err) deletePendingFriendship(currentUserId, userId, function (err, result) {
                                             userService.getUserById(currentUserId, function (err, user) {
                                                 if (!err) {
-                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
-                                                        if (!err) done(null, true);
+                                                    deleteFriendRequestNotification(notificationId, function (err, result) {
+                                                        if (!err) {
+                                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                                if (!err) done(null, true);
+                                                                else done(err);
+                                                            });
+                                                        }
                                                         else done(err);
                                                     });
                                                 }
@@ -164,8 +178,13 @@ var friendshipService = function () {
                                         deletePendingFriendship(currentUserId, userId, function (err, result) {
                                             userService.getUserById(currentUserId, function (err, user) {
                                                 if (!err) {
-                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
-                                                        if (!err) done(null, true);
+                                                    deleteFriendRequestNotification(notificationId, function (err, result) {
+                                                        if (!err) {
+                                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                                if (!err) done(null, true);
+                                                                else done(err);
+                                                            });
+                                                        }
                                                         else done(err);
                                                     });
                                                 }
@@ -199,8 +218,13 @@ var friendshipService = function () {
                                 deletePendingFriendship(currentUserId, userId, function (err, result) {
                                     userService.getUserById(currentUserId, function (err, user) {
                                         if (!err) {
-                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
-                                                if (!err) done(null, true);
+                                            deleteFriendRequestNotification(notificationId, function (err, result) {
+                                                if (!err) {
+                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                        if (!err) done(null, true);
+                                                        else done(err);
+                                                    });
+                                                }
                                                 else done(err);
                                             });
                                         }
@@ -226,14 +250,19 @@ var friendshipService = function () {
         });
     }
 
-    var refuseFriendRequest = function (currentUserId, userId, userService, notificationService, done) {
+    var refuseFriendRequest = function (currentUserId, userId, notificationId, userService, notificationService, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         deletePendingFriendship(currentUserId, userId, function (err, result) {
             userService.getUserById(currentUserId, function (err, user) {
                 if (!err) {
-                    notificationService.create(userId, 3, { username: user.username }, function (err, data) {
-                        if (!err) done(null, true);
+                    deleteFriendRequestNotification(notificationId, function (err, result) {
+                        if (!err) {
+                            notificationService.create(userId, 3, { username: user.username }, function (err, data) {
+                                if (!err) done(null, true);
+                                else done(err);
+                            });
+                        }
                         else done(err);
                     });
                 }

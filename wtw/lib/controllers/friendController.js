@@ -11,20 +11,48 @@
 
     var acceptFriendRequest = function (req, res) {
         if (req.params.id) {
-            friendshipService.acceptFriendRequest(req.user.id, +req.params.id, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
-            });
+            var notificationId = req.body.notificationId;
+            if (!notificationId) {
+                notificationService.findFriendRequestNotification(req.user.id, +req.params.id, function (err, data) {
+                    if (data) {
+                        friendshipService.acceptFriendRequest(req.user.id, +req.params.id, data.id, userService, notificationService, function (err, data) {
+                            if (!err) res.json(data);
+                            else res.send(500);
+                        });
+                    }
+                    else res.send(500);
+                });
+            }
+            else {
+                friendshipService.acceptFriendRequest(req.user.id, +req.params.id, notificationId, userService, notificationService, function (err, data) {
+                    if (!err) res.json(data);
+                    else res.send(500);
+                });
+            }
         }
         else res.send(400)
     }
 
     var refuseFriendRequest = function (req, res) {
         if (req.params.id) {
-            friendshipService.refuseFriendRequest(req.user.id, +req.params.id, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
-            });
+            var notificationId = req.body.notificationId;
+            if (!notificationId) {
+                notificationService.findFriendRequestNotification(req.user.id, +req.params.id, function (err, data) {
+                    if (data) {
+                        friendshipService.refuseFriendRequest(req.user.id, +req.params.id, data.id, userService, notificationService, function (err, data) {
+                            if (!err) res.json(data);
+                            else res.send(500);
+                        });
+                    }
+                    else res.send(500);
+                });
+            }
+            else {
+                friendshipService.refuseFriendRequest(req.user.id, +req.params.id, notificationId, userService, notificationService, function (err, data) {
+                    if (!err) res.json(data);
+                    else res.send(500);
+                });
+            }
         }
         else res.send(400)
     }

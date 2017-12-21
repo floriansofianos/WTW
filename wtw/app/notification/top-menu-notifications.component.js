@@ -43,12 +43,12 @@ var TopMenuNotificationsComponent = /** @class */ (function () {
             _this.router.navigate(['error']);
         });
     };
-    TopMenuNotificationsComponent.prototype.acceptFriend = function (userId) {
+    TopMenuNotificationsComponent.prototype.acceptFriend = function (userId, notificationId) {
         var _this = this;
         this.isLoading = true;
-        this.socialService.acceptFriend(userId).subscribe(function (data) {
+        this.socialService.acceptFriend(userId, notificationId).subscribe(function (data) {
             if (data) {
-                // TODO Update all notifications
+                _this.updateNotifications();
             }
             else
                 _this.router.navigate(['error']);
@@ -56,12 +56,12 @@ var TopMenuNotificationsComponent = /** @class */ (function () {
             _this.router.navigate(['error']);
         });
     };
-    TopMenuNotificationsComponent.prototype.refuseFriend = function (userId) {
+    TopMenuNotificationsComponent.prototype.refuseFriend = function (userId, notificationId) {
         var _this = this;
         this.isLoading = true;
-        this.socialService.refuseFriend(userId).subscribe(function (data) {
+        this.socialService.refuseFriend(userId, notificationId).subscribe(function (data) {
             if (data) {
-                // TODO Update all notifications
+                _this.updateNotifications();
             }
             else
                 _this.router.navigate(['error']);
