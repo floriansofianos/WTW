@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../notification/notification.service");
 var router_1 = require("@angular/router");
-var TopMenuComponent = (function () {
+var TopMenuComponent = /** @class */ (function () {
     function TopMenuComponent(router, notificationService) {
         this.router = router;
         this.notificationService = notificationService;
@@ -55,4 +55,3 @@ var TopMenuComponent = (function () {
     return TopMenuComponent;
 }());
 exports.TopMenuComponent = TopMenuComponent;
-//# sourceMappingURL=top-menu.component.js.map

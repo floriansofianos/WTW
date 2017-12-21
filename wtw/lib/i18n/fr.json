@@ -5,45 +5,45 @@
     "USERLIKE": "J'aime",
     "USERDISLIKE": "Je n'aime pas"
   },
-     "ERROR": {
-        "TEXT":  "Une erreur est survenue lors de l'affichage de la page."
-    },
-    "LOGIN": {
-        "TITLE": "Connexion",
-      "FORM": {
-        "LOGIN": "Email",
-        "PASSWORD": "Mot de passe",
-        "SIGNUP": "Je ne suis pas encore inscrit.",
-        "NEWPASSWORD": "Nouveau mot de passe",
-        "REMEMBER_ME": "Se souvenir de moi",
-        "WRONGPASSWORD": "Votre email ou mot de passe est incorrect.",
-        "VALIDATE_EMAIL": "Merci de vérifier que vous avez cliqué sur le lien de validation dans le mail de bienvenue.",
-        "RESEND": "Me le renvoyer",
-        "FORGOT_PWD_EXPLANATION": "Entrez l'adresse email utilisée lors de votre inscription.",
-        "FORGOT_PASSWORD_EMAIL_ERROR": "Cette adresse email n'est pas reconnue",
-        "FORGOT_PASSWORD_EMAIL_SENT": "Un email vous a été envoyé contenant un lien pour changer votre mot de passe.",
-        "I_FORGOT_MY_PASSWORD": "J'ai oublié mon mot de passe."        
-      }
-    },
-    "SIGNUP": {
-        "TITLE": "Inscription",
-      "FORM": {
-        "EMAIL": "Email",
-        "EMAIL_INVALID": "L'adresse email est invalide.",
-        "PASSWORD": "Mot de passe",
-        "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
-        "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
-        "USERNAME": "Pseudo",
-        "FIRST_NAME": "Prénom",
-        "LAST_NAME": "Nom de famille",
-        "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
-        "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
-        "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
-        "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
-        "USERNAME_TAKEN": "Ce pseudo est déjà utilisé.",
-        "PASSWORD_NOT_STRONG": "Votre mot de passe doit faire au moins 8 caractères."
-      }
-    },
+  "ERROR": {
+    "TEXT": "Une erreur est survenue lors de l'affichage de la page."
+  },
+  "LOGIN": {
+    "TITLE": "Connexion",
+    "FORM": {
+      "LOGIN": "Email",
+      "PASSWORD": "Mot de passe",
+      "SIGNUP": "Je ne suis pas encore inscrit.",
+      "NEWPASSWORD": "Nouveau mot de passe",
+      "REMEMBER_ME": "Se souvenir de moi",
+      "WRONGPASSWORD": "Votre email ou mot de passe est incorrect.",
+      "VALIDATE_EMAIL": "Merci de vérifier que vous avez cliqué sur le lien de validation dans le mail de bienvenue.",
+      "RESEND": "Me le renvoyer",
+      "FORGOT_PWD_EXPLANATION": "Entrez l'adresse email utilisée lors de votre inscription.",
+      "FORGOT_PASSWORD_EMAIL_ERROR": "Cette adresse email n'est pas reconnue",
+      "FORGOT_PASSWORD_EMAIL_SENT": "Un email vous a été envoyé contenant un lien pour changer votre mot de passe.",
+      "I_FORGOT_MY_PASSWORD": "J'ai oublié mon mot de passe."
+    }
+  },
+  "SIGNUP": {
+    "TITLE": "Inscription",
+    "FORM": {
+      "EMAIL": "Email",
+      "EMAIL_INVALID": "L'adresse email est invalide.",
+      "PASSWORD": "Mot de passe",
+      "CONFIRM_PASSWORD": "Confirmez votre mot de passe",
+      "CONFIRM_PASSWORD_INVALID": "Les deux mots de passe sont différents",
+      "USERNAME": "Pseudo",
+      "FIRST_NAME": "Prénom",
+      "LAST_NAME": "Nom de famille",
+      "USERNAME_NOT_NULL": "Le pseudo est obligatoire.",
+      "EMAIL_NOT_NULL": "L'adresse email est obligatoire.",
+      "PASSWORD_NOT_NULL": "Le mot de passe est obligatoire.",
+      "EMAIL_TAKEN": "Cette adresse email est déjà utilisée.",
+      "USERNAME_TAKEN": "Ce pseudo est déjà utilisé.",
+      "PASSWORD_NOT_STRONG": "Votre mot de passe doit faire au moins 8 caractères."
+    }
+  },
   "FIRST_QUESTIONNAIRE": {
     "LANGUAGE_QUESTION": "Commencez par choisir votre langue par défaut:",
     "AGE_QUESTION": "Quel est votre année de naissance ?",
@@ -53,51 +53,51 @@
     "HOMEPAGE": "page d'accueil",
     "WELCOME_MESSAGE": "Merci de répondre à ces quelques questions. Elles vont nous permettent de commencer à vous donner des recommandations.",
     "LOCATION": "Où habitez-vous ?",
-    "COUNTRY":  "Pays"
+    "COUNTRY": "Pays"
   },
-    "CAST": {
-        "ALSO_KNOWN": "Egalement connu pour :",
-        "ALSO_SEEN": "Egalement vu dans :",
-        "NO_RESULTS":  "Aucun résultat"
-    },
-    "TOP_MENU": {
-        "SIGN_UP": "Inscription",
-        "LOGIN": "Connexion",
-        "LOGOUT": "Déconnexion",
-        "HOME": "Accueil",
-        "MOVIES": "Films",
-        "SOCIAL": "Social",
-        "USERPROFILE":  "Mon Profil"
-    },
-    "LEFT_MENU": {
-        "HOME": "Accueil",
-        "QUESTIONNAIRE": "Questionnaire",
-        "WATCHLIST": "A Voir"
-    },
-    "MOVIE_QUESTIONNAIRE": {
-        "CAST": "Casting",
-        "DIRECTOR": "Réalisateur",
-        "WRITER": "Scénariste",
-        "QUESTION_SEEN": "Avez-vous vu ce film?",
-        "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
-        "HOW_RATE": "Comment avez-vous trouvé ce film?",
-        "POOR": "Médiocre",
-        "AVERAGE": "Moyen",
-        "GOOD": "Bon",
-        "VERYGOOD": "Très Bon",
-        "MASTERPIECE": "Excellent"
-    },
-    "MOVIES": {
-        "HOME": {
-            "RATE_THIS_MOVIE": "Evaluer ou ajouter à la liste de souhaits",
-            "NO_RESULT":  "Aucun résultat"
-        }
-    },
-    "QUESTIONNAIRE": {
-        "START_NEW": "Commencer un nouveau questionnaire.",
-        "HISTORY": "Historique",
-        "NOT_WANT_TO_SEE": "Vous ne voulez pas voir"
-    },
+  "CAST": {
+    "ALSO_KNOWN": "Egalement connu pour :",
+    "ALSO_SEEN": "Egalement vu dans :",
+    "NO_RESULTS": "Aucun résultat"
+  },
+  "TOP_MENU": {
+    "SIGN_UP": "Inscription",
+    "LOGIN": "Connexion",
+    "LOGOUT": "Déconnexion",
+    "HOME": "Accueil",
+    "MOVIES": "Films",
+    "SOCIAL": "Social",
+    "USERPROFILE": "Mon Profil"
+  },
+  "LEFT_MENU": {
+    "HOME": "Accueil",
+    "QUESTIONNAIRE": "Questionnaire",
+    "WATCHLIST": "A Voir"
+  },
+  "MOVIE_QUESTIONNAIRE": {
+    "CAST": "Casting",
+    "DIRECTOR": "Réalisateur",
+    "WRITER": "Scénariste",
+    "QUESTION_SEEN": "Avez-vous vu ce film?",
+    "WOULD_LIKE_SEE": "Voudriez-vous voir ce film?",
+    "HOW_RATE": "Comment avez-vous trouvé ce film?",
+    "POOR": "Médiocre",
+    "AVERAGE": "Moyen",
+    "GOOD": "Bon",
+    "VERYGOOD": "Très Bon",
+    "MASTERPIECE": "Excellent"
+  },
+  "MOVIES": {
+    "HOME": {
+      "RATE_THIS_MOVIE": "Evaluer ou ajouter à la liste de souhaits",
+      "NO_RESULT": "Aucun résultat"
+    }
+  },
+  "QUESTIONNAIRE": {
+    "START_NEW": "Commencer un nouveau questionnaire.",
+    "HISTORY": "Historique",
+    "NOT_WANT_TO_SEE": "Vous ne voulez pas voir"
+  },
   "WTW": {
     "PERSONAL_RECO": "Voici quelques recommandations correspondant à votre profil:",
     "WTW": "Trouver votre prochaine séance.",
@@ -142,26 +142,34 @@
     "YES": "Oui",
     "NO": "Non",
     "UPLOAD": "Envoyer",
-    "YEAR_OF_BIRTH":  "Année de naissance"
+    "YEAR_OF_BIRTH": "Année de naissance"
   },
-    "FORGOT_PWD": {
-        "TITLE": "Changer votre mot de passe",
-        "WRONGTOKEN": "Une erreur est survenue, merci de réessayer ultérieurement."
-    },
-    "SOCIAL": {
-        "FIND_FRIENDS": "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
-    },
-    "ALSO_LIKE": {
-        "PEOPLE_ALSO_LIKE": "Utilisateurs ayant également aimé:"
-    },
-    "NOTIFICATION": {
-        "FOLLOW": "{{username}} suit désormais votre activité.",
-        "FRIEND_REQUEST": "{{username}} veut vous ajouter à sa liste d'amis.",
-        "FRIEND_REQUEST_ACCEPTED": "{{username}} a accepté votre demande d'ami.",
-        "FRIEND_REQUEST_REFUSED": "{{username}} a refusé votre demande d'ami."
-    },
-    "SOCIAL": {
-        "ACCEPT_FRIEND": "Accepter",
-        "REFUSE_FRIEND": "Refuser"
-    }
+  "FORGOT_PWD": {
+    "TITLE": "Changer votre mot de passe",
+    "WRONGTOKEN": "Une erreur est survenue, merci de réessayer ultérieurement."
+  },
+  "SOCIAL": {
+    "FIND_FRIENDS": "Trouvez d'autres utilisateurs en utilisant leur email ou leur pseudo."
+  },
+  "ALSO_LIKE": {
+    "PEOPLE_ALSO_LIKE": "Utilisateurs ayant également aimé:"
+  },
+  "NOTIFICATION": {
+    "FOLLOW": "<a href=\"/user/{{userId}}\">{{username}}</a> suit désormais votre activité.",
+    "FRIEND_REQUEST": "<a href=\"/user/{{userId}}\">{{username}}</a> veut vous ajouter à sa liste d'amis.",
+    "FRIEND_REQUEST_ACCEPTED": "<a href=\"/user/{{userId}}\">{{username}}</a> a accepté votre demande d'ami.",
+    "FRIEND_REQUEST_REFUSED": "<a href=\"/user/{{userId}}\">{{username}}</a> a refusé votre demande d'ami."
+  },
+  "SOCIAL": {
+    "ACCEPT_FRIEND": "Accepter",
+    "REFUSE_FRIEND": "Refuser"
+  },
+  "USER_PAGE": {
+    "REQUEST_FRIEND": "Demander en ami",
+    "UNFRIEND": "Ne plus être ami",
+    "FOLLOW": "Suivre",
+    "UNFOLLOW": "Ne plus suivre",
+    "WAITING_RESPONSE": "En attente d'une réponse",
+    "ACCEPT_FRIEND": "Accepter la demande d'ami"
+  }
 }

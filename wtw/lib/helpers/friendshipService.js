@@ -13,7 +13,7 @@ var friendshipService = function () {
                     if (!err) {
                         userService.getUserById(currentUserId, function (err, user) {
                             if (!err) {
-                                notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                                notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
                                     if (!err) done(null, true);
                                     else done(err);
                                 });
@@ -36,7 +36,7 @@ var friendshipService = function () {
                 }).then(data => {
                     userService.getUserById(currentUserId, function (err, user) {
                         if (!err) {
-                            notificationService.create(userId, 0, { username: user.username }, function (err, data) {
+                            notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
                                 if (!err) done(null, true);
                                 else done(err);
                             });
@@ -148,7 +148,7 @@ var friendshipService = function () {
                                                 if (!err) {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
-                                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                            notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
                                                                 if (!err) done(null, true);
                                                                 else done(err);
                                                             });
@@ -179,7 +179,7 @@ var friendshipService = function () {
                                                 if (!err) {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
-                                                            notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                            notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
                                                                 if (!err) done(null, true);
                                                                 else done(err);
                                                             });
@@ -219,7 +219,7 @@ var friendshipService = function () {
                                         if (!err) {
                                             deleteFriendRequestNotification(notificationId, function (err, result) {
                                                 if (!err) {
-                                                    notificationService.create(userId, 2, { username: user.username }, function (err, data) {
+                                                    notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
                                                         if (!err) done(null, true);
                                                         else done(err);
                                                     });
@@ -257,7 +257,7 @@ var friendshipService = function () {
                 if (!err) {
                     deleteFriendRequestNotification(notificationId, function (err, result) {
                         if (!err) {
-                            notificationService.create(userId, 3, { username: user.username }, function (err, data) {
+                            notificationService.create(userId, 3, { username: user.username, userId: user.id }, function (err, data) {
                                 if (!err) done(null, true);
                                 else done(err);
                             });

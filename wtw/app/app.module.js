@@ -77,7 +77,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -167,4 +167,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
