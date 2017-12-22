@@ -69,6 +69,9 @@ var TopMenuNotificationsComponent = /** @class */ (function () {
             _this.router.navigate(['error']);
         });
     };
+    TopMenuNotificationsComponent.prototype.getMonth = function (createdAt) {
+        return (new Date(createdAt)).getMonth();
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array)

@@ -67,4 +67,8 @@ export class TopMenuNotificationsComponent {
             });
     }
 
+    getMonth(createdAt) {
+        return (new Date(createdAt)).getMonth();
+    }
+
 }

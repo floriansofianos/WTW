@@ -1,175 +1,192 @@
 ﻿{
-  "HOME": {
-    "TITLE": "Hello Angular with ngx-translate!",
-    "WELCOME": "Welcome",
-    "USERLIKE": "I like",
-    "USERDISLIKE": "I dislike"
-  },
-  "ERROR": {
-    "TEXT": "Something went wrong when displaying the page."
-  },
-  "LOGIN": {
-    "TITLE": "Login",
-    "FORM": {
-      "LOGIN": "Email",
-      "PASSWORD": "Password",
-      "NEWPASSWORD": "New Password",
-      "REMEMBER_ME": "Remember Me",
-      "SIGNUP": "I don't have an account.",
-      "WRONGPASSWORD": "Your email or password is incorrect.",
-      "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
-      "RESEND": "Send it to me",
-      "FORGOT_PWD_EXPLANATION": "Please enter your email address you use at signup.",
-      "FORGOT_PASSWORD_EMAIL_ERROR": "This email has not been recognised.",
-      "FORGOT_PASSWORD_EMAIL_SENT": "An email has been sent to you with a link to reset your password.",
-      "I_FORGOT_MY_PASSWORD": "I forgot my password"
-    }
-  },
-  "SIGNUP": {
-    "TITLE": "Sign Up",
-    "FORM": {
-      "EMAIL": "Email",
-      "EMAIL_INVALID": "The email entered is invalid.",
-      "PASSWORD": "Password",
-      "CONFIRM_PASSWORD": "Confirm Password",
-      "CONFIRM_PASSWORD_INVALID": "The Confirm Password does not match",
-      "USERNAME": "Username",
-      "FIRST_NAME": "First Name",
-      "LAST_NAME": "Last Name",
-      "USERNAME_NOT_NULL": "The username is mandatory.",
-      "EMAIL_NOT_NULL": "The email is mandatory.",
-      "PASSWORD_NOT_NULL": "The password is mandatory.",
-      "EMAIL_TAKEN": "This email address is already used.",
-      "USERNAME_TAKEN": "This username has already been taken.",
-      "PASSWORD_NOT_STRONG": "Your password should be at least 8 characters long."
-    }
-  },
-  "FIRST_QUESTIONNAIRE": {
-    "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
-    "AGE_QUESTION": "What is your year of birth?",
-    "DONE": "Thank you for answering this questionnaire.",
-    "GO_TO": "You can now go to your ",
-    "CONTINUE": "Continue",
-    "HOMEPAGE": "homepage",
-    "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations.",
-    "LOCATION": "Where do you live?",
-    "COUNTRY": "Country"
-  },
-  "CAST": {
-    "ALSO_KNOWN": "Also known for:",
-    "ALSO_SEEN": "Also seen in:",
-    "NO_RESULTS": "No result"
-  },
-  "TOP_MENU": {
-    "SIGN_UP": "Sign Up",
-    "LOGIN": "Login",
-    "LOGOUT": "Logout",
-    "HOME": "Home",
-    "MOVIES": "Movies",
-    "SOCIAL": "Social",
-    "USERPROFILE": "My Profile"
-  },
-  "LEFT_MENU": {
-    "HOME": "Home",
-    "QUESTIONNAIRE": "Questionnaire",
-    "WATCHLIST": "Watchlist"
-  },
-  "MOVIE_QUESTIONNAIRE": {
-    "CAST": "Cast",
-    "DIRECTOR": "Director",
-    "WRITER": "Writer",
-    "QUESTION_SEEN": "Have you seen that movie?",
-    "WOULD_LIKE_SEE": "Would you like to see this movie?",
-    "HOW_RATE": "How would you rate this movie?",
-    "POOR": "Poor",
-    "AVERAGE": "Average",
-    "GOOD": "Good",
-    "VERYGOOD": "Very Good",
-    "MASTERPIECE": "Masterpiece"
-  },
-  "MOVIES": {
     "HOME": {
-      "RATE_THIS_MOVIE": "Rate or add to wishlist.",
-      "NO_RESULT": "No result"
+        "TITLE": "Hello Angular with ngx-translate!",
+        "WELCOME": "Welcome",
+        "USERLIKE": "I like",
+        "USERDISLIKE": "I dislike"
+    },
+    "ERROR": {
+        "TEXT": "Something went wrong when displaying the page."
+    },
+    "LOGIN": {
+        "TITLE": "Login",
+        "FORM": {
+            "LOGIN": "Email",
+            "PASSWORD": "Password",
+            "NEWPASSWORD": "New Password",
+            "REMEMBER_ME": "Remember Me",
+            "SIGNUP": "I don't have an account.",
+            "WRONGPASSWORD": "Your email or password is incorrect.",
+            "VALIDATE_EMAIL": "Please check that you have clicked on the validation link in your welcome email.",
+            "RESEND": "Send it to me",
+            "FORGOT_PWD_EXPLANATION": "Please enter your email address you use at signup.",
+            "FORGOT_PASSWORD_EMAIL_ERROR": "This email has not been recognised.",
+            "FORGOT_PASSWORD_EMAIL_SENT": "An email has been sent to you with a link to reset your password.",
+            "I_FORGOT_MY_PASSWORD": "I forgot my password"
+        }
+    },
+    "SIGNUP": {
+        "TITLE": "Sign Up",
+        "FORM": {
+            "EMAIL": "Email",
+            "EMAIL_INVALID": "The email entered is invalid.",
+            "PASSWORD": "Password",
+            "CONFIRM_PASSWORD": "Confirm Password",
+            "CONFIRM_PASSWORD_INVALID": "The Confirm Password does not match",
+            "USERNAME": "Username",
+            "FIRST_NAME": "First Name",
+            "LAST_NAME": "Last Name",
+            "USERNAME_NOT_NULL": "The username is mandatory.",
+            "EMAIL_NOT_NULL": "The email is mandatory.",
+            "PASSWORD_NOT_NULL": "The password is mandatory.",
+            "EMAIL_TAKEN": "This email address is already used.",
+            "USERNAME_TAKEN": "This username has already been taken.",
+            "PASSWORD_NOT_STRONG": "Your password should be at least 8 characters long."
+        }
+    },
+    "FIRST_QUESTIONNAIRE": {
+        "LANGUAGE_QUESTION": "Let's start with the language you want to use:",
+        "AGE_QUESTION": "What is your year of birth?",
+        "DONE": "Thank you for answering this questionnaire.",
+        "GO_TO": "You can now go to your ",
+        "CONTINUE": "Continue",
+        "HOMEPAGE": "homepage",
+        "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations.",
+        "LOCATION": "Where do you live?",
+        "COUNTRY": "Country"
+    },
+    "CAST": {
+        "ALSO_KNOWN": "Also known for:",
+        "ALSO_SEEN": "Also seen in:",
+        "NO_RESULTS": "No result"
+    },
+    "TOP_MENU": {
+        "SIGN_UP": "Sign Up",
+        "LOGIN": "Login",
+        "LOGOUT": "Logout",
+        "HOME": "Home",
+        "MOVIES": "Movies",
+        "SOCIAL": "Social",
+        "USERPROFILE": "My Profile"
+    },
+    "LEFT_MENU": {
+        "HOME": "Home",
+        "QUESTIONNAIRE": "Questionnaire",
+        "WATCHLIST": "Watchlist"
+    },
+    "MOVIE_QUESTIONNAIRE": {
+        "CAST": "Cast",
+        "DIRECTOR": "Director",
+        "WRITER": "Writer",
+        "QUESTION_SEEN": "Have you seen that movie?",
+        "WOULD_LIKE_SEE": "Would you like to see this movie?",
+        "HOW_RATE": "How would you rate this movie?",
+        "POOR": "Poor",
+        "AVERAGE": "Average",
+        "GOOD": "Good",
+        "VERYGOOD": "Very Good",
+        "MASTERPIECE": "Masterpiece"
+    },
+    "MOVIES": {
+        "HOME": {
+            "RATE_THIS_MOVIE": "Rate or add to wishlist.",
+            "NO_RESULT": "No result"
+        }
+    },
+    "QUESTIONNAIRE": {
+        "START_NEW": "Start a new questionnaire",
+        "HISTORY": "History",
+        "NOT_WANT_TO_SEE": "You don't want to see"
+    },
+    "WTW": {
+        "PERSONAL_RECO": "Here are some personal recommandations for you:",
+        "WTW": "Find something to watch.",
+        "LANGUAGE": "Language",
+        "MIN_RELEASE": "Minimum release year",
+        "MAX_RELEASE": "Maximum release year",
+        "RUNTIME_LIMIT": "Add a runtime limit to my search",
+        "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
+        "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
+        "GRADE_HELP": "This percentage represents the likelihood you have to like this movie. If we cannot calculate it, you will see a question mark.",
+        "LOVE_DIRECTOR": "You love movies directed by",
+        "LOVE_WRITER": "You love movies written by",
+        "LOVE_GENRE": "You love the movie genre",
+        "LOVE_ACTOR": "You love movies with",
+        "LIKE_DIRECTOR": "You like movies directed by",
+        "LIKE_WRITER": "You like movies written by",
+        "LIKE_GENRE": "You like the movie genre",
+        "LIKE_ACTOR": "You like movies with",
+        "DISLIKE_DIRECTOR": "You dislike movies directed by",
+        "DISLIKE_WRITER": "You dislike movies written by",
+        "DISLIKE_GENRE": "You dislike the movie genre",
+        "DISLIKE_ACTOR": "You dislike movies with",
+        "HATE_DIRECTOR": "You hate movies directed by",
+        "HATE_WRITER": "You hate movies written by",
+        "HATE_GENRE": "You hate the movie genre",
+        "HATE_ACTOR": "You hate movies with",
+        "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
+        "ONLY_NOW_PLAYING": "Only show movies now playing in theaters",
+        "FRIEND": "Friend",
+        "WATCH_WITH_FRIEND": "Watch this movie with a friend"
+    },
+    "FORM": {
+        "OK": "OK",
+        "CANCEL": "Cancel",
+        "REQUIRED": "Required",
+        "SAVE": "Save",
+        "SEARCH": "Search...",
+        "BACK": "Back",
+        "NEXT": "Next",
+        "SKIP": "Skip",
+        "PREVIOUS": "Previous",
+        "YES": "Yes",
+        "NO": "No",
+        "UPLOAD": "Upload",
+        "YEAR_OF_BIRTH": "Year of birth"
+    },
+    "FORGOT_PWD": {
+        "TITLE": "Reset your password",
+        "WRONGTOKEN": "An error occured, please try to send the forgotten password email again"
+    },
+    "SOCIAL": {
+        "FIND_FRIENDS": "Find other people using their email or username."
+    },
+    "ALSO_LIKE": {
+        "PEOPLE_ALSO_LIKE": "People that also liked:"
+    },
+    "NOTIFICATION": {
+        "FOLLOW": "<a href=\"/user/{{userId}}\">{{username}}</a> is now following you.",
+        "FRIEND_REQUEST": "<a href=\"/user/{{userId}}\">{{username}}</a> wants to add you as a friend.",
+        "FRIEND_REQUEST_ACCEPTED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been accepted.",
+        "FRIEND_REQUEST_REFUSED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been refused."
+    },
+    "SOCIAL": {
+        "ACCEPT_FRIEND": "Accept",
+        "REFUSE_FRIEND": "Refuse"
+    },
+    "USER_PAGE": {
+        "REQUEST_FRIEND": "Request Friend",
+        "UNFRIEND": "Unfriend",
+        "FOLLOW": "Follow",
+        "UNFOLLOW": "Unfollow",
+        "WAITING_RESPONSE": "Waiting for a response",
+        "ACCEPT_FRIEND": "Accept friend"
+    },
+    "MONTHS": {
+        "0": "Jan.",
+        "1": "Feb.",
+        "2": "Mar.",
+        "3": "Apr.",
+        "4": "May",
+        "5": "June",
+        "6": "July",
+        "7": "Aug.",
+        "8": "Sept.",
+        "9": "Oct.",
+        "10": "Nov.",
+        "11": "Dec."
+    },
+    "TIME": {
+        "AT":  "at"
     }
-  },
-  "QUESTIONNAIRE": {
-    "START_NEW": "Start a new questionnaire",
-    "HISTORY": "History",
-    "NOT_WANT_TO_SEE": "You don't want to see"
-  },
-  "WTW": {
-    "PERSONAL_RECO": "Here are some personal recommandations for you:",
-    "WTW": "Find something to watch.",
-    "LANGUAGE": "Language",
-    "MIN_RELEASE": "Minimum release year",
-    "MAX_RELEASE": "Maximum release year",
-    "RUNTIME_LIMIT": "Add a runtime limit to my search",
-    "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
-    "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
-    "GRADE_HELP": "This percentage represents the likelihood you have to like this movie. If we cannot calculate it, you will see a question mark.",
-    "LOVE_DIRECTOR": "You love movies directed by",
-    "LOVE_WRITER": "You love movies written by",
-    "LOVE_GENRE": "You love the movie genre",
-    "LOVE_ACTOR": "You love movies with",
-    "LIKE_DIRECTOR": "You like movies directed by",
-    "LIKE_WRITER": "You like movies written by",
-    "LIKE_GENRE": "You like the movie genre",
-    "LIKE_ACTOR": "You like movies with",
-    "DISLIKE_DIRECTOR": "You dislike movies directed by",
-    "DISLIKE_WRITER": "You dislike movies written by",
-    "DISLIKE_GENRE": "You dislike the movie genre",
-    "DISLIKE_ACTOR": "You dislike movies with",
-    "HATE_DIRECTOR": "You hate movies directed by",
-    "HATE_WRITER": "You hate movies written by",
-    "HATE_GENRE": "You hate the movie genre",
-    "HATE_ACTOR": "You hate movies with",
-    "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
-    "ONLY_NOW_PLAYING": "Only show movies now playing in theaters",
-    "FRIEND": "Friend",
-    "WATCH_WITH_FRIEND": "Watch this movie with a friend"
-  },
-  "FORM": {
-    "OK": "OK",
-    "CANCEL": "Cancel",
-    "REQUIRED": "Required",
-    "SAVE": "Save",
-    "SEARCH": "Search...",
-    "BACK": "Back",
-    "NEXT": "Next",
-    "SKIP": "Skip",
-    "PREVIOUS": "Previous",
-    "YES": "Yes",
-    "NO": "No",
-    "UPLOAD": "Upload",
-    "YEAR_OF_BIRTH": "Year of birth"
-  },
-  "FORGOT_PWD": {
-    "TITLE": "Reset your password",
-    "WRONGTOKEN": "An error occured, please try to send the forgotten password email again"
-  },
-  "SOCIAL": {
-    "FIND_FRIENDS": "Find other people using their email or username."
-  },
-  "ALSO_LIKE": {
-    "PEOPLE_ALSO_LIKE": "People that also liked:"
-  },
-  "NOTIFICATION": {
-    "FOLLOW": "<a href=\"/user/{{userId}}\">{{username}}</a> is now following you.",
-    "FRIEND_REQUEST": "<a href=\"/user/{{userId}}\">{{username}}</a> wants to add you as a friend.",
-    "FRIEND_REQUEST_ACCEPTED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been accepted.",
-    "FRIEND_REQUEST_REFUSED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been refused."
-  },
-  "SOCIAL": {
-    "ACCEPT_FRIEND": "Accept",
-    "REFUSE_FRIEND": "Refuse"
-  },
-  "USER_PAGE": {
-    "REQUEST_FRIEND": "Request Friend",
-    "UNFRIEND": "Unfriend",
-    "FOLLOW": "Follow",
-    "UNFOLLOW": "Unfollow",
-    "WAITING_RESPONSE": "Waiting for a response",
-    "ACCEPT_FRIEND": "Accept friend"
-  }
 }

@@ -8,7 +8,7 @@
 <ng-container *ngIf="!isLoading">
     <li class="top-menu-dropdown-item" *ngFor="let n of notifications" style="margin-top: 5px;">
         <div class="notification-container" [ngClass]="{ 'unread-notification': !n.read }">
-            <div class="notification-date-container">{{ n.createdAt | date:'short' }}</div>
+            <div class="notification-date-container">{{ n.createdAt | date:'dd' }} {{ 'MONTHS.' + getMonth(n.createdAt) | translate }} {{ 'TIME.AT' | translate }} {{ n.createdAt | date:'hh:mm' }}</div>
             <div class="notification-text-container" [ngSwitch]="n.type">
                 <span *ngSwitchCase="0" [innerHTML]="'NOTIFICATION.FOLLOW' | translate:n.variables"></span>
                 <span *ngSwitchCase="1" [innerHTML]="'NOTIFICATION.FRIEND_REQUEST' | translate:n.variables"></span>
