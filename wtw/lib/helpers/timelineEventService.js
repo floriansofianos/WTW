@@ -3,14 +3,8 @@
 module.exports = function () {
     var getPage = function (userId, followerIds, page, done) {
         var resultPerPage = 20;
-        models.TimelineEvent.findAll({ where: { userId: userId, read: false } }).then(notifications => {
-            var unreadNotifications = notifications;
-            models.Notification.findAll({ where: { userId: userId, read: true }, order: [['id', 'DESC']], limit: 3 }).then(notifications => {
-                var allNotifications = notifications.concat(unreadNotifications);
-                done(null, allNotifications);
-            }).catch(function (err) {
-                done(err);
-            });
+        models.TimelineEvent.findAll({ where: { [Op.or]: [{ userId: userId, type: 0 }, { userId: { $in: followerIds } }] }, offset: resultPerPage * page, limit: resultPerPage }).then(events => {
+            done(null, events);
         })
             .catch(function (err) {
                 done(err);
