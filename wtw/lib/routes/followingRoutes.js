@@ -3,7 +3,8 @@ var isAuthenticated = require('../middlewares/isAuthenticated');
 var friendService = require('../helpers/friendshipService')();
 var notificationService = require('../helpers/notificationService')();
 var userService = require('../helpers/userService')();
-var followingController = require('../controllers/followingController')(friendService, userService, notificationService);
+var timelineEventService = require('../helpers/timelineEventService')();
+var followingController = require('../controllers/followingController')(friendService, userService, notificationService, timelineEventService);
 
 var followingRoutes = function () {
     var followingRouter = express.Router();

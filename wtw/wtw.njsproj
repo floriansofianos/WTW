@@ -144,6 +144,7 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\timelineEventController.js" />
     <Compile Include="lib\controllers\notificationController.js" />
     <Compile Include="lib\controllers\followingController.js" />
     <Compile Include="lib\controllers\friendController.js" />
@@ -176,6 +177,7 @@
     <Content Include="lib\helpers\movieDBRequestHelper.js" />
     <Content Include="lib\helpers\friendshipService.js" />
     <Content Include="lib\helpers\notificationService.js" />
+    <Content Include="lib\helpers\timelineEventService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -192,6 +194,7 @@
     <Compile Include="lib\models\notification.js" />
     <Compile Include="lib\models\pendingfriendship.js" />
     <Compile Include="lib\models\peoplecache.js" />
+    <Compile Include="lib\models\timelineevent.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />
@@ -220,6 +223,7 @@
     <Content Include="lib\routes\followingRoutes.js" />
     <Content Include="lib\routes\friendRoutes.js" />
     <Content Include="lib\routes\castRoutes.js" />
+    <Content Include="lib\routes\timelineEventRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">

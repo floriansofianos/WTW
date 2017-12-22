@@ -1,4 +1,4 @@
-﻿var friendController = function (friendshipService, userService, notificationService) {
+﻿var friendController = function (friendshipService, userService, notificationService, timelineEventService) {
     var post = function (req, res) {
         if (req.params.id) {
             friendshipService.friendUser(req.user.id, +req.params.id, userService, notificationService, function (err, data) {
@@ -15,7 +15,7 @@
             if (!notificationId) {
                 notificationService.findFriendRequestNotification(req.user.id, +req.params.id, function (err, data) {
                     if (data) {
-                        friendshipService.acceptFriendRequest(req.user.id, +req.params.id, data.id, userService, notificationService, function (err, data) {
+                        friendshipService.acceptFriendRequest(req.user.id, +req.params.id, data.id, req.user.username, userService, notificationService, timelineEventService, function (err, data) {
                             if (!err) res.json(data);
                             else res.send(500);
                         });
@@ -24,7 +24,7 @@
                 });
             }
             else {
-                friendshipService.acceptFriendRequest(req.user.id, +req.params.id, notificationId, userService, notificationService, function (err, data) {
+                friendshipService.acceptFriendRequest(req.user.id, +req.params.id, notificationId, req.user.username, userService, notificationService, timelineEventService, function (err, data) {
                     if (!err) res.json(data);
                     else res.send(500);
                 });

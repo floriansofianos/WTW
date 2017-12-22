@@ -2,9 +2,10 @@
 var isAuthenticated = require('../middlewares/isAuthenticated');
 var userService = require('../helpers/userService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
+var timelineEventService = require('../helpers/timelineEventService')();
 var userController = require('../controllers/userController')(userService);
 var avatarController = require('../controllers/avatarController')();
-var movieQuestionnaireController = require('../controllers/movieQuestionnaireController')(movieQuestionnaireService);
+var movieQuestionnaireController = require('../controllers/movieQuestionnaireController')(movieQuestionnaireService, timelineEventService);
 
 var userRoutes = function () {
     var userRouter = express.Router();

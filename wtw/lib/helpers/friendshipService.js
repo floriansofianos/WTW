@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 var friendshipService = function () {
 
-    var followUser = function (currentUserId, userId, userService, notificationService, done) {
+    var followUser = function (currentUserId, userId, userService, notificationService, timelineEventService, done) {
         if (currentUserId == userId) return done(null, false);
         models.Friendship.findOne({ where: { currentUserId: currentUserId, friendUserId: userId } }).then(data => {
             if (data) {
@@ -14,8 +14,10 @@ var friendshipService = function () {
                         userService.getUserById(currentUserId, function (err, user) {
                             if (!err) {
                                 notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
-                                    if (!err) done(null, true);
-                                    else done(err);
+                                    timelineEventService.create(userId, 1, { username: user.username, userId: user.id }, function (err, data) {
+                                        if (!err) done(null, true);
+                                        else done(err);
+                                    });
                                 });
                             }
                             else done(err);
@@ -37,8 +39,10 @@ var friendshipService = function () {
                     userService.getUserById(currentUserId, function (err, user) {
                         if (!err) {
                             notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
-                                if (!err) done(null, true);
-                                else done(err);
+                                timelineEventService.create(userId, 1, { username: user.username, userId: user.id }, function (err, data) {
+                                    if (!err) done(null, true);
+                                    else done(err);
+                                });
                             });
                         }
                         else done(err);
@@ -129,7 +133,7 @@ var friendshipService = function () {
         });
     }
 
-    var acceptFriendRequest = function (currentUserId, userId, notificationId, userService, notificationService, done) {
+    var acceptFriendRequest = function (currentUserId, userId, notificationId, currentUsername, userService, notificationService, timelineEventService, done) {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         models.PendingFriendship.findOne({ where: { fromUserId: userId, toUserId: currentUserId } }).then(pendingFriendship => {
@@ -144,13 +148,17 @@ var friendshipService = function () {
                                     data[1].isFriend = true;
                                     data[1].save().then(function (data, err) {
                                         if (!err) deletePendingFriendship(currentUserId, userId, function (err, result) {
-                                            userService.getUserById(currentUserId, function (err, user) {
+                                            userService.getUserById(userId, function (err, user) {
                                                 if (!err) {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
-                                                            notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
-                                                                if (!err) done(null, true);
-                                                                else done(err);
+                                                            notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                                    timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                        if (!err) done(null, true);
+                                                                        else done(err);
+                                                                    });
+                                                                });
                                                             });
                                                         }
                                                         else done(err);
@@ -175,13 +183,17 @@ var friendshipService = function () {
                                         isFriend: true
                                     }).then(data => {
                                         deletePendingFriendship(currentUserId, userId, function (err, result) {
-                                            userService.getUserById(currentUserId, function (err, user) {
+                                            userService.getUserById(userId, function (err, user) {
                                                 if (!err) {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
-                                                            notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
-                                                                if (!err) done(null, true);
-                                                                else done(err);
+                                                            notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                                    timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                        if (!err) done(null, true);
+                                                                        else done(err);
+                                                                    });
+                                                                });
                                                             });
                                                         }
                                                         else done(err);
@@ -215,13 +227,17 @@ var friendshipService = function () {
                                 isFriend: true
                             }).then(data => {
                                 deletePendingFriendship(currentUserId, userId, function (err, result) {
-                                    userService.getUserById(currentUserId, function (err, user) {
+                                    userService.getUserById(userId, function (err, user) {
                                         if (!err) {
                                             deleteFriendRequestNotification(notificationId, function (err, result) {
                                                 if (!err) {
-                                                    notificationService.create(userId, 2, { username: user.username, userId: user.id }, function (err, data) {
-                                                        if (!err) done(null, true);
-                                                        else done(err);
+                                                    notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                        timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                            timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                if (!err) done(null, true);
+                                                                else done(err);
+                                                            });
+                                                        });
                                                     });
                                                 }
                                                 else done(err);

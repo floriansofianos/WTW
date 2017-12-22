@@ -1,7 +1,7 @@
-﻿var followingController = function (friendshipService, userService, notificationService) {
+﻿var followingController = function (friendshipService, userService, notificationService, timelineEventService) {
     var post = function (req, res) {
         if (req.params.id) {
-            friendshipService.followUser(req.user.id, +req.params.id, userService, notificationService, function (err, data) {
+            friendshipService.followUser(req.user.id, +req.params.id, userService, notificationService, timelineEventService, function (err, data) {
                 if (!err) res.json(data);
                 else res.send(500);
             });

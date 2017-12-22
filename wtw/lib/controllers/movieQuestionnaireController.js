@@ -1,4 +1,4 @@
-﻿var movieQuestionnaireController = function (movieQuestionnaireService) {
+﻿var movieQuestionnaireController = function (movieQuestionnaireService, timelineEventService) {
     var getAll = function (req, res) {
         if (req.user) {
             movieQuestionnaireService.getAll(req.user.id, function (err, data) {
@@ -36,7 +36,7 @@
 
     var createOrUpdate = function (req, res) {
         if (req.user) {
-            movieQuestionnaireService.createOrUpdate(req.body, req.user.id, function (err, data) {
+            movieQuestionnaireService.createOrUpdate(req.body, req.user.id, timelineEventService, function (err, data) {
                 if (!err) res.json(data);
                 else res.send(500);
             });
