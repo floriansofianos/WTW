@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("../../auth/auth.service");
-var UsernameValidator = /** @class */ (function () {
+var UsernameValidator = (function () {
     function UsernameValidator(authService) {
         this.authService = authService;
     }
@@ -46,3 +46,4 @@ var UsernameValidator = /** @class */ (function () {
     var UsernameValidator_1;
 }());
 exports.UsernameValidator = UsernameValidator;
+//# sourceMappingURL=username-validator.directive.js.map

@@ -247,6 +247,7 @@
     </Content>
     <Content Include="README.md" />
     <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
+    <TypeScriptCompile Include="app\timeline\timeline.service.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
@@ -272,6 +273,7 @@
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
+    <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
     <Folder Include="app\user-profile\" />
     <Folder Include="app\user\" />

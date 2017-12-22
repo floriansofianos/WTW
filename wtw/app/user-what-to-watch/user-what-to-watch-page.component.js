@@ -19,7 +19,7 @@ var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = /** @class */ (function () {
+var UserWhatToWatchPageComponent = (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
@@ -120,3 +120,4 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
+//# sourceMappingURL=user-what-to-watch-page.component.js.map

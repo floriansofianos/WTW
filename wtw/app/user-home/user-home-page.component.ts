@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core'
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
-import { NotificationService } from '../notification/notification.service';
+import { TimelineService } from '../timeline/timeline.service';
+
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,7 @@ import { NotificationService } from '../notification/notification.service';
 export class UserHomePageComponent {
     username: string;
 
-    constructor(private authService: AuthService, private router: Router, private notificationService: NotificationService) { }
+    constructor(private authService: AuthService, private router: Router, private timelineService: TimelineService) { }
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -24,5 +25,11 @@ export class UserHomePageComponent {
         else {
             this.router.navigate(['']);
         }
+        this.timelineService.get(0).subscribe(response => {
+            console.log(response.json());
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
     }
 }

@@ -12,22 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var LanguagesService = (function () {
-    function LanguagesService(http) {
+var TimelineService = (function () {
+    function TimelineService(http) {
         this.http = http;
     }
-    LanguagesService.prototype.getAll = function () {
-        return this.http.get('/api/languages')
+    TimelineService.prototype.get = function (page) {
+        return this.http.get('/api/timeline', { params: { page: page } })
             .catch(this.handleErrors);
     };
-    LanguagesService.prototype.handleErrors = function (error) {
+    TimelineService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    LanguagesService = __decorate([
+    TimelineService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
-    ], LanguagesService);
-    return LanguagesService;
+    ], TimelineService);
+    return TimelineService;
 }());
-exports.LanguagesService = LanguagesService;
-//# sourceMappingURL=languages.service.js.map
+exports.TimelineService = TimelineService;
+//# sourceMappingURL=timeline.service.js.map

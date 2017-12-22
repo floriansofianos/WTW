@@ -12,14 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var notification_service_1 = require("../notification/notification.service");
-var UserHomePageComponent = /** @class */ (function () {
-    function UserHomePageComponent(authService, router, notificationService) {
+var timeline_service_1 = require("../timeline/timeline.service");
+var UserHomePageComponent = (function () {
+    function UserHomePageComponent(authService, router, timelineService) {
         this.authService = authService;
         this.router = router;
-        this.notificationService = notificationService;
+        this.timelineService = timelineService;
     }
     UserHomePageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
             if (!currentUser.firstQuestionnaireCompleted) {
@@ -30,14 +31,20 @@ var UserHomePageComponent = /** @class */ (function () {
         else {
             this.router.navigate(['']);
         }
+        this.timelineService.get(0).subscribe(function (response) {
+            console.log(response.json());
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
     };
     UserHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'user-home-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, notification_service_1.NotificationService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, timeline_service_1.TimelineService])
     ], UserHomePageComponent);
     return UserHomePageComponent;
 }());
 exports.UserHomePageComponent = UserHomePageComponent;
+//# sourceMappingURL=user-home-page.component.js.map

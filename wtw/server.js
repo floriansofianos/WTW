@@ -17,6 +17,7 @@ var followRouter = require('./lib/routes/followingRoutes')();
 var countriesRouter = require('./lib/routes/countriesRoutes')();
 var languagesRouter = require('./lib/routes/languagesRoutes')();
 var notificationRouter = require('./lib/routes/notificationRoutes')();
+var timelineEventRouter = require('./lib/routes/timelineEventRoutes')();
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -91,6 +92,7 @@ app.use('/api/user', userRouter);
 app.use('/api/friend', friendRouter);
 app.use('/api/follow', followRouter);
 app.use('/api/notification', notificationRouter);
+app.use('/api/timeline', timelineEventRouter);
 
 app.get('/', function(req, res) {
     res.sendFile('index.html');

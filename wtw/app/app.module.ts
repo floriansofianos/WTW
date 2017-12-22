@@ -68,6 +68,7 @@ import { LanguagesService } from './languages/languages.service';
 import { SocialService } from './social/social.service';
 import { UserService } from './user/user.service';
 import { NotificationService } from './notification/notification.service';
+import { TimelineService } from './timeline/timeline.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -146,6 +147,7 @@ export function createTranslateLoader(http: Http) {
         LanguagesService,
         SocialService,
         NotificationService,
+        TimelineService,
         UserService,
         CanActivateAuthGuard,
         {

@@ -72,12 +72,13 @@ var languages_service_1 = require("./languages/languages.service");
 var social_service_1 = require("./social/social.service");
 var user_service_1 = require("./user/user.service");
 var notification_service_1 = require("./notification/notification.service");
+var timeline_service_1 = require("./timeline/timeline.service");
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -153,6 +154,7 @@ var AppModule = /** @class */ (function () {
                 languages_service_1.LanguagesService,
                 social_service_1.SocialService,
                 notification_service_1.NotificationService,
+                timeline_service_1.TimelineService,
                 user_service_1.UserService,
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
@@ -167,3 +169,4 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map
