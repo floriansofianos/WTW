@@ -249,6 +249,29 @@ var userService = function() {
         });
     }
 
+    var getAllFriends = function (userId, done) {
+        models.Friendship.findAll({ where: { currentUserId: userId } }).then(data => {
+            if (data) {
+                var userIds = _.map(_.filter(data, function (f) { return (f.following || f.isFriend) }), 'friendUserId');
+                models.User.findAll({ where: { id: { $in: userIds } } }).then(data => {
+                    if (data) {
+                        done(null, _.map(data, function (u) {
+                            return {
+                                userId: u.id,
+                                username: u.username
+                            }
+                        }));
+                    }
+                    else done(null, false);
+                }).catch(function (err) {
+                    done(err);
+                });
+            }
+            else done(null, false);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
 
     return {
         getUserByUsername: getUserByUsername,
@@ -268,7 +291,8 @@ var userService = function() {
         changeUserPassword: changeUserPassword,
         searchUser: searchUser,
         getDistance: getDistance,
-        getLikedDislikedMovies: getLikedDislikedMovies
+        getLikedDislikedMovies: getLikedDislikedMovies,
+        getAllFriends: getAllFriends
     }
 }
 

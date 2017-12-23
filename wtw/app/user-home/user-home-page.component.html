@@ -1,3 +1,7 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'home'" [username]="username"></top-menu>
-<h2>{{ 'HOME.HELLO' | translate }} {{ username }}</h2>
-<div>Available soon...</div>
+<div *ngIf="timelineEvents">
+    <timeline [timelineEvents]="timelineEvents" [friends]="allFriends" [currentUserId]="currentUserId" [lang]="lang" [config]="config"></timeline>
+</div>
+<div class="spinner-container" *ngIf="!timelineEvents">
+    <spinner></spinner>
+</div>

@@ -11,6 +11,7 @@ import { MatProgressBarModule, MatInputModule, MatCheckboxModule, MatSelectModul
 import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { APP_INITIALIZER } from '@angular/core';
 
 import { appRoutes } from './routes';
@@ -54,6 +55,10 @@ import { AlsoLikeComponent } from './also-like/also-like.component';
 import { MoviePageComponent } from './movie/movie.component';
 import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
 import { TopMenuNotificationsComponent } from './notification/top-menu-notifications.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineEventFollowComponent } from './timeline-event-follow/timeline-event-follow.component';
+import { TimelineEventFriendComponent } from './timeline-event-friend/timeline-event-friend.component';
+import { TimelineEventRateMovieComponent } from './timeline-event-rate-movie/timeline-event-rate-movie.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -80,6 +85,7 @@ export function createTranslateLoader(http: Http) {
         BrowserAnimationsModule,
         MatProgressBarModule,
         MatInputModule,
+        InfiniteScrollModule,
         MatCheckboxModule,
         MatSelectModule,
         MatSliderModule,
@@ -132,8 +138,12 @@ export function createTranslateLoader(http: Http) {
         ErrorPageComponent,
         SocialPageComponent,
         MoviePageComponent,
+        TimelineEventFollowComponent,
+        TimelineEventFriendComponent,
+        TimelineEventRateMovieComponent,
         UserProfilePageComponent,
         UserPageComponent,
+        TimelineComponent,
         AlsoLikeComponent,
         TopMenuNotificationsComponent,
         CastMemberComponent],

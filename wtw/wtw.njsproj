@@ -55,6 +55,10 @@
     <Content Include="app\signup\signup-form\signup-form.component.html" />
     <Content Include="app\left-menu\left-menu.component.html" />
     <Content Include="app\social\social-page.component.html" />
+    <Content Include="app\timeline-event-follow\timeline-event-follow.component.html" />
+    <Content Include="app\timeline-event-friend\timeline-event-friend.component.html" />
+    <Content Include="app\timeline-event-rate-movie\timeline-event-rate-movie.component.html" />
+    <Content Include="app\timeline\timeline.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
@@ -247,7 +251,11 @@
     </Content>
     <Content Include="README.md" />
     <TypeScriptCompile Include="app\left-menu\left-menu.component.ts" />
+    <TypeScriptCompile Include="app\timeline-event-follow\timeline-event-follow.component.ts" />
+    <TypeScriptCompile Include="app\timeline-event-friend\timeline-event-friend.component.ts" />
+    <TypeScriptCompile Include="app\timeline-event-rate-movie\timeline-event-rate-movie.component.ts" />
     <TypeScriptCompile Include="app\timeline\timeline.service.ts" />
+    <TypeScriptCompile Include="app\timeline\timeline.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
@@ -273,6 +281,9 @@
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
+    <Folder Include="app\timeline-event-friend\" />
+    <Folder Include="app\timeline-event-follow\" />
+    <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
     <Folder Include="app\user-profile\" />

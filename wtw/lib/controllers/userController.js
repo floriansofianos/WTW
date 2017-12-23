@@ -183,6 +183,18 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var getAllFriends = function (req, res) {
+        if (req.user.id) {
+            userService.getAllFriends(req.user.id, function (err, users) {
+                if (users) {
+                    res.json(users);
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
@@ -195,7 +207,8 @@ var userController = function (userService) {
         search: search,
         getUserProfile: getUserProfile,
         getUserDistance: getUserDistance,
-        getAllUserInformations: getAllUserInformations
+        getAllUserInformations: getAllUserInformations,
+        getAllFriends: getAllFriends
     }
 }
 

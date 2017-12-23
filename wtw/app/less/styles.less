@@ -1217,3 +1217,157 @@ wtw-button {
     font-size: 12px;
     color: #8a8a8a;
 }
+
+.timeline {
+    position: relative;
+
+    &::before {
+        content: '';
+        width: 5px;
+        background: #C5CAE9;
+        height: 95%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.timeline-item {
+    width: 100%;
+    margin-bottom: 70px;
+
+    &:nth-child(even) {
+
+        .timeline-content {
+            float: right;
+            padding: 40px 30px 10px 30px;
+
+            .date {
+                right: auto;
+                left: 0;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                border-style: solid;
+                width: 0;
+                height: 0;
+                top: 30px;
+                left: -15px;
+                border-width: 10px 15px 10px 0;
+                border-color: transparent #f5f5f5 transparent transparent;
+            }
+        }
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+
+.timeline-content {
+    position: relative;
+    width: 45%;
+    padding: 10px 30px;
+    border-radius: 4px;
+    background: #f5f5f5;
+    box-shadow: 0 20px 25px -15px rgba(0, 0, 0, .3);
+
+    h2 {
+        color: #000;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        width: 0;
+        height: 0;
+        top: 30px;
+        right: -15px;
+        border-width: 10px 0 10px 15px;
+        border-color: transparent transparent transparent #f5f5f5;
+    }
+
+    p {
+        color: #675f5f;
+    }
+}
+
+.timeline-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    background: #3F51B5;
+    left: 50%;
+    margin-top: 25px;
+    margin-left: -15px;
+}
+
+.timeline-card {
+    padding: 0 !important;
+
+    p {
+        padding: 0 20px;
+    }
+
+    a {
+        margin-left: 20px;
+    }
+}
+
+.timeline-img-header {
+    height: 200px;
+    position: relative;
+    margin-bottom: 20px;
+
+    h2 {
+        color: $text;
+        position: absolute;
+        bottom: 5px;
+        left: 20px;
+    }
+}
+
+blockquote {
+    margin-top: 30px;
+    color: #757575;
+    border-left-color: #3F51B5;
+    padding: 0 20px;
+}
+
+.date {
+    background: #FF4081;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff; 
+}
+
+.timeline-container {
+    margin-top: 35px;
+}
+
+.movie-title-container {
+    vertical-align: top;
+    font-size: 20px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.movie-poster-container {
+    display: inline-block;
+}
+
+.movie-right-container {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 10px;
+}

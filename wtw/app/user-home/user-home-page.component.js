@@ -13,11 +13,15 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var timeline_service_1 = require("../timeline/timeline.service");
-var UserHomePageComponent = (function () {
-    function UserHomePageComponent(authService, router, timelineService) {
+var user_service_1 = require("../user/user.service");
+var movieDB_service_1 = require("../movieDB/movieDB.service");
+var UserHomePageComponent = /** @class */ (function () {
+    function UserHomePageComponent(authService, router, timelineService, userService, movieDBService) {
         this.authService = authService;
         this.router = router;
         this.timelineService = timelineService;
+        this.userService = userService;
+        this.movieDBService = movieDBService;
     }
     UserHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,8 +35,20 @@ var UserHomePageComponent = (function () {
         else {
             this.router.navigate(['']);
         }
-        this.timelineService.get(0).subscribe(function (response) {
-            console.log(response.json());
+        this.currentUserId = currentUser.id;
+        this.lang = currentUser.lang;
+        this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
+            _this.config = response.json();
+            _this.userService.getAllFriends().subscribe(function (response) {
+                _this.allFriends = response.json();
+                _this.timelineService.get(0).subscribe(function (response) {
+                    _this.timelineEvents = response.json();
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
         }, function (error) {
             _this.router.navigate(['error']);
         });
@@ -42,9 +58,8 @@ var UserHomePageComponent = (function () {
             moduleId: module.id,
             templateUrl: 'user-home-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, timeline_service_1.TimelineService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, timeline_service_1.TimelineService, user_service_1.UserService, movieDB_service_1.MovieDBService])
     ], UserHomePageComponent);
     return UserHomePageComponent;
 }());
 exports.UserHomePageComponent = UserHomePageComponent;
-//# sourceMappingURL=user-home-page.component.js.map

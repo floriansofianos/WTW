@@ -117,9 +117,12 @@ var movieQuestionnaireService = function() {
                     userService.setUserProfileRefresh(userId, true, function(err, res) {
                         userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
                             movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function (err, res) {
-                                timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
-                                    done(null, questionnaire);
-                                });
+                                if (!questionnaire.isSkipped) {
+                                    timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
+                                        done(null, questionnaire);
+                                    });
+                                }
+                                else done(null, questionnaire);
                             });
                         });
                     });
@@ -137,9 +140,12 @@ var movieQuestionnaireService = function() {
                     userService.setUserProfileRefresh(userId, true, function(err, res) {
                         userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
                             movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function(err, res) {
-                                timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
-                                    done(null, questionnaire);
-                                });
+                                if (!questionnaire.isSkipped) {
+                                    timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
+                                        done(null, questionnaire);
+                                    });
+                                }
+                                else done(null, questionnaire);
                             });
                         });
                     });

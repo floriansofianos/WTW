@@ -20,6 +20,9 @@ var userRoutes = function () {
         .post(isAuthenticated, avatarController.create)
         .delete(isAuthenticated, avatarController.deleteAvatar);
 
+    userRouter.route('/friends')
+        .get(isAuthenticated, userController.getAllFriends);
+
     userRouter.route('/avatar/:userId')
         .get(isAuthenticated, avatarController.get);
 

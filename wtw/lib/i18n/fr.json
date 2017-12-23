@@ -164,29 +164,40 @@
     "ACCEPT_FRIEND": "Accepter",
     "REFUSE_FRIEND": "Refuser"
   },
-    "USER_PAGE": {
-        "REQUEST_FRIEND": "Demander en ami",
-        "UNFRIEND": "Ne plus être ami",
-        "FOLLOW": "Suivre",
-        "UNFOLLOW": "Ne plus suivre",
-        "WAITING_RESPONSE": "En attente d'une réponse",
-        "ACCEPT_FRIEND": "Accepter la demande d'ami"
-    },
-    "MONTHS": {
-        "0": "janv.",
-        "1": "févr.",
-        "2": "mar.",
-        "3": "avr.",
-        "4": "mai",
-        "5": "juin",
-        "6": "juill.",
-        "7": "août",
-        "8": "sept.",
-        "9": "oct.",
-        "10": "nov.",
-        "11": "déc."
-    },
-    "TIME": {
-        "AT":  "à"
-    }
+  "USER_PAGE": {
+    "REQUEST_FRIEND": "Demander en ami",
+    "UNFRIEND": "Ne plus être ami",
+    "FOLLOW": "Suivre",
+    "UNFOLLOW": "Ne plus suivre",
+    "WAITING_RESPONSE": "En attente d'une réponse",
+    "ACCEPT_FRIEND": "Accepter la demande d'ami"
+  },
+  "MONTHS": {
+    "0": "janv.",
+    "1": "févr.",
+    "2": "mar.",
+    "3": "avr.",
+    "4": "mai",
+    "5": "juin",
+    "6": "juill.",
+    "7": "août",
+    "8": "sept.",
+    "9": "oct.",
+    "10": "nov.",
+    "11": "déc."
+  },
+  "TIME": {
+    "AT": "à"
+  },
+  "TIMELINE": {
+    "TITLE_RATE_MOVIE": "Note Film",
+    "TITLE_FOLLOW": "Suivre",
+    "TITLE_FRIEND": "Ami",
+    "BODY_FOLLOW": " following ",
+    "BODY_FRIEND": " friend with ",
+    "YOU": "You",
+    "YOU_LOWER": "you",
+    "IS": " is",
+    "ARE": " are"
+  }
 }

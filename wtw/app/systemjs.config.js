@@ -57,6 +57,7 @@ var System;
             'angular2-ui-switch': 'npm:angular2-ui-switch/dist',
             'nouislider': 'npm:nouislider',
             'ng2-nouislider': 'npm:ng2-nouislider',
+            'ngx-infinite-scroll': 'npm:ngx-infinite-scroll/bundles/ngx-infinite-scroll.umd.min.js',
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'ngx-modialog': 'npm:ngx-modialog/bundle/ngx-modialog.rollup.umd.min.js',
             'ngx-modialog/plugins/bootstrap': 'npm:ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.rollup.umd.min.js',
@@ -87,4 +88,3 @@ var System;
         }
     });
 })(this);
-//# sourceMappingURL=systemjs.config.js.map

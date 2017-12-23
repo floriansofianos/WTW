@@ -23,6 +23,11 @@ export class UserService {
             .catch(this.handleErrors);
     }
 
+    getAllFriends(): Observable<any> {
+        return this.http.get('/api/user/friends/')
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

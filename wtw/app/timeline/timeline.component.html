@@ -1,0 +1,30 @@
+<div class="timeline-container" infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="300"
+     (scrolled)="loadEvents()">
+    <section class="timeline">
+        <div class="container">
+            <div class="timeline-item" *ngFor="let e of timelineEvents">
+                <div class="timeline-img"></div>
+                <div class="timeline-content">
+                    <h2 *ngIf="e.type == 0">{{ 'TIMELINE.TITLE_RATE_MOVIE' | translate }}</h2>
+                    <h2 *ngIf="e.type == 1">{{ 'TIMELINE.TITLE_FOLLOW' | translate }}</h2>
+                    <h2 *ngIf="e.type == 2">{{ 'TIMELINE.TITLE_FRIEND' | translate }}</h2>
+                    <div class="date">{{ e.createdAt | date:'dd' }} {{ 'MONTHS.' + getMonth(e.createdAt) | translate }} {{ 'TIME.AT' | translate }} {{ e.createdAt | date:'hh:mm' }}</div>
+                    <p *ngIf="e.type == 0">
+                        <timeline-event-rate-movie [friends]="friends" [curUserId]="e.userId" [isCurUserYou]="e.userId == currentUserId" [config]="config" [questionnaire]="e.variables.questionnaire" [lang]="lang"></timeline-event-rate-movie>
+                    </p>
+                    <p *ngIf="e.type == 1">
+                        <timeline-event-follow [friends]="friends" [curUsername]="e.variables.username" [friendUserId]="e.userId" [curUserId]="e.variables.userId" [isCurUserYou]="e.variables.userId == currentUserId" [isFriendUserYou]="e.userId == currentUserId"></timeline-event-follow> 
+                    </p>
+                    <p *ngIf="e.type == 2">
+                        <timeline-event-friend [friends]="friends" [curUsername]="e.variables.username" [friendUserId]="e.userId" [curUserId]="e.variables.userId" [isCurUserYou]="e.variables.userId == currentUserId" [isFriendUserYou]="e.userId == currentUserId"></timeline-event-friend> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="spinner-container" *ngIf="isLoading">
+    <spinner></spinner>
+</div>

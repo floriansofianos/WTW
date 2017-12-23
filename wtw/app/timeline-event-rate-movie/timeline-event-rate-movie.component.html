@@ -1,0 +1,24 @@
+<div class="card-container" *ngIf="!isLoading">
+    <div class="movie-poster-container">
+        <img width="150" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie.poster_path }}" *ngIf="movie.poster_path" />
+        <div *ngIf="!movie.poster_path" class="movie-poster-placeholder" [style.width.px]="150" [style.height.px]="225">
+            <i [style.font-size.px]="45" [style.margin-top.px]="90" class="fa fa-film"></i>
+        </div>
+    </div>
+    <div class="movie-right-container">
+        <span class="movie-title-container"><a [routerLink]="['/movie/' + movie.id]">{{ movie.title }}</a></span>
+        <div>
+            <span *ngIf="isCurUserYou">{{ 'TIMELINE.YOU' | translate }}</span>
+            <span *ngIf="!isCurUserYou"><a [routerLink]="['/user/' + curUserId]">{{ curUsername }}</a></span>
+            <span *ngIf="questionnaire.isSeen">{{ 'TIMELINE.BODY_RATE_MOVIE' | translate }}</span>
+            <span *ngIf="!questionnaire.isSeen && questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_ADDED_TO_WATCHLIST' | translate }}</span>
+            <span *ngIf="!isCurUserYou && !questionnaire.isSeen && !questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_USER_NOT_SEE' | translate }}</span>
+            <span *ngIf="isCurUserYou && !questionnaire.isSeen && !questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_YOU_NOT_SEE' | translate }}</span>
+        </div>
+    </div>
+    
+    
+</div>
+<div *ngIf="isLoading">
+    <spinner></spinner>
+</div>

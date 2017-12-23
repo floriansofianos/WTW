@@ -19,6 +19,7 @@ var material_1 = require("@angular/material");
 var angular_star_rating_1 = require("angular-star-rating");
 var ngx_modialog_1 = require("ngx-modialog");
 var bootstrap_1 = require("ngx-modialog/plugins/bootstrap");
+var ngx_infinite_scroll_1 = require("ngx-infinite-scroll");
 var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
@@ -60,6 +61,10 @@ var also_like_component_1 = require("./also-like/also-like.component");
 var movie_component_1 = require("./movie/movie.component");
 var user_profile_page_component_1 = require("./user-profile/user-profile-page.component");
 var top_menu_notifications_component_1 = require("./notification/top-menu-notifications.component");
+var timeline_component_1 = require("./timeline/timeline.component");
+var timeline_event_follow_component_1 = require("./timeline-event-follow/timeline-event-follow.component");
+var timeline_event_friend_component_1 = require("./timeline-event-friend/timeline-event-friend.component");
+var timeline_event_rate_movie_component_1 = require("./timeline-event-rate-movie/timeline-event-rate-movie.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -78,7 +83,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -87,6 +92,7 @@ var AppModule = (function () {
                 animations_1.BrowserAnimationsModule,
                 material_1.MatProgressBarModule,
                 material_1.MatInputModule,
+                ngx_infinite_scroll_1.InfiniteScrollModule,
                 material_1.MatCheckboxModule,
                 material_1.MatSelectModule,
                 material_1.MatSliderModule,
@@ -139,8 +145,12 @@ var AppModule = (function () {
                 error_page_component_1.ErrorPageComponent,
                 social_page_component_1.SocialPageComponent,
                 movie_component_1.MoviePageComponent,
+                timeline_event_follow_component_1.TimelineEventFollowComponent,
+                timeline_event_friend_component_1.TimelineEventFriendComponent,
+                timeline_event_rate_movie_component_1.TimelineEventRateMovieComponent,
                 user_profile_page_component_1.UserProfilePageComponent,
                 user_page_component_1.UserPageComponent,
+                timeline_component_1.TimelineComponent,
                 also_like_component_1.AlsoLikeComponent,
                 top_menu_notifications_component_1.TopMenuNotificationsComponent,
                 cast_member_component_1.CastMemberComponent],
@@ -169,4 +179,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
