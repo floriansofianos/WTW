@@ -160,10 +160,11 @@
         "FRIEND_REQUEST_ACCEPTED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been accepted.",
         "FRIEND_REQUEST_REFUSED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been refused."
     },
-    "SOCIAL": {
-        "ACCEPT_FRIEND": "Accept",
-        "REFUSE_FRIEND": "Refuse"
-    },
+  "SOCIAL": {
+    "ACCEPT_FRIEND": "Accept",
+    "REFUSE_FRIEND": "Refuse",
+    "FIND_FRIEND": "Find friends using their username or email."
+  },
     "USER_PAGE": {
         "REQUEST_FRIEND": "Request Friend",
         "UNFRIEND": "Unfriend",

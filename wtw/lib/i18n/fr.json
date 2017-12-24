@@ -162,7 +162,8 @@
   },
   "SOCIAL": {
     "ACCEPT_FRIEND": "Accepter",
-    "REFUSE_FRIEND": "Refuser"
+    "REFUSE_FRIEND": "Refuser",
+    "FIND_FRIEND": "Trouver des amis en utilisant leur pseudo ou leur adresse email."
   },
   "USER_PAGE": {
     "REQUEST_FRIEND": "Demander en ami",
