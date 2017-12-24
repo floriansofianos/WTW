@@ -163,7 +163,7 @@
   "SOCIAL": {
     "ACCEPT_FRIEND": "Accept",
     "REFUSE_FRIEND": "Refuse",
-    "FIND_FRIEND": "Find friends using their username or email."
+    "FIND_FRIENDS": "Find friends using their username or email."
   },
     "USER_PAGE": {
         "REQUEST_FRIEND": "Request Friend",
