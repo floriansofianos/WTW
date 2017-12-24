@@ -5,7 +5,7 @@ module.exports = function () {
     var getPage = function (userId, followerIds, page, done) {
         var Op = sequelize.Op;
         var resultPerPage = 20;
-        models.TimelineEvent.findAll({ where: { [Op.or]: [{ userId: userId, type: { $in: [0, 1] } }, { userId: { $in: followerIds } }] }, offset: resultPerPage * page, limit: resultPerPage }).then(events => {
+        models.TimelineEvent.findAll({ where: { [Op.or]: [{ userId: userId, type: { $in: [0, 1] } }, { userId: { $in: followerIds } }] }, offset: resultPerPage * page, limit: resultPerPage, order: [['id', 'DESC']] }).then(events => {
             done(null, events);
         })
             .catch(function (err) {

@@ -1,7 +1,6 @@
 <div class="card-container">
-    <span *ngIf="isCurUserYou">{{ 'TIMELINE.YOU' | translate }}{{ 'TIMELINE.ARE' | translate }}</span>
-    <span *ngIf="!isCurUserYou"><a [routerLink]="['/user/' + curUserId]">{{ curUsername }}</a>{{ 'TIMELINE.IS' | translate }}</span>
-    <span>{{ 'TIMELINE.BODY_FOLLOW' | translate }}</span>
-    <span *ngIf="isFriendUserYou">{{ 'TIMELINE.YOU_LOWER' | translate }}</span>
+    <span *ngIf="isCurUserYou">{{ 'TIMELINE.YOU' | translate }}{{ 'TIMELINE.ARE_FOLLOWING' | translate }}</span>
+    <span *ngIf="!isCurUserYou"><a [routerLink]="['/user/' + curUserId]">{{ curUsername }}</a>{{ 'TIMELINE.IS_FOLLOWING' | translate }}</span>
+    <span *ngIf="isFriendUserYou">{{ 'TIMELINE.YOU_LOWER_FOLLOW' | translate }}</span>
     <span *ngIf="!isFriendUserYou"><a [routerLink]="['/user/' + friendUserId]">{{ friendUsername }}</a></span>
 </div>

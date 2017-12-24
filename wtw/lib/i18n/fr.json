@@ -193,11 +193,19 @@
     "TITLE_RATE_MOVIE": "Note Film",
     "TITLE_FOLLOW": "Suivre",
     "TITLE_FRIEND": "Ami",
-    "BODY_FOLLOW": " following ",
-    "BODY_FRIEND": " friend with ",
-    "YOU": "You",
-    "YOU_LOWER": "you",
-    "IS": " is",
-    "ARE": " are"
+    "BODY_FRIEND": " ami avec ",
+    "YOU": "Vous",
+    "YOU_LOWER_FOLLOW": "votre activité",
+    "YOU_LOWER_FRIEND": "vous",
+    "IS_FOLLOWING": " suit ",
+    "ARE_FOLLOWING": " suivez ",
+    "IS_FRIEND": " est ami avec ",
+    "ARE_FRIEND": " êtes ami avec ",
+    "BODY_MOVIE_USER_NOT_SEE": " ne veut pas voir ce film.",
+    "BODY_MOVIE_ADDED_TO_WATCHLIST": " a ajouté ce film à sa liste.",
+    "BODY_MOVIE_YOU_ADDED_TO_WATCHLIST": " avez ajouté ce film à votre liste.",
+    "BODY_MOVIE_YOU_NOT_SEE": " ne voulez pas voir ce film.",
+    "BODY_RATE_MOVIE": " a noté ce film :",
+    "BODY_YOU_RATE_MOVIE": " avez noté ce film :"
   }
 }

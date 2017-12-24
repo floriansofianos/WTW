@@ -10,14 +10,21 @@
         <div>
             <span *ngIf="isCurUserYou">{{ 'TIMELINE.YOU' | translate }}</span>
             <span *ngIf="!isCurUserYou"><a [routerLink]="['/user/' + curUserId]">{{ curUsername }}</a></span>
-            <span *ngIf="questionnaire.isSeen">{{ 'TIMELINE.BODY_RATE_MOVIE' | translate }}</span>
-            <span *ngIf="!questionnaire.isSeen && questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_ADDED_TO_WATCHLIST' | translate }}</span>
-            <span *ngIf="!isCurUserYou && !questionnaire.isSeen && !questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_USER_NOT_SEE' | translate }}</span>
-            <span *ngIf="isCurUserYou && !questionnaire.isSeen && !questionnaire.wantToSee">{{ 'TIMELINE.BODY_MOVIE_YOU_NOT_SEE' | translate }}</span>
+            <span *ngIf="questionnaire.isSeen">
+                <span *ngIf="isCurUserYou">{{ 'TIMELINE.BODY_YOU_RATE_MOVIE' | translate }}</span>
+                <span *ngIf="!isCurUserYou">{{ 'TIMELINE.BODY_RATE_MOVIE' | translate }}</span>
+                <star-rating-comp [rating]="questionnaire.rating" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [size]="'medium'"></star-rating-comp>
+            </span>
+            <span *ngIf="!questionnaire.isSeen && questionnaire.wantToSee">
+                <span *ngIf="isCurUserYou">{{ 'TIMELINE.BODY_MOVIE_YOU_ADDED_TO_WATCHLIST' | translate }}</span>
+                <span *ngIf="!isCurUserYou">{{ 'TIMELINE.BODY_MOVIE_ADDED_TO_WATCHLIST' | translate }}</span>
+            </span>
+            <span *ngIf="!questionnaire.isSeen && !questionnaire.wantToSee">
+                <span *ngIf="isCurUserYou">{{ 'TIMELINE.BODY_MOVIE_YOU_NOT_SEE' | translate }}</span>
+                <span *ngIf="!isCurUserYou">{{ 'TIMELINE.BODY_MOVIE_USER_NOT_SEE' | translate }}</span>
+            </span>
         </div>
     </div>
-    
-    
 </div>
 <div *ngIf="isLoading">
     <spinner></spinner>

@@ -12,7 +12,7 @@
             <div class="forgot-password" (click)="clickForgotPassword()">{{ 'LOGIN.FORM.I_FORGOT_MY_PASSWORD' | translate }}</div>
             <div class="forgot-password" (click)="clickSignup()">{{ 'LOGIN.FORM.SIGNUP' | translate }}</div>
         </div>
-        <div class="login-line">
+        <div class="login-line" style="margin-top: 15px;">
             <mat-checkbox formControlName="rememberMe">{{ 'LOGIN.FORM.REMEMBER_ME' | translate }}</mat-checkbox>
         </div>
         <div class="login-line login-error" *ngIf="showError">{{ 'LOGIN.FORM.WRONGPASSWORD' | translate }}</div>

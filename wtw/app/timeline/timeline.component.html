@@ -10,7 +10,7 @@
                     <h2 *ngIf="e.type == 0">{{ 'TIMELINE.TITLE_RATE_MOVIE' | translate }}</h2>
                     <h2 *ngIf="e.type == 1">{{ 'TIMELINE.TITLE_FOLLOW' | translate }}</h2>
                     <h2 *ngIf="e.type == 2">{{ 'TIMELINE.TITLE_FRIEND' | translate }}</h2>
-                    <div class="date">{{ e.createdAt | date:'dd' }} {{ 'MONTHS.' + getMonth(e.createdAt) | translate }} {{ 'TIME.AT' | translate }} {{ e.createdAt | date:'hh:mm' }}</div>
+                    <div class="date">{{ e.createdAt | date:'dd' }} {{ 'MONTHS.' + getMonth(e.createdAt) | translate }} {{ 'TIME.AT' | translate }} {{ e.createdAt | date:'HH:mm' }}</div>
                     <p *ngIf="e.type == 0">
                         <timeline-event-rate-movie [friends]="friends" [curUserId]="e.userId" [isCurUserYou]="e.userId == currentUserId" [config]="config" [questionnaire]="e.variables.questionnaire" [lang]="lang"></timeline-event-rate-movie>
                     </p>

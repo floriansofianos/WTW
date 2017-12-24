@@ -193,14 +193,19 @@
     "TITLE_RATE_MOVIE": "Rate Movie",
     "TITLE_FOLLOW": "Follow",
     "TITLE_FRIEND": "Friend",
-    "BODY_FOLLOW": " following ",
     "BODY_FRIEND": " friend with ",
     "YOU": "You",
-    "YOU_LOWER": "you",
-    "IS": " is",
-    "ARE": " are",
+    "YOU_LOWER_FOLLOW": "you",
+    "YOU_LOWER_FRIEND": "you",
+    "IS_FOLLOWING": " is following ",
+    "ARE_FOLLOWING": " are following ",
+    "IS_FRIEND": " is friend with ",
+    "ARE_FRIEND": " are friend with ",
     "BODY_MOVIE_USER_NOT_SEE": " does not want to see this movie.",
     "BODY_MOVIE_ADDED_TO_WATCHLIST": " added this movie to the watchlist.",
-    "BODY_MOVIE_YOU_NOT_SEE": " do not want to see this movie."
+    "BODY_MOVIE_YOU_ADDED_TO_WATCHLIST": " added this movie to your watchlist.",
+    "BODY_MOVIE_YOU_NOT_SEE": " do not want to see this movie.",
+    "BODY_RATE_MOVIE": " rated this movie:",
+    "BODY_YOU_RATE_MOVIE": " rated this movie:"
   }
 }
