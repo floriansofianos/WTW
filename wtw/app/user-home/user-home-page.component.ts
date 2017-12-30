@@ -17,6 +17,7 @@ export class UserHomePageComponent {
     currentUserId: number;
     lang: string;
     config: any;
+    notEnoughProfiles: boolean;
 
     constructor(private authService: AuthService, private router: Router, private timelineService: TimelineService, private userService: UserService, private movieDBService: MovieDBService) { }
 
@@ -33,6 +34,13 @@ export class UserHomePageComponent {
         }
         this.currentUserId = currentUser.id;
         this.lang = currentUser.lang;
+        this.userService.hasEnoughProfiles().subscribe(response => {
+            this.notEnoughProfiles = !(response.json().enoughProfiles);
+        },
+            error => {
+                this.router.navigate(['error']);
+            });
+
         this.movieDBService.getMovieDBConfiguration().subscribe(response => {
             this.config = response.json();
             this.userService.getAllFriends().subscribe(response => {

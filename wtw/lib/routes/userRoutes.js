@@ -1,9 +1,10 @@
 ﻿var express = require('express');
 var isAuthenticated = require('../middlewares/isAuthenticated');
 var userService = require('../helpers/userService')();
+var userProfileService = require('../helpers/userProfileService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
 var timelineEventService = require('../helpers/timelineEventService')();
-var userController = require('../controllers/userController')(userService);
+var userController = require('../controllers/userController')(userService, userProfileService);
 var avatarController = require('../controllers/avatarController')();
 var movieQuestionnaireController = require('../controllers/movieQuestionnaireController')(movieQuestionnaireService, timelineEventService);
 
@@ -31,6 +32,9 @@ var userRoutes = function () {
 
     userRouter.route('/profiles')
         .get(isAuthenticated, userController.getAllUserInformations);
+
+    userRouter.route('/hasEnoughProfiles')
+        .get(isAuthenticated, userController.hasEnoughProfiles);
 
     userRouter.route('/:userId')
         .get(isAuthenticated, userController.getUserProfile);

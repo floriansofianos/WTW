@@ -2,7 +2,7 @@
 var guid = require('guid');
 var _ = require('underscore');
 
-var userController = function (userService) {
+var userController = function (userService, userProfileService) {
     var isUsernameAlreadyUsed = function (req, res) {
         if (req.query.username) {
             userService.getUserByUsername(req.query.username, function (err, user) {
@@ -195,6 +195,18 @@ var userController = function (userService) {
         else return res.send(400);
     }
 
+    var hasEnoughProfiles = function (req, res) {
+        if (req.user.id) {
+            userProfileService.hasEnoughProfiles(req.user.id, function (err, enough) {
+                if (enough) {
+                    res.json(enough);
+                }
+                else return res.send(400);
+            });
+        }
+        else return res.send(400);
+    }
+
     return {
         isUsernameAlreadyUsed: isUsernameAlreadyUsed,
         isEmailAlreadyUsed: isEmailAlreadyUsed,
@@ -208,7 +220,8 @@ var userController = function (userService) {
         getUserProfile: getUserProfile,
         getUserDistance: getUserDistance,
         getAllUserInformations: getAllUserInformations,
-        getAllFriends: getAllFriends
+        getAllFriends: getAllFriends,
+        hasEnoughProfiles: hasEnoughProfiles
     }
 }
 

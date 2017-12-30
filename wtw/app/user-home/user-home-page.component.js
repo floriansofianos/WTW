@@ -37,6 +37,11 @@ var UserHomePageComponent = /** @class */ (function () {
         }
         this.currentUserId = currentUser.id;
         this.lang = currentUser.lang;
+        this.userService.hasEnoughProfiles().subscribe(function (response) {
+            _this.notEnoughProfiles = !(response.json().enoughProfiles);
+        }, function (error) {
+            _this.router.navigate(['error']);
+        });
         this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
             _this.config = response.json();
             _this.userService.getAllFriends().subscribe(function (response) {

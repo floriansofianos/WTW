@@ -1,4 +1,5 @@
 var models = require('../models');
+var _ = require('underscore');
 
 var userProfileService = function() {
 
@@ -7,6 +8,16 @@ var userProfileService = function() {
         models.UserProfile.findAll({ where: { userId: userId } }).then(data => {
             done(null, data);
         }).catch(function(err) {
+            done(err);
+        });
+    }
+
+    var hasEnoughProfiles = function (userId, done) {
+        if (!userId) return done(true);
+        models.UserProfile.findAll({ where: { userId: userId } }).then(data => {
+            if (_.filter(data, function (d) { return d.scoreRelevance > 75 }).length > 10) done(null, { enoughProfiles: true });
+            else done(null, { enoughProfiles: false });
+        }).catch(function (err) {
             done(err);
         });
     }
@@ -166,7 +177,8 @@ var userProfileService = function() {
 
     return {
         getAll: getAll,
-        createOrUpdate: createOrUpdate
+        createOrUpdate: createOrUpdate,
+        hasEnoughProfiles: hasEnoughProfiles
     }
 }
 

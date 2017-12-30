@@ -208,5 +208,9 @@
     "BODY_MOVIE_YOU_NOT_SEE": " ne voulez pas voir ce film.",
     "BODY_RATE_MOVIE": " a noté ce film :",
     "BODY_YOU_RATE_MOVIE": " avez noté ce film :"
+  },
+  "USER_HOME": {
+    "NOT_ENOUGH_PROFILES": "Nous n'avons pas assez d'information afin de vous donner des conseils pertinents.",
+    "GO_TO_QUESTIONNAIRES": "Merci de répondre à d'autres questionnaires."
   }
 }

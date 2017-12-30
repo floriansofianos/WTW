@@ -1,7 +1,8 @@
 var express = require('express');
 var passport = require('passport');
 var userService = require('../helpers/userService')();
-var userController = require('../controllers/userController')(userService);
+var userProfileService = require('../helpers/userProfileService')();
+var userController = require('../controllers/userController')(userService, userProfileService);
 var isAuthenticated = require('../middlewares/isAuthenticated')
 
 var authRoutes = function () {

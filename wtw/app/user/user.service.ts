@@ -28,6 +28,11 @@ export class UserService {
             .catch(this.handleErrors);
     }
 
+    hasEnoughProfiles(): Observable<any> {
+        return this.http.get('/api/user/hasEnoughProfiles/')
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.status);
     }

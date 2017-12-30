@@ -32,6 +32,10 @@ var UserService = /** @class */ (function () {
         return this.http.get('/api/user/friends/')
             .catch(this.handleErrors);
     };
+    UserService.prototype.hasEnoughProfiles = function () {
+        return this.http.get('/api/user/hasEnoughProfiles/')
+            .catch(this.handleErrors);
+    };
     UserService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
