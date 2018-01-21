@@ -53,13 +53,17 @@
     "passport-remember-me": "0.0.1",
     "pg": "^7.0.2",
     "pg-hstore": "^2.3.2",
+    "plex-api": "^5.2.0",
     "postmark": "^1.4.1",
+    "request": "^2.83.0",
     "rxjs": "^5.4.2",
     "sequelize": "^4.4.2",
     "serve-favicon": "^2.4.3",
     "typescript": "^2.4.2",
     "underscore": "^1.8.3",
     "winston": "^2.3.1",
+    "xml-parser": "^1.2.1",
+    "xml2js": "^0.4.19",
     "zone.js": "^0.7.8"
   },
   "devDependencies": {

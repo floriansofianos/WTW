@@ -6,12 +6,14 @@ var userProfileService = require('../helpers/userProfileService')();
 var userQuestionnaireService = require('../helpers/userQuestionnaireService')();
 var movieRecommandationService = require('../helpers/movieRecommandationservice')();
 var friendshipService = require('../helpers/friendshipService')();
+var plexService = require('../helpers/plexService')();
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
     wtwProcess(0, function () {
         // We do not care about what happens when this finishes since we are in an infinite loop
     });
+    plexService.updateAllPlexMovies();
     done();
 }
 

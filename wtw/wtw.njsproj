@@ -182,6 +182,7 @@
     <Content Include="lib\helpers\friendshipService.js" />
     <Content Include="lib\helpers\notificationService.js" />
     <Content Include="lib\helpers\timelineEventService.js" />
+    <Compile Include="lib\helpers\plexService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
