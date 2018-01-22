@@ -13,7 +13,11 @@ var wtwTasks = function (job, done) {
     wtwProcess(0, function () {
         // We do not care about what happens when this finishes since we are in an infinite loop
     });
-    plexService.updateAllPlexMovies();
+    plexService.getAllPlexServers(function (err, servers) {
+        _.each(servers, function (s) {
+            plexService.updateAllPlexMovies(s, function (err, result) { });
+        });
+    });
     done();
 }
 
