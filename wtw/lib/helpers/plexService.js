@@ -18,7 +18,7 @@ module.exports = function () {
                 if (!error) {
                     parse(body, function (err, result) {
                         var allVideos = result.MediaContainer.Video;
-                        handlePlexServerMovie(allVideos, 0, function (err, result) {
+                        handlePlexServerMovie(baseUrl, plexToken, plexServer, allVideos, 0, function (err, result) {
                             done(err, result);
                         });
                     });
@@ -28,9 +28,13 @@ module.exports = function () {
     }
 
     var createPlexServerMovie = function (plexServerId, movie, done) {
+        createPlexServerMovieFromMovieId(plexServerId, movie.id, done);
+    }
+
+    var createPlexServerMovieFromMovieId = function (plexServerId, movieId, done) {
         models.PlexServerMovie.create({
             plexServerId: plexServerId,
-            movieDBId: movie.id
+            movieDBId: movieId
         }).then(plexServerMovie => {
             done(null, plexServerMovie);
         }).catch(function (err) {
@@ -46,20 +50,39 @@ module.exports = function () {
         });
     }
 
-    var handlePlexServerMovie = function (plexServerMovies, i, done) {
+    var handlePlexServerMovie = function (baseUrl, plexToken, plexServer, plexServerMovies, i, done) {
         if (i < plexServerMovies.length) {
             var v = plexServerMovies[i];
             var metadataUrl = v.$.key;
             request(baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, function (error, response, body) {
                 parse(body, function (err, result) {
-                    var imdbId = result.MediaContainer.Video[0].guid.replace('com.plexapp.agents.imdb://', '').split('?')[0];
-                    mdb.find({ id: imdbId }, (err, data) => {
-                        if (err) return done(err, null);
-                        else createPlexServerMovie(plexServer.id, data, function (err, data) {
+                    if (result.MediaContainer.Video[0].$.guid.indexOf('themoviedb://') !== -1) {
+                        var movieDBId = result.MediaContainer.Video[0].$.guid.replace('com.plexapp.agents.themoviedb://', '').split('?')[0];
+                        createPlexServerMovieFromMovieId(plexServer.id, movieDBId, function (err, data) {
                             // Handle next movie
-                            handlePlexServerMovie(plexServerMovies, i + 1, done);
+                            handlePlexServerMovie(baseUrl, plexToken, plexServer, plexServerMovies, i + 1, done);
                         });
-                    });
+                    }
+                    else {
+                        var imdbId = result.MediaContainer.Video[0].$.guid.replace('com.plexapp.agents.imdb://', '').split('?')[0];
+                        console.log(imdbId);
+                        mdb.find({ id: imdbId, external_source: 'imdb_id' }, (err, data) => {
+
+                            if (err) return done(err, null);
+                            else {
+                                if (data.movie_results[0]) {
+                                    createPlexServerMovie(plexServer.id, data.movie_results[0], function (err, data) {
+                                        // Handle next movie
+                                        handlePlexServerMovie(baseUrl, plexToken, plexServer, plexServerMovies, i + 1, done);
+                                    });
+                                }
+                                else {
+                                    // Handle next movie
+                                    handlePlexServerMovie(baseUrl, plexToken, plexServer, plexServerMovies, i + 1, done);
+                                }
+                            }
+                        });
+                    }
                 });
             });
         }
@@ -76,6 +99,7 @@ module.exports = function () {
 
     
     return {
-        updateAllPlexMovies: updateAllPlexMovies
+        updateAllPlexMovies: updateAllPlexMovies,
+        getAllPlexServers: getAllPlexServers
     }
 }
