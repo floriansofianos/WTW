@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
 
   PlexServer.associate = function (models) {
       PlexServer.hasMany(models.PlexServerMovie, { foreignKey: 'plexServerId' });
+      PlexServer.hasMany(models.User, { foreignKey: 'plexServerId' });
   }
   return PlexServer;
 };

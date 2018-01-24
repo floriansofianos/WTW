@@ -76,6 +76,7 @@
   },
   "MOVIE_QUESTIONNAIRE": {
     "CAST": "Casting",
+    "AVAILABLE_ON_PLEX": "Disponible sur Plex",
     "DIRECTOR": "Réalisateur",
     "WRITER": "Scénariste",
     "QUESTION_SEEN": "Avez-vous vu ce film?",

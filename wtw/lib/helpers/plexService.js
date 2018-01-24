@@ -2,8 +2,6 @@
 var _ = require('underscore');
 var request = require('request');
 var parse = require('xml2js').parseString;
-//var baseUrl = 'https://138-201-206-76.cf7929582f244e7a910a51b91c985abf.plex.direct:32400';
-//var plexToken = 'Qw6CsHBxFfLyyP7cXBtr';
 var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
 var models = require('../models');
 
@@ -65,7 +63,6 @@ module.exports = function () {
                     }
                     else {
                         var imdbId = result.MediaContainer.Video[0].$.guid.replace('com.plexapp.agents.imdb://', '').split('?')[0];
-                        console.log(imdbId);
                         mdb.find({ id: imdbId, external_source: 'imdb_id' }, (err, data) => {
 
                             if (err) return done(err, null);
@@ -97,9 +94,18 @@ module.exports = function () {
         });
     }
 
+    var isAvailableOnPlex = function (movieDBId, plexServerId, done) {
+        models.PlexServerMovie.findOne({ where: { plexServerId: plexServerId, movieDBId: movieDBId } }).then(movie => {
+            done(null, movie != undefined);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
     
     return {
         updateAllPlexMovies: updateAllPlexMovies,
-        getAllPlexServers: getAllPlexServers
+        getAllPlexServers: getAllPlexServers,
+        isAvailableOnPlex: isAvailableOnPlex
     }
 }

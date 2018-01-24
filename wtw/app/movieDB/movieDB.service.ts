@@ -33,6 +33,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    availableOnPlex(id: number) {
+        return this.http.get('/api/movie/plex', { params: { id: id } })
+            .catch(this.handleErrors);
+    }
+
     getAllGenres() {
         return this.http.get('/api/movieDBGenres')
             .catch(this.handleErrors);

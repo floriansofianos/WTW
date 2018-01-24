@@ -1,7 +1,8 @@
 ﻿var express = require('express');
 var movieDBService = require('../helpers/movieDBService')();
 var movieCacheService = require('../helpers/movieCacheService')();
-var movieController = require('../controllers/movieController')(movieDBService, movieCacheService);
+var plexService = require('../helpers/plexService')();
+var movieController = require('../controllers/movieController')(movieDBService, movieCacheService, plexService);
 
 
 var movieRoutes = function () {
@@ -9,6 +10,9 @@ var movieRoutes = function () {
 
     movieRouter.route('/')
         .get(movieController.get);
+
+    movieRouter.route('/plex')
+        .get(movieController.checkPlex);
 
     return movieRouter;
 }

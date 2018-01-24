@@ -74,19 +74,20 @@
         "QUESTIONNAIRE": "Questionnaire",
         "WATCHLIST": "Watchlist"
     },
-    "MOVIE_QUESTIONNAIRE": {
-        "CAST": "Cast",
-        "DIRECTOR": "Director",
-        "WRITER": "Writer",
-        "QUESTION_SEEN": "Have you seen that movie?",
-        "WOULD_LIKE_SEE": "Would you like to see this movie?",
-        "HOW_RATE": "How would you rate this movie?",
-        "POOR": "Poor",
-        "AVERAGE": "Average",
-        "GOOD": "Good",
-        "VERYGOOD": "Very Good",
-        "MASTERPIECE": "Masterpiece"
-    },
+  "MOVIE_QUESTIONNAIRE": {
+    "CAST": "Cast",
+    "AVAILABLE_ON_PLEX": "Available on Plex",
+    "DIRECTOR": "Director",
+    "WRITER": "Writer",
+    "QUESTION_SEEN": "Have you seen that movie?",
+    "WOULD_LIKE_SEE": "Would you like to see this movie?",
+    "HOW_RATE": "How would you rate this movie?",
+    "POOR": "Poor",
+    "AVERAGE": "Average",
+    "GOOD": "Good",
+    "VERYGOOD": "Very Good",
+    "MASTERPIECE": "Masterpiece"
+  },
     "MOVIES": {
         "HOME": {
             "RATE_THIS_MOVIE": "Rate or add to wishlist.",

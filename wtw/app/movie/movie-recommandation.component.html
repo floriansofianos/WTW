@@ -19,6 +19,7 @@
                         <div class="movie-summary">{{ movie?.overview }}</div>
                     </div>
                     <div class="col-md-5 grade-column">
+                        <div *ngIf="availableOnPlex" class="plex-available-container">{{ 'MOVIE_QUESTIONNAIRE.AVAILABLE_ON_PLEX' | translate }}</div>
                         <div class="reco-grading-container" *ngIf="gradeLoaded" [ngClass]="{ 'grade-unknown': !gradeRelevant, 'good-grade': gradeRelevant && grade > 60, 'bad-grade': gradeRelevant && grade < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
                             {{ gradeRelevant ? grade + '%' : '?' }}
                         </div>

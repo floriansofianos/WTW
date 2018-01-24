@@ -17,7 +17,8 @@ module.exports = function(sequelize, DataTypes) {
     emailValidated: DataTypes.BOOLEAN,
     emailValidationGuid: DataTypes.STRING,
     forgotPasswordGuid: DataTypes.STRING,
-    country: DataTypes.STRING
+    country: DataTypes.STRING,
+    plexServerId: DataTypes.INTEGER
   }, {});
 
   User.associate = function (models) {
@@ -30,6 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.PendingFriendship, { as: 'froms', foreignKey: 'fromUserId' });
       User.hasMany(models.PendingFriendship, { as: 'tos', foreignKey: 'toUserId' });
       User.hasMany(models.Notification, { foreignKey: 'userId' });
+      User.belongsTo(models.PlexServer, { foreignKey: 'plexServerId' });
   }
 
   User.prototype.generateHash = function (password) {

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieDBService = (function () {
+var MovieDBService = /** @class */ (function () {
     function MovieDBService(http) {
         this.http = http;
     }
@@ -36,6 +36,10 @@ var MovieDBService = (function () {
         return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
             .catch(this.handleErrors);
     };
+    MovieDBService.prototype.availableOnPlex = function (id) {
+        return this.http.get('/api/movie/plex', { params: { id: id } })
+            .catch(this.handleErrors);
+    };
     MovieDBService.prototype.getAllGenres = function () {
         return this.http.get('/api/movieDBGenres')
             .catch(this.handleErrors);
@@ -50,4 +54,3 @@ var MovieDBService = (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
-//# sourceMappingURL=movieDB.service.js.map

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var timeline_service_1 = require("./timeline.service");
-var TimelineComponent = (function () {
+var TimelineComponent = /** @class */ (function () {
     function TimelineComponent(router, timelineService) {
         this.router = router;
         this.timelineService = timelineService;
@@ -72,4 +72,3 @@ var TimelineComponent = (function () {
     return TimelineComponent;
 }());
 exports.TimelineComponent = TimelineComponent;
-//# sourceMappingURL=timeline.component.js.map
