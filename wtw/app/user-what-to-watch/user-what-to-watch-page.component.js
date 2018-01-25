@@ -19,7 +19,7 @@ var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = /** @class */ (function () {
+var UserWhatToWatchPageComponent = (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
@@ -93,7 +93,7 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
         var _this = this;
         if (this.formWTW.minRelease <= this.formWTW.maxRelease && this.formWTW.maxRelease <= new Date().getFullYear()) {
             this.isLoading = true;
-            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked, this.formWTW.countrySelectValue, this.formWTW.withFriend).subscribe(function (response) {
+            this.movieDBService.wtw(this.lang, this.formWTW.genreSelectValue, this.formWTW.isWatchlistChecked, this.formWTW.isRuntimeChecked, this.formWTW.runtimeLimit, this.formWTW.minRelease, this.formWTW.maxRelease, this.formWTW.isNowPlayingChecked, this.formWTW.countrySelectValue, this.formWTW.withFriend, this.formWTW.usePlex).subscribe(function (response) {
                 // load existing data regarding this movie for the current user
                 var id = response.json().id;
                 if (id)
@@ -120,3 +120,4 @@ var UserWhatToWatchPageComponent = /** @class */ (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
+//# sourceMappingURL=user-what-to-watch-page.component.js.map

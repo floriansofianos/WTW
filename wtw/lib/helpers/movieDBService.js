@@ -74,7 +74,7 @@ module.exports = function () {
         else return null;
     }
 
-    var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, otherUserId, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
+    var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, otherUserId, usePlexServer, plexServerId, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
         movieQuestionnaireService.getAll(otherUserId, function (err, res) {
             var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
             var otherUserLovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
@@ -97,6 +97,24 @@ module.exports = function () {
                                 else {
                                     var highestCertainty = _.sortBy(filteredData, function (d) { return d.wtwScore.certaintyLevel; })[0].wtwScore.certaintyLevel;
                                     return done(null, _.max(_.filter(filteredData, function (d) { return d.wtwScore.certaintyLevel == highestCertainty }), function (d) { return d.wtwScore.score; }))
+                                }
+
+                            });
+                        }
+                    });
+                }
+                else if (usePlexServer && plexServerId) {
+                    // Only consider movies in plex server
+                    getAllPlexMovies(plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
+                        if (_.size(data) < 1) return done(null, false);
+                        else {
+                            // we need to calculate the score of each movie and then choose the best choice
+                            getScores(id, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                                var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
+                                if (_.size(filteredData) < 1) return done(null, _.sample(data));
+                                else {
+                                    var topScores = _.first(_.sortBy(filteredData, function (d) { return d.wtwScore.score; }).reverse(), Math.min(100, filteredData.length));
+                                    return done(null, _.sample(topScores))
                                 }
 
                             });
@@ -153,6 +171,17 @@ module.exports = function () {
                     done(null, data);
                 });
             }
+        });
+    }
+
+    var getAllPlexMovies = function (plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, movieCacheService, done) {
+        models.PlexServerMovie.findAll({ where: { plexServerId: plexServerId } }).then(results => {
+            getAllMovies(_.map(results, 'movieDBId'), lang, movieCacheService, function (err, data) {
+                data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
+                done(null, data);
+            });
+        }).catch(function (err) {
+            done(err);
         });
     }
 

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("./auth.service");
-var CanActivateAuthGuard = /** @class */ (function () {
+var CanActivateAuthGuard = (function () {
     function CanActivateAuthGuard(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -32,3 +32,4 @@ var CanActivateAuthGuard = /** @class */ (function () {
     return CanActivateAuthGuard;
 }());
 exports.CanActivateAuthGuard = CanActivateAuthGuard;
+//# sourceMappingURL=can-activate.auth.js.map
