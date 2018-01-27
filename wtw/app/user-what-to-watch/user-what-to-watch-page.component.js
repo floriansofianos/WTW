@@ -19,7 +19,7 @@ var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
@@ -40,6 +40,7 @@ var UserWhatToWatchPageComponent = (function () {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.showPlex = currentUser.plexServerId != undefined;
             this.formWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
             this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
@@ -120,4 +121,3 @@ var UserWhatToWatchPageComponent = (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

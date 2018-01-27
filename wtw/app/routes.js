@@ -35,4 +35,3 @@ exports.appRoutes = [
     { path: 'movie/:id', component: movie_component_1.MoviePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
-//# sourceMappingURL=routes.js.map

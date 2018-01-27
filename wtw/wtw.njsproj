@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\also-like\also-like.component.html" />
+    <Content Include="app\footer\footer.component.html" />
     <Content Include="app\forgot-password\forgot-password-form\forgot-password-form.component.html" />
     <Content Include="app\less\angular-material.css" />
     <Content Include="app\less\angular-material.min.css" />
@@ -94,6 +95,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\countries\countries.service.ts" />
     <TypeScriptCompile Include="app\error\error-page.component.ts" />
+    <TypeScriptCompile Include="app\footer\footer.component.ts" />
     <TypeScriptCompile Include="app\forgot-password\forgot-password-form\forgot-password-form.component.ts" />
     <TypeScriptCompile Include="app\forgot-password\forgot-password-page.component.ts" />
     <TypeScriptCompile Include="app\home\home-page.component.ts">
@@ -284,6 +286,7 @@
     <Folder Include="app\countries\" />
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
+    <Folder Include="app\footer\" />
     <Folder Include="app\timeline-event-friend\" />
     <Folder Include="app\timeline-event-follow\" />
     <Folder Include="app\timeline-event-rate-movie\" />

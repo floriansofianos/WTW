@@ -31,6 +31,7 @@ export class UserWhatToWatchPageComponent {
     username: string;
     noResults: boolean;
     notValidReleaseDates: boolean;
+    showPlex: boolean;
     maxReleaseYear: number;
     languages: Array<any>;
     friends: Array<any>;
@@ -46,6 +47,7 @@ export class UserWhatToWatchPageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.showPlex = currentUser.plexServerId != undefined;
             this.formWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
             this.formWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(response => {

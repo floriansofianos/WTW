@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_questionnaire_service_1 = require("./movie-questionnaire.service");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
-var MoviePageComponent = (function () {
+var MoviePageComponent = /** @class */ (function () {
     function MoviePageComponent(authService, router, movieDBService, route, movieQuestionnaireService, location) {
         this.authService = authService;
         this.router = router;
@@ -45,11 +45,13 @@ var MoviePageComponent = (function () {
             _this.sub = _this.route.params.subscribe(function (params) {
                 _this.id = +params['id']; // (+) converts string 'id' to a number
                 // Plex integartion
-                _this.movieDBService.availableOnPlex(_this.id).subscribe(function (response) {
-                    _this.availableOnPlex = response.json().available;
-                }, function (error) {
-                    _this.router.navigate(['/error']);
-                });
+                if (currentUser.plexServerId) {
+                    _this.movieDBService.availableOnPlex(_this.id).subscribe(function (response) {
+                        _this.availableOnPlex = response.json().available;
+                    }, function (error) {
+                        _this.router.navigate(['/error']);
+                    });
+                }
                 // load existing data regarding this movie for the current user
                 _this.movieQuestionnaireService.get(_this.id).subscribe(function (data) {
                     _this.movieQuestionnaireInit = data.json();
@@ -100,4 +102,3 @@ var MoviePageComponent = (function () {
     return MoviePageComponent;
 }());
 exports.MoviePageComponent = MoviePageComponent;
-//# sourceMappingURL=movie.component.js.map

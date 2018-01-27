@@ -34,7 +34,8 @@ var movieRecommandationService = function() {
 
     var getScoreForUsers = function (userId, otherUserId, movieDBId, userProfileService, movieDBService, done) {
         if (otherUserId) {
-            getScore(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
+            getSco
+            re(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
                 var userScore = res;
                 if (err) return done(err);
                 getScore(otherUserId, movieDBId, userProfileService, movieDBService, function (err, res) {

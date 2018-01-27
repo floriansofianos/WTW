@@ -59,6 +59,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineEventFollowComponent } from './timeline-event-follow/timeline-event-follow.component';
 import { TimelineEventFriendComponent } from './timeline-event-friend/timeline-event-friend.component';
 import { TimelineEventRateMovieComponent } from './timeline-event-rate-movie/timeline-event-rate-movie.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 import { AuthService } from './auth/auth.service';
@@ -121,6 +122,7 @@ export function createTranslateLoader(http: Http) {
         UserWelcomePageComponent,
         QuestionnaireComponent,
         WtwButtonComponent,
+        FooterComponent,
         MovieQuestionnaireComponent,
         MovieRecommandationComponent,
         LogoComponent,

@@ -4,24 +4,36 @@ var request = require('request');
 var parse = require('xml2js').parseString;
 var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
 var models = require('../models');
+var moment = require('moment');
 
 module.exports = function () {
     var updateAllPlexMovies = function (plexServer, done) {
-        // Start by deleting all the server movies
-        deleteAllPlexServerMovies(plexServer.id, function (err, result) {
-            var baseUrl = plexServer.url;
-            var plexToken = plexServer.token;
-            // Start by getting all the plex movies
-            request(baseUrl + '/library/sections/4/all?type=1&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
-                if (!error) {
-                    parse(body, function (err, result) {
-                        var allVideos = result.MediaContainer.Video;
-                        handlePlexServerMovie(baseUrl, plexToken, plexServer, allVideos, 0, function (err, result) {
-                            done(err, result);
-                        });
+        // Check if we need the update
+        models.PlexServerMovie.findOne({ where: { plexServerId: plexServer.id } }).then(plexServerMovie => {
+            if (!plexServerMovie || moment(plexServerMovie.createdAt).add(1, 'days') < moment()) {
+                // Start by deleting all the server movies
+                deleteAllPlexServerMovies(plexServer.id, function (err, result) {
+                    var baseUrl = plexServer.url;
+                    var plexToken = plexServer.token;
+                    // Start by getting all the plex movies
+                    request(baseUrl + '/library/sections/4/all?type=1&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
+                        if (!error) {
+                            parse(body, function (err, result) {
+                                var allVideos = result.MediaContainer.Video;
+                                handlePlexServerMovie(baseUrl, plexToken, plexServer, allVideos, 0, function (err, result) {
+                                    done(err, result);
+                                });
+                            });
+                        }
                     });
-                }
-            });
+                });
+            }
+            else {
+                // Nothing to do
+                done(null, true);
+            }
+        }).catch(function (err) {
+            done(err);
         });
     }
 

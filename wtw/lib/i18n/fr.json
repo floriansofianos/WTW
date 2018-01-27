@@ -128,7 +128,8 @@
     "NOT_VALID_RELEASE_DATES": "Les dates de sortie ne sont pas correctes: le minimum doit être supérieur au maximum.",
     "ONLY_NOW_PLAYING": "Uniquement utiliser les films à l'affiche au cinéma",
     "FRIEND": "Ami",
-    "WATCH_WITH_FRIEND": "Regarder un film avec un ami"
+    "WATCH_WITH_FRIEND": "Regarder un film avec un ami",
+    "ONLY_PLEX_MOVIES": "Uniquement utiliser les films disponibles sur Plex"
   },
   "FORM": {
     "OK": "OK",

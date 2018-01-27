@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
     template: `
 <top-menu [showButtons]="false" [showLogin]="false"></top-menu>
 <questionnaire [isFirstQuestionnaire]="true"></questionnaire>
+<footer></footer>
 `
 })
 

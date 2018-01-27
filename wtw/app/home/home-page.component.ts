@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 <div *ngIf="name">
 {{ 'HOME.WELCOME' | translate }} {{ name }}
 </div>
+<footer></footer>
 `
 })
 

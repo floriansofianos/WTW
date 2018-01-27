@@ -52,7 +52,7 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.usePlex">{{ 'WTW.ONLY_PLEX_MOVIES' | translate }}</mat-checkbox>
                     </div>
-                    <div class="wtw-form-field-container">
+                    <div class="wtw-form-field-container" *ngIf="showPlex">
                         <mat-checkbox [(ngModel)]="formWTW.watchWithFriend">{{ 'WTW.WATCH_WITH_FRIEND' | translate }}</mat-checkbox>
                     </div>
                     <div class="wtw-form-field-container" *ngIf="formWTW.watchWithFriend">
@@ -81,3 +81,4 @@
         </div>
     </div>
 </div>
+<footer></footer>

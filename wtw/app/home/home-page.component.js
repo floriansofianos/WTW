@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var HomePageComponent = (function () {
+var HomePageComponent = /** @class */ (function () {
     function HomePageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -27,11 +27,10 @@ var HomePageComponent = (function () {
     };
     HomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"true\" [username]=\"username\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"true\" [username]=\"username\"></top-menu>\n<h2>{{ 'HOME.TITLE' | translate }}</h2>\n<div *ngIf=\"name\">\n{{ 'HOME.WELCOME' | translate }} {{ name }}\n</div>\n<footer></footer>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
     ], HomePageComponent);
     return HomePageComponent;
 }());
 exports.HomePageComponent = HomePageComponent;
-//# sourceMappingURL=home-page.component.js.map

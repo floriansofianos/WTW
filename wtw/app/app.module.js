@@ -65,6 +65,7 @@ var timeline_component_1 = require("./timeline/timeline.component");
 var timeline_event_follow_component_1 = require("./timeline-event-follow/timeline-event-follow.component");
 var timeline_event_friend_component_1 = require("./timeline-event-friend/timeline-event-friend.component");
 var timeline_event_rate_movie_component_1 = require("./timeline-event-rate-movie/timeline-event-rate-movie.component");
+var footer_component_1 = require("./footer/footer.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
@@ -83,7 +84,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -128,6 +129,7 @@ var AppModule = (function () {
                 user_welcome_page_component_1.UserWelcomePageComponent,
                 questionnaire_component_1.QuestionnaireComponent,
                 wtw_button_component_1.WtwButtonComponent,
+                footer_component_1.FooterComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
                 movie_recommandation_component_1.MovieRecommandationComponent,
                 logo_component_1.LogoComponent,
@@ -179,4 +181,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

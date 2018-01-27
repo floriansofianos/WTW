@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var UserWelcomePageComponent = (function () {
+var UserWelcomePageComponent = /** @class */ (function () {
     function UserWelcomePageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -26,11 +26,10 @@ var UserWelcomePageComponent = (function () {
     };
     UserWelcomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n<footer></footer>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
     ], UserWelcomePageComponent);
     return UserWelcomePageComponent;
 }());
 exports.UserWelcomePageComponent = UserWelcomePageComponent;
-//# sourceMappingURL=user-welcome-page.component.js.map

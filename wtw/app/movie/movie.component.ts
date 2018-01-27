@@ -48,12 +48,14 @@ export class MoviePageComponent {
                 this.id = +params['id']; // (+) converts string 'id' to a number
 
                 // Plex integartion
-                this.movieDBService.availableOnPlex(this.id).subscribe(response => {
-                    this.availableOnPlex = response.json().available;
-                },
-                error => {
-                    this.router.navigate(['/error']);
-                });
+                if (currentUser.plexServerId) {
+                    this.movieDBService.availableOnPlex(this.id).subscribe(response => {
+                        this.availableOnPlex = response.json().available;
+                    },
+                        error => {
+                            this.router.navigate(['/error']);
+                        });
+                }
 
                 // load existing data regarding this movie for the current user
                 this.movieQuestionnaireService.get(this.id).subscribe(

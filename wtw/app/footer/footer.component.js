@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LogoComponent = /** @class */ (function () {
-    function LogoComponent() {
+var FooterComponent = /** @class */ (function () {
+    function FooterComponent() {
     }
-    LogoComponent = __decorate([
+    FooterComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'logo',
-            templateUrl: 'logo.component.html'
+            selector: 'footer',
+            templateUrl: 'footer.component.html'
         })
-    ], LogoComponent);
-    return LogoComponent;
+    ], FooterComponent);
+    return FooterComponent;
 }());
-exports.LogoComponent = LogoComponent;
+exports.FooterComponent = FooterComponent;

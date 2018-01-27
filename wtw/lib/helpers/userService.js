@@ -167,7 +167,8 @@ var userService = function() {
             lang: user.lang,
             yearOfBirth: user.yearOfBirth,
             firstQuestionnaireCompleted: user.firstQuestionnaireCompleted,
-            country: user.country
+            country: user.country,
+            plexServerId: user.plexServerId
         }
     }
 
