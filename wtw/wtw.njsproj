@@ -203,6 +203,7 @@
     <Compile Include="lib\models\peoplecache.js" />
     <Compile Include="lib\models\plexserver.js" />
     <Compile Include="lib\models\plexservermovie.js" />
+    <Compile Include="lib\models\plexservertvshow.js" />
     <Compile Include="lib\models\timelineevent.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />

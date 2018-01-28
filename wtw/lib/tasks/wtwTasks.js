@@ -16,6 +16,7 @@ var wtwTasks = function (job, done) {
     plexService.getAllPlexServers(function (err, servers) {
         _.each(servers, function (s) {
             plexService.updateAllPlexMovies(s, function (err, result) { });
+            plexService.updateAllPlexTVShows(s, function (err, result) { });
         });
     });
     done();
