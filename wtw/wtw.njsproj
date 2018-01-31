@@ -8,7 +8,8 @@
     <EnableTypeScript>true</EnableTypeScript>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
-    <Environment>DATABASE_URL=postgres://gybsxruj:RVHo8utVx3hotT5bEw0q_B04fLg0Y-UL@babar.elephantsql.com:5432/gybsxruj</Environment>
+    <Environment>
+    </Environment>
     <ToolsVersionPromptShown>2.4</ToolsVersionPromptShown>
     <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
@@ -185,6 +186,7 @@
     <Content Include="lib\helpers\notificationService.js" />
     <Content Include="lib\helpers\timelineEventService.js" />
     <Content Include="lib\helpers\plexService.js" />
+    <Content Include="lib\helpers\tvCacheService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -205,6 +207,8 @@
     <Compile Include="lib\models\plexservermovie.js" />
     <Compile Include="lib\models\plexservertvshow.js" />
     <Compile Include="lib\models\timelineevent.js" />
+    <Compile Include="lib\models\tvshowcreditscache.js" />
+    <Compile Include="lib\models\tvshowinfocache.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />

@@ -1,14 +1,11 @@
 {
-  "development": {
-    "url": "postgres://gybsxruj:RVHo8utVx3hotT5bEw0q_B04fLg0Y-UL@babar.elephantsql.com:5432/gybsxruj",
-	"dialect": "postgres"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+   "development": {
+    "username": "postgres",
+    "password": "paris75",
+    "database": "WTWDev",
+    "host": "91.121.112.89",
+    "dialect": "postgres"
+
   },
   "production": {
     "username": "root",

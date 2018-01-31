@@ -19,6 +19,11 @@ var wtwTasks = function (job, done) {
             plexService.updateAllPlexTVShows(s, function (err, result) { });
         });
     });
+    movieDBService.retrieveAndStoreTVShows(function (err, data) {
+        if (err) {
+            var testts = err;
+        }
+    });
     done();
 }
 

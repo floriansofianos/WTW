@@ -15,7 +15,7 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var CastMemberComponent = /** @class */ (function () {
+var CastMemberComponent = (function () {
     function CastMemberComponent(modal, movieQuestionnaireService, router, translate) {
         this.modal = modal;
         this.movieQuestionnaireService = movieQuestionnaireService;
@@ -129,3 +129,4 @@ var CastMemberComponent = /** @class */ (function () {
     return CastMemberComponent;
 }());
 exports.CastMemberComponent = CastMemberComponent;
+//# sourceMappingURL=cast-member.component.js.map

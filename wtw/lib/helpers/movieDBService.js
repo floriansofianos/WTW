@@ -57,8 +57,38 @@ module.exports = function () {
         });
     };
 
+    var getPopularTVShows = function (minRelease, maxRelease, language, certification, done) {
+        var query = JSON.parse(JSON.stringify(firstTenQueryTV));
+        if (minRelease || maxRelease) {
+            if (maxRelease) {
+                query['first_air_date.lte'] = maxRelease + '-12-31';
+            }
+            if (minRelease) {
+                query['first_air_date.gte'] = minRelease + '-01-01';
+            }
+        }
+        if (certification) {
+            query['certification_country'] = 'US';
+            query['certification.lte'] = certification;
+        }
+        if (language) {
+            query['with_original_language'] = language;
+        }
+        movieDBRequestHelper.makeRequest('discoverTv', library.randomInt(1, 25), query, (err, data) => {
+            if (err) return done(err, null);
+            else return done(null, data);
+        });
+    };
+
     var getSimilarMovies = function (movieId, done) {
         mdb.movieSimilar({ id: movieId }, (err, data) => {
+            if (err) return done(err, null);
+            else return done(null, data);
+        });
+    };
+
+    var getSimilarTVShows = function (movieId, done) {
+        mdb.tvSimilar({ id: movieId }, (err, data) => {
             if (err) return done(err, null);
             else return done(null, data);
         });
@@ -185,12 +215,34 @@ module.exports = function () {
         });
     }
 
+    var getAllPlexTVShows = function (plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, tvCacheService, done) {
+        models.PlexServerTVShow.findAll({ where: { plexServerId: plexServerId } }).then(results => {
+            getAllTVShows(_.map(results, 'movieDBId'), lang, tvCacheService, function (err, data) {
+                data = filterTVShowsForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
+                done(null, data);
+            });
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var getScores = function (userId, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, i, done) {
         if (i < data.length) {
             var d = data[i];
             movieRecommandationService.getScoreForUsers(userId, otherUserId, d.id, userProfileService, movieDBService, function (err, res) {
                 d.wtwScore = res;
                 getScores(userId, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, i + 1, done);
+            });
+        }
+        else done(null, data);
+    }
+
+    var getTVScores = function (userId, otherUserId, data, tvRecommandationService, userProfileService, movieDBService, i, done) {
+        if (i < data.length) {
+            var d = data[i];
+            tvRecommandationService.getScoreForUsers(userId, otherUserId, d.id, userProfileService, movieDBService, function (err, res) {
+                d.wtwScore = res;
+                getScores(userId, otherUserId, data, tvRecommandationService, userProfileService, movieDBService, i + 1, done);
             });
         }
         else done(null, data);
@@ -203,6 +255,14 @@ module.exports = function () {
         if (language) data = _.filter(data, function (m) { return m.original_language == language });
         // filter out videos, movies that are not out yet, movies that are too short
         data = _.filter(data, function (m) { return !m.video && m.runtime > 60 && new Date(m.release_date) <= new Date(); })
+        return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d.id) });
+    }
+
+    var filterTVShowsForWTW = function (data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language) {
+        if (minRelease && maxRelease) data = _.filter(data, function (d) { return (new Date(d.first_air_date).getFullYear() >= minRelease) && (new Date(d.first_air_date).getFullYear() <= maxRelease) });
+        if (genreId) data = _.filter(data, function (m) { return _.find(m.genres, function (g) { return g.id == genreId }) });
+        if (useRuntimeLimit) data = _.filter(data, function (m) { return Math.min(m.episode_run_time) <= runtimeLimit });
+        if (language) data = _.filter(data, function (m) { return m.original_language == language });
         return _.filter(data, function (d) { return !_.contains(alreadyAnsweredMovieIds, d.id) });
     }
 
@@ -535,12 +595,47 @@ module.exports = function () {
         });
     }
 
+    var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
+        if (movieIds.constructor !== Array) movieIds = [movieIds];
+        tvCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+            data = _.map(data, 'data');
+            // Get rid of duplicates
+            data = _.map(_.groupBy(data, 'id'), function (g) {
+                return g[0];
+            });
+            var missingMovieIds = _.filter(movieIds, function (id) { return !_.find(data, function (d) { return d.id == id }); });
+            if (missingMovieIds && missingMovieIds.length > 0) {
+                getTVShowsFromMovieDB(missingMovieIds, lang, 0, [], function (err, res) {
+                    if (err) return done(err, null);
+                    else {
+                        data = data.concat(res);
+                        done(null, data);
+                    }
+                });
+            }
+            else done(null, data);
+        });
+    }
+
     var getMoviesFromMovieDB = function (movieIds, lang, i, data, done) {
         if (i < movieIds.length) {
             getMovieFromMovieDB(movieIds[i], lang, null, (err, movie) => {
                 if (err) return done(err, null);
                 else {
                     data.push(movie);
+                    getMoviesFromMovieDB(movieIds, lang, i + 1, data, done);
+                }
+            });
+        }
+        else done(null, data);
+    }
+
+    var getTVShowsFromMovieDB = function (movieIds, lang, i, data, done) {
+        if (i < movieIds.length) {
+            getTVShowFromMovieDB(movieIds[i], lang, null, (err, tvShow) => {
+                if (err) return done(err, null);
+                else {
+                    data.push(tvShow);
                     getMoviesFromMovieDB(movieIds, lang, i + 1, data, done);
                 }
             });
@@ -744,6 +839,27 @@ module.exports = function () {
         });
     }
 
+    /// Gets a tv show from movieDB and sets the cache
+    var getTVShowFromMovieDB = function (id, lang, tvCache, done) {
+        mdb.tvInfo({ id: id, language: lang }, (err, data) => {
+            if (err) return done(err, null);
+            var tvShow = data;
+            if (!tvCache) {
+                setTVShowCache(id, lang, tvShow, (err, data) => {
+                    if (err) return done(err, null);
+                    else return done(null, data);
+                });
+            }
+            else {
+                tvCache.data = tvShow;
+                tvCache.save().then(function (m, err) {
+                    if (err) done(err, null);
+                    else return done(null, tvShow);
+                });
+            }
+        });
+    }
+
     var getMovieFromCache = function (id, lang, done) {
         models.MovieInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(movie => {
             done(null, movie);
@@ -760,6 +876,28 @@ module.exports = function () {
             data: data
         }).then(movieCache => {
             done(null, movieCache);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
+
+    var getTVShowFromCache = function (id, lang, done) {
+        models.TVShowInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvShow => {
+            done(null, tvShow);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
+
+    var setTVShowCache = function (id, lang, data, done) {
+        models.TVShowInfoCache.create({
+            movieDBId: id,
+            lang: lang,
+            data: data
+        }).then(tvShowCache => {
+            done(null, tvShowCache);
         })
             .catch(function (err) {
                 done(err);
@@ -926,6 +1064,14 @@ module.exports = function () {
         }
     }
 
+    var firstTenQueryTV = {
+        'sort_by': 'popularity.desc',
+        'first_air_date': {
+            'lte': new Date().getFullYear() + '-' + new Date().getMonth() + '-01',
+            'gte': '1980-01-01'
+        }
+    }
+
     var questionnaireQuery = {
         'include_adult': false,
         'include_video': false,
@@ -1041,6 +1187,145 @@ module.exports = function () {
         });
     }
 
+    var retrieveAndStoreTVShows = function (done) {
+        // Start by getting the total number of pages
+        var query = JSON.parse(JSON.stringify({
+            'sort_by': 'popularity.desc',
+            'first_air_date': {
+                'lte': new Date().getFullYear() + '-' + new Date().getMonth() + '-01',
+                'gte': '1960-01-01'
+            }
+        }));
+        movieDBRequestHelper.makeRequest('discoverTv', 1, query, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                var totalPages = data.total_pages;
+                retrieveAndStoreTVShowsAtPage(1, totalPages, done);
+            }
+        });
+    }
+
+    var retrieveAndStoreTVShowsAtPage = function (page, totalPages, done) {
+        if (page <= totalPages) {
+            var query = JSON.parse(JSON.stringify({
+                'sort_by': 'popularity.desc',
+                'first_air_date': {
+                    'lte': new Date().getFullYear() + '-' + new Date().getMonth() + '-01',
+                    'gte': '1960-01-01'
+                }
+            }));
+            movieDBRequestHelper.makeRequest('discoverTv', page, query, (err, data) => {
+                if (err) return done(err, null);
+                else {
+                    var tvShows = data.results;
+                    retrieveAndStoreTVShow(0, tvShows, page, totalPages, function (err, data) { retrieveAndStoreTVShowsAtPage(data.page + 1, data.totalPages, done) });
+                }
+            });
+        }
+        else done(null, { success: true });
+    }
+
+    var retrieveAndStoreTVShow = function (i, tvShows, page, totalPages, done) {
+        if (i < tvShows.length) {
+            var tvShow = tvShows[i];
+            models.TVShowInfoCache.findOne({ where: { movieDBId: tvShow.id } }).then(info => {
+                if (info && date.addMonths(info.updatedAt, 1) > new Date()) {
+                    // already in DB skip info, get credits if necessary
+                    models.TVShowCreditsCache.findOne({ where: { movieDBId: tvShow.id } }).then(credits => {
+                        if (!credits) {
+                            getTVShowCreditsFromMovieDB(info.data, function (err, data) {
+                                retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                            });
+                        }
+                        else retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                    
+                }
+                else {
+                    if (info) {
+                        models.TVShowInfoCache.destroy({ where: { id: info.id } }).then(data => {
+                            models.TVShowCreditsCache.destroy({ where: { id: info.movieDBId } }).then(data => {
+                                getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
+                                    getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
+                                        getTVShowCreditsFromMovieDB(data.data, function (err, data) {
+                                            retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                        });
+                                    });
+                                });
+                            }).catch(function (err) {
+                                done(err);
+                            });
+                        }).catch(function (err) {
+                            done(err);
+                        });
+                    }
+                    else {
+                        getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
+                            getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
+                                getTVShowCreditsFromMovieDB(data.data, function (err, data) {
+                                    retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                });
+                            });
+                        });
+                    }
+                }
+            }).catch(function (err) {
+                done(err);
+            });
+        }
+        else done(null, { page: page, totalPages: totalPages });
+    }
+
+    var getTVShowCreditsFromMovieDB = function (tvShow, done) {
+        // Start with the array of seasons
+        var seasons = _.map(_.filter(tvShow.seasons, function (s) { return s.season_number > 0; }), function (s) { return s.episode_count; });
+        var crew = _.map(tvShow.created_by, function (c) { return { job: "Creator", id: c.id, name: c.name }; });
+        mdb.tvCredits({ id: tvShow.id }, (err, data) => {
+            if (err) return done(err, null);
+            var cast = data.cast;
+            // Now we need to improve the crew by searching episode by episode
+            getTVShowCrewFromMovieDB(tvShow.id, seasons, crew, 0, 1, function (err, data) {
+                models.TVShowCreditsCache.create({
+                    movieDBId: tvShow.id,
+                    data: { cast: cast, crew: data }
+                }).then(tvShowCache => {
+                    done(null, tvShowCache);
+                })
+                    .catch(function (err) {
+                        done(err);
+                    });
+            });
+        });
+    }
+
+    var getTVShowCrewFromMovieDB = function (id, seasons, crew, season, episode, done) {
+        if (season < seasons.length) {
+            var numberOfEpisodes = seasons[season];
+            if (numberOfEpisodes < episode) {
+                // Change season
+                getTVShowCrewFromMovieDB(id, seasons, crew, season + 1, 1, done);
+            }
+            else {
+                mdb.tvEpisodeCredits({ id: id, season_number: season + 1, episode_number: episode }, (err, data) => {
+                    if (err) return done(err, null);
+                    console.log("TV Show Cache: Season: " + (season + 1) + ", Episode: " + episode);
+                    _.each(data.crew, function (c) {
+                        if (c.job == 'Writer' || c.job == 'Screenplay') {
+                            var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
+                            if (existingCrew) existingCrew.numberOfEpisodes++;
+                            else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id });
+                        }
+                    });
+                    // Next Episode
+                    getTVShowCrewFromMovieDB(id, seasons, crew, season, episode + 1, done);
+                });
+            }
+        }
+        else done(null, crew);
+    }
+
     return {
         getFirstTenMovies: getFirstTenMovies,
         loadConfiguration: loadConfiguration,
@@ -1067,6 +1352,7 @@ module.exports = function () {
         filterOutDirectorData: filterOutDirectorData,
         filterOutWriterData: filterOutWriterData,
         getSimilarMovies: getSimilarMovies,
-        getRatingCertification: getRatingCertification
+        getRatingCertification: getRatingCertification,
+        retrieveAndStoreTVShows: retrieveAndStoreTVShows
     }
 }
