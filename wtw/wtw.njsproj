@@ -207,6 +207,7 @@
     <Compile Include="lib\models\plexservermovie.js" />
     <Compile Include="lib\models\plexservertvshow.js" />
     <Compile Include="lib\models\timelineevent.js" />
+    <Compile Include="lib\models\tvquestionnaire.js" />
     <Compile Include="lib\models\tvshowcreditscache.js" />
     <Compile Include="lib\models\tvshowinfocache.js" />
     <Compile Include="lib\models\user.js" />
