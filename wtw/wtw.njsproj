@@ -187,6 +187,7 @@
     <Content Include="lib\helpers\timelineEventService.js" />
     <Content Include="lib\helpers\plexService.js" />
     <Content Include="lib\helpers\tvCacheService.js" />
+    <Compile Include="lib\helpers\tvQuestionnaireService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -208,6 +209,7 @@
     <Compile Include="lib\models\plexservertvshow.js" />
     <Compile Include="lib\models\timelineevent.js" />
     <Compile Include="lib\models\tvquestionnaire.js" />
+    <Compile Include="lib\models\tvrecommandation.js" />
     <Compile Include="lib\models\tvshowcreditscache.js" />
     <Compile Include="lib\models\tvshowinfocache.js" />
     <Compile Include="lib\models\user.js" />
