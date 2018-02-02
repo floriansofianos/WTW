@@ -13,6 +13,17 @@ var tvCacheService = function() {
             });
     }
 
+    var get = function (movieId, done) {
+        models.TVShowInfoCache.findAll({ where: { movieDBId: movieId } }).then(tvShowInfo => {
+            models.TVShowCreditsCache.findAll({ where: { movieDBId: movieId } }).then(tvShowCredits => {
+                done(null, { tvShowInfo: tvShowInfo, tvShowCredits: tvShowCredits });
+            });
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
+
     var getAllInArrayWithLang = function(movieIds, lang, done) {
         models.TVShowInfoCache.findAll({ where: { movieDBId: { $in: movieIds }, lang: lang } }).then(tvShowInfos => {
             done(null, tvShowInfos);
@@ -24,7 +35,8 @@ var tvCacheService = function() {
 
     return {
         getAllInArray: getAllInArray,
-        getAllInArrayWithLang: getAllInArrayWithLang
+        getAllInArrayWithLang: getAllInArrayWithLang,
+        get: get
     }
 }
 

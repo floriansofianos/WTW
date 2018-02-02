@@ -595,7 +595,7 @@ module.exports = function () {
         });
     }
 
-    var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
+    /*var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         tvCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
             data = _.map(data, 'data');
@@ -615,7 +615,7 @@ module.exports = function () {
             }
             else done(null, data);
         });
-    }
+    }*/
 
     var getMoviesFromMovieDB = function (movieIds, lang, i, data, done) {
         if (i < movieIds.length) {
@@ -623,19 +623,6 @@ module.exports = function () {
                 if (err) return done(err, null);
                 else {
                     data.push(movie);
-                    getMoviesFromMovieDB(movieIds, lang, i + 1, data, done);
-                }
-            });
-        }
-        else done(null, data);
-    }
-
-    var getTVShowsFromMovieDB = function (movieIds, lang, i, data, done) {
-        if (i < movieIds.length) {
-            getTVShowFromMovieDB(movieIds[i], lang, null, (err, tvShow) => {
-                if (err) return done(err, null);
-                else {
-                    data.push(tvShow);
                     getMoviesFromMovieDB(movieIds, lang, i + 1, data, done);
                 }
             });
@@ -876,15 +863,6 @@ module.exports = function () {
             data: data
         }).then(movieCache => {
             done(null, movieCache);
-        })
-            .catch(function (err) {
-                done(err);
-            });
-    }
-
-    var getTVShowFromCache = function (id, lang, done) {
-        models.TVShowInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvShow => {
-            done(null, tvShow);
         })
             .catch(function (err) {
                 done(err);
@@ -1187,6 +1165,15 @@ module.exports = function () {
         });
     }
 
+    var searchTV = function (s, done) {
+        mdb.searchTv({ query: s, include_adult: false }, (err, data) => {
+            if (err) return done(err, null);
+            else {
+                return done(null, data);
+            }
+        });
+    }
+
     var retrieveAndStoreTVShows = function (done) {
         // Start by getting the total number of pages
         var query = JSON.parse(JSON.stringify({
@@ -1335,6 +1322,7 @@ module.exports = function () {
         getMovieWithAdditionalInfo: getMovieWithAdditionalInfo,
         getAlsoKnown: getAlsoKnown,
         search: search,
+        searchTV: searchTV,
         getMovie: getMovie,
         getMovieCredits: getMovieCredits,
         getDirectors: getDirectors,
