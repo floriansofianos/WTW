@@ -187,7 +187,7 @@
     <Content Include="lib\helpers\timelineEventService.js" />
     <Content Include="lib\helpers\plexService.js" />
     <Content Include="lib\helpers\tvCacheService.js" />
-    <Compile Include="lib\helpers\tvQuestionnaireService.js" />
+    <Content Include="lib\helpers\tvQuestionnaireService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
@@ -241,6 +241,7 @@
     <Content Include="lib\routes\friendRoutes.js" />
     <Content Include="lib\routes\castRoutes.js" />
     <Content Include="lib\routes\timelineEventRoutes.js" />
+    <Compile Include="lib\models\usertvquestionnaire.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">
