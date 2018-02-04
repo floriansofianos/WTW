@@ -14,7 +14,7 @@ module.exports = function () {
     }
 
     // Types
-    // 0: Rate movie
+    // 0: Rate movie/tv
     // 1: Follow
     // 2: Friend
     var create = function (userId, type, variables, done) {

@@ -178,6 +178,61 @@ module.exports = function () {
         });
     }
 
+    var wtwTV = function (id, country, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, otherUserId, usePlexServer, plexServerId, tvQuestionnaireService, tvCacheService, userProfileService, tvRecommandationService, movieDBService, done) {
+        tvQuestionnaireService.getAll(otherUserId, function (err, res) {
+            var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
+            var otherUserLovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
+            tvQuestionnaireService.getAll(id, function (err, res) {
+                alreadyAnsweredMovieIds = alreadyAnsweredMovieIds.concat(_.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId'));
+                var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
+                if (otherUserId) {
+                    // We need to only consider tv shows that both users love
+                    lovedMovieIds = _.filter(lovedMovieIds, function (id) { return _.find(otherUserLovedMovieIds, function (m) { return m == id; }) != undefined });
+                }
+                if (usePlexServer && plexServerId) {
+                    // Only consider tv shows in plex server
+                    getAllPlexTVShows(plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, tvCacheService, function (err, data) {
+                        if (_.size(data) < 1) return done(null, false);
+                        else {
+                            // we need to calculate the score of each tv show and then choose the best choice
+                            getTVScores(id, otherUserId, data, tvRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                                var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
+                                if (_.size(filteredData) < 1) return done(null, _.sample(data));
+                                else {
+                                    var topScores = _.first(_.sortBy(filteredData, function (d) { return d.wtwScore.score; }).reverse(), Math.min(100, filteredData.length));
+                                    return done(null, _.sample(topScores))
+                                }
+                            });
+                        }
+                    });
+                }
+                else if (useWatchlist) {
+                    tvQuestionnaireService.getWatchlist(otherUserId, function (err, watchlist) {
+                        var otherUserWatchlist = _.map(watchlist, 'movieDBId');
+                        tvQuestionnaireService.getWatchlist(id, function (err, watchlist) {
+                            var movieDBIds = _.map(watchlist, 'movieDBId');
+                            if (otherUserId) {
+                                // Filter the watchlists to only get the movies in common
+                                movieDBIds = _.filter(movieDBIds, function (id) { return _.find(otherUserWatchlist, function (o) { return o == id }) != undefined; });
+                            }
+                            tvCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                                data = _.map(data, 'data');
+                                // Get rid of duplicates
+                                data = _.map(_.groupBy(data, 'id'), function (g) {
+                                    return g[0];
+                                });
+                                data = filterTVShowsForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, languageSelected);
+                                if (_.size(data) > 0) done(null, _.sample(data));
+                                else return findTVShowWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, alreadyAnsweredMovieIds, otherUserId, tvCacheService, userProfileService, tvRecommandationService, lovedMovieIds, done);
+                            });
+                        });
+                    });
+                }
+                else return findTVShowWithoutWishlist(id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, alreadyAnsweredMovieIds, otherUserId, tvCacheService, userProfileService, tvRecommandationService, lovedMovieIds, done);
+            });
+        });
+    }
+
     var getNowPlayingMovies = function (country, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, movieCacheService, done) {
         var query = JSON.parse(JSON.stringify(firstTenQuery));
         // Check MovieDB: the release dates for movies in other regions are very unreliable. Now Playing for Australia gives a very limited amount of results
@@ -375,6 +430,108 @@ module.exports = function () {
         });
     }
 
+    var findTVShowWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, language, alreadyAnsweredMovieIds, otherUserId, tvCacheService, userProfileService, tvRecommandationService, lovedMovieIds, done) {
+        // Start by looking at the reco
+        tvRecommandationService.getAll(id, function (err, recos) {
+            var movieDBIds = _.map(recos, 'movieDBId');
+            tvRecommandationService.getAll(otherUserId, function (err, recos) {
+                if (recos.length > 0) {
+                    // Only get the recos 
+                    movieDBIds = _.filter(movieDBIds, function (id) { return _.find(recos, function (r) { return r.movieDBId == id }) != undefined });
+                }
+                tvCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                    data = _.map(data, 'data');
+                    // Get rid of duplicates
+                    data = _.map(_.groupBy(data, 'id'), function (g) {
+                        return g[0];
+                    });
+                    data = filterTVShowsForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
+                    if (_.size(data) > 0) return done(null, _.sample(data));
+                    // Nothing? then try one of our favourite tv creator
+                    // First get all profiles
+                    userProfileService.getAll(id, function (err, profiles) {
+                        // Add profiles of other user
+                        userProfileService.getAll(otherUserId, function (err, otherUserProfiles) {
+                            if (otherUserId) {
+                                // If we watch with friend, calculate a common profile between the 2 users
+                                var relevantOtherUserProfiles = _.filter(otherUserProfiles, function (oup) {
+                                    return (oup.genreId && _.find(profiles, function (p) { return p.genreId == oup.genreId }) != undefined) ||
+                                        (oup.castId && _.find(profiles, function (p) { return p.castId == oup.castId }) != undefined) ||
+                                        (oup.writerId && _.find(profiles, function (p) { return p.writerId == oup.writerId }) != undefined) ||
+                                        (oup.creatorId && _.find(profiles, function (p) { return p.creatorId == oup.creatorId }) != undefined) ||
+                                        (oup.country && _.find(profiles, function (p) { return p.country == oup.country }) != undefined)
+                                });
+                                var recalculatedProfiles = [];
+                                _.each(relevantOtherUserProfiles, function (oup) {
+                                    // Find the user profile
+                                    var userProfile = _.find(profiles, function (p) {
+                                        return (oup.genreId && p.genreId == oup.genreId) || (oup.castId && p.castId == oup.castId) || (oup.writerId && p.writerId == oup.writerId)
+                                            || (oup.creatorId && p.creatorId == oup.creatorId) || (oup.country && p.country == oup.country);
+                                    });
+                                    recalculatedProfiles.push({
+                                        genreId: oup.genreId,
+                                        castId: oup.castId,
+                                        writerId: oup.writerId,
+                                        creatorId: oup.creatorId,
+                                        country: oup.country,
+                                        score: (oup.score + userProfile.score) / 2,
+                                        scoreRelevance: (oup.scoreRelevance + userProfile.scoreRelevance) / 2,
+                                        seenCount: (oup.seenCount + userProfile.seenCount) / 2
+                                    })
+                                });
+                                profiles = recalculatedProfiles;
+                            }
+                            findCreatorWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                if (res) return done(null, res);
+                                else {
+                                    // Nothing? try writer
+                                    findWriterWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
+                                        if (res) return done(null, res);
+                                        else {
+                                            // Nothing? what about favourite genre if not provided
+                                            findGenreWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                if (res) return done(null, res);
+                                                else {
+                                                    // Nothing? what about favourite actor
+                                                    findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                        if (res) return done(null, res);
+                                                        else {
+                                                            // Nothing? what about favourite actor
+                                                            findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                if (res) return done(null, res);
+                                                                else {
+                                                                    // Nothing? Try find similar movies to loved movie
+                                                                    findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
+                                                                        if (res) return done(null, res);
+                                                                        else {
+                                                                            // Nothing? Try popular movie
+                                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                                if (res) return done(null, res);
+                                                                                else {
+                                                                                    // Nothing? Give up!
+                                                                                    return done(null, false);
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            });
+
+                        });
+                    });
+                });
+            });
+        });
+    }
+
     var findDirectorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteDirector = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.directorId }));
         if (favouriteDirector) {
@@ -415,6 +572,44 @@ module.exports = function () {
             });
         }
         else done(null, data);
+    }
+
+    var findCreatorWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
+        var favouriteCreator = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.creatorId }));
+        if (favouriteCreator) {
+            model.TVShowInfoCache.findAll({ where: { data: { created_by: { [Op.contains]: { id: favouriteCreator.creatorId } } } } }).then(tvShows => {
+                if (tvShows.length > 0) {
+                    return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                }
+                else done(null, false);
+            })
+                .catch(function (err) {
+                    done(err);
+                });
+        }
+        else done(null, false);
+    }
+
+    var findWriterWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
+        var favouriteWriter = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.writerId }));
+        if (favouriteWriter) {
+            model.TVShowCreditsCache.findAll({ where: { data: { crew: { [Op.contains]: { id: favouriteWriter.writerId } } } } }).then(tvShowCredits => {
+                if (tvShowCredits.length > 0) {
+                    var movieDBIds = _.map(tvShowCredits, 'movieDBId');
+                    tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                        if (err) done(err);
+                        else {
+                            return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                        }
+                    });
+                }
+                else done(null, false);
+            })
+                .catch(function (err) {
+                    done(err);
+                });
+        }
+        else done(null, false);
     }
 
     var findWriterWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
@@ -477,6 +672,28 @@ module.exports = function () {
                 }
                 else return done(null, false);
             });
+        }
+        else done(null, false);
+    }
+
+    var findGenreWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
+        // We can't do anything if the genre is already provided
+        if (genreId) return done(null, false);
+        var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.genreId });
+        var seenCountForGenres = _.reduce(filteredProfiles, function (memo, p) { return memo + p.seenCount; }, 0);
+        var numberOfGenres = _.size(filteredProfiles);
+        var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
+        var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
+        if (favouriteGenre) {
+            /*getTVShowsForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (data && data.results) {
+                    if (data.results.length > 0) {
+                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                    }
+                    else return done(null, false);
+                }
+                else return done(null, false);
+            });*/
         }
         else done(null, false);
     }
@@ -573,6 +790,37 @@ module.exports = function () {
         else done(null, false);
     }
 
+    var findTVShowRelevantForWTW = function (tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i, done) {
+        if (i < tvShows.length) {
+            var tvShow = tvShows[i];
+            if (_.contains(alreadyAnsweredMovieIds, tvShow.id)) {
+                return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+            }
+            else {
+                if (!(new Date(tvShow.first_air_date).getFullYear() >= minRelease) || !(new Date(tvShow.first_air_date).getFullYear() <= maxRelease)) {
+                    return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+                }
+                if (genreId) {
+                    if (!_.find(tvShow.genres, function (g) { return g.id == genreId })) {
+                        return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+                    }
+                }
+                if (useRuntimeLimit) {
+                    if (Math.min(tvShow.episode_run_time) > runtimeLimit) {
+                        return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+                    }
+                }
+                if (language) {
+                    if (tvShow.original_language != language) {
+                        return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+                    }
+                }
+                return done(null, tvShow);
+            }
+        }
+        else done(null, false);
+    }
+
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
@@ -595,7 +843,7 @@ module.exports = function () {
         });
     }
 
-    /*var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
+    var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         tvCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
             data = _.map(data, 'data');
@@ -603,19 +851,9 @@ module.exports = function () {
             data = _.map(_.groupBy(data, 'id'), function (g) {
                 return g[0];
             });
-            var missingMovieIds = _.filter(movieIds, function (id) { return !_.find(data, function (d) { return d.id == id }); });
-            if (missingMovieIds && missingMovieIds.length > 0) {
-                getTVShowsFromMovieDB(missingMovieIds, lang, 0, [], function (err, res) {
-                    if (err) return done(err, null);
-                    else {
-                        data = data.concat(res);
-                        done(null, data);
-                    }
-                });
-            }
-            else done(null, data);
+            done(null, data);
         });
-    }*/
+    }
 
     var getMoviesFromMovieDB = function (movieIds, lang, i, data, done) {
         if (i < movieIds.length) {
