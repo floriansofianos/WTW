@@ -489,23 +489,23 @@ module.exports = function () {
                                         if (res) return done(null, res);
                                         else {
                                             // Nothing? what about favourite genre if not provided
-                                            findGenreWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                            findGenreWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                 if (res) return done(null, res);
                                                 else {
                                                     // Nothing? what about favourite actor
-                                                    findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                    findActorWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
                                                         if (res) return done(null, res);
                                                         else {
-                                                            // Nothing? what about favourite actor
-                                                            findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                            // Nothing? what about favourite country
+                                                            findCountryWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
                                                                 if (res) return done(null, res);
                                                                 else {
                                                                     // Nothing? Try find similar movies to loved movie
-                                                                    findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
+                                                                    findSimilarWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, tvCacheService, function (err, res) {
                                                                         if (res) return done(null, res);
                                                                         else {
                                                                             // Nothing? Try popular movie
-                                                                            findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                            findPopularWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
                                                                                 if (res) return done(null, res);
                                                                                 else {
                                                                                     // Nothing? Give up!
@@ -685,15 +685,12 @@ module.exports = function () {
         var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
         var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
         if (favouriteGenre) {
-            /*getTVShowsForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
-                if (data && data.results) {
-                    if (data.results.length > 0) {
-                        return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
-                    }
-                    else return done(null, false);
+            getTVShowsForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (data && data.length > 0) {
+                    return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
                 else return done(null, false);
-            });*/
+            });
         }
         else done(null, false);
     }
@@ -709,6 +706,21 @@ module.exports = function () {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                     }
                     else return done(null, false);
+                }
+                else return done(null, false);
+            });
+        }
+        else done(null, false);
+    }
+
+    var findCountryWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
+        // We can't do anything if the country is already provided
+        if (language) return done(null, false);
+        var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
+        if (favouriteCountry) {
+            getTVShowsForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
+                if (data && data.length > 0) {
+                    return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
                 else return done(null, false);
             });
@@ -732,6 +744,25 @@ module.exports = function () {
         else done(null, false);
     }
 
+    var findActorWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
+        var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
+        if (favouriteActor) {
+            getTVShowsForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (data && data.length > 0) {
+                    var movieDBIds = _.map(data, 'movieDBId');
+                    tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                        if (err) done(err);
+                        else {
+                            return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                        }
+                    });
+                }
+                else done(null, false);
+            });
+        }
+        else done(null, false);
+    }
+
     var findPopularWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         getPopularMovies(minRelease, maxRelease, language, certification, function (err, data) {
             if (data && data.results) {
@@ -744,12 +775,46 @@ module.exports = function () {
         });
     }
 
+    var findPopularWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
+        getPopularTVShows(minRelease, maxRelease, language, certification, function (err, data) {
+            if (data.results && data.results.length > 0) {
+                var movieDBIds = _.map(data.results, 'id');
+                tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                    if (err) done(err);
+                    else {
+                        return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                    }
+                });
+            }
+            else done(null, false);
+        });
+    }
+
     var findSimilarWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, done) {
         var movieId = _.sample(lovedMovieIds);
         getSimilarMovies(movieId, function (err, data) {
             if (data && data.results) {
                 if (data.results.length > 0) {
                     return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                }
+                else return done(null, false);
+            }
+            else return done(null, false);
+        });
+    }
+
+    var findSimilarWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, tvCacheService, done) {
+        var movieId = _.sample(lovedMovieIds);
+        getSimilarTVShows(movieId, function (err, data) {
+            if (data && data.results) {
+                if (data.results.length > 0) {
+                    var movieDBIds = _.map(data.results, 'id');
+                    tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                        if (err) done(err);
+                        else {
+                            return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
+                        }
+                    });
                 }
                 else return done(null, false);
             }
@@ -892,6 +957,33 @@ module.exports = function () {
                 return done(null, data);
             }
         });
+    }
+
+    var getTVShowsForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, done) {
+        model.TVShowInfosCache.findAll({ where: { data: { genres: { [Op.contains]: { id: genreId } } } } }).then(tvShowInfos => {
+            return done(null, tvShowInfos);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
+
+    var getTVShowsForCountryQuestionnaire = function (country, minRelease, maxRelease, language, certification, done) {
+        model.TVShowInfosCache.findAll({ where: { data: { original_language: country } } }).then(tvShowInfos => {
+            return done(null, tvShowInfos);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    }
+
+    var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, done) {
+        model.TVShowCreditsCache.findAll({ where: { data: { cast: { [Op.contains]: { id: castId } } } } }).then(tvShowCredits => {
+            return done(null, tvShowCredits);
+        })
+            .catch(function (err) {
+                done(err);
+            });
     }
 
     var getMoviesForCountryQuestionnaire = function (country, minRelease, maxRelease, certification, done) {
