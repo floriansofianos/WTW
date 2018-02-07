@@ -1,10 +1,14 @@
 var userService = require('../helpers/userService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
+var tvQuestionnaireService = require('../helpers/tvQuestionnaireService')();
 var movieCacheService = require('../helpers/movieCacheService')();
+var tvCacheService = require('../helpers/tvCacheService')();
 var movieDBService = require('../helpers/movieDBService')();
 var userProfileService = require('../helpers/userProfileService')();
 var userQuestionnaireService = require('../helpers/userQuestionnaireService')();
+var userTVQuestionnaireService = require('../helpers/userTVQuestionnaireService')();
 var movieRecommandationService = require('../helpers/movieRecommandationservice')();
+var tvRecommandationService = require('../helpers/tvRecommandationservice')();
 var friendshipService = require('../helpers/friendshipService')();
 var plexService = require('../helpers/plexService')();
 var _ = require('underscore');
@@ -428,80 +432,102 @@ var generateUserProfile = function (users, i, done) {
         var u = users[i];
         console.log('Starting generating profile of ' + u.username + '...');
         movieQuestionnaireService.getAll(u.id, function (err, questionnaires) {
-            var movieIds = _.map(questionnaires, function (q) { return q.movieDBId; });
-            // try to retrieve the movies from the cache
-            movieCacheService.getAllInArray(movieIds, function (err, allMoviesCache) {
-                // Get all the informations we need for our questionnaires
-                processMovieQuestionnaires(questionnaires, allMoviesCache, function (err, questionnaires) {
-                    // Deal with genres
-                    console.log('Starting generating genres profile...');
-                    var moviesGenres = [];
-                    _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                        _.each(q.movieInfo.genres, function (g) {
-                            moviesGenres.push({ movieDBId: q.movieDBId, genreId: g.id, name: g.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
-                        });
-                    });
-                    var moviesGrouped = _.groupBy(moviesGenres, 'genreId');
-                    processMovieGenreGroups(moviesGrouped, u.id, function (err, res) {
-
-                        // Deal with directors
-                        console.log('Starting generating directors profile...');
-                        var moviesDirectors = [];
-                        _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                            var directors = movieDBService.getDirectors(q.movieCredits);
-                            _.each(directors, function (d) {
-                                moviesDirectors.push({ movieDBId: q.movieDBId, directorId: d.id, name: d.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
-                            });
-                        });
-                        var moviesGrouped = _.groupBy(moviesDirectors, 'directorId');
-                        processMovieDirectorGroups(moviesGrouped, u.id, function (err, res) {
-
-                            // Deal with writers
-                            console.log('Starting generating writers profile...');
-                            var moviesWriters = [];
+            tvQuestionnaireService.getAll(u.id, function (err, tvQuestionnaires) {
+                // Get the TV shows from cache
+                tvCacheService.getAllInArray(_.map(tvQuestionnaires, function (q) { return q.movieDBId; }), function (err, allTVCache) {
+                    processTVQuestionnaire(tvQuestionnaires, allTVCache);
+                    var movieIds = _.map(questionnaires, function (q) { return q.movieDBId; });
+                    // try to retrieve the movies from the cache
+                    movieCacheService.getAllInArray(movieIds, function (err, allMoviesCache) {
+                        // Get all the informations we need for our questionnaires
+                        processMovieQuestionnaires(questionnaires, allMoviesCache, function (err, questionnaires) {
+                            // Deal with genres
+                            console.log('Starting generating genres profile...');
+                            var allGenres = [];
                             _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                var writers = movieDBService.getWriters(q.movieCredits);
-                                _.each(writers, function (w) {
-                                    moviesWriters.push({ movieDBId: q.movieDBId, writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                _.each(q.movieInfo.genres, function (g) {
+                                    allGenres.push({ genreId: g.id, name: g.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                 });
                             });
-                            var moviesGrouped = _.groupBy(moviesWriters, 'writerId');
-                            processMovieWriterGroups(moviesGrouped, u.id, function (err, res) {
+                            _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                _.each(q.tvShowInfo.genres, function (g) {
+                                    allGenres.push({ genreId: g.id, name: g.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                });
+                            });
+                            var moviesGrouped = _.groupBy(allGenres, 'genreId');
+                            processMovieGenreGroups(moviesGrouped, u.id, function (err, res) {
 
-                                // Deal with actors
-                                console.log('Starting generating actors profile...');
-                                var moviesActors = [];
+                                // Deal with directors
+                                console.log('Starting generating directors profile...');
+                                var moviesDirectors = [];
                                 _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                    var actors = movieDBService.getActors(q.movieCredits);
-                                    _.each(actors, function (a) {
-                                        moviesActors.push({ movieDBId: q.movieDBId, castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                    var directors = movieDBService.getDirectors(q.movieCredits);
+                                    _.each(directors, function (d) {
+                                        moviesDirectors.push({ movieDBId: q.movieDBId, directorId: d.id, name: d.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                     });
                                 });
-                                var moviesGrouped = _.groupBy(moviesActors, 'castId');
-                                processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
+                                var moviesGrouped = _.groupBy(moviesDirectors, 'directorId');
+                                processMovieDirectorGroups(moviesGrouped, u.id, function (err, res) {
 
-                                    // Deal with countries
-                                    console.log('Starting generating countries profile...');
-                                    var movieCountries = [];
-                                    _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                        movieCountries.push({ movieDBId: q.movieDBId, country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
-                                    });
-                                    var moviesGrouped = _.groupBy(movieCountries, 'country');
-                                    processMovieCountryGroups(moviesGrouped, u.id, function (err, res) {
-                                        console.log('User profile created!');
-                                        userService.setUserProfileRefresh(u.id, false, function (err, user) {
-                                            generateUserProfile(users, i + 1, done)
+                                    // Deal with creators
+                                    console.log('Starting generating TV creators profile...');
+                                    var tvCreators = [];
+                                    _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                        _.each(q.tvShowInfo.created_by, function (c) {
+                                            tvCreators.push({ creatorId: c.id, name: c.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                         });
                                     });
+                                    var moviesGrouped = _.groupBy(tvCreators, 'creatorId');
+                                    processTVCreatorGroups(moviesGrouped, u.id, function (err, res) {
+                                        // Deal with writers
+                                        console.log('Starting generating writers profile...');
+                                        var moviesWriters = [];
+                                        _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                            var writers = movieDBService.getWriters(q.movieCredits);
+                                            _.each(writers, function (w) {
+                                                moviesWriters.push({ movieDBId: q.movieDBId, writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                            });
+                                        });
+                                        var moviesGrouped = _.groupBy(moviesWriters, 'writerId');
+                                        processMovieWriterGroups(moviesGrouped, u.id, function (err, res) {
+
+                                            // Deal with actors
+                                            console.log('Starting generating actors profile...');
+                                            var moviesActors = [];
+                                            _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                                var actors = movieDBService.getActors(q.movieCredits);
+                                                _.each(actors, function (a) {
+                                                    moviesActors.push({ movieDBId: q.movieDBId, castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                });
+                                            });
+                                            var moviesGrouped = _.groupBy(moviesActors, 'castId');
+                                            processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
+
+                                                // Deal with countries
+                                                console.log('Starting generating countries profile...');
+                                                var movieCountries = [];
+                                                _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                                    movieCountries.push({ movieDBId: q.movieDBId, country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                });
+                                                var moviesGrouped = _.groupBy(movieCountries, 'country');
+                                                processMovieCountryGroups(moviesGrouped, u.id, function (err, res) {
+                                                    console.log('User profile created!');
+                                                    userService.setUserProfileRefresh(u.id, false, function (err, user) {
+                                                        generateUserProfile(users, i + 1, done)
+                                                    });
+                                                });
 
 
+                                            });
+                                        });
+                                    });
                                 });
                             });
                         });
                     });
                 });
             });
-        })
+        });
     }
     else done(null, users);
 }
@@ -522,6 +548,13 @@ var processQuestionnaire = function (questionnaires, allMoviesCache, i, done) {
         });
     }
     else done(null, questionnaires);
+}
+
+var processTVQuestionnaire = function (questionnaires, allTVCache) {
+    _.each(questionnaires, function (q) {
+        q.tvShowInfo = _.find(allTVCache.tvShowInfos, function (i) { return i.movieDBId == q.movieDBId });
+        q.tvShowCredits = _.find(allTVCache.tvShowCredits, function (c) { return c.movieDBId == q.movieDBId });
+    });
 }
 
 var processMovieCountryGroups = function (moviesGrouped, userId, done) {
@@ -580,6 +613,28 @@ var processDirectorGroup = function (moviesGrouped, i, userId, done) {
             userId: userId,
             name: g[0].name,
             directorId: g[0].directorId,
+            seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
+            score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
+            scoreRelevance: getDirectorScoreRelevance(_.size(g))
+        }
+        userProfileService.createOrUpdate(userProfile, function (err, res) {
+            processDirectorGroup(moviesGrouped, i + 1, userId, done);
+        });
+    }
+    else done(null, true);
+}
+
+var processTVCreatorGroups = function (moviesGrouped, userId, done) {
+    processTVCreatorGroup(moviesGrouped, 0, userId, done);
+}
+
+var processTVCreatorGroup = function (moviesGrouped, i, userId, done) {
+    if (i < _.size(moviesGrouped)) {
+        var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
+        var userProfile = {
+            userId: userId,
+            name: g[0].name,
+            creatorId: g[0].creatorId,
             seenCount: _.size(_.filter(g, function (e) { return e.isSeen; })),
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
