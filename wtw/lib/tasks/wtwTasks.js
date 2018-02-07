@@ -481,35 +481,50 @@ var generateUserProfile = function (users, i, done) {
                                     processTVCreatorGroups(moviesGrouped, u.id, function (err, res) {
                                         // Deal with writers
                                         console.log('Starting generating writers profile...');
-                                        var moviesWriters = [];
+                                        var allWriters = [];
                                         _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                                             var writers = movieDBService.getWriters(q.movieCredits);
                                             _.each(writers, function (w) {
-                                                moviesWriters.push({ movieDBId: q.movieDBId, writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                allWriters.push({ writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                             });
                                         });
-                                        var moviesGrouped = _.groupBy(moviesWriters, 'writerId');
+                                        _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                            var writers = movieDBService.getWriters(q.tvShowCredits);
+                                            _.each(writers, function (w) {
+                                                allWriters.push({ writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                            });
+                                        });
+                                        var moviesGrouped = _.groupBy(allWriters, 'writerId');
                                         processMovieWriterGroups(moviesGrouped, u.id, function (err, res) {
 
                                             // Deal with actors
                                             console.log('Starting generating actors profile...');
-                                            var moviesActors = [];
+                                            var allActors = [];
                                             _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
                                                 var actors = movieDBService.getActors(q.movieCredits);
                                                 _.each(actors, function (a) {
-                                                    moviesActors.push({ movieDBId: q.movieDBId, castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                    allActors.push({ castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                                 });
                                             });
-                                            var moviesGrouped = _.groupBy(moviesActors, 'castId');
+                                            _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                                var actors = movieDBService.getActors(q.tvShowCredits);
+                                                _.each(actors, function (a) {
+                                                    allActors.push({ castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                });
+                                            });
+                                            var moviesGrouped = _.groupBy(allActors, 'castId');
                                             processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
 
                                                 // Deal with countries
                                                 console.log('Starting generating countries profile...');
-                                                var movieCountries = [];
+                                                var allCountries = [];
                                                 _.each(_.filter(questionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                                    movieCountries.push({ movieDBId: q.movieDBId, country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                    allCountries.push({ country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                                 });
-                                                var moviesGrouped = _.groupBy(movieCountries, 'country');
+                                                _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
+                                                    allCountries.push({ country: q.tvShowInfo.original_language, name: q.tvShowInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                });
+                                                var moviesGrouped = _.groupBy(allCountries, 'country');
                                                 processMovieCountryGroups(moviesGrouped, u.id, function (err, res) {
                                                     console.log('User profile created!');
                                                     userService.setUserProfileRefresh(u.id, false, function (err, user) {
