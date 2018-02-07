@@ -189,6 +189,7 @@
     <Content Include="lib\helpers\tvCacheService.js" />
     <Content Include="lib\helpers\tvQuestionnaireService.js" />
     <Content Include="lib\helpers\tvRecommandationService.js" />
+    <Content Include="lib\helpers\userTVQuestionnaireService.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
     <Compile Include="lib\middlewares\logErrors.js" />
