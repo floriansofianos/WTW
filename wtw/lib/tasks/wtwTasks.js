@@ -130,6 +130,13 @@ var generateUsersQuestionnaires = function (done) {
     });
 }
 
+var generateUsersTVQuestionnaires = function (done) {
+    // Retrieve all the users that need more questionnaires
+    userService.getUsersForTVQuestionnaireRefresh(function (err, users) {
+        generateTVQuestionnaires(users, 0, done);
+    });
+}
+
 var generateQuestionnaires = function (users, i, done) {
     if (i < users.length) {
         var u = users[i];
@@ -171,6 +178,47 @@ var generateQuestionnaires = function (users, i, done) {
     else done(null, true);
 }
 
+var generateTVQuestionnaires = function (users, i, done) {
+    if (i < users.length) {
+        var u = users[i];
+        console.log('Starting generating tv questionnaires for ' + u.username + '...');
+        // Get all existing questionnaires and profiles
+        tvQuestionnaireService.getAll(u.id, function (err, questionnaires) {
+            userProfileService.getAll(u.id, function (err, profiles) {
+                userTVQuestionnaireService.getAll(u.id, function (err, userQuestionnaires) {
+                    // Deal with genres
+                    var filteredGenreProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.genreId != null; });
+                    generateGenreTVQuestionnaire(_.map(filteredGenreProfiles, 'genreId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                        // Deal with creators
+                        console.log('Generating questionnaires for directors...');
+                        var filteredCreatorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.creatorId != null; });
+                        generateTVCreatorQuestionnaire(_.map(filteredDirectorsProfiles, 'creatorId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                            // Deal with writers
+                            console.log('Generating questionnaires for writers...');
+                            var filteredWritersProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.writerId != null; });
+                            generateTVWriterQuestionnaire(_.map(filteredWritersProfiles, 'writerId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                // Deal with actors
+                                console.log('Generating questionnaires for actors...');
+                                var filteredActorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.castId != null; });
+                                generateActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, function (err, res) {
+                                    // Deal with countries
+                                    console.log('Generating questionnaires for countries...');
+                                    var filteredCountriesProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.country != null; });
+                                    generateCountryQuestionnaire(_.map(filteredCountriesProfiles, 'country'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                        // Done!
+                                        generateQuestionnaires(users, i + 1, done);
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+    else done(null, true);
+}
+
 var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
     if (i < genreIds.length) {
         var genreId = genreIds[i];
@@ -187,6 +235,38 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
     else done(null, true);
 }
 
+var generateGenreTVQuestionnaire = function (genreIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
+    if (i < genreIds.length) {
+        var genreId = genreIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForGenreQuestionnaire(genreId, null, null, null, certification, function (err, data) {
+            if (data && data.length > 0) {
+                handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
+                    generateGenreTVQuestionnaire(genreIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+                });
+            }
+            else generateGenreTVQuestionnaire(genreIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateTVCreatorQuestionnaire = function (creatorIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
+    if (i < creatorIds.length) {
+        var creatorId = creatorIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForCreatorQuestionnaire(creatorId, function (err, data) {
+            if (data && data.length > 0) {
+                handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
+                    generateTVCreatorQuestionnaire(creatorIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+                });
+            }
+            else generateTVCreatorQuestionnaire(creatorIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
 var handleData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i];
@@ -196,6 +276,19 @@ var handleData = function (allMovies, questionnaires, userQuestionnaires, userId
             });
         }
         else handleData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
+    }
+    else done(null, true);
+}
+
+var handleTVData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
+    if (i < allMovies.length) {
+        var m = allMovies[i].data;
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && new Date(m.release_date) < new Date()) {
+            userTVQuestionnaireService.create(userId, m.id, function (err, data) {
+                handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
+            });
+        }
+        else handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
     }
     else done(null, true);
 }
@@ -387,6 +480,22 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
     else done(null, true);
 }
 
+var generateTVWriterQuestionnaire = function (writerIds, questionnaires, userQuestionnaires, certification, userId, i, done) {
+    if (i < writerIds.length) {
+        var writerId = writerIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForWriterQuestionnaire(writerId, null, null, null, certification, 1, function (err, data) {
+            if (data && data.length > 0) {
+                handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 2, function (err, res) {
+                    generateTVWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+                });
+            }
+            else generateTVWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
 
 
 var generateActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, certification, userId, done) {
@@ -394,6 +503,21 @@ var generateActorQuestionnaire = function (castIds, questionnaires, userQuestion
     else {
         // get movieDB movies
         movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, null, certification, function (err, data) {
+            if (data && data.results) {
+                handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
+                    done(null, true);
+                });
+            }
+            else done(null, true);
+        });
+    }
+}
+
+var generateTVActorQuestionnaire = function (castIds, questionnaires, userQuestionnaires, certification, userId, done) {
+    if (castIds.length < 1) done(null, true);
+    else {
+        // get movieDB movies
+        movieDBService.getTVShowsForActorQuestionnaire(castIds, null, null, null, certification, function (err, data) {
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);

@@ -577,40 +577,54 @@ module.exports = function () {
     var findCreatorWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteCreator = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.creatorId }));
         if (favouriteCreator) {
-            model.TVShowInfoCache.findAll({ where: { data: { created_by: { [Op.contains]: { id: favouriteCreator.creatorId } } } } }).then(tvShows => {
+            getTVShowsForCreatorQuestionnaire(favouriteCreator.creatorId, function (err, tvShows) {
                 if (tvShows.length > 0) {
                     return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
                 else done(null, false);
-            })
-                .catch(function (err) {
-                    done(err);
-                });
+            });
         }
         else done(null, false);
+    }
+
+    var getTVShowsForCreatorQuestionnaire = function (creatorId, done) {
+        model.TVShowInfoCache.findAll({ where: { data: { created_by: { [Op.contains]: { id: creatorId } } } } }).then(tvShows => {
+            return done(null, tvShows);
+        }).catch(function (err) {
+            done(err);
+        });
     }
 
     var findWriterWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
         var favouriteWriter = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.writerId }));
         if (favouriteWriter) {
-            model.TVShowCreditsCache.findAll({ where: { data: { crew: { [Op.contains]: { id: favouriteWriter.writerId } } } } }).then(tvShowCredits => {
-                if (tvShowCredits.length > 0) {
-                    var movieDBIds = _.map(tvShowCredits, 'movieDBId');
-                    tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
-                        if (err) done(err);
-                        else {
-                            return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
-                        }
-                    });
+            getTVShowsForWriterQuestionnaire(favouriteWriter.writerId, function (err, data) {
+                if (err) done(err);
+                else {
+                    return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
-                else done(null, false);
-            })
-                .catch(function (err) {
-                    done(err);
-                });
+            });
         }
         else done(null, false);
     }
+
+    var getTVShowsForWriterQuestionnaire = function (writerId, done) {
+        model.TVShowCreditsCache.findAll({ where: { data: { crew: { [Op.contains]: { id: writerId } } } } }).then(tvShowCredits => {
+            if (tvShowCredits.length > 0) {
+                var movieDBIds = _.map(tvShowCredits, 'movieDBId');
+                tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                    if (err) done(err);
+                    else {
+                        done(null, data);
+                    }
+                });
+            }
+            else done(null, false);
+        })
+            .catch(function (err) {
+                done(err);
+            });
+    } 
 
     var findWriterWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteWriter = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.writerId }));
@@ -857,7 +871,7 @@ module.exports = function () {
 
     var findTVShowRelevantForWTW = function (tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i, done) {
         if (i < tvShows.length) {
-            var tvShow = tvShows[i];
+            var tvShow = tvShows[i].data;
             if (_.contains(alreadyAnsweredMovieIds, tvShow.id)) {
                 return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
             }
@@ -1659,8 +1673,11 @@ module.exports = function () {
         getWriters: getWriters,
         getActors: getActors,
         getMoviesForGenreQuestionnaire: getMoviesForGenreQuestionnaire,
+        getTVShowsForGenreQuestionnaire: getTVShowsForGenreQuestionnaire,
         getMoviesForDirectorQuestionnaire: getMoviesForDirectorQuestionnaire,
+        getTVShowsForCreatorQuestionnaire: getTVShowsForCreatorQuestionnaire,
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
+        getTVShowsForWriterQuestionnaire: getTVShowsForWriterQuestionnaire,
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
         getMoviesForCountryQuestionnaire: getMoviesForCountryQuestionnaire,
         getAllMovies: getAllMovies,
