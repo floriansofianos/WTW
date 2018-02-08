@@ -993,7 +993,16 @@ module.exports = function () {
 
     var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, done) {
         model.TVShowCreditsCache.findAll({ where: { data: { cast: { [Op.contains]: { id: castId } } } } }).then(tvShowCredits => {
-            return done(null, tvShowCredits);
+            if (tvShowCredits.length > 0) {
+                var movieDBIds = _.map(tvShowCredits, 'movieDBId');
+                tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
+                    if (err) done(err);
+                    else {
+                        return done(null, data)
+                    }
+                });
+            }
+            else done(null, false);
         })
             .catch(function (err) {
                 done(err);
@@ -1679,6 +1688,7 @@ module.exports = function () {
         getMoviesForWriterQuestionnaire: getMoviesForWriterQuestionnaire,
         getTVShowsForWriterQuestionnaire: getTVShowsForWriterQuestionnaire,
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
+        getTVShowsForActorQuestionnaire: getTVShowsForActorQuestionnaire,
         getMoviesForCountryQuestionnaire: getMoviesForCountryQuestionnaire,
         getAllMovies: getAllMovies,
         isMovieDirector: isMovieDirector,
