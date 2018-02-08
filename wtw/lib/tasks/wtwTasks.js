@@ -519,7 +519,7 @@ var generateTVActorQuestionnaire = function (castIds, questionnaires, userQuesti
         // get movieDB tv shows
         movieDBService.getTVShowsForActorQuestionnaire(castIds, null, null, null, certification, function (err, data) {
             if (data && data.length > 0) {
-                handleTVData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
+                handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);
                 });
             }
