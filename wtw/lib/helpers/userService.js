@@ -173,6 +173,23 @@ var userService = function() {
         });
     }
 
+    var getUsersForTVRecommandationRefresh = function (done) {
+        models.TVRecommandation.findAll({
+            attributes: ['userId', [sequelize.fn('count', sequelize.col('movieDBId')), 'movieCount']],
+            group: '"userId"',
+            having: sequelize.literal('count("movieDBId") > 30')
+        }).then(data => {
+            var usersIds = _.map(data, 'userId');
+            models.User.findAll({ where: { id: { $notIn: usersIds } } }).then(users => {
+                done(null, users);
+            }).catch(function (err) {
+                done(err);
+            });
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var userToModelView = function(user) {
         if (!user) return user;
         return {
@@ -303,6 +320,7 @@ var userService = function() {
         getUsersForQuestionnaireRefresh: getUsersForQuestionnaireRefresh,
         getUsersForTVQuestionnaireRefresh: getUsersForTVQuestionnaireRefresh,
         getUsersForRecommandationRefresh: getUsersForRecommandationRefresh,
+        getUsersForTVRecommandationRefresh: getUsersForTVRecommandationRefresh,
         userToModelView: userToModelView,
         issueToken: issueToken,
         getUserFromToken: getUserFromToken,

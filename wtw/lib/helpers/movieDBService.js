@@ -1690,6 +1690,7 @@ module.exports = function () {
         getMoviesForActorQuestionnaire: getMoviesForActorQuestionnaire,
         getTVShowsForActorQuestionnaire: getTVShowsForActorQuestionnaire,
         getMoviesForCountryQuestionnaire: getMoviesForCountryQuestionnaire,
+        getTVShowsForCountryQuestionnaire: getTVShowsForCountryQuestionnaire,
         getAllMovies: getAllMovies,
         isMovieDirector: isMovieDirector,
         isMovieWriter: isMovieWriter,

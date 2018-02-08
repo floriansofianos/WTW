@@ -37,11 +37,13 @@ var wtwProcess = function (i, done) {
     generateUsersProfile(function (err, res) {
         console.log('Starting generating questionnaires...');
         generateUsersQuestionnaires(function (err, res) {
-            generateUsersRecommandations(function (err, res) {
-                console.log('Finished!');
-                setTimeout(function () {
-                    wtwProcess(i + 1, done);;
-                }, 300000);
+            generateUsersTVQuestionnaires(function (err, res) {
+                generateUsersRecommandations(function (err, res) {
+                    console.log('Finished!');
+                    setTimeout(function () {
+                        wtwProcess(i + 1, done);;
+                    }, 300000);
+                });
             });
         });
     });
@@ -51,6 +53,13 @@ var generateUsersRecommandations = function (done) {
     // Retrieve all the users that need more recommandations
     userService.getUsersForRecommandationRefresh(function (err, users) {
         generateRecommandations(users, 0, done);
+    });
+}
+
+var generateUsersTVRecommandations = function (done) {
+    // Retrieve all the users that need more recommandations
+    userService.getUsersForTVRecommandationRefresh(function (err, users) {
+        generateTVRecommandations(users, 0, done);
     });
 }
 
@@ -108,6 +117,60 @@ var generateRecommandations = function (users, i, done) {
     else done(null, true);
 }
 
+var generateTVRecommandations = function (users, i, done) {
+    if (i < users.length) {
+        var u = users[i];
+        console.log('Starting generating tv recommandations for ' + u.username + '...');
+        // Get all existing questionnaires and profiles
+        tvQuestionnaireService.getAll(u.id, function (err, questionnaires) {
+            // Filter out questionnaires: if a movie is skipped we can still recommend it
+            questionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped });
+            userProfileService.getAll(u.id, function (err, profiles) {
+                tvRecommandationService.getAll(u.id, function (err, tvRecommandations) {
+                    // We need to retrieve all the credits for the recommandations because we don't want to recommend the same writer/director over and over again.
+                    getAllTVCredits(tvRecommandations, 0, function (err, tvRecommandations) {
+                        var alreadyRecommandedDirectors = [].concat.apply([], _.map(tvRecommandations, function (r) { return _.map(r.directors, function (d) { return d.id }) }));
+                        var alreadyRecommandedWriters = [].concat.apply([], _.map(tvRecommandations, function (r) { return _.map(r.writers, function (d) { return d.id }) }));
+                        var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 });
+                        var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
+                        // Check favourite directors
+                        var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65 && _.size(_.filter(alreadyRecommandedDirectors), function (d) { return d == p.directorId }) < 2; });
+                        generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                            // Check favourite writers
+                            var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
+                            generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                // Check favourite genres
+                                var seenCountForGenres = _.reduce(_.filter(filteredProfiles, function (p) { return p.genreId; }), function (memo, p) { return memo + p.seenCount; }, 0);
+                                var numberOfGenres = _.size(_.filter(filteredProfiles, function (p) { return p.genreId; }));
+                                var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
+                                var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && (p.score > 85 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); });
+                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                    // Check favourite actors
+                                    var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
+                                    generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                        // Check favourite countries or countries that we like to watch (lots of seenCount)
+                                        var countriesProfiles = _.filter(filteredProfiles, function (p) { return (p.country && p.score > 85) || (p.country && p.country != 'en' && p.seenCount > 10); });
+                                        generateCountryRecommandations(_.map(countriesProfiles, 'country'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                            generateSimilarMovieRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, tvRecommandations, u.id, 0, function (err, res) {
+                                                var followingUserIds = friendshipService.getAllFollowings(u.id, function (err, res) {
+                                                    generateFollowingRecommandations(_.map(res, 'friendUserId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                                        generateRecommandations(users, i + 1, done);
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+    else done(null, true);
+}
+
 var getAllCredits = function (reco, i, done) {
     if (i < reco.length) {
         var movieId = reco[i].movieDBId;
@@ -121,6 +184,18 @@ var getAllCredits = function (reco, i, done) {
         });
     }
     else done(null, reco);
+}
+
+var getAllTVCredits = function (reco, i, done) {
+    var movieIds = _.map(reco, 'movieDBId');
+    tvCacheService.getAllInArray(movieIds, function (err, data) {
+        if (err) return done(err);
+        _.each(reco, function (r) {
+            r.creators = _.find(data.tvShowInfos, function (i) { return i.movieDBId == r.movieDBId }).data.created_by;
+            r.writers = movieDBService.getWriters(_.find(data.tvShowCredits, function (i) { return i.movieDBId == r.movieDBId }).data);
+        });
+        return done(null, reco);
+    });
 }
 
 var generateUsersQuestionnaires = function (done) {
@@ -200,13 +275,13 @@ var generateTVQuestionnaires = function (users, i, done) {
                                 // Deal with actors
                                 console.log('Generating questionnaires for actors...');
                                 var filteredActorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.castId != null; });
-                                generateActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, function (err, res) {
+                                generateTVActorQuestionnaire(_.map(filteredActorsProfiles, 'castId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, function (err, res) {
                                     // Deal with countries
                                     console.log('Generating questionnaires for countries...');
                                     var filteredCountriesProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.country != null; });
-                                    generateCountryQuestionnaire(_.map(filteredCountriesProfiles, 'country'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                    generateTVCountryQuestionnaire(_.map(filteredCountriesProfiles, 'country'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                         // Done!
-                                        generateQuestionnaires(users, i + 1, done);
+                                        generateTVQuestionnaires(users, i + 1, done);
                                     });
                                 });
                             });
@@ -517,7 +592,7 @@ var generateTVActorQuestionnaire = function (castIds, questionnaires, userQuesti
     if (castIds.length < 1) done(null, true);
     else {
         // get movieDB tv shows
-        movieDBService.getTVShowsForActorQuestionnaire(castIds, null, null, null, certification, function (err, data) {
+        movieDBService.getTVShowsForActorQuestionnaire(castIds[Math.floor(Math.random() * castIds.length)], null, null, null, certification, function (err, data) {
             if (data && data.length > 0) {
                 handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
                     done(null, true);
@@ -539,6 +614,22 @@ var generateCountryQuestionnaire = function (countries, questionnaires, userQues
                 });
             }
             else generateCountryQuestionnaire(countries, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateTVCountryQuestionnaire = function (countries, questionnaires, userQuestionnaires, certification, userId, i, done) {
+    if (i < countries.length) {
+        var country = countries[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForCountryQuestionnaire(country, null, null, certification, function (err, data) {
+            if (data && data.length) {
+                handleData(data, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
+                    generateTVCountryQuestionnaire(countries, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
+                });
+            }
+            else generateTVCountryQuestionnaire(countries, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
