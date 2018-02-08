@@ -129,13 +129,13 @@ var generateTVRecommandations = function (users, i, done) {
                 tvRecommandationService.getAll(u.id, function (err, tvRecommandations) {
                     // We need to retrieve all the credits for the recommandations because we don't want to recommend the same writer/director over and over again.
                     getAllTVCredits(tvRecommandations, 0, function (err, tvRecommandations) {
-                        var alreadyRecommandedDirectors = [].concat.apply([], _.map(tvRecommandations, function (r) { return _.map(r.directors, function (d) { return d.id }) }));
+                        var alreadyRecommandedCreators = [].concat.apply([], _.map(tvRecommandations, function (r) { return _.map(r.creators, function (d) { return d.id }) }));
                         var alreadyRecommandedWriters = [].concat.apply([], _.map(tvRecommandations, function (r) { return _.map(r.writers, function (d) { return d.id }) }));
                         var filteredProfiles = _.filter(profiles, function (p) { return p.scoreRelevance > 50 });
                         var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
-                        // Check favourite directors
-                        var directorsProfiles = _.filter(filteredProfiles, function (p) { return p.directorId && p.score > 65 && _.size(_.filter(alreadyRecommandedDirectors), function (d) { return d == p.directorId }) < 2; });
-                        generateDirectorRecommandations(_.map(directorsProfiles, 'directorId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                        // Check favourite creators
+                        var creatorsProfiles = _.filter(filteredProfiles, function (p) { return p.creatorId && p.score > 65 && _.size(_.filter(alreadyRecommandedCreators), function (d) { return d == p.creatorId }) < 2; });
+                        generateDirectorRecommandations(_.map(creatorsProfiles, 'creatorId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                             // Check favourite writers
                             var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
                             generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
