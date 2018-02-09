@@ -6,6 +6,7 @@ var date = require('date-and-time');
 var _ = require('underscore');
 var models = require('../models');
 var moment = require('moment');
+var sequelize = require('sequelize');
 
 module.exports = function () {
     var getFirstTenMovies = function (lang, movieQuestionnaires, certification, yearOfBirth, language, done) {
@@ -588,7 +589,8 @@ module.exports = function () {
     }
 
     var getTVShowsForCreatorQuestionnaire = function (creatorId, done) {
-        model.TVShowInfoCache.findAll({ where: { data: { created_by: { [Op.contains]: { id: creatorId } } } } }).then(tvShows => {
+        var Op = sequelize.Op;
+        models.TVShowInfoCache.findAll({ where: { data: { created_by: { [Op.contains]: { id: creatorId } } } } }).then(tvShows => {
             return done(null, tvShows);
         }).catch(function (err) {
             done(err);
@@ -609,7 +611,8 @@ module.exports = function () {
     }
 
     var getTVShowsForWriterQuestionnaire = function (writerId, done) {
-        model.TVShowCreditsCache.findAll({ where: { data: { crew: { [Op.contains]: { id: writerId } } } } }).then(tvShowCredits => {
+        var Op = sequelize.Op;
+        models.TVShowCreditsCache.findAll({ where: { data: { crew: { [Op.contains]: { id: writerId } } } } }).then(tvShowCredits => {
             if (tvShowCredits.length > 0) {
                 var movieDBIds = _.map(tvShowCredits, 'movieDBId');
                 tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
@@ -974,7 +977,8 @@ module.exports = function () {
     }
 
     var getTVShowsForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, done) {
-        model.TVShowInfosCache.findAll({ where: { data: { genres: { [Op.contains]: { id: genreId } } } } }).then(tvShowInfos => {
+        var Op = sequelize.Op;
+        models.TVShowInfoCache.findAll({ where: { data: { genres: { [Op.contains]: { id: genreId } } } } }).then(tvShowInfos => {
             return done(null, tvShowInfos);
         })
             .catch(function (err) {
@@ -983,7 +987,7 @@ module.exports = function () {
     }
 
     var getTVShowsForCountryQuestionnaire = function (country, minRelease, maxRelease, language, certification, done) {
-        model.TVShowInfosCache.findAll({ where: { data: { original_language: country } } }).then(tvShowInfos => {
+        models.TVShowInfoCache.findAll({ where: { data: { original_language: country } } }).then(tvShowInfos => {
             return done(null, tvShowInfos);
         })
             .catch(function (err) {
@@ -992,7 +996,8 @@ module.exports = function () {
     }
 
     var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, done) {
-        model.TVShowCreditsCache.findAll({ where: { data: { cast: { [Op.contains]: { id: castId } } } } }).then(tvShowCredits => {
+        var Op = sequelize.Op;
+        models.TVShowCreditsCache.findAll({ where: { data: { cast: { [Op.contains]: { id: castId } } } } }).then(tvShowCredits => {
             if (tvShowCredits.length > 0) {
                 var movieDBIds = _.map(tvShowCredits, 'movieDBId');
                 tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {

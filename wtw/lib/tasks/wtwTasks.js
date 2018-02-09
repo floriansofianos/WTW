@@ -14,9 +14,9 @@ var plexService = require('../helpers/plexService')();
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
-    wtwProcess(0, function () {
+    /*wtwProcess(0, function () {
         // We do not care about what happens when this finishes since we are in an infinite loop
-    });
+    });*/
     plexService.getAllPlexServers(function (err, servers) {
         _.each(servers, function (s) {
             plexService.updateAllPlexMovies(s, function (err, result) { });
@@ -269,7 +269,7 @@ var generateTVQuestionnaires = function (users, i, done) {
                         // Deal with creators
                         console.log('Generating questionnaires for directors...');
                         var filteredCreatorsProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.creatorId != null; });
-                        generateTVCreatorQuestionnaire(_.map(filteredDirectorsProfiles, 'creatorId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                        generateTVCreatorQuestionnaire(_.map(filteredCreatorsProfiles, 'creatorId'), questionnaires, userQuestionnaires, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                             // Deal with writers
                             console.log('Generating questionnaires for writers...');
                             var filteredWritersProfiles = _.filter(profiles, function (p) { return p.scoreRelevance < 100 && p.writerId != null; });
