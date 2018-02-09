@@ -1698,6 +1698,7 @@ module.exports = function () {
         filterOutDirectorData: filterOutDirectorData,
         filterOutWriterData: filterOutWriterData,
         getSimilarMovies: getSimilarMovies,
+        getSimilarTVShows: getSimilarTVShows,
         getRatingCertification: getRatingCertification,
         retrieveAndStoreTVShows: retrieveAndStoreTVShows
     }

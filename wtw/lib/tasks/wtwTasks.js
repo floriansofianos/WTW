@@ -39,10 +39,12 @@ var wtwProcess = function (i, done) {
         generateUsersQuestionnaires(function (err, res) {
             generateUsersTVQuestionnaires(function (err, res) {
                 generateUsersRecommandations(function (err, res) {
-                    console.log('Finished!');
-                    setTimeout(function () {
-                        wtwProcess(i + 1, done);;
-                    }, 300000);
+                    generateUsersTVRecommandations(function (err, res) {
+                        console.log('Finished!');
+                        setTimeout(function () {
+                            wtwProcess(i + 1, done);;
+                        }, 300000);
+                    });
                 });
             });
         });
@@ -90,7 +92,7 @@ var generateRecommandations = function (users, i, done) {
                                 var numberOfGenres = _.size(_.filter(filteredProfiles, function (p) { return p.genreId; }));
                                 var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
                                 var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && (p.score > 85 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); });
-                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                generateGenreRecommandations(_.map(genresProfiles, 'genreId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
                                     generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, movieRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
@@ -135,25 +137,25 @@ var generateTVRecommandations = function (users, i, done) {
                         var filteredQuestionnaires = _.filter(questionnaires, function (q) { return !q.isSkipped; })
                         // Check favourite creators
                         var creatorsProfiles = _.filter(filteredProfiles, function (p) { return p.creatorId && p.score > 65 && _.size(_.filter(alreadyRecommandedCreators), function (d) { return d == p.creatorId }) < 2; });
-                        generateDirectorRecommandations(_.map(creatorsProfiles, 'creatorId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                        generateCreatorTVRecommandations(_.map(creatorsProfiles, 'creatorId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                             // Check favourite writers
                             var writersProfiles = _.filter(filteredProfiles, function (p) { return p.writerId && p.score > 65 && _.size(_.filter(alreadyRecommandedWriters), function (d) { return d == p.writerId }) < 2; });
-                            generateWriterRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                            generateWriterTVRecommandations(_.map(writersProfiles, 'writerId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                 // Check favourite genres
                                 var seenCountForGenres = _.reduce(_.filter(filteredProfiles, function (p) { return p.genreId; }), function (memo, p) { return memo + p.seenCount; }, 0);
                                 var numberOfGenres = _.size(_.filter(filteredProfiles, function (p) { return p.genreId; }));
                                 var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
                                 var genresProfiles = _.filter(filteredProfiles, function (p) { return p.genreId && (p.score > 85 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); });
-                                generateGenreRecommandations(_.map(writersProfiles, 'genreId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                generateGenreTVRecommandations(_.map(genresProfiles, 'genreId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                     // Check favourite actors
                                     var actorsProfiles = _.filter(filteredProfiles, function (p) { return p.castId && p.score > 85; });
-                                    generateActorRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                    generateActorTVRecommandations(_.map(actorsProfiles, 'castId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                         // Check favourite countries or countries that we like to watch (lots of seenCount)
                                         var countriesProfiles = _.filter(filteredProfiles, function (p) { return (p.country && p.score > 85) || (p.country && p.country != 'en' && p.seenCount > 10); });
-                                        generateCountryRecommandations(_.map(countriesProfiles, 'country'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
-                                            generateSimilarMovieRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, tvRecommandations, u.id, 0, function (err, res) {
+                                        generateCountryTVRecommandations(_.map(countriesProfiles, 'country'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                            generateSimilarTVRecommandations(_.map(_.filter(questionnaires, function (q) { return q.isSeen && q.rating == 5 }), 'movieDBId'), questionnaires, tvRecommandations, u.id, 0, function (err, res) {
                                                 var followingUserIds = friendshipService.getAllFollowings(u.id, function (err, res) {
-                                                    generateFollowingRecommandations(_.map(res, 'friendUserId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
+                                                    generateFollowingTVRecommandations(_.map(res, 'friendUserId'), questionnaires, tvRecommandations, movieDBService.getRatingCertification(u.yearOfBirth), u.id, 0, function (err, res) {
                                                         generateRecommandations(users, i + 1, done);
                                                     });
                                                 });
@@ -358,7 +360,7 @@ var handleData = function (allMovies, questionnaires, userQuestionnaires, userId
 var handleTVData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i].data;
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && new Date(m.release_date) < new Date()) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && new Date(m.first_air_date) < new Date()) {
             userTVQuestionnaireService.create(userId, m.id, function (err, data) {
                 handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
             });
@@ -377,6 +379,19 @@ var handleDataRecommandations = function (allMovies, questionnaires, movieRecomm
             });
         }
         else handleDataRecommandations(allMovies, questionnaires, movieRecommandations, userId, i + 1, limitAdd, done);
+    }
+    else done(null, true);
+}
+
+var handleDataTVRecommandations = function (allTVShows, questionnaires, movieRecommandations, userId, i, limitAdd, done) {
+    if (i < allTVShows.length) {
+        var t = allTVShows[i].data;
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == t.id }) && !_.find(movieRecommandations, function (q) { return q.movieDBId == t.id; }) && limitAdd > 0 && new Date(t.first_air_date) < new Date()) {
+            tvRecommandationService.create(userId, t.id, function (err, data) {
+                handleDataTVRecommandations(allTVShows, questionnaires, movieRecommandations, userId, i + 1, limitAdd - 1, done);
+            });
+        }
+        else handleDataTVRecommandations(allTVShows, questionnaires, movieRecommandations, userId, i + 1, limitAdd, done);
     }
     else done(null, true);
 }
@@ -420,6 +435,86 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
                 });
             }
             else generateDirectorRecommandations(directorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateCreatorTVRecommandations = function (creatorIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < creatorIds.length) {
+        var creatorId = creatorIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForCreatorQuestionnaire(creatorId, function (err, data) {
+            if (data && data.length > 0) {
+                handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
+                    generateCreatorTVRecommandations(creatorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateCreatorTVRecommandations(creatorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateWriterTVRecommandations = function (writerIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < writerIds.length) {
+        var writerId = writerIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForWriterQuestionnaire(writerId, function (err, data) {
+            if (data && data.length > 0) {
+                handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
+                    generateWriterTVRecommandations(writerIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateWriterTVRecommandations(writerIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateGenreTVRecommandations = function (genreIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < genreIds.length) {
+        var genreId = genreIds[i];
+        // get movieDB movies
+        movieDBService.getTVShowsForGenreQuestionnaire(genreId, null, null, null, certification, function (err, data) {
+            if (data && data.length > 0) {
+                handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
+                    generateGenreTVRecommandations(genreIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateGenreTVRecommandations(genreIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateActorTVRecommandations = function (actorIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < actorIds.length) {
+        var actorId = actorIds[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForActorQuestionnaire(actorId, null, null, null, certification, function (err, data) {
+            if (data && data.length > 0) {
+                handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
+                    generateActorTVRecommandations(actorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateActorTVRecommandations(actorIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateCountryTVRecommandations = function (countries, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < countries.length) {
+        var country = countries[i];
+        // get movieDB tv shows
+        movieDBService.getTVShowsForCountryQuestionnaire(country, null, null, certification, function (err, data) {
+            if (data && data.length > 0) {
+                handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
+                    generateCountryTVRecommandations(countries, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateCountryTVRecommandations(countries, questionnaires, movieRecommandations, certification, userId, i + 1, done);
         });
     }
     else done(null, true);
@@ -517,6 +612,28 @@ var generateFollowingRecommandations = function (followingUserIds, questionnaire
     else done(null, true);
 }
 
+var generateFollowingTVRecommandations = function (followingUserIds, questionnaires, movieRecommandations, certification, userId, i, done) {
+    if (i < followingUserIds.length) {
+        var followingUserId = followingUserIds[i];
+        // get movieDB tv shows
+        tvQuestionnaireService.getSampleLikedTVs(followingUserId, function (err, data) {
+            if (data && data.length > 0) {
+                var movieIds = _.map(data, 'movieDBId');
+                tvCacheService.getAllInArrayWithLang(movieIds, 'en', function (err, data) {
+                    if (data && data.length > 0) {
+                        handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
+                            generateFollowingTVRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                        });
+                    }
+                    else generateFollowingTVRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+                });
+            }
+            else generateFollowingTVRecommandations(followingUserIds, questionnaires, movieRecommandations, certification, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
 var generateSimilarMovieRecommandations = function (movieIds, questionnaires, movieRecommandations, userId, i, done) {
     if (i < movieIds.length) {
         var movieId = movieIds[i];
@@ -528,6 +645,26 @@ var generateSimilarMovieRecommandations = function (movieIds, questionnaires, mo
                 });
             }
             else generateSimilarMovieRecommandations(movieIds, questionnaires, movieRecommandations, userId, i + 1, done);
+        });
+    }
+    else done(null, true);
+}
+
+var generateSimilarTVRecommandations = function (movieIds, questionnaires, movieRecommandations, userId, i, done) {
+    if (i < movieIds.length) {
+        var movieId = movieIds[i];
+        // get movieDB similar tv shows
+        movieDBService.getSimilarTVShows(movieId, function (err, data) {
+            if (data && data.results) {
+                var tvShows = [];
+                _.each(data.results, function (r) {
+                    tvShows.push({ data: r });
+                })
+                handleDataTVRecommandations(tvShows, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
+                    generateSimilarTVRecommandations(movieIds, questionnaires, movieRecommandations, userId, i + 1, done);
+                });
+            }
+            else generateSimilarTVRecommandations(movieIds, questionnaires, movieRecommandations, userId, i + 1, done);
         });
     }
     else done(null, true);
