@@ -12,30 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieQuestionnaireService = /** @class */ (function () {
-    function MovieQuestionnaireService(http) {
+var TVQuestionnaireService = /** @class */ (function () {
+    function TVQuestionnaireService(http) {
         this.http = http;
     }
-    MovieQuestionnaireService.prototype.create = function (movieQuestionnaire) {
-        return this.http.post('/api/movieQuestionnaire', movieQuestionnaire)
+    TVQuestionnaireService.prototype.create = function (tvQuestionnaire) {
+        return this.http.post('/api/tvQuestionnaire', tvQuestionnaire)
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.getAll = function () {
-        return this.http.get('/api/movieQuestionnaire')
+    TVQuestionnaireService.prototype.getAll = function () {
+        return this.http.get('/api/tvQuestionnaire')
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.getWatchlist = function () {
-        return this.http.get('/api/movieQuestionnaire/watchlist')
+    TVQuestionnaireService.prototype.getWatchlist = function () {
+        return this.http.get('/api/tvQuestionnaire/watchlist')
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.get = function (id) {
-        return this.http.get('/api/movieQuestionnaire/' + id)
+    TVQuestionnaireService.prototype.get = function (id) {
+        return this.http.get('/api/tvQuestionnaire/' + id)
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.getCast = function (directorId, writerId, actorId, lang) {
+    TVQuestionnaireService.prototype.getCast = function (creatorId, writerId, actorId, lang) {
         var params = {};
-        if (directorId)
-            params.directorId = directorId;
+        if (creatorId)
+            params.creatorId = creatorId;
         if (writerId)
             params.writerId = writerId;
         if (actorId)
@@ -44,13 +44,13 @@ var MovieQuestionnaireService = /** @class */ (function () {
         return this.http.get('/api/cast', { params: params })
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.handleErrors = function (error) {
+    TVQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    MovieQuestionnaireService = __decorate([
+    TVQuestionnaireService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
-    ], MovieQuestionnaireService);
-    return MovieQuestionnaireService;
+    ], TVQuestionnaireService);
+    return TVQuestionnaireService;
 }());
-exports.MovieQuestionnaireService = MovieQuestionnaireService;
+exports.TVQuestionnaireService = TVQuestionnaireService;

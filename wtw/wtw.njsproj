@@ -63,6 +63,7 @@
     <Content Include="app\timeline\timeline.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
+    <Content Include="app\user-tvshows-home\user-tvshows-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
     <Content Include="app\user-movies-home\user-movies-home-page.component.html" />
@@ -119,6 +120,7 @@
     <TypeScriptCompile Include="app\movie\cast-member.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\tv\tv-questionnaire.service.ts" />
     <TypeScriptCompile Include="app\movie\movie-recommandation.component.ts" />
     <TypeScriptCompile Include="app\movie\movie-questionnaire.component.ts">
       <SubType>Code</SubType>
@@ -151,6 +153,7 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\tvQuestionnaireController.js" />
     <Compile Include="lib\controllers\timelineEventController.js" />
     <Compile Include="lib\controllers\notificationController.js" />
     <Compile Include="lib\controllers\followingController.js" />
@@ -244,6 +247,8 @@
     <Content Include="lib\routes\castRoutes.js" />
     <Content Include="lib\routes\timelineEventRoutes.js" />
     <Compile Include="lib\models\usertvquestionnaire.js" />
+    <Content Include="lib\routes\tvQuestionnaireRoutes.js" />
+    <Content Include="lib\routes\movieDBSearchTVRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">
@@ -274,6 +279,7 @@
     <TypeScriptCompile Include="app\timeline\timeline.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-tvshows-home\user-tvshows-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-dummy-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.ts" />
@@ -298,11 +304,13 @@
     <Folder Include="app\languages\" />
     <Folder Include="app\also-like\" />
     <Folder Include="app\footer\" />
+    <Folder Include="app\tv\" />
     <Folder Include="app\timeline-event-friend\" />
     <Folder Include="app\timeline-event-follow\" />
     <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
+    <Folder Include="app\user-tvshows-home\" />
     <Folder Include="app\user-profile\" />
     <Folder Include="app\user\" />
     <Folder Include="app\social\" />

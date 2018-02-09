@@ -14,9 +14,9 @@ var plexService = require('../helpers/plexService')();
 var _ = require('underscore');
 
 var wtwTasks = function (job, done) {
-    /*wtwProcess(0, function () {
+    wtwProcess(0, function () {
         // We do not care about what happens when this finishes since we are in an infinite loop
-    });*/
+    });
     plexService.getAllPlexServers(function (err, servers) {
         _.each(servers, function (s) {
             plexService.updateAllPlexMovies(s, function (err, result) { });
@@ -696,7 +696,7 @@ var generateTVWriterQuestionnaire = function (writerIds, questionnaires, userQue
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB tv shows
-        movieDBService.getTVShowsForWriterQuestionnaire(writerId, null, null, null, certification, 1, function (err, data) {
+        movieDBService.getTVShowsForWriterQuestionnaire(writerId, function (err, data) {
             if (data && data.length > 0) {
                 handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 2, function (err, res) {
                     generateTVWriterQuestionnaire(writerIds, questionnaires, userQuestionnaires, certification, userId, i + 1, done);

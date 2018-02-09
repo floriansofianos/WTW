@@ -5,6 +5,7 @@ var authRouter = require('./lib/routes/authRoutes')();
 var firstQuestionnaireRouter = require('./lib/routes/firstQuestionnaireRoutes')();
 var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoutes')();
 var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')();
+var tvQuestionnaireRouter = require('./lib/routes/tvQuestionnaireRoutes')();
 var movieRecommandationRouter = require('./lib/routes/movieRecommandationRoutes')();
 var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
@@ -80,6 +81,7 @@ app.use('/auth', authRouter);
 app.use('/api/firstQuestionnaire', firstQuestionnaireRouter);
 app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
+app.use('/api/tvQuestionnaire', tvQuestionnaireRouter);
 app.use('/api/userQuestionnaire', userQuestionnaireRouter);
 app.use('/api/movieRecommandation', movieRecommandationRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
@@ -123,6 +125,9 @@ app.get('/user/social', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/movies/home', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/tvshows/home', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/movies/questionnaires', function(req, res) {

@@ -24,6 +24,10 @@ var MovieDBService = (function () {
         return this.http.get('/api/movieDBSearch', { params: { search: s } })
             .catch(this.handleErrors);
     };
+    MovieDBService.prototype.searchTV = function (s) {
+        return this.http.get('/api/movieDBSearchTV', { params: { search: s } })
+            .catch(this.handleErrors);
+    };
     MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, nowPlaying, languageSelected, friendId, usePlex) {
         return this.http.get('/api/movieDBSearch/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, nowPlaying: nowPlaying, languageSelected: languageSelected, friendId: friendId, usePlex: usePlex } })
             .catch(this.handleErrors);

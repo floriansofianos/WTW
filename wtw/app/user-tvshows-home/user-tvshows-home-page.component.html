@@ -1,0 +1,37 @@
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'movies'" [username]="username"></top-menu>
+<div class="content-container">
+    <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
+    <div class="inner-content-container">
+        <div class="search-container" *ngIf="!hideSearch">
+            <div class="search-bar-container" [@searchState]="searchContainerState">
+                <mat-form-field>
+                    <input matInput placeholder="{{ 'FORM.SEARCH' | translate }}" [(ngModel)]="search" (keydown)="keyDownFunction($event)" />
+                </mat-form-field>
+                <wtw-button (click)="searchTV()">{{ 'FORM.OK' | translate }}</wtw-button>
+            </div>
+            <div class="search-results-container" [@searchResultsState]="searchContainerState">
+                <div [@searchResultsLoadedState]="searchResultsLoaded">
+                    <div class="search-result" *ngFor="let result of searchResults">
+                        <div class="search-result-poster">
+                            <img width="100" *ngIf="result.poster_path" src="{{ configuration.images.base_url }}{{ configuration.images.poster_sizes[3] }}{{ result.poster_path }}" />
+                            <div *ngIf="!result.poster_path" class="movie-poster-placeholder" style="width: 100px; height: 175px;">
+                                <i class="fa fa-film" style="font-size: 40px; margin-top: 65px;"></i>
+                            </div>
+                        </div>
+                        <div class="search-result-title">{{ result.title }}</div>
+                        <div class="search-result-year">{{ result.release_date?.substring(0, 4)}}</div>
+                        <div class="search-result-overview">{{ result.overview }}</div>
+                        <div class="search-result-button-container">
+                            <wtw-button (click)="rateMovie(result.id)">{{ 'MOVIES.HOME.RATE_THIS_MOVIE' | translate }}</wtw-button>
+                        </div>
+                    </div>
+                    <div *ngIf="searchResults?.length < 1">{{ 'MOVIES.HOME.NO_RESULT' | translate }}</div>
+                </div>
+                <div *ngIf="loadingSearch" class="spinner-container">
+                    <spinner></spinner>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer></footer>

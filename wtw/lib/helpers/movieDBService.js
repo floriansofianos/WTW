@@ -986,7 +986,7 @@ module.exports = function () {
             });
     }
 
-    var getTVShowsForCountryQuestionnaire = function (country, minRelease, maxRelease, language, certification, done) {
+    var getTVShowsForCountryQuestionnaire = function (country, minRelease, maxRelease, certification, done) {
         models.TVShowInfoCache.findAll({ where: { data: { original_language: country } } }).then(tvShowInfos => {
             return done(null, tvShowInfos);
         })

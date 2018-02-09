@@ -15,14 +15,14 @@ var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
-var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
-var UserMoviesHomePageComponent = /** @class */ (function () {
-    function UserMoviesHomePageComponent(authService, router, movieDBService, translate, movieQuestionnaireService) {
+var tv_questionnaire_service_1 = require("../tv/tv-questionnaire.service");
+var UserTVShowsHomePageComponent = (function () {
+    function UserTVShowsHomePageComponent(authService, router, movieDBService, translate, tvQuestionnaireService) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
         this.translate = translate;
-        this.movieQuestionnaireService = movieQuestionnaireService;
+        this.tvQuestionnaireService = tvQuestionnaireService;
         this.hideSearch = false;
         this.searchContainerState = 'notSearched';
         this.loadingSearch = false;
@@ -34,7 +34,7 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
             { icon: 'fa-film', path: 'watchlist', title: 'LEFT_MENU.WATCHLIST' }
         ];
     }
-    UserMoviesHomePageComponent.prototype.ngOnInit = function () {
+    UserTVShowsHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
@@ -53,13 +53,13 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
             this.router.navigate(['']);
         }
     };
-    UserMoviesHomePageComponent.prototype.searchMovie = function () {
+    UserTVShowsHomePageComponent.prototype.searchTV = function () {
         var _this = this;
         if (this.search && this.search.trim()) {
             this.searchContainerState = 'searched';
             this.loadingSearch = true;
             this.searchResultsLoaded = 'notLoaded';
-            this.movieDBService.search(this.search).subscribe(function (data) {
+            this.movieDBService.searchTV(this.search).subscribe(function (data) {
                 _this.searchResults = data.json();
                 if (_this.searchResults.length < 1) {
                 }
@@ -70,19 +70,19 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
             });
         }
     };
-    UserMoviesHomePageComponent.prototype.rateMovie = function (id) {
+    UserTVShowsHomePageComponent.prototype.rateMovie = function (id) {
         this.router.navigate(['/movie/' + id]);
     };
-    UserMoviesHomePageComponent.prototype.keyDownFunction = function (event) {
+    UserTVShowsHomePageComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
             // Enter pressed
             this.searchMovie();
         }
     };
-    UserMoviesHomePageComponent = __decorate([
+    UserTVShowsHomePageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'user-movies-home-page.component.html',
+            templateUrl: 'user-tvshows-home-page.component.html',
             animations: [
                 animations_1.trigger('searchState', [
                     animations_1.state('notSearched', animations_1.style({
@@ -113,8 +113,9 @@ var UserMoviesHomePageComponent = /** @class */ (function () {
                 ]),
             ]
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService, movie_questionnaire_service_1.MovieQuestionnaireService])
-    ], UserMoviesHomePageComponent);
-    return UserMoviesHomePageComponent;
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, core_2.TranslateService, tv_questionnaire_service_1.TVQuestionnaireService])
+    ], UserTVShowsHomePageComponent);
+    return UserTVShowsHomePageComponent;
 }());
-exports.UserMoviesHomePageComponent = UserMoviesHomePageComponent;
+exports.UserTVShowsHomePageComponent = UserTVShowsHomePageComponent;
+//# sourceMappingURL=user-tvshows-home-page.component.js.map
