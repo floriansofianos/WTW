@@ -1,26 +1,22 @@
 ﻿var express = require('express');
 var movieDBService = require('../helpers/movieDBService')();
-var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
-var movieCacheService = require('../helpers/movieCacheService')();
+var tvQuestionnaireService = require('../helpers/tvQuestionnaireService')();
+var tvCacheService = require('../helpers/tvCacheService')();
 var userProfileService = require('../helpers/userProfileService')();
-var movieRecommandationService = require('../helpers/movieRecommandationService')();
-var movieSearchController = require('../controllers/movieSearchController')(movieDBService, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService);
+var tvRecommandationService = require('../helpers/tvRecommandationService')();
+var tvSearchController = require('../controllers/tvSearchController')(movieDBService, tvQuestionnaireService, tvCacheService, userProfileService, tvRecommandationService);
 
 
 var movieDBSearchTVRoutes = function () {
     var movieDBSearchTVRouter = express.Router();
 
-
-    //TODO Changes here
-
-
-
-
-
     movieDBSearchTVRouter.route('/')
-        .get(movieSearchController.search);
+        .get(tvSearchController.search);
 
-    return movieDBSearchRouter;
+    movieDBSearchTVRouter.route('/wtw')
+        .get(tvSearchController.wtw);
+
+    return movieDBSearchTVRouter;
 }
 
 module.exports = movieDBSearchTVRoutes;

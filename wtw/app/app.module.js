@@ -47,6 +47,7 @@ var angular2_ui_switch_1 = require("angular2-ui-switch");
 var ng2_nouislider_1 = require("ng2-nouislider");
 var top_menu_component_1 = require("./top-menu/top-menu.component");
 var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-home-page.component");
+var user_tvshows_home_page_component_1 = require("./user-tvshows-home/user-tvshows-home-page.component");
 var left_menu_component_1 = require("./left-menu/left-menu.component");
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
 var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
@@ -69,6 +70,7 @@ var footer_component_1 = require("./footer/footer.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
 var movie_questionnaire_service_1 = require("./movie/movie-questionnaire.service");
+var tv_questionnaire_service_1 = require("./tv/tv-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
 var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
@@ -136,6 +138,7 @@ var AppModule = /** @class */ (function () {
                 forgot_password_form_component_1.ForgotPasswordFormComponent,
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
+                user_tvshows_home_page_component_1.UserTVShowsHomePageComponent,
                 left_menu_component_1.LeftMenuComponent,
                 user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent,
                 user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent,
@@ -164,6 +167,7 @@ var AppModule = /** @class */ (function () {
                 movie_recommandation_service_1.MovieRecommandationService,
                 countries_service_1.CountriesService,
                 languages_service_1.LanguagesService,
+                tv_questionnaire_service_1.TVQuestionnaireService,
                 social_service_1.SocialService,
                 notification_service_1.NotificationService,
                 timeline_service_1.TimelineService,

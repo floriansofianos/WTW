@@ -113,7 +113,7 @@ export class UserTVShowsHomePageComponent {
     keyDownFunction(event) {
         if (event.keyCode == 13) {
             // Enter pressed
-            this.searchMovie();
+            this.searchTV();
         }
     }
 }

@@ -168,6 +168,7 @@
     <Compile Include="lib\controllers\MovieRecommandationController.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\controllers\tvSearchController.js" />
     <Compile Include="lib\controllers\userQuestionnaireController.js" />
     <Compile Include="lib\controllers\movieController.js" />
     <Compile Include="lib\controllers\movieSearchController.js" />

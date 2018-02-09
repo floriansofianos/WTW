@@ -1700,6 +1700,7 @@ module.exports = function () {
         isMovieDirector: isMovieDirector,
         isMovieWriter: isMovieWriter,
         wtw: wtw,
+        wtwTV: wtwTV,
         filterOutDirectorData: filterOutDirectorData,
         filterOutWriterData: filterOutWriterData,
         getSimilarMovies: getSimilarMovies,

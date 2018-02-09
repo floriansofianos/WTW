@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
 var tv_questionnaire_service_1 = require("../tv/tv-questionnaire.service");
-var UserTVShowsHomePageComponent = (function () {
+var UserTVShowsHomePageComponent = /** @class */ (function () {
     function UserTVShowsHomePageComponent(authService, router, movieDBService, translate, tvQuestionnaireService) {
         this.authService = authService;
         this.router = router;
@@ -76,7 +76,7 @@ var UserTVShowsHomePageComponent = (function () {
     UserTVShowsHomePageComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
             // Enter pressed
-            this.searchMovie();
+            this.searchTV();
         }
     };
     UserTVShowsHomePageComponent = __decorate([
@@ -118,4 +118,3 @@ var UserTVShowsHomePageComponent = (function () {
     return UserTVShowsHomePageComponent;
 }());
 exports.UserTVShowsHomePageComponent = UserTVShowsHomePageComponent;
-//# sourceMappingURL=user-tvshows-home-page.component.js.map
