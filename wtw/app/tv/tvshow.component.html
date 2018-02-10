@@ -1,0 +1,14 @@
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'tvshows'" [username]="username"></top-menu>
+<div class="movie-questionnaire-container" *ngIf="!isLoading">
+    <tv-recommandation [tvshow]="tvshow" [tvQuestionnaireInit]="tvQuestionnaireInit" [availableOnPlex]="availableOnPlex" [config]="configuration" (notify)="tvQuestionnaireChange($event)" (notifySave)="tvQuestionnaireSave($event)" [lang]="lang"></tv-recommandation>
+    <div class="button-line" *ngIf="!showSaveSpinner" style="text-align: center">
+        <wtw-button (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
+    </div>
+    <div class="button-line" *ngIf="showSaveSpinner" style="text-align: center">
+        <spinner></spinner>
+    </div>
+</div>
+<div class="spinner-container" *ngIf="isLoading">
+    <spinner></spinner>
+</div>
+<footer></footer>

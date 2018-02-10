@@ -62,6 +62,8 @@
     <Content Include="app\timeline-event-rate-movie\timeline-event-rate-movie.component.html" />
     <Content Include="app\timeline\timeline.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
+    <Content Include="app\tv\tv-recommandation.component.html" />
+    <Content Include="app\tv\tvshow.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
     <Content Include="app\user-tvshows-home\user-tvshows-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
@@ -120,6 +122,9 @@
     <TypeScriptCompile Include="app\movie\cast-member.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\tv\tv-recommandation.service.ts" />
+    <TypeScriptCompile Include="app\tv\tv-recommandation.component.ts" />
+    <TypeScriptCompile Include="app\tv\tvshow.component.ts" />
     <TypeScriptCompile Include="app\tv\tv-questionnaire.service.ts" />
     <TypeScriptCompile Include="app\movie\movie-recommandation.component.ts" />
     <TypeScriptCompile Include="app\movie\movie-questionnaire.component.ts">
@@ -153,6 +158,8 @@
     <Compile Include="karma.conf.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="karma-test-shim.js" />
+    <Compile Include="lib\controllers\tvRecommandationController.js" />
+    <Compile Include="lib\controllers\tvshowController.js" />
     <Compile Include="lib\controllers\tvQuestionnaireController.js" />
     <Compile Include="lib\controllers\timelineEventController.js" />
     <Compile Include="lib\controllers\notificationController.js" />
@@ -218,6 +225,7 @@
     <Compile Include="lib\models\tvrecommandation.js" />
     <Compile Include="lib\models\tvshowcreditscache.js" />
     <Compile Include="lib\models\tvshowinfocache.js" />
+    <Compile Include="lib\models\tvvideocache.js" />
     <Compile Include="lib\models\user.js" />
     <Content Include="lib\routes\adminRoutes.js" />
     <Content Include="lib\routes\authRoutes.js" />
@@ -250,6 +258,8 @@
     <Compile Include="lib\models\usertvquestionnaire.js" />
     <Content Include="lib\routes\tvQuestionnaireRoutes.js" />
     <Content Include="lib\routes\movieDBSearchTVRoutes.js" />
+    <Compile Include="lib\routes\tvRecommandationRoutes.js" />
+    <Compile Include="lib\routes\tvshowRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">

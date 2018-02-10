@@ -1579,25 +1579,56 @@ module.exports = function () {
                     models.TVShowCreditsCache.findOne({ where: { movieDBId: tvShow.id } }).then(credits => {
                         if (!credits) {
                             getTVShowCreditsFromMovieDB(info.data, function (err, data) {
-                                retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                models.TVVideoCache.findOne({ where: { movieDBId: tvShow.id } }).then(videos => {
+                                    if (!videos) {
+                                        getTVShowVideoFromMovieDB(tvShow.id, 'en', function (err, data) {
+                                            getTVShowVideoFromMovieDB(tvShow.id, 'fr', function (err, data) {
+                                                retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                            });
+                                        });
+                                    }
+                                    else retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                }).catch(function (err) {
+                                    done(err);
+                                });
                             });
                         }
-                        else retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                        else {
+                            models.TVVideoCache.findOne({ where: { movieDBId: tvShow.id } }).then(videos => {
+                                if (!videos) {
+                                    getTVShowVideoFromMovieDB(tvShow.id, 'en', function (err, data) {
+                                        getTVShowVideoFromMovieDB(tvShow.id, 'fr', function (err, data) {
+                                            retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                        });
+                                    });
+                                }
+                                else retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                            }).catch(function (err) {
+                               done(err);
+                            });
+                        }
                     }).catch(function (err) {
                         done(err);
-                    });
-                    
+                    }); 
                 }
                 else {
                     if (info) {
                         models.TVShowInfoCache.destroy({ where: { id: info.id } }).then(data => {
                             models.TVShowCreditsCache.destroy({ where: { id: info.movieDBId } }).then(data => {
-                                getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
-                                    getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
-                                        getTVShowCreditsFromMovieDB(data.data, function (err, data) {
-                                            retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                models.TVVideoCache.destroy({ where: { id: info.movieDBId } }).then(data => {
+                                    getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
+                                        getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
+                                            getTVShowCreditsFromMovieDB(data.data, function (err, data) {
+                                                getTVShowVideoFromMovieDB(data.movieDBId, 'en', function (err, data) {
+                                                    getTVShowVideoFromMovieDB(data.movieDBId, 'fr', function (err, data) {
+                                                        retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                                    });
+                                                });
+                                            });
                                         });
-                                    });
+                                });
+                                }).catch(function (err) {
+                                    done(err);
                                 });
                             }).catch(function (err) {
                                 done(err);
@@ -1642,6 +1673,23 @@ module.exports = function () {
                         done(err);
                     });
             });
+        });
+    }
+
+    var getTVShowVideoFromMovieDB = function(movieDBId, lang, done) {
+        mdb.tvVideos({ id: movieDBId, language: lang }, (err, data) => {
+            if (err) return done(err, null);
+            models.TVVideoCache.create({
+                movieDBId: movieDBId,
+                data: data,
+                lang: lang
+            }).then(tvVideoCache => {
+                done(null, tvVideoCache);
+            })
+                .catch(function (err) {
+                    done(err);
+                });
+            
         });
     }
 
@@ -1697,6 +1745,7 @@ module.exports = function () {
         getMoviesForCountryQuestionnaire: getMoviesForCountryQuestionnaire,
         getTVShowsForCountryQuestionnaire: getTVShowsForCountryQuestionnaire,
         getAllMovies: getAllMovies,
+        getAllTVShows: getAllTVShows,
         isMovieDirector: isMovieDirector,
         isMovieWriter: isMovieWriter,
         wtw: wtw,

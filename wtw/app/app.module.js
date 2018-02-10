@@ -38,6 +38,7 @@ var questionnaire_component_1 = require("./questionnaire/questionnaire.component
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
 var movie_recommandation_component_1 = require("./movie/movie-recommandation.component");
+var tv_recommandation_component_1 = require("./tv/tv-recommandation.component");
 var cast_member_component_1 = require("./movie/cast-member.component");
 var forgot_password_form_component_1 = require("./forgot-password/forgot-password-form/forgot-password-form.component");
 var forgot_password_page_component_1 = require("./forgot-password/forgot-password-page.component");
@@ -66,6 +67,7 @@ var timeline_component_1 = require("./timeline/timeline.component");
 var timeline_event_follow_component_1 = require("./timeline-event-follow/timeline-event-follow.component");
 var timeline_event_friend_component_1 = require("./timeline-event-friend/timeline-event-friend.component");
 var timeline_event_rate_movie_component_1 = require("./timeline-event-rate-movie/timeline-event-rate-movie.component");
+var tvshow_component_1 = require("./tv/tvshow.component");
 var footer_component_1 = require("./footer/footer.component");
 var auth_service_1 = require("./auth/auth.service");
 var questionnaire_service_1 = require("./questionnaire/questionnaire.service");
@@ -75,6 +77,7 @@ var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
 var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
 var movie_recommandation_service_1 = require("./movie/movie-recommandation.service");
+var tv_recommandation_service_1 = require("./tv/tv-recommandation.service");
 var countries_service_1 = require("./countries/countries.service");
 var languages_service_1 = require("./languages/languages.service");
 var social_service_1 = require("./social/social.service");
@@ -139,12 +142,14 @@ var AppModule = /** @class */ (function () {
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
                 user_tvshows_home_page_component_1.UserTVShowsHomePageComponent,
+                tvshow_component_1.TVShowPageComponent,
                 left_menu_component_1.LeftMenuComponent,
                 user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent,
                 user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent,
                 user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent,
                 user_what_to_watch_page_component_1.UserWhatToWatchPageComponent,
                 movie_wall_component_1.MovieWallComponent,
+                tv_recommandation_component_1.TVRecommandationComponent,
                 movie_wall_element_component_1.MovieWallElementComponent,
                 forgot_password_page_component_1.ForgotPasswordPageComponent,
                 error_page_component_1.ErrorPageComponent,
@@ -165,6 +170,7 @@ var AppModule = /** @class */ (function () {
                 movieDB_service_1.MovieDBService,
                 user_questionnaire_service_1.UserQuestionnaireService,
                 movie_recommandation_service_1.MovieRecommandationService,
+                tv_recommandation_service_1.TVRecommandationService,
                 countries_service_1.CountriesService,
                 languages_service_1.LanguagesService,
                 tv_questionnaire_service_1.TVQuestionnaireService,

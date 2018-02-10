@@ -7,11 +7,13 @@ var movieDBConfigurationRouter = require('./lib/routes/movieDBConfigurationRoute
 var movieQuestionnaireRouter = require('./lib/routes/movieQuestionnaireRoutes')();
 var tvQuestionnaireRouter = require('./lib/routes/tvQuestionnaireRoutes')();
 var movieRecommandationRouter = require('./lib/routes/movieRecommandationRoutes')();
+var tvRecommandationRouter = require('./lib/routes/tvRecommandationRoutes')();
 var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
 var movieSearchTVRouter = require('./lib/routes/movieDBSearchTVRoutes')();
 var movieDBGenresRouter = require('./lib/routes/movieDBGenresRoutes')();
 var movieRouter = require('./lib/routes/movieRoutes')();
+var tvshowRouter = require('./lib/routes/tvshowRoutes')();
 var userRouter = require('./lib/routes/userRoutes')();
 var castRouter = require('./lib/routes/castRoutes')();
 var friendRouter = require('./lib/routes/friendRoutes')();
@@ -85,10 +87,12 @@ app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
 app.use('/api/tvQuestionnaire', tvQuestionnaireRouter);
 app.use('/api/userQuestionnaire', userQuestionnaireRouter);
 app.use('/api/movieRecommandation', movieRecommandationRouter);
+app.use('/api/tvRecommandation', tvRecommandationRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
 app.use('/api/movieDBSearchTV', movieSearchTVRouter);
 app.use('/api/movieDBGenres', movieDBGenresRouter);
 app.use('/api/movie', movieRouter);
+app.use('/api/tvshow', tvshowRouter);
 app.use('/api/cast', castRouter);
 app.use('/api/countries', countriesRouter);
 app.use('/api/languages', languagesRouter);
@@ -115,6 +119,9 @@ app.get('/user/:id', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/movie/:id', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/tvshow/:id', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/profile', function (req, res) {

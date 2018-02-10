@@ -36,12 +36,20 @@ var MovieDBService = /** @class */ (function () {
         return this.http.get('/api/movie', { params: { id: id, lang: lang } })
             .catch(this.handleErrors);
     };
+    MovieDBService.prototype.getTV = function (id, lang) {
+        return this.http.get('/api/tvshow', { params: { id: id, lang: lang } })
+            .catch(this.handleErrors);
+    };
     MovieDBService.prototype.getMovies = function (movieIds, lang) {
         return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.availableOnPlex = function (id) {
         return this.http.get('/api/movie/plex', { params: { id: id } })
+            .catch(this.handleErrors);
+    };
+    MovieDBService.prototype.tvAvailableOnPlex = function (id) {
+        return this.http.get('/api/tvshow/plex', { params: { id: id } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.getAllGenres = function () {

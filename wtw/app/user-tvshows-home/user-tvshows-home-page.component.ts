@@ -105,8 +105,8 @@ export class UserTVShowsHomePageComponent {
         }
     }
 
-    rateMovie(id) {
-        this.router.navigate(['/movie/' + id]);
+    rateTV(id) {
+        this.router.navigate(['/tvshow/' + id]);
     }
 
 

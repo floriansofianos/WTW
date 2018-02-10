@@ -17,6 +17,7 @@ import { UserPageComponent } from './user/user-page.component';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MoviePageComponent } from './movie/movie.component';
 import { UserProfilePageComponent } from './user-profile/user-profile-page.component';
+import { TVShowPageComponent } from './tv/tvshow.component';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginPageComponent },
@@ -35,5 +36,6 @@ export const appRoutes: Routes = [
     { path: 'user/social', component: SocialPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/:id', component: UserPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'movie/:id', component: MoviePageComponent, canActivate: [CanActivateAuthGuard] },
+    { path: 'tvshow/:id', component: TVShowPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: '', component: HomePageComponent }
 ]

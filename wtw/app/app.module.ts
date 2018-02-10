@@ -32,6 +32,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
 import { MovieRecommandationComponent } from './movie/movie-recommandation.component';
+import { TVRecommandationComponent } from './tv/tv-recommandation.component';
 import { CastMemberComponent } from './movie/cast-member.component';
 import { ForgotPasswordFormComponent } from './forgot-password/forgot-password-form/forgot-password-form.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
@@ -60,6 +61,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineEventFollowComponent } from './timeline-event-follow/timeline-event-follow.component';
 import { TimelineEventFriendComponent } from './timeline-event-friend/timeline-event-friend.component';
 import { TimelineEventRateMovieComponent } from './timeline-event-rate-movie/timeline-event-rate-movie.component';
+import { TVShowPageComponent } from './tv/tvshow.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -71,6 +73,7 @@ import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MovieDBService } from './movieDB/movieDB.service';
 import { UserQuestionnaireService } from './questionnaire/user-questionnaire.service';
 import { MovieRecommandationService } from './movie/movie-recommandation.service';
+import { TVRecommandationService } from './tv/tv-recommandation.service';
 import { CountriesService } from './countries/countries.service';
 import { LanguagesService } from './languages/languages.service';
 import { SocialService } from './social/social.service';
@@ -132,12 +135,14 @@ export function createTranslateLoader(http: Http) {
         TopMenuComponent,
         UserMoviesHomePageComponent,
         UserTVShowsHomePageComponent,
+        TVShowPageComponent,
         LeftMenuComponent,
         UserMoviesQuestionnairesPageComponent,
         DummyUserMoviesQuestionnairesComponent,
         UserMoviesWatchlistPageComponent,
         UserWhatToWatchPageComponent,
         MovieWallComponent,
+        TVRecommandationComponent,
         MovieWallElementComponent,
         ForgotPasswordPageComponent,
         ErrorPageComponent,
@@ -158,6 +163,7 @@ export function createTranslateLoader(http: Http) {
         MovieDBService,
         UserQuestionnaireService,
         MovieRecommandationService,
+        TVRecommandationService,
         CountriesService,
         LanguagesService,
         TVQuestionnaireService,

@@ -33,10 +33,27 @@ var tvCacheService = function() {
             });
     }
 
+    var getWithTrailer = function (id, lang, done) {
+        models.TVShowInfoCache.findAll({ where: { movieDBId: movieId, lang: lang } }).then(tvShowInfo => {
+            models.TVShowCreditsCache.findAll({ where: { movieDBId: movieId } }).then(tvShowCredits => {
+                models.TVVideoCache.findAll({ where: { movieDBId: movieId, lang: lang } }).then(tvVideo => {
+                    done(null, { tvShowInfo: tvShowInfo, tvShowCredits: tvShowCredits, trailers: tvVideo });
+                }).catch(function (err) {
+                    done(err);
+                });
+            }).catch(function (err) {
+                done(err);
+            });
+        }).catch(function (err) {
+                done(err);
+        });
+    }
+
     return {
         getAllInArray: getAllInArray,
         getAllInArrayWithLang: getAllInArrayWithLang,
-        get: get
+        get: get,
+        getWithTrailer: getWithTrailer
     }
 }
 

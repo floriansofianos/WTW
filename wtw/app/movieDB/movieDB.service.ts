@@ -33,6 +33,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    getTV(id: number, lang: string) {
+        return this.http.get('/api/tvshow', { params: { id: id, lang: lang} })
+            .catch(this.handleErrors);
+    }
+
     getMovies(movieIds: Array<number>, lang: string) {
         return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
             .catch(this.handleErrors);
@@ -40,6 +45,11 @@ export class MovieDBService {
 
     availableOnPlex(id: number) {
         return this.http.get('/api/movie/plex', { params: { id: id } })
+            .catch(this.handleErrors);
+    }
+
+    tvAvailableOnPlex(id: number) {
+        return this.http.get('/api/tvshow/plex', { params: { id: id } })
             .catch(this.handleErrors);
     }
 

@@ -18,6 +18,7 @@ var user_page_component_1 = require("./user/user-page.component");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movie_component_1 = require("./movie/movie.component");
 var user_profile_page_component_1 = require("./user-profile/user-profile-page.component");
+var tvshow_component_1 = require("./tv/tvshow.component");
 exports.appRoutes = [
     { path: 'login', component: login_page_component_1.LoginPageComponent },
     { path: 'error', component: error_page_component_1.ErrorPageComponent },
@@ -35,5 +36,6 @@ exports.appRoutes = [
     { path: 'user/social', component: social_page_component_1.SocialPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/:id', component: user_page_component_1.UserPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'movie/:id', component: movie_component_1.MoviePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
+    { path: 'tvshow/:id', component: tvshow_component_1.TVShowPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];

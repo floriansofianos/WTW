@@ -70,8 +70,8 @@ var UserTVShowsHomePageComponent = /** @class */ (function () {
             });
         }
     };
-    UserTVShowsHomePageComponent.prototype.rateMovie = function (id) {
-        this.router.navigate(['/movie/' + id]);
+    UserTVShowsHomePageComponent.prototype.rateTV = function (id) {
+        this.router.navigate(['/tvshow/' + id]);
     };
     UserTVShowsHomePageComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
