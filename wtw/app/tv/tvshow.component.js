@@ -16,6 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var tv_questionnaire_service_1 = require("./tv-questionnaire.service");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
+var _ = require("underscore");
 var TVShowPageComponent = /** @class */ (function () {
     function TVShowPageComponent(authService, router, movieDBService, route, tvQuestionnaireService, location) {
         this.authService = authService;
@@ -57,6 +58,11 @@ var TVShowPageComponent = /** @class */ (function () {
                     _this.tvQuestionnaireInit = data.json();
                     _this.movieDBService.getTV(_this.id, _this.lang).subscribe(function (data) {
                         _this.tvshow = data.json();
+                        // Get writers and actors from tv show
+                        var allWriters = _.filter(_this.tvshow.tvShowCredits.crew, function (m) { return m.job === 'Screenplay' || m.job === 'Writer'; });
+                        var allActors = _this.tvshow.tvShowCredits.cast;
+                        _this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').slice(0, Math.min(allWriters.length, 3));
+                        _this.tvshow.actors = allActors.slice(0, Math.min(allActors.length, 6));
                         _this.isLoading = false;
                     }, function (error) {
                         _this.router.navigate(['/error']);
@@ -68,7 +74,7 @@ var TVShowPageComponent = /** @class */ (function () {
         });
     };
     TVShowPageComponent.prototype.tvQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
+        this.tvQuestionnaire = data;
     };
     TVShowPageComponent.prototype.tvQuestionnaireSave = function (event) {
         this.confirm();

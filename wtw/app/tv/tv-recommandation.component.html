@@ -38,18 +38,18 @@
                 <div class="row" style="margin-top: 20px;">
                     <div class="col-md-7">
                         <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
-                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.tvShowInfo?.created_by.length > 2 }">
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.tvShowInfo?.created_by?.length > 2 }">
                             <div class="cast-card" *ngFor="let creator of tvshow?.tvShowInfo?.created_by">
-                                <cast-member [config]="config" [castMember]="creator" [job]="jobCreator" [crewType]="0" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
+                                <cast-member [config]="config" [castMember]="creator" [job]="jobCreator" [crewType]="3" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>
-                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.writers.length > 2 }">
-                            <div class="cast-card" *ngFor="let writer of movie.writers">
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.writers?.length > 2 }">
+                            <div class="cast-card" *ngFor="let writer of tvshow?.writers">
                                 <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [crewType]="1" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>
-                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': movie.actors.length > 2 }">
-                            <div class="cast-card" *ngFor="let actor of movie.actors">
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.actors?.length > 2 }">
+                            <div class="cast-card" *ngFor="let actor of tvshow?.actors">
                                 <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [crewType]="2" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
                             </div>
                         </div>

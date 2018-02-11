@@ -66,7 +66,7 @@ var tvRecommandationService = function() {
                 var genreIds = _.map(selectedTVShow.tvShowInfo.genres, 'id');
                 var writerIds = _.map(_.filter(selectedTVShow.tvShowCredits.crew, function (c) { return (c.job == 'Writer' || c.job == 'Screenplay'); }), 'id');
                 var actorIds = _.map(selectedTVShow.tvShowCredits.cast, 'id');
-                var country = selectedMovie.original_language;
+                var country = selectedTVShow.original_language;
 
                 var creatorProfiles = _.filter(profiles, function (p) { return p.creatorId && _.contains(creatorIds, p.creatorId); });
                 var genreProfiles = _.filter(profiles, function (p) { return p.genreId && _.contains(genreIds, p.genreId); });

@@ -58,14 +58,14 @@ export class TVRecommandationComponent {
         this.getLabelRating();
         this.wantToWatch = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.wantToSee : false;
         this.gradeLoaded = false;
-        this.tvRecommandationService.getScore(this.tvshow.id).subscribe(response => {
+        this.tvRecommandationService.getScore(this.tvshow.tvShowInfo.id).subscribe(response => {
             var data = response.json();
             this.gradeRelevant = data.certaintyLevel >= 3;
             this.grade = Math.floor(data.score);
             this.gradeComments = _.map(data.comments, function (c) {
                 return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
             }, this);
-\            this.gradeLoaded = true;
+            this.gradeLoaded = true;
         },
             error => {
                 this.router.navigate(['/error']);
@@ -83,7 +83,7 @@ export class TVRecommandationComponent {
 
     getAllTrailers() {
         if (this.tvshow.trailers) {
-            let trailers = this.tvshow.trailers.filter(
+            let trailers = _.filter(this.tvshow.trailers.results,
                 t => t.type === 'Trailer' && t.site === 'YouTube');
             return trailers;
         }

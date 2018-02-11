@@ -9,6 +9,7 @@ import { UserTVShowsHomePageComponent } from './user-tvshows-home/user-tvshows-h
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-movies-watchlist-page.component';
+import { UserTVWatchlistPageComponent } from './user-tv-watchlist/user-tv-watchlist-page.component';
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { ErrorPageComponent } from './error/error-page.component';
@@ -33,6 +34,7 @@ export const appRoutes: Routes = [
     { path: 'user/movies/questionnaires', component: UserMoviesQuestionnairesPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/dummyQuestionnaires', component: DummyUserMoviesQuestionnairesComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/movies/watchlist', component: UserMoviesWatchlistPageComponent, canActivate: [CanActivateAuthGuard] },
+    { path: 'user/tvshows/watchlist', component: UserTVWatchlistPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/social', component: SocialPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'user/:id', component: UserPageComponent, canActivate: [CanActivateAuthGuard] },
     { path: 'movie/:id', component: MoviePageComponent, canActivate: [CanActivateAuthGuard] },

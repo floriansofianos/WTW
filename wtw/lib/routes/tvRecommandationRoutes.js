@@ -1,6 +1,6 @@
 ﻿var express = require('express');
 var isAuthenticated = require('../middlewares/isAuthenticated');
-var tvRecommandationService = require('../helpers/movieRecommandationService')();
+var tvRecommandationService = require('../helpers/tvRecommandationService')();
 var userProfileService = require('../helpers/userProfileService')();
 var tvCacheService = require('../helpers/tvCacheService')();
 var tvRecommandationController = require('../controllers/tvRecommandationController')(tvRecommandationService, tvCacheService, userProfileService);

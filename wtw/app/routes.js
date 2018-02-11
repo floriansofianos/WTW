@@ -10,6 +10,7 @@ var user_tvshows_home_page_component_1 = require("./user-tvshows-home/user-tvsho
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
 var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
 var user_movies_watchlist_page_component_1 = require("./user-movies-watchlist/user-movies-watchlist-page.component");
+var user_tv_watchlist_page_component_1 = require("./user-tv-watchlist/user-tv-watchlist-page.component");
 var user_what_to_watch_page_component_1 = require("./user-what-to-watch/user-what-to-watch-page.component");
 var forgot_password_page_component_1 = require("./forgot-password/forgot-password-page.component");
 var error_page_component_1 = require("./error/error-page.component");
@@ -33,6 +34,7 @@ exports.appRoutes = [
     { path: 'user/movies/questionnaires', component: user_movies_questionnaires_page_component_1.UserMoviesQuestionnairesPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/movies/dummyQuestionnaires', component: user_movies_questionnaires_dummy_page_component_1.DummyUserMoviesQuestionnairesComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/movies/watchlist', component: user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
+    { path: 'user/tvshows/watchlist', component: user_tv_watchlist_page_component_1.UserTVWatchlistPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/social', component: social_page_component_1.SocialPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'user/:id', component: user_page_component_1.UserPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: 'movie/:id', component: movie_component_1.MoviePageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },

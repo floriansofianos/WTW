@@ -1708,7 +1708,7 @@ module.exports = function () {
                         if (c.job == 'Writer' || c.job == 'Screenplay') {
                             var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
                             if (existingCrew) existingCrew.numberOfEpisodes++;
-                            else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id });
+                            else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id, profile_path: c.profile_path });
                         }
                     });
                     // Next Episode

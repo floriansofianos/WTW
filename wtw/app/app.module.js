@@ -53,6 +53,7 @@ var left_menu_component_1 = require("./left-menu/left-menu.component");
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
 var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
 var user_movies_watchlist_page_component_1 = require("./user-movies-watchlist/user-movies-watchlist-page.component");
+var user_tv_watchlist_page_component_1 = require("./user-tv-watchlist/user-tv-watchlist-page.component");
 var user_what_to_watch_page_component_1 = require("./user-what-to-watch/user-what-to-watch-page.component");
 var movie_wall_component_1 = require("./movie-wall/movie-wall.component");
 var movie_wall_element_component_1 = require("./movie-wall/movie-wall-element.component");
@@ -141,6 +142,7 @@ var AppModule = /** @class */ (function () {
                 forgot_password_form_component_1.ForgotPasswordFormComponent,
                 top_menu_component_1.TopMenuComponent,
                 user_movies_home_page_component_1.UserMoviesHomePageComponent,
+                user_tv_watchlist_page_component_1.UserTVWatchlistPageComponent,
                 user_tvshows_home_page_component_1.UserTVShowsHomePageComponent,
                 tvshow_component_1.TVShowPageComponent,
                 left_menu_component_1.LeftMenuComponent,

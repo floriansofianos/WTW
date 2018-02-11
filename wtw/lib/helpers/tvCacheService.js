@@ -34,10 +34,11 @@ var tvCacheService = function() {
     }
 
     var getWithTrailer = function (id, lang, done) {
-        models.TVShowInfoCache.findAll({ where: { movieDBId: movieId, lang: lang } }).then(tvShowInfo => {
-            models.TVShowCreditsCache.findAll({ where: { movieDBId: movieId } }).then(tvShowCredits => {
-                models.TVVideoCache.findAll({ where: { movieDBId: movieId, lang: lang } }).then(tvVideo => {
-                    done(null, { tvShowInfo: tvShowInfo, tvShowCredits: tvShowCredits, trailers: tvVideo });
+        models.TVShowInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvShowInfo => {
+            models.TVShowCreditsCache.findOne({ where: { movieDBId: id } }).then(tvShowCredits => {
+                models.TVVideoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvVideo => {
+                    console.log('I\'m here: ' + tvShowInfo)
+                    done(null, { tvShowInfo: tvShowInfo.data, tvShowCredits: tvShowCredits.data, trailers: tvVideo.data });
                 }).catch(function (err) {
                     done(err);
                 });

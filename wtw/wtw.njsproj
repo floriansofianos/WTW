@@ -65,6 +65,8 @@
     <Content Include="app\tv\tv-recommandation.component.html" />
     <Content Include="app\tv\tvshow.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
+    <Content Include="app\user-movies-watchlist - Copy\user-movies-watchlist-page.component.html" />
+    <Content Include="app\user-tv-watchlist\user-tv-watchlist-page.component.html" />
     <Content Include="app\user-tvshows-home\user-tvshows-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
     <Content Include="app\user-movies-questionnaires\user-movies-questionnaires-page.component.html" />
@@ -290,6 +292,8 @@
     <TypeScriptCompile Include="app\timeline\timeline.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-movies-watchlist - Copy\user-movies-watchlist-page.component.ts" />
+    <TypeScriptCompile Include="app\user-tv-watchlist\user-tv-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-tvshows-home\user-tvshows-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-questionnaires\user-movies-questionnaires-dummy-page.component.ts" />
@@ -321,6 +325,8 @@
     <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
+    <Folder Include="app\user-movies-watchlist - Copy\" />
+    <Folder Include="app\user-tv-watchlist\" />
     <Folder Include="app\user-tvshows-home\" />
     <Folder Include="app\user-profile\" />
     <Folder Include="app\user\" />

@@ -47,6 +47,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
 import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-movies-watchlist-page.component';
+import { UserTVWatchlistPageComponent } from './user-tv-watchlist/user-tv-watchlist-page.component';
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
 import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
@@ -134,6 +135,7 @@ export function createTranslateLoader(http: Http) {
         ForgotPasswordFormComponent,
         TopMenuComponent,
         UserMoviesHomePageComponent,
+        UserTVWatchlistPageComponent,
         UserTVShowsHomePageComponent,
         TVShowPageComponent,
         LeftMenuComponent,

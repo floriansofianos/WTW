@@ -40,20 +40,20 @@ var TVRecommandationComponent = /** @class */ (function () {
     };
     TVRecommandationComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.translate.get('MOVIE_QUESTIONNAIRE.DIRECTOR').subscribe(function (res) {
-            _this.jobDirector = res;
+        this.translate.get('MOVIE_QUESTIONNAIRE.CREATOR').subscribe(function (res) {
+            _this.jobCreator = res;
         });
         this.translate.get('MOVIE_QUESTIONNAIRE.WRITER').subscribe(function (res) {
             _this.jobWriter = res;
         });
-        this.trailerUrl = this.getMovieVideo();
-        this.genres = this.movie.genres ? (this.movie.genres.length > 0 ? this.movie.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; }) : '') : '';
-        this.movieSeen = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.isSeen : false;
-        this.seenValue = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.rating : 3;
+        this.trailerUrl = this.getTVVideo();
+        this.genres = this.tvshow.tvShowInfo.genres ? (this.tvshow.tvShowInfo.genres.length > 0 ? this.tvshow.tvShowInfo.genres.map(function (a) { return a.name; }).reduce(function (a, b) { return a + ', ' + b; }) : '') : '';
+        this.movieSeen = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.isSeen : false;
+        this.seenValue = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.rating : 3;
         this.getLabelRating();
-        this.wantToWatch = this.movieQuestionnaireInit ? this.movieQuestionnaireInit.wantToSee : false;
+        this.wantToWatch = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.wantToSee : false;
         this.gradeLoaded = false;
-        this.movieRecommandationService.getScore(this.movie.id).subscribe(function (response) {
+        this.tvRecommandationService.getScore(this.tvshow.tvShowInfo.id).subscribe(function (response) {
             var data = response.json();
             _this.gradeRelevant = data.certaintyLevel >= 3;
             _this.grade = Math.floor(data.score);
@@ -67,8 +67,8 @@ var TVRecommandationComponent = /** @class */ (function () {
         this.onChange();
     };
     TVRecommandationComponent.prototype.getAllTrailers = function () {
-        if (this.movie.trailers) {
-            var trailers = this.movie.trailers.filter(function (t) { return t.type === 'Trailer' && t.site === 'YouTube'; });
+        if (this.tvshow.trailers) {
+            var trailers = _.filter(this.tvshow.trailers.results, function (t) { return t.type === 'Trailer' && t.site === 'YouTube'; });
             return trailers;
         }
         else
@@ -82,7 +82,7 @@ var TVRecommandationComponent = /** @class */ (function () {
         else
             return false;
     };
-    TVRecommandationComponent.prototype.getMovieVideo = function () {
+    TVRecommandationComponent.prototype.getTVVideo = function () {
         var trailers = this.getAllTrailers();
         if (trailers && trailers.length > 0) {
             return this.domSanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + trailers[0].key + '?ecver=2');
@@ -93,7 +93,7 @@ var TVRecommandationComponent = /** @class */ (function () {
     TVRecommandationComponent.prototype.onChange = function () {
         this.notify.emit({
             isSeen: this.movieSeen,
-            movieDBId: this.movie.id,
+            movieDBId: this.tvshow.id,
             rating: this.seenValue,
             wantToSee: this.wantToWatch
         });

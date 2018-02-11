@@ -5,6 +5,7 @@ import { MovieDBService } from '../movieDB/movieDB.service';
 import { TVQuestionnaireService } from './tv-questionnaire.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
@@ -64,6 +65,11 @@ export class TVShowPageComponent {
                         this.movieDBService.getTV(this.id, this.lang).subscribe(
                             data => {
                                 this.tvshow = data.json();
+                                // Get writers and actors from tv show
+                                var allWriters = _.filter(this.tvshow.tvShowCredits.crew, function (m) { return m.job === 'Screenplay' || m.job === 'Writer'; });
+                                var allActors = this.tvshow.tvShowCredits.cast;
+                                this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').slice(0, Math.min(allWriters.length, 3));
+                                this.tvshow.actors = allActors.slice(0, Math.min(allActors.length, 6));
                                 this.isLoading = false;
                             },
                             error => {
@@ -80,7 +86,7 @@ export class TVShowPageComponent {
     }
 
     tvQuestionnaireChange(data) {
-        this.movieQuestionnaire = data;
+        this.tvQuestionnaire = data;
     }
 
     tvQuestionnaireSave(event) {
