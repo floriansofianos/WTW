@@ -802,7 +802,7 @@ var generateUserProfile = function (users, i, done) {
                                 });
                             });
                             _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                _.each(q.tvShowInfo.genres, function (g) {
+                                _.each(q.tvShowInfo.data.genres, function (g) {
                                     allGenres.push({ genreId: g.id, name: g.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                 });
                             });
@@ -825,7 +825,7 @@ var generateUserProfile = function (users, i, done) {
                                     console.log('Starting generating TV creators profile...');
                                     var tvCreators = [];
                                     _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                        _.each(q.tvShowInfo.created_by, function (c) {
+                                        _.each(q.tvShowInfo.data.created_by, function (c) {
                                             tvCreators.push({ creatorId: c.id, name: c.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                         });
                                     });
@@ -841,7 +841,7 @@ var generateUserProfile = function (users, i, done) {
                                             });
                                         });
                                         _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                            var writers = movieDBService.getWriters(q.tvShowCredits);
+                                            var writers = movieDBService.getWriters(q.tvShowCredits.data);
                                             _.each(writers, function (w) {
                                                 allWriters.push({ writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                             });
@@ -859,7 +859,7 @@ var generateUserProfile = function (users, i, done) {
                                                 });
                                             });
                                             _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                                var actors = movieDBService.getActors(q.tvShowCredits);
+                                                var actors = movieDBService.getActors(q.tvShowCredits.data);
                                                 _.each(actors, function (a) {
                                                     allActors.push({ castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                                 });
@@ -874,7 +874,7 @@ var generateUserProfile = function (users, i, done) {
                                                     allCountries.push({ country: q.movieInfo.original_language, name: q.movieInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                                 });
                                                 _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                                    allCountries.push({ country: q.tvShowInfo.original_language, name: q.tvShowInfo.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                    allCountries.push({ country: q.tvShowInfo.data.original_language, name: q.tvShowInfo.data.original_language, score: getQuestionnaireScore(q), isSeen: q.isSeen });
                                                 });
                                                 var moviesGrouped = _.groupBy(allCountries, 'country');
                                                 processMovieCountryGroups(moviesGrouped, u.id, function (err, res) {
