@@ -340,6 +340,7 @@
     <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
+    <Folder Include="app\user-movies-watchlist - Copy\" />
     <Folder Include="app\user-tv-questionnaires\" />
     <Folder Include="app\user-tv-watchlist\" />
     <Folder Include="app\user-tvshows-home\" />
