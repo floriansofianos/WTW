@@ -44,6 +44,9 @@
     <Content Include="app\less\angular-material.scss" />
     <Content Include="app\login\login-form\login-form.component.html" />
     <Content Include="app\logo\logo.component.html" />
+    <Content Include="app\tv-questionnaire\tv-questionnaire.component.html" />
+    <Content Include="app\tv-wall\tv-wall-element.component.html" />
+    <Content Include="app\tv-wall\tv-wall.component.html" />
     <Content Include="app\movie-wall\movie-wall-element.component.html" />
     <Content Include="app\movie-wall\movie-wall.component.html" />
     <Content Include="app\movie\cast-member.component.html">
@@ -62,10 +65,11 @@
     <Content Include="app\timeline-event-rate-movie\timeline-event-rate-movie.component.html" />
     <Content Include="app\timeline\timeline.component.html" />
     <Content Include="app\top-menu\top-menu.component.html" />
+    <Content Include="app\tv\tv-questionnaire-element.component.html" />
     <Content Include="app\tv\tv-recommandation.component.html" />
     <Content Include="app\tv\tvshow.component.html" />
     <Content Include="app\user-home\user-home-page.component.html" />
-    <Content Include="app\user-movies-watchlist - Copy\user-movies-watchlist-page.component.html" />
+    <Content Include="app\user-tv-questionnaires\user-tv-questionnaires-page.component.html" />
     <Content Include="app\user-tv-watchlist\user-tv-watchlist-page.component.html" />
     <Content Include="app\user-tvshows-home\user-tvshows-home-page.component.html" />
     <Content Include="app\user-movies-watchlist\user-movies-watchlist-page.component.html" />
@@ -116,6 +120,10 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app\main-aot.ts" />
+    <TypeScriptCompile Include="app\tv-questionnaire\tv-questionnaire.component.ts" />
+    <TypeScriptCompile Include="app\tv-questionnaire\user-tv-questionnaire.service.ts" />
+    <TypeScriptCompile Include="app\tv-wall\tv-wall-element.component.ts" />
+    <TypeScriptCompile Include="app\tv-wall\tv-wall.component.ts" />
     <TypeScriptCompile Include="app\movie-wall\movie-wall-element.component.ts" />
     <TypeScriptCompile Include="app\movie-wall\movie-wall.component.ts" />
     <TypeScriptCompile Include="app\movieDB\movieDB.service.ts">
@@ -124,6 +132,7 @@
     <TypeScriptCompile Include="app\movie\cast-member.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="app\tv\tv-questionnaire-element.component.ts" />
     <TypeScriptCompile Include="app\tv\tv-recommandation.service.ts" />
     <TypeScriptCompile Include="app\tv\tv-recommandation.component.ts" />
     <TypeScriptCompile Include="app\tv\tvshow.component.ts" />
@@ -178,6 +187,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="lib\controllers\tvSearchController.js" />
+    <Compile Include="lib\controllers\userTVQuestionnaireController.js" />
     <Compile Include="lib\controllers\userQuestionnaireController.js" />
     <Compile Include="lib\controllers\movieController.js" />
     <Compile Include="lib\controllers\movieSearchController.js" />
@@ -260,8 +270,9 @@
     <Compile Include="lib\models\usertvquestionnaire.js" />
     <Content Include="lib\routes\tvQuestionnaireRoutes.js" />
     <Content Include="lib\routes\movieDBSearchTVRoutes.js" />
-    <Compile Include="lib\routes\tvRecommandationRoutes.js" />
-    <Compile Include="lib\routes\tvshowRoutes.js" />
+    <Content Include="lib\routes\tvRecommandationRoutes.js" />
+    <Content Include="lib\routes\tvshowRoutes.js" />
+    <Content Include="lib\routes\userTVQuestionnaireRoutes.js" />
     <Compile Include="lib\tasks\wtwTasks.js" />
     <Compile Include="ng2inlinetransform.js" />
     <Compile Include="rollup-config.js">
@@ -292,6 +303,8 @@
     <TypeScriptCompile Include="app\timeline\timeline.component.ts" />
     <TypeScriptCompile Include="app\top-menu\top-menu.component.ts" />
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
+    <TypeScriptCompile Include="app\user-tv-questionnaires\user-tv-questionnaires-dummy-page.component.ts" />
+    <TypeScriptCompile Include="app\user-tv-questionnaires\user-tv-questionnaires-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist - Copy\user-movies-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-tv-watchlist\user-tv-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-tvshows-home\user-tvshows-home-page.component.ts" />
@@ -312,6 +325,8 @@
     <Folder Include="app\login\" />
     <Folder Include="app\home\" />
     <Folder Include="app\login\login-form\" />
+    <Folder Include="app\tv-questionnaire\" />
+    <Folder Include="app\tv-wall\" />
     <Folder Include="app\movie-wall\" />
     <Folder Include="app\error\" />
     <Folder Include="app\forgot-password\" />
@@ -325,7 +340,7 @@
     <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
-    <Folder Include="app\user-movies-watchlist - Copy\" />
+    <Folder Include="app\user-tv-questionnaires\" />
     <Folder Include="app\user-tv-watchlist\" />
     <Folder Include="app\user-tvshows-home\" />
     <Folder Include="app\user-profile\" />

@@ -1,0 +1,30 @@
+<div class="top-right">
+    <div class="progress-bar-container"><mat-progress-bar [color]="'#08073c'" [mode]="'determinate'" [value]="(questionAnswered / questionsToAnswer) * 100"></mat-progress-bar></div>
+    <div class="text-centered">{{ questionAnswered }}/{{questionsToAnswer}}</div>
+</div>
+<div class="questionnaire-container">
+    <div class="spinner-container" *ngIf="!isFirstQuestionnaire && tvIndex == -1 && showSpinner"><spinner></spinner></div>
+    <div class="question-block width95" [@areaState]="'active'" *ngIf="tvIndex % 2 == 0 && states[2] && questionAnswered < questionsToAnswer">
+        <tv-questionnaire-element [tvshow]="tvshow" [tvQuestionnaireInit]="tvQuestionnaireInit" [config]="configuration" (notify)="tvQuestionnaireChange($event)" [lang]="lang"></tv-questionnaire-element>
+        <div class="button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-left" (click)="tvPrevious()" *ngIf="!isFirstQuestionnaire && tvIndex != 0">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
+            <wtw-button class="button-center" (click)="tvSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
+            <wtw-button class="button-right" (click)="tvConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </div>
+    <div class="question-block width95" [@areaState]="'active'" *ngIf="tvIndex % 2 == 1 && states[2] && questionAnswered < questionsToAnswer">
+        <tv-questionnaire-element [tvshow]="tvshow" [tvQuestionnaireInit]="tvQuestionnaireInit" [config]="configuration" (notify)="tvQuestionnaireChange($event)" [lang]="lang"></tv-questionnaire-element>
+        <div class="button-line" *ngIf="!showSpinner">
+            <wtw-button class="button-left" (click)="tvPrevious()">{{ 'FORM.PREVIOUS' | translate }}</wtw-button>
+            <wtw-button class="button-center" (click)="tvSkip()">{{ 'FORM.SKIP' | translate }}</wtw-button>
+            <wtw-button class="button-right" (click)="tvConfirm()">{{ 'FORM.NEXT' | translate }}</wtw-button>
+        </div>
+        <div class="login-line button-line" *ngIf="showSpinner"><spinner></spinner></div>
+    </div>
+    <div class="question-block thank-you-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= questionsToAnswer">
+        <h1><i class="fa fa-check-circle-o" aria-hidden="true"></i>{{ 'FIRST_QUESTIONNAIRE.DONE' | translate }}</h1>
+        <div><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
+    </div>
+</div>
+

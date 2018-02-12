@@ -43,6 +43,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    getTVShows(movieIds: Array<number>, lang: string) {
+        return this.http.get('/api/tvshow', { params: { movieIds: movieIds, lang: lang } })
+            .catch(this.handleErrors);
+    }
+
     availableOnPlex(id: number) {
         return this.http.get('/api/movie/plex', { params: { id: id } })
             .catch(this.handleErrors);

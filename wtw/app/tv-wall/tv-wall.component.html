@@ -1,0 +1,6 @@
+<div class="movie-wall-container" *ngIf="dataLoaded">
+    <tv-wall-element *ngFor="let t of tvshows" [tvshow]="t" [config]="config" [width]="width" (click)="showQuestionnaire(t.id)"></tv-wall-element>
+</div>
+<div class="movie-wall-spinner-container" *ngIf="!dataLoaded">
+    <spinner></spinner>
+</div>

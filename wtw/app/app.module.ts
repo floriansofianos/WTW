@@ -29,8 +29,10 @@ import { UsernameValidator } from './signup/signup-form/username-validator.direc
 import { UserHomePageComponent } from './user-home/user-home-page.component';
 import { UserWelcomePageComponent } from './user-welcome/user-welcome-page.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { TVQuestionnaireComponent } from './tv-questionnaire/tv-questionnaire.component';
 import { WtwButtonComponent } from './button/wtw.button.component';
 import { MovieQuestionnaireComponent } from './movie/movie-questionnaire.component';
+import { TVQuestionnaireElementComponent } from './tv/tv-questionnaire-element.component';
 import { MovieRecommandationComponent } from './movie/movie-recommandation.component';
 import { TVRecommandationComponent } from './tv/tv-recommandation.component';
 import { CastMemberComponent } from './movie/cast-member.component';
@@ -45,12 +47,16 @@ import { UserMoviesHomePageComponent } from './user-movies-home/user-movies-home
 import { UserTVShowsHomePageComponent } from './user-tvshows-home/user-tvshows-home-page.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { UserMoviesQuestionnairesPageComponent } from './user-movies-questionnaires/user-movies-questionnaires-page.component';
+import { UserTVQuestionnairesPageComponent } from './user-tv-questionnaires/user-tv-questionnaires-page.component';
 import { DummyUserMoviesQuestionnairesComponent } from './user-movies-questionnaires/user-movies-questionnaires-dummy-page.component';
+import { DummyUserTVQuestionnairesComponent } from './user-tv-questionnaires/user-tv-questionnaires-dummy-page.component';
 import { UserMoviesWatchlistPageComponent } from './user-movies-watchlist/user-movies-watchlist-page.component';
 import { UserTVWatchlistPageComponent } from './user-tv-watchlist/user-tv-watchlist-page.component';
 import { UserWhatToWatchPageComponent } from './user-what-to-watch/user-what-to-watch-page.component';
 import { MovieWallComponent } from './movie-wall/movie-wall.component';
 import { MovieWallElementComponent } from './movie-wall/movie-wall-element.component';
+import { TVWallComponent } from './tv-wall/tv-wall.component';
+import { TVWallElementComponent } from './tv-wall/tv-wall-element.component';
 import { ErrorPageComponent } from './error/error-page.component';
 import { SocialPageComponent } from './social/social-page.component';
 import { UserPageComponent } from './user/user-page.component';
@@ -73,6 +79,7 @@ import { TVQuestionnaireService } from './tv/tv-questionnaire.service';
 import { CanActivateAuthGuard } from './auth/can-activate.auth';
 import { MovieDBService } from './movieDB/movieDB.service';
 import { UserQuestionnaireService } from './questionnaire/user-questionnaire.service';
+import { UserTVQuestionnaireService } from './tv-questionnaire/user-tv-questionnaire.service';
 import { MovieRecommandationService } from './movie/movie-recommandation.service';
 import { TVRecommandationService } from './tv/tv-recommandation.service';
 import { CountriesService } from './countries/countries.service';
@@ -127,9 +134,13 @@ export function createTranslateLoader(http: Http) {
         UserHomePageComponent,
         UserWelcomePageComponent,
         QuestionnaireComponent,
+        TVQuestionnaireComponent,
+        DummyUserTVQuestionnairesComponent,
         WtwButtonComponent,
         FooterComponent,
         MovieQuestionnaireComponent,
+        UserTVQuestionnairesPageComponent,
+        TVQuestionnaireElementComponent,
         MovieRecommandationComponent,
         LogoComponent,
         ForgotPasswordFormComponent,
@@ -144,6 +155,8 @@ export function createTranslateLoader(http: Http) {
         UserMoviesWatchlistPageComponent,
         UserWhatToWatchPageComponent,
         MovieWallComponent,
+        TVWallComponent,
+        TVWallElementComponent,
         TVRecommandationComponent,
         MovieWallElementComponent,
         ForgotPasswordPageComponent,
@@ -166,6 +179,7 @@ export function createTranslateLoader(http: Http) {
         UserQuestionnaireService,
         MovieRecommandationService,
         TVRecommandationService,
+        UserTVQuestionnaireService,
         CountriesService,
         LanguagesService,
         TVQuestionnaireService,

@@ -1,4 +1,5 @@
 ﻿var models = require('../models');
+var sequelize = require('sequelize');
 
 var tvCacheService = function() {
 
@@ -33,11 +34,31 @@ var tvCacheService = function() {
             });
     }
 
+    var getRandom = function (lang, done) {
+        var Op = sequelize.Op;
+        models.TVShowInfoCache.find({
+            where: {
+                lang: lang,
+                data: {
+                    popularity: {
+                        [Op.gte]: 35
+                    }
+                }
+            },
+            order: [
+                sequelize.fn('RANDOM'),
+            ]
+        }).then(data => {
+            done(null, data);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
     var getWithTrailer = function (id, lang, done) {
         models.TVShowInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvShowInfo => {
             models.TVShowCreditsCache.findOne({ where: { movieDBId: id } }).then(tvShowCredits => {
                 models.TVVideoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvVideo => {
-                    console.log('I\'m here: ' + tvShowInfo)
                     done(null, { tvShowInfo: tvShowInfo.data, tvShowCredits: tvShowCredits.data, trailers: tvVideo.data });
                 }).catch(function (err) {
                     done(err);
@@ -54,7 +75,8 @@ var tvCacheService = function() {
         getAllInArray: getAllInArray,
         getAllInArrayWithLang: getAllInArrayWithLang,
         get: get,
-        getWithTrailer: getWithTrailer
+        getWithTrailer: getWithTrailer,
+        getRandom: getRandom
     }
 }
 

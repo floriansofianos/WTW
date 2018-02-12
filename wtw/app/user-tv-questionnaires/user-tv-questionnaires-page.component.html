@@ -1,8 +1,8 @@
-<top-menu [showButtons]="true" [showLogin]="false" [selected]="'movies'" [username]="username"></top-menu>
+<top-menu [showButtons]="true" [showLogin]="false" [selected]="'tvshows'" [username]="username"></top-menu>
 <div class="content-container">
-    <left-menu [rootPath]="'user/movies/'" [leftMenus]="leftMenus"></left-menu>
+    <left-menu [rootPath]="'user/tvshows/'" [leftMenus]="leftMenus"></left-menu>
     <div class="inner-content-container">
-        <div class="start-questionnaire-container" *ngIf="!startNewClicked && !loadingState && !selectedMovie">
+        <div class="start-questionnaire-container" *ngIf="!startNewClicked && !loadingState && !selectedTV">
             <wtw-button (click)="startNewQuestionnaire()">
                 <i class="fa fa-plus"></i>
                 <span>{{ 'QUESTIONNAIRE.START_NEW' | translate }}</span>
@@ -22,11 +22,11 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="startNewClicked && !loadingState && !selectedMovie">
-            <questionnaire [isFirstQuestionnaire]="false"></questionnaire>
+        <div *ngIf="startNewClicked && !loadingState && !selectedTV">
+            <tv-questionnaire></tv-questionnaire>
         </div>
-        <div class="movie-questionnaire-container" *ngIf="selectedMovie && !loadingState">
-            <movie-recommandation [movie]="selectedMovie" [movieQuestionnaireInit]="movieQuestionnaireInit" [config]="configuration" (notify)="movieQuestionnaireChange($event)" (notifySave)="movieQuestionnaireSave($event)" [lang]="lang"></movie-recommandation>
+        <div class="movie-questionnaire-container" *ngIf="selectedTV && !loadingState">
+            <tv-recommandation [tvshow]="selectedTV" [tvQuestionnaireInit]="tvQuestionnaireInit" [config]="configuration" (notify)="tvQuestionnaireChange($event)" (notifySave)="tvQuestionnaireSave($event)" [lang]="lang"></tv-recommandation>
             <div class="button-line" *ngIf="!showSaveSpinner" style="text-align: center">
                 <wtw-button (click)="back()">{{ 'FORM.BACK' | translate }}</wtw-button>
             </div>

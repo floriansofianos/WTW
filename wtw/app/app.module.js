@@ -35,8 +35,10 @@ var username_validator_directive_1 = require("./signup/signup-form/username-vali
 var user_home_page_component_1 = require("./user-home/user-home-page.component");
 var user_welcome_page_component_1 = require("./user-welcome/user-welcome-page.component");
 var questionnaire_component_1 = require("./questionnaire/questionnaire.component");
+var tv_questionnaire_component_1 = require("./tv-questionnaire/tv-questionnaire.component");
 var wtw_button_component_1 = require("./button/wtw.button.component");
 var movie_questionnaire_component_1 = require("./movie/movie-questionnaire.component");
+var tv_questionnaire_element_component_1 = require("./tv/tv-questionnaire-element.component");
 var movie_recommandation_component_1 = require("./movie/movie-recommandation.component");
 var tv_recommandation_component_1 = require("./tv/tv-recommandation.component");
 var cast_member_component_1 = require("./movie/cast-member.component");
@@ -51,12 +53,16 @@ var user_movies_home_page_component_1 = require("./user-movies-home/user-movies-
 var user_tvshows_home_page_component_1 = require("./user-tvshows-home/user-tvshows-home-page.component");
 var left_menu_component_1 = require("./left-menu/left-menu.component");
 var user_movies_questionnaires_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-page.component");
+var user_tv_questionnaires_page_component_1 = require("./user-tv-questionnaires/user-tv-questionnaires-page.component");
 var user_movies_questionnaires_dummy_page_component_1 = require("./user-movies-questionnaires/user-movies-questionnaires-dummy-page.component");
+var user_tv_questionnaires_dummy_page_component_1 = require("./user-tv-questionnaires/user-tv-questionnaires-dummy-page.component");
 var user_movies_watchlist_page_component_1 = require("./user-movies-watchlist/user-movies-watchlist-page.component");
 var user_tv_watchlist_page_component_1 = require("./user-tv-watchlist/user-tv-watchlist-page.component");
 var user_what_to_watch_page_component_1 = require("./user-what-to-watch/user-what-to-watch-page.component");
 var movie_wall_component_1 = require("./movie-wall/movie-wall.component");
 var movie_wall_element_component_1 = require("./movie-wall/movie-wall-element.component");
+var tv_wall_component_1 = require("./tv-wall/tv-wall.component");
+var tv_wall_element_component_1 = require("./tv-wall/tv-wall-element.component");
 var error_page_component_1 = require("./error/error-page.component");
 var social_page_component_1 = require("./social/social-page.component");
 var user_page_component_1 = require("./user/user-page.component");
@@ -77,6 +83,7 @@ var tv_questionnaire_service_1 = require("./tv/tv-questionnaire.service");
 var can_activate_auth_1 = require("./auth/can-activate.auth");
 var movieDB_service_1 = require("./movieDB/movieDB.service");
 var user_questionnaire_service_1 = require("./questionnaire/user-questionnaire.service");
+var user_tv_questionnaire_service_1 = require("./tv-questionnaire/user-tv-questionnaire.service");
 var movie_recommandation_service_1 = require("./movie/movie-recommandation.service");
 var tv_recommandation_service_1 = require("./tv/tv-recommandation.service");
 var countries_service_1 = require("./countries/countries.service");
@@ -134,9 +141,13 @@ var AppModule = /** @class */ (function () {
                 user_home_page_component_1.UserHomePageComponent,
                 user_welcome_page_component_1.UserWelcomePageComponent,
                 questionnaire_component_1.QuestionnaireComponent,
+                tv_questionnaire_component_1.TVQuestionnaireComponent,
+                user_tv_questionnaires_dummy_page_component_1.DummyUserTVQuestionnairesComponent,
                 wtw_button_component_1.WtwButtonComponent,
                 footer_component_1.FooterComponent,
                 movie_questionnaire_component_1.MovieQuestionnaireComponent,
+                user_tv_questionnaires_page_component_1.UserTVQuestionnairesPageComponent,
+                tv_questionnaire_element_component_1.TVQuestionnaireElementComponent,
                 movie_recommandation_component_1.MovieRecommandationComponent,
                 logo_component_1.LogoComponent,
                 forgot_password_form_component_1.ForgotPasswordFormComponent,
@@ -151,6 +162,8 @@ var AppModule = /** @class */ (function () {
                 user_movies_watchlist_page_component_1.UserMoviesWatchlistPageComponent,
                 user_what_to_watch_page_component_1.UserWhatToWatchPageComponent,
                 movie_wall_component_1.MovieWallComponent,
+                tv_wall_component_1.TVWallComponent,
+                tv_wall_element_component_1.TVWallElementComponent,
                 tv_recommandation_component_1.TVRecommandationComponent,
                 movie_wall_element_component_1.MovieWallElementComponent,
                 forgot_password_page_component_1.ForgotPasswordPageComponent,
@@ -173,6 +186,7 @@ var AppModule = /** @class */ (function () {
                 user_questionnaire_service_1.UserQuestionnaireService,
                 movie_recommandation_service_1.MovieRecommandationService,
                 tv_recommandation_service_1.TVRecommandationService,
+                user_tv_questionnaire_service_1.UserTVQuestionnaireService,
                 countries_service_1.CountriesService,
                 languages_service_1.LanguagesService,
                 tv_questionnaire_service_1.TVQuestionnaireService,

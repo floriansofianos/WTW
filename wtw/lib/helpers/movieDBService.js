@@ -1703,7 +1703,7 @@ module.exports = function () {
             else {
                 mdb.tvEpisodeCredits({ id: id, season_number: season + 1, episode_number: episode }, (err, data) => {
                     if (err) return done(err, null);
-                    console.log("TV Show Cache: Season: " + (season + 1) + ", Episode: " + episode);
+                    console.log("TV Show Cache: Season: " + (season + 1) + "/" + seasons.length + ", Episode: " + episode);
                     _.each(data.crew, function (c) {
                         if (c.job == 'Writer' || c.job == 'Screenplay') {
                             var existingCrew = _.find(crew, function (p) { return p.id == c.id; });

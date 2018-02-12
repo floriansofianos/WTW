@@ -1,24 +1,20 @@
 ﻿import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { TVRecommandationService } from './tv-recommandation.service';
 import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
-    selector: 'tv-recommandation',
-    templateUrl: 'tv-recommandation.component.html'
+    selector: 'tv-questionnaire-element',
+    templateUrl: 'tv-questionnaire-element.component.html'
 })
 
-export class TVRecommandationComponent {
+export class TVQuestionnaireElementComponent {
     @Input() tvshow: any;
     @Input() tvQuestionnaireInit: any;
     @Input() config: any;
     @Input() lang: string;
-    @Input() availableOnPlex: boolean;
     @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-    @Output() notifySave: EventEmitter<any> = new EventEmitter<any>();
     trailerUrl: any;
     genres: string;
     releaseYear: string;
@@ -29,16 +25,13 @@ export class TVRecommandationComponent {
     labelRating: string;
     jobCreator: string;
     jobWriter: string;
-    grade: number;
-    gradeLoaded: boolean;
-    gradeRelevant: boolean;
-    gradeComments: Array<any>;
-    saving: boolean;
-    gradeCommentsLevels = ['WTW.HATE_', 'WTW.DISLIKE_', '', 'WTW.LIKE_', 'WTW.LOVE_'];
 
-    constructor(private domSanitizer: DomSanitizer, private translate: TranslateService, private tvRecommandationService: TVRecommandationService, private router: Router) { }
+    constructor(private domSanitizer: DomSanitizer, private translate: TranslateService) { }
 
     ngOnChanges(changes: SimpleChanges) {
+        if (changes.tvshow) {
+            this.ngOnInit();
+        }
         if (changes.movieSeen || changes.wantToWatch) {
             this.onChange();
         }
@@ -55,21 +48,13 @@ export class TVRecommandationComponent {
         this.genres = this.tvshow.tvShowInfo.genres ? (this.tvshow.tvShowInfo.genres.length > 0 ? this.tvshow.tvShowInfo.genres.map(a => a.name).reduce((a, b) => a + ', ' + b) : '') : '';
         this.movieSeen = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.isSeen : false;
         this.seenValue = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.rating : 3;
+        // Get writers and actors from tv show
+        var allWriters = _.filter(this.tvshow.tvShowCredits.crew, function (m) { return m.job === 'Screenplay' || m.job === 'Writer'; });
+        var allActors = this.tvshow.tvShowCredits.cast;
+        this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').reverse().slice(0, Math.min(allWriters.length, 5));
+        this.tvshow.actors = allActors.slice(0, Math.min(allActors.length, 6));
         this.getLabelRating();
         this.wantToWatch = this.tvQuestionnaireInit ? this.tvQuestionnaireInit.wantToSee : false;
-        this.gradeLoaded = false;
-        this.tvRecommandationService.getScore(this.tvshow.tvShowInfo.id).subscribe(response => {
-            var data = response.json();
-            this.gradeRelevant = data.certaintyLevel >= 3;
-            this.grade = Math.floor(data.score);
-            this.gradeComments = _.map(data.comments, function (c) {
-                return { isGood: c.level > 0, text: this.gradeCommentsLevels[c.level + 2] + c.type, name: c.name };
-            }, this);
-            this.gradeLoaded = true;
-        },
-            error => {
-                this.router.navigate(['/error']);
-            });
         this.onChange();
     }
 
@@ -119,13 +104,6 @@ export class TVRecommandationComponent {
         let labelTranslationVar = this.seenValue === 1 ? 'MOVIE_QUESTIONNAIRE.POOR' : (this.seenValue === 2 ? 'MOVIE_QUESTIONNAIRE.AVERAGE' : (this.seenValue === 3 ? 'MOVIE_QUESTIONNAIRE.GOOD' : (this.seenValue === 4 ? 'MOVIE_QUESTIONNAIRE.VERYGOOD' : (this.seenValue === 5 ? 'MOVIE_QUESTIONNAIRE.MASTERPIECE' : 'Error!'))));
         this.translate.get(labelTranslationVar).subscribe((res: string) => {
             this.labelRating = res;
-        });
-    }
-
-    clickSave() {
-        this.saving = true;
-        this.notifySave.emit({
-            clickSave: true
         });
     }
 }

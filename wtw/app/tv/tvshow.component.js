@@ -61,7 +61,7 @@ var TVShowPageComponent = /** @class */ (function () {
                         // Get writers and actors from tv show
                         var allWriters = _.filter(_this.tvshow.tvShowCredits.crew, function (m) { return m.job === 'Screenplay' || m.job === 'Writer'; });
                         var allActors = _this.tvshow.tvShowCredits.cast;
-                        _this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').slice(0, Math.min(allWriters.length, 3));
+                        _this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').reverse().slice(0, Math.min(allWriters.length, 5));
                         _this.tvshow.actors = allActors.slice(0, Math.min(allActors.length, 6));
                         _this.isLoading = false;
                     }, function (error) {

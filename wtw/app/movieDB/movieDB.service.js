@@ -44,6 +44,10 @@ var MovieDBService = /** @class */ (function () {
         return this.http.get('/api/movie', { params: { movieIds: movieIds, lang: lang } })
             .catch(this.handleErrors);
     };
+    MovieDBService.prototype.getTVShows = function (movieIds, lang) {
+        return this.http.get('/api/tvshow', { params: { movieIds: movieIds, lang: lang } })
+            .catch(this.handleErrors);
+    };
     MovieDBService.prototype.availableOnPlex = function (id) {
         return this.http.get('/api/movie/plex', { params: { id: id } })
             .catch(this.handleErrors);

@@ -8,7 +8,7 @@
                 <spinner></spinner>
             </div>
             <div class="category-movie-wall" *ngIf="movieIds && movieIds.length > 0">
-                <movie-wall [movieIds]="movieIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
+                <tv-wall [movieIds]="movieIds" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></tv-wall>
             </div>
             <div class="category-movie-wall" *ngIf="movieIds && movieIds.length < 1">
                 {{ 'CAST.NO_RESULTS' | translate }}

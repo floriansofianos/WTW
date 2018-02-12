@@ -1,0 +1,67 @@
+<div class="movie-header">
+    <div class="row">
+        <div class="col-left">
+            <div class="movie-poster-container">
+                <img *ngIf="tvshow?.tvShowInfo?.poster_path" width="200" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ tvshow?.tvShowInfo?.poster_path }}" />
+                <div *ngIf="!tvshow?.tvShowInfo?.poster_path" class="movie-poster-placeholder">
+                    <i class="fa fa-film"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-right">
+            <div class="movie-content">
+                <div class="movie-title">
+                <span>{{ tvshow?.tvShowInfo?.name }} ({{ tvshow?.tvShowInfo?.first_air_date?.substring(0, 4) }})</span>
+                <span class="movie-title-right">{{ genres }}</span>
+                </div>
+                <div class="movie-summary">{{ tvshow?.tvShowInfo?.overview }}</div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-7">
+                        <div class="middle-section-title">{{ 'MOVIE_QUESTIONNAIRE.CAST' | translate }}</div>
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.tvShowInfo?.created_by?.length > 2 }">
+                            <div class="cast-card" *ngFor="let creator of tvshow?.tvShowInfo?.created_by">
+                                <cast-member [config]="config" [castMember]="creator" [job]="jobCreator" [crewType]="3" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
+                            </div>
+                        </div>
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.writers?.length > 2 }">
+                            <div class="cast-card" *ngFor="let writer of tvshow?.writers">
+                                <cast-member [config]="config" [castMember]="writer" [job]="jobWriter" [crewType]="1" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
+                            </div>
+                        </div>
+                        <div class="cast-row" [ngClass]="{ 'flex-cast-row': tvshow?.actors?.length > 2 }">
+                            <div class="cast-card" *ngFor="let actor of tvshow?.actors">
+                                <cast-member [config]="config" [castMember]="actor" [job]="actor.character" [crewType]="2" [currentMovieId]="tvshow?.tvShowInfo?.id" [lang]="lang"></cast-member>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="movie-player">
+                            <div *ngIf="isVideoPlayerDisplayed()">
+                                <iframe [src]="trailerUrl" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="question-container">
+                            <div class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.QUESTION_SEEN' | translate }}</div>
+                                <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                                <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="movieSeen" (ngModelChange)="onChange()"></ui-switch>
+                                <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                            </div>
+                            <div *ngIf="movieSeen" class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
+                                <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="seenValue" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="labelRating" [size]="'large'"></star-rating-comp>
+                            </div>
+                            <div *ngIf="!movieSeen" class="movie-question">
+                                <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>
+                                <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
+                                <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="wantToWatch" (ngModelChange)="onChange()"></ui-switch>
+                                <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="backdrop-img" src="{{ config.images.base_url }}{{ config.images.backdrop_sizes[3] }}{{ tvshow?.tvShowInfo?.backdrop_path }}" />
+</div>

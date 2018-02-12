@@ -68,7 +68,7 @@ export class TVShowPageComponent {
                                 // Get writers and actors from tv show
                                 var allWriters = _.filter(this.tvshow.tvShowCredits.crew, function (m) { return m.job === 'Screenplay' || m.job === 'Writer'; });
                                 var allActors = this.tvshow.tvShowCredits.cast;
-                                this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').slice(0, Math.min(allWriters.length, 3));
+                                this.tvshow.writers = _.sortBy(allWriters, 'numberOfEpisodes').reverse().slice(0, Math.min(allWriters.length, 5));
                                 this.tvshow.actors = allActors.slice(0, Math.min(allActors.length, 6));
                                 this.isLoading = false;
                             },

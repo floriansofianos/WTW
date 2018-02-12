@@ -9,6 +9,7 @@ var tvQuestionnaireRouter = require('./lib/routes/tvQuestionnaireRoutes')();
 var movieRecommandationRouter = require('./lib/routes/movieRecommandationRoutes')();
 var tvRecommandationRouter = require('./lib/routes/tvRecommandationRoutes')();
 var userQuestionnaireRouter = require('./lib/routes/userQuestionnaireRoutes')();
+var userTVQuestionnaireRouter = require('./lib/routes/userTVQuestionnaireRoutes')();
 var movieSearchRouter = require('./lib/routes/movieDBSearchRoutes')();
 var movieSearchTVRouter = require('./lib/routes/movieDBSearchTVRoutes')();
 var movieDBGenresRouter = require('./lib/routes/movieDBGenresRoutes')();
@@ -86,6 +87,7 @@ app.use('/api/movieDBConfiguration', movieDBConfigurationRouter);
 app.use('/api/movieQuestionnaire', movieQuestionnaireRouter);
 app.use('/api/tvQuestionnaire', tvQuestionnaireRouter);
 app.use('/api/userQuestionnaire', userQuestionnaireRouter);
+app.use('/api/userTVQuestionnaire', userTVQuestionnaireRouter);
 app.use('/api/movieRecommandation', movieRecommandationRouter);
 app.use('/api/tvRecommandation', tvRecommandationRouter);
 app.use('/api/movieDBSearch', movieSearchRouter);
@@ -143,6 +145,9 @@ app.get('/user/tvshows/watchlist', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/movies/questionnaires', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/user/tvshows/questionnaires', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/user/movies/watchlist', function (req, res) {
