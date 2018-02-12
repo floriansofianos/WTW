@@ -111,14 +111,14 @@ var UserWhatToWatchPageComponent = (function () {
             this.notValidReleaseDates = true;
         }
     };
-    UserWhatToWatchPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-what-to-watch-page.component.html',
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService, social_service_1.SocialService])
-    ], UserWhatToWatchPageComponent);
     return UserWhatToWatchPageComponent;
 }());
+UserWhatToWatchPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-what-to-watch-page.component.html',
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService, social_service_1.SocialService])
+], UserWhatToWatchPageComponent);
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
 //# sourceMappingURL=user-what-to-watch-page.component.js.map

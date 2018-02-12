@@ -59,6 +59,6 @@ export class UserTVWatchlistPageComponent {
     }
 
     onClickMovie(event) {
-        this.router.navigate(['/tv/' + event.movieId]);
+        this.router.navigate(['/tvshow/' + event.movieId]);
     }
 }

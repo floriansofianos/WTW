@@ -56,14 +56,14 @@ var UserMoviesWatchlistPageComponent = (function () {
     UserMoviesWatchlistPageComponent.prototype.onClickMovie = function (event) {
         this.router.navigate(['/movie/' + event.movieId]);
     };
-    UserMoviesWatchlistPageComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'user-movies-watchlist-page.component.html'
-        }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
-    ], UserMoviesWatchlistPageComponent);
     return UserMoviesWatchlistPageComponent;
 }());
+UserMoviesWatchlistPageComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'user-movies-watchlist-page.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService])
+], UserMoviesWatchlistPageComponent);
 exports.UserMoviesWatchlistPageComponent = UserMoviesWatchlistPageComponent;
 //# sourceMappingURL=user-movies-watchlist-page.component.js.map

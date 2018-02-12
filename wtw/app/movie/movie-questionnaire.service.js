@@ -32,7 +32,7 @@ var MovieQuestionnaireService = (function () {
         return this.http.get('/api/movieQuestionnaire/' + id)
             .catch(this.handleErrors);
     };
-    MovieQuestionnaireService.prototype.getCast = function (directorId, writerId, actorId, lang) {
+    MovieQuestionnaireService.prototype.getCast = function (directorId, writerId, actorId, creatorId, lang) {
         var params = {};
         if (directorId)
             params.directorId = directorId;
@@ -40,6 +40,8 @@ var MovieQuestionnaireService = (function () {
             params.writerId = writerId;
         if (actorId)
             params.actorId = actorId;
+        if (creatorId)
+            params.creatorId = creatorId;
         params.lang = lang;
         return this.http.get('/api/cast', { params: params })
             .catch(this.handleErrors);
@@ -47,11 +49,11 @@ var MovieQuestionnaireService = (function () {
     MovieQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
-    MovieQuestionnaireService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], MovieQuestionnaireService);
     return MovieQuestionnaireService;
 }());
+MovieQuestionnaireService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], MovieQuestionnaireService);
 exports.MovieQuestionnaireService = MovieQuestionnaireService;
 //# sourceMappingURL=movie-questionnaire.service.js.map

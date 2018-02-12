@@ -38,7 +38,7 @@ var CastMemberComponent = (function () {
             .okBtnClass('hidden')
             .body("\n            <div class=\"loading-container\"><i class=\"fa fa-circle-o-notch fa-spin\"></i></div>")
             .open();
-        this.movieQuestionnaireService.getCast(this.crewType === 0 ? this.castMember.id : null, this.crewType === 1 ? this.castMember.id : null, this.crewType === 2 ? this.castMember.id : null, this.lang).subscribe(function (response) {
+        this.movieQuestionnaireService.getCast(this.crewType === 0 ? this.castMember.id : null, this.crewType === 1 ? this.castMember.id : null, this.crewType === 2 ? this.castMember.id : null, this.crewType === 3 ? this.castMember.id : null, this.lang).subscribe(function (response) {
             var details = response.json();
             var modalTitleObservable = _this.crewType < 2 ? _this.translate.get('CAST.ALSO_KNOWN') : _this.translate.get('CAST.ALSO_SEEN');
             var modalTitle = '';
@@ -94,39 +94,39 @@ var CastMemberComponent = (function () {
             return Promise.resolve(result);
         }
     };
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Object)
-    ], CastMemberComponent.prototype, "castMember", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], CastMemberComponent.prototype, "lang", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Object)
-    ], CastMemberComponent.prototype, "config", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], CastMemberComponent.prototype, "job", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Number)
-    ], CastMemberComponent.prototype, "crewType", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Number)
-    ], CastMemberComponent.prototype, "currentMovieId", void 0);
-    CastMemberComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'cast-member',
-            templateUrl: 'cast-member.component.html'
-        }),
-        __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router, core_2.TranslateService])
-    ], CastMemberComponent);
     return CastMemberComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], CastMemberComponent.prototype, "castMember", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], CastMemberComponent.prototype, "lang", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], CastMemberComponent.prototype, "config", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], CastMemberComponent.prototype, "job", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], CastMemberComponent.prototype, "crewType", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], CastMemberComponent.prototype, "currentMovieId", void 0);
+CastMemberComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'cast-member',
+        templateUrl: 'cast-member.component.html'
+    }),
+    __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router, core_2.TranslateService])
+], CastMemberComponent);
 exports.CastMemberComponent = CastMemberComponent;
 //# sourceMappingURL=cast-member.component.js.map

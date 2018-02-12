@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
 var _ = require("underscore");
-var TimelineEventRateMovieComponent = (function () {
+var TimelineEventRateMovieComponent = /** @class */ (function () {
     function TimelineEventRateMovieComponent(movieDBService, router) {
         this.movieDBService = movieDBService;
         this.router = router;
@@ -25,12 +25,22 @@ var TimelineEventRateMovieComponent = (function () {
             var curUserId = this.curUserId;
             this.curUsername = _.find(this.friends, function (f) { return f.userId == curUserId; }).username;
         }
-        this.movieDBService.getMovie(this.questionnaire.movieDBId, this.lang).subscribe(function (data) {
-            _this.movie = data.json();
-            _this.isLoading = false;
-        }, function (err) {
-            _this.router.navigate(['error']);
-        });
+        if (!this.isTV) {
+            this.movieDBService.getMovie(this.questionnaire.movieDBId, this.lang).subscribe(function (data) {
+                _this.movie = data.json();
+                _this.isLoading = false;
+            }, function (err) {
+                _this.router.navigate(['error']);
+            });
+        }
+        else {
+            this.movieDBService.getTV(this.questionnaire.movieDBId, this.lang).subscribe(function (data) {
+                _this.movie = data.json();
+                _this.isLoading = false;
+            }, function (err) {
+                _this.router.navigate(['error']);
+            });
+        }
     };
     __decorate([
         core_1.Input(),
@@ -50,6 +60,10 @@ var TimelineEventRateMovieComponent = (function () {
     ], TimelineEventRateMovieComponent.prototype, "questionnaire", void 0);
     __decorate([
         core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], TimelineEventRateMovieComponent.prototype, "isTV", void 0);
+    __decorate([
+        core_1.Input(),
         __metadata("design:type", Object)
     ], TimelineEventRateMovieComponent.prototype, "config", void 0);
     __decorate([
@@ -67,4 +81,3 @@ var TimelineEventRateMovieComponent = (function () {
     return TimelineEventRateMovieComponent;
 }());
 exports.TimelineEventRateMovieComponent = TimelineEventRateMovieComponent;
-//# sourceMappingURL=timeline-event-rate-movie.component.js.map

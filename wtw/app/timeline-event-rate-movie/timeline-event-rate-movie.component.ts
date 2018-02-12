@@ -14,6 +14,7 @@ export class TimelineEventRateMovieComponent {
     @Input() friends: Array<any>;
     @Input() isCurUserYou: boolean;
     @Input() questionnaire: any;
+    @Input() isTV: boolean;
     @Input() config: any;
     @Input() lang: string;
     curUsername: string;
@@ -28,12 +29,24 @@ export class TimelineEventRateMovieComponent {
             var curUserId = this.curUserId;
             this.curUsername = _.find(this.friends, function (f) { return f.userId == curUserId }).username;
         }
-        this.movieDBService.getMovie(this.questionnaire.movieDBId, this.lang).subscribe(data => {
-            this.movie = data.json();
-            this.isLoading = false;
-        },
-        err => {
-            this.router.navigate(['error']);
-        });
+        if (!this.isTV) {
+            this.movieDBService.getMovie(this.questionnaire.movieDBId, this.lang).subscribe(data => {
+                this.movie = data.json();
+                this.isLoading = false;
+            },
+                err => {
+                    this.router.navigate(['error']);
+                });
+        }
+        else {
+            this.movieDBService.getTV(this.questionnaire.movieDBId, this.lang).subscribe(data => {
+                this.movie = data.json();
+                this.isLoading = false;
+            },
+                err => {
+                    this.router.navigate(['error']);
+                });
+        }
+        
     }
 }

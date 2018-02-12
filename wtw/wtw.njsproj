@@ -305,7 +305,6 @@
     <TypeScriptCompile Include="app\user-home\user-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-tv-questionnaires\user-tv-questionnaires-dummy-page.component.ts" />
     <TypeScriptCompile Include="app\user-tv-questionnaires\user-tv-questionnaires-page.component.ts" />
-    <TypeScriptCompile Include="app\user-movies-watchlist - Copy\user-movies-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-tv-watchlist\user-tv-watchlist-page.component.ts" />
     <TypeScriptCompile Include="app\user-tvshows-home\user-tvshows-home-page.component.ts" />
     <TypeScriptCompile Include="app\user-movies-watchlist\user-movies-watchlist-page.component.ts" />
@@ -340,7 +339,6 @@
     <Folder Include="app\timeline-event-rate-movie\" />
     <Folder Include="app\timeline\" />
     <Folder Include="app\notification\" />
-    <Folder Include="app\user-movies-watchlist - Copy\" />
     <Folder Include="app\user-tv-questionnaires\" />
     <Folder Include="app\user-tv-watchlist\" />
     <Folder Include="app\user-tvshows-home\" />

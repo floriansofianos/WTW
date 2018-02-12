@@ -38,7 +38,7 @@ export class CastMemberComponent {
             .body(`
             <div class="loading-container"><i class="fa fa-circle-o-notch fa-spin"></i></div>`)
                 .open();
-        this.movieQuestionnaireService.getCast(this.crewType === 0 ? this.castMember.id : null, this.crewType === 1 ? this.castMember.id : null, this.crewType === 2 ? this.castMember.id : null, this.lang).subscribe(response => {
+        this.movieQuestionnaireService.getCast(this.crewType === 0 ? this.castMember.id : null, this.crewType === 1 ? this.castMember.id : null, this.crewType === 2 ? this.castMember.id : null, this.crewType === 3 ? this.castMember.id : null, this.lang).subscribe(response => {
             let details = response.json();
             let modalTitleObservable = this.crewType < 2 ? this.translate.get('CAST.ALSO_KNOWN') : this.translate.get('CAST.ALSO_SEEN');
             let modalTitle = '';

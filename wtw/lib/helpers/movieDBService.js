@@ -1445,7 +1445,7 @@ module.exports = function () {
         return cache.get('movieDBConfiguration');
     }
 
-    var getAlsoKnown = function (directorId, writerId, actorId, lang, done) {
+    var getAlsoKnown = function (directorId, writerId, actorId, creatorId, lang, done) {
         getPeopleFromCache(directorId, writerId, actorId, lang, (err, people) => {
             if (people) {
                 if (date.addMonths(people.updatedAt, 2) > new Date()) return done(null, people.data);
@@ -1482,7 +1482,6 @@ module.exports = function () {
                 });
             }
             else {
-                ;
                 peopleCache.data = cast;
                 peopleCache.save().then(function (m, err) {
                     if (err) done(err, null);
