@@ -998,10 +998,6 @@ var processTVCreatorGroups = function (moviesGrouped, userId, done) {
 var processTVCreatorGroup = function (moviesGrouped, i, userId, done) {
     if (i < _.size(moviesGrouped)) {
         var g = moviesGrouped[Object.keys(moviesGrouped)[i]];
-        console.log('hehe');
-        console.log('seenCount: ' + _.size(_.filter(g, function (e) { return e.isSeen; })));
-        console.log('score: ' + (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)));
-        console.log('scoreRelevance: ' + getDirectorScoreRelevance(_.size(g)));
         var userProfile = {
             userId: userId,
             name: g[0].name,
@@ -1010,9 +1006,7 @@ var processTVCreatorGroup = function (moviesGrouped, i, userId, done) {
             score: (_.reduce(g, function (memo, m) { return memo + m.score; }, 0)) / (_.size(g)),
             scoreRelevance: getDirectorScoreRelevance(_.size(g))
         }
-        console.log('haha');
         userProfileService.createOrUpdate(userProfile, function (err, res) {
-            console.log('create done');
             processTVCreatorGroup(moviesGrouped, i + 1, userId, done);
         });
     }

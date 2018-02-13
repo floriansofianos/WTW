@@ -10,7 +10,8 @@ module.exports = function (sequelize, DataTypes) {
         directorId: DataTypes.INTEGER,
         writerId: DataTypes.INTEGER,
         country: DataTypes.STRING,
-        seenCount: DataTypes.INTEGER
+        seenCount: DataTypes.INTEGER,
+        creatorId: DataTypes.INTEGER
     }, {
             classMethods: {
                 associate: function (models) {
