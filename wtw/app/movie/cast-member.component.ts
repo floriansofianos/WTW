@@ -71,8 +71,8 @@ export class CastMemberComponent {
         if (movie.poster_path) return `
             <div class="movie-poster-container">
                 <img width="150" src="` + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + `" />
-                <div class="modal-movie-title">` + movie.title + `</div>
-                <div class="modal-movie-job">` + (this.crewType < 2 ? this.job : movie.character) + `</div>
+                <div class="modal-movie-title">` + (movie.media_type == 'movie' ? movie.title : movie.name) + `</div>
+                <div class="modal-movie-job">` + (this.crewType == 2 ? movie.character : this.job) + `</div>
             </div>
             `;
         else return `
@@ -80,8 +80,8 @@ export class CastMemberComponent {
                 <div class="movie-poster-placeholder">
                     <i class="fa fa-film"></i>
                 </div>
-                <div class="modal-movie-title">` + movie.title + `</div>
-                <div class="modal-movie-job">` + (this.crewType < 2 ? this.job : movie.character) + `</div>
+                <div class="modal-movie-title">` + (movie.media_type == 'movie' ? movie.title : movie.name) + `</div>
+                <div class="modal-movie-job">` + (this.crewType == 2 ? movie.character : this.job) + `</div>
             </div>
             `;
     }

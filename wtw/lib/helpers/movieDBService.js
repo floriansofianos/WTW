@@ -1390,6 +1390,10 @@ module.exports = function () {
         return _.filter(credits.crew, function (c) { return c.job == 'Writer' || c.job == 'Screenplay' });
     }
 
+    var getCreators = function (credits) {
+        return _.filter(credits.crew, function (c) { return c.job == 'Creator' || c.job == 'Executive Producer' });
+    }
+
     var firstTenQuery = {
         'include_adult': false,
         'include_video': false,
@@ -1446,11 +1450,11 @@ module.exports = function () {
     }
 
     var getAlsoKnown = function (directorId, writerId, actorId, creatorId, lang, done) {
-        getPeopleFromCache(directorId, writerId, actorId, lang, (err, people) => {
+        getPeopleFromCache(directorId, writerId, actorId, creatorId, lang, (err, people) => {
             if (people) {
                 if (date.addMonths(people.updatedAt, 2) > new Date()) return done(null, people.data);
                 else {
-                    getPeopleFromMovieDB(directorId, writerId, actorId, lang, people, (err, people) => {
+                    getPeopleFromMovieDB(directorId, writerId, actorId, creatorId, lang, people, (err, people) => {
                         if (err) return done(err, null);
                         else return done(null, people);
                     });
@@ -1458,7 +1462,7 @@ module.exports = function () {
             }
             else {
                 // Retrieve all the information about this movie
-                getPeopleFromMovieDB(directorId, writerId, actorId, lang, null, (err, people) => {
+                getPeopleFromMovieDB(directorId, writerId, actorId, creatorId, lang, null, (err, people) => {
                     if (err) return done(err, null);
                     else return done(null, people);
                 });
@@ -1467,16 +1471,17 @@ module.exports = function () {
     }
 
     /// Gets cast from movieDB and sets the cache
-    var getPeopleFromMovieDB = function (directorId, writerId, actorId, lang, peopleCache, done) {
-        var id = directorId ? directorId : (writerId ? writerId : actorId);
-        mdb.personMovieCredits({ id: id, lang: lang }, (err, data) => {
+    var getPeopleFromMovieDB = function (directorId, writerId, actorId, creatorId, lang, peopleCache, done) {
+        var id = directorId ? directorId : (writerId ? writerId : (actorId ? actorId : creatorId));
+        mdb.personCombinedCredits({ id: id, lang: lang }, (err, data) => {
             if (err) return done(err, null);
             if (directorId) data = getDirectors(data);
             if (writerId) data = getWriters(data);
             if (actorId) data = getActors(data);
+            if (creatorId) data = getCreators(data);
             var cast = data;
             if (!peopleCache) {
-                setPeopleCache(directorId, writerId, actorId, lang, data, (err, data) => {
+                setPeopleCache(directorId, writerId, actorId, creatorId, lang, data, (err, data) => {
                     if (err) return done(err, null);
                     else return done(null, cast);
                 });
@@ -1491,19 +1496,20 @@ module.exports = function () {
         });
     }
 
-    var getPeopleFromCache = function (directorId, writerId, actorId, lang, done) {
-        models.PeopleCache.findOne({ where: { directorId: directorId, writerId: writerId, actorId: actorId, lang: lang } }).then(cast => {
+    var getPeopleFromCache = function (directorId, writerId, actorId, creatorId, lang, done) {
+        models.PeopleCache.findOne({ where: { directorId: directorId, writerId: writerId, actorId: actorId, creatorId: creatorId, lang: lang } }).then(cast => {
             done(null, cast);
         }).catch(function (err) {
             done(err);
         });
     }
 
-    var setPeopleCache = function (directorId, writerId, actorId, lang, data, done) {
+    var setPeopleCache = function (directorId, writerId, actorId, creatorId, lang, data, done) {
         models.PeopleCache.create({
             directorId: directorId,
             writerId: writerId,
             actorId: actorId,
+            creatorId: creatorId,
             lang: lang,
             data: data
         }).then(castCache => {

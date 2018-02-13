@@ -19,7 +19,7 @@ var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var QuestionnaireComponent = (function () {
+var QuestionnaireComponent = /** @class */ (function () {
     function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
@@ -243,41 +243,40 @@ var QuestionnaireComponent = (function () {
     QuestionnaireComponent.prototype.resetAllStates = function () {
         this.states.forEach(function (o, i, a) { return a[i] = null; });
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], QuestionnaireComponent.prototype, "isFirstQuestionnaire", void 0);
+    QuestionnaireComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'questionnaire',
+            templateUrl: 'questionnaire.component.html',
+            animations: [
+                animations_1.trigger('areaState', [
+                    animations_1.state('active', animations_1.style({
+                        opacity: 1,
+                        transform: 'translateX(-50%)'
+                    })),
+                    animations_1.transition('void => *', [
+                        animations_1.style({
+                            transform: 'translateX(-150%)',
+                            opacity: 0
+                        }),
+                        animations_1.animate('100ms 300ms ease-in')
+                    ]),
+                    animations_1.transition('* => void', [
+                        animations_1.animate(300, animations_1.keyframes([
+                            animations_1.style({ opacity: 1, transform: 'translateX(-50%)', offset: 0 }),
+                            animations_1.style({ opacity: 1, transform: 'translateX(-15px)', offset: 0.7 }),
+                            animations_1.style({ opacity: 0, transform: 'translateX(150%)', offset: 1.0 })
+                        ]))
+                    ])
+                ])
+            ]
+        }),
+        __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, questionnaire_service_1.QuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService, countries_service_1.CountriesService])
+    ], QuestionnaireComponent);
     return QuestionnaireComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], QuestionnaireComponent.prototype, "isFirstQuestionnaire", void 0);
-QuestionnaireComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'questionnaire',
-        templateUrl: 'questionnaire.component.html',
-        animations: [
-            animations_1.trigger('areaState', [
-                animations_1.state('active', animations_1.style({
-                    opacity: 1,
-                    transform: 'translateX(-50%)'
-                })),
-                animations_1.transition('void => *', [
-                    animations_1.style({
-                        transform: 'translateX(-150%)',
-                        opacity: 0
-                    }),
-                    animations_1.animate('100ms 300ms ease-in')
-                ]),
-                animations_1.transition('* => void', [
-                    animations_1.animate(300, animations_1.keyframes([
-                        animations_1.style({ opacity: 1, transform: 'translateX(-50%)', offset: 0 }),
-                        animations_1.style({ opacity: 1, transform: 'translateX(-15px)', offset: 0.7 }),
-                        animations_1.style({ opacity: 0, transform: 'translateX(150%)', offset: 1.0 })
-                    ]))
-                ])
-            ])
-        ]
-    }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, core_2.TranslateService, router_1.Router, questionnaire_service_1.QuestionnaireService, movie_questionnaire_service_1.MovieQuestionnaireService, movieDB_service_1.MovieDBService, user_questionnaire_service_1.UserQuestionnaireService, countries_service_1.CountriesService])
-], QuestionnaireComponent);
 exports.QuestionnaireComponent = QuestionnaireComponent;
-//# sourceMappingURL=questionnaire.component.js.map

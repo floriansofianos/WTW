@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieQuestionnaireService = (function () {
+var MovieQuestionnaireService = /** @class */ (function () {
     function MovieQuestionnaireService(http) {
         this.http = http;
     }
@@ -49,11 +49,10 @@ var MovieQuestionnaireService = (function () {
     MovieQuestionnaireService.prototype.handleErrors = function (error) {
         return Rx_1.Observable.throw(error.status);
     };
+    MovieQuestionnaireService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], MovieQuestionnaireService);
     return MovieQuestionnaireService;
 }());
-MovieQuestionnaireService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], MovieQuestionnaireService);
 exports.MovieQuestionnaireService = MovieQuestionnaireService;
-//# sourceMappingURL=movie-questionnaire.service.js.map

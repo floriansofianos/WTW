@@ -15,7 +15,7 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var CastMemberComponent = (function () {
+var CastMemberComponent = /** @class */ (function () {
     function CastMemberComponent(modal, movieQuestionnaireService, router, translate) {
         this.modal = modal;
         this.movieQuestionnaireService = movieQuestionnaireService;
@@ -62,9 +62,9 @@ var CastMemberComponent = (function () {
     };
     CastMemberComponent.prototype.getPosterHtml = function (movie) {
         if (movie.poster_path)
-            return "\n            <div class=\"movie-poster-container\">\n                <img width=\"150\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.crewType < 2 ? this.job : movie.character) + "</div>\n            </div>\n            ";
+            return "\n            <div class=\"movie-poster-container\">\n                <img width=\"150\" src=\"" + this.config.images.base_url + this.config.images.poster_sizes[3] + movie.poster_path + "\" />\n                <div class=\"modal-movie-title\">" + (movie.media_type == 'movie' ? movie.title : movie.name) + "</div>\n                <div class=\"modal-movie-job\">" + (this.crewType == 2 ? movie.character : this.job) + "</div>\n            </div>\n            ";
         else
-            return "\n            <div class=\"movie-poster-container\">\n                <div class=\"movie-poster-placeholder\">\n                    <i class=\"fa fa-film\"></i>\n                </div>\n                <div class=\"modal-movie-title\">" + movie.title + "</div>\n                <div class=\"modal-movie-job\">" + (this.crewType < 2 ? this.job : movie.character) + "</div>\n            </div>\n            ";
+            return "\n            <div class=\"movie-poster-container\">\n                <div class=\"movie-poster-placeholder\">\n                    <i class=\"fa fa-film\"></i>\n                </div>\n                <div class=\"modal-movie-title\">" + (movie.media_type == 'movie' ? movie.title : movie.name) + "</div>\n                <div class=\"modal-movie-job\">" + (this.crewType == 2 ? movie.character : this.job) + "</div>\n            </div>\n            ";
     };
     CastMemberComponent.prototype.getAllMoviesHtml = function (details) {
         var movies = details;
@@ -94,39 +94,38 @@ var CastMemberComponent = (function () {
             return Promise.resolve(result);
         }
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], CastMemberComponent.prototype, "castMember", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], CastMemberComponent.prototype, "lang", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], CastMemberComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], CastMemberComponent.prototype, "job", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Number)
+    ], CastMemberComponent.prototype, "crewType", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Number)
+    ], CastMemberComponent.prototype, "currentMovieId", void 0);
+    CastMemberComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'cast-member',
+            templateUrl: 'cast-member.component.html'
+        }),
+        __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router, core_2.TranslateService])
+    ], CastMemberComponent);
     return CastMemberComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], CastMemberComponent.prototype, "castMember", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], CastMemberComponent.prototype, "lang", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], CastMemberComponent.prototype, "config", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], CastMemberComponent.prototype, "job", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], CastMemberComponent.prototype, "crewType", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], CastMemberComponent.prototype, "currentMovieId", void 0);
-CastMemberComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'cast-member',
-        templateUrl: 'cast-member.component.html'
-    }),
-    __metadata("design:paramtypes", [bootstrap_1.Modal, movie_questionnaire_service_1.MovieQuestionnaireService, router_1.Router, core_2.TranslateService])
-], CastMemberComponent);
 exports.CastMemberComponent = CastMemberComponent;
-//# sourceMappingURL=cast-member.component.js.map
