@@ -143,6 +143,36 @@ var userProfileService = function() {
                 done(err);
             });
         }
+        else if (userProfile.creatorId) {
+            models.UserProfile.findOne({ where: { userId: userProfile.userId, creatorId: userProfile.creatorId } }).then(data => {
+                if (data) {
+                    data.score = userProfile.score;
+                    data.scoreRelevance = userProfile.scoreRelevance;
+                    data.seenCount = userProfile.seenCount;
+                    data.save().then(profile => {
+                        done(null, profile);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+                else {
+                    models.UserProfile.create({
+                        userId: userProfile.userId,
+                        creatorId: userProfile.creatorId,
+                        name: userProfile.name,
+                        score: userProfile.score,
+                        scoreRelevance: userProfile.scoreRelevance,
+                        seenCount: userProfile.seenCount
+                    }).then(profile => {
+                        done(null, profile);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+            }).catch(function (err) {
+                done(err);
+            });
+        }
         else if (userProfile.country) {
             models.UserProfile.findOne({ where: { userId: userProfile.userId, country: userProfile.country } }).then(data => {
                 if (data) {

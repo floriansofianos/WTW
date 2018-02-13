@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
-var MovieWallElementComponent = /** @class */ (function () {
+var MovieWallElementComponent = (function () {
     function MovieWallElementComponent() {
         this.state = 'normal';
     }
@@ -73,3 +73,4 @@ var MovieWallElementComponent = /** @class */ (function () {
     return MovieWallElementComponent;
 }());
 exports.MovieWallElementComponent = MovieWallElementComponent;
+//# sourceMappingURL=movie-wall-element.component.js.map

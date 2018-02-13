@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
-var TVWallComponent = /** @class */ (function () {
+var TVWallComponent = (function () {
     function TVWallComponent(movieDBService, router) {
         this.movieDBService = movieDBService;
         this.router = router;
@@ -66,3 +66,4 @@ var TVWallComponent = /** @class */ (function () {
     return TVWallComponent;
 }());
 exports.TVWallComponent = TVWallComponent;
+//# sourceMappingURL=tv-wall.component.js.map
