@@ -14,7 +14,7 @@ var auth_service_1 = require("../auth/auth.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var UserProfilePageComponent = /** @class */ (function () {
+var UserProfilePageComponent = (function () {
     function UserProfilePageComponent(authService, router, userService, countriesService) {
         this.authService = authService;
         this.router = router;
@@ -108,3 +108,4 @@ var UserProfilePageComponent = /** @class */ (function () {
     return UserProfilePageComponent;
 }());
 exports.UserProfilePageComponent = UserProfilePageComponent;
+//# sourceMappingURL=user-profile-page.component.js.map

@@ -196,7 +196,7 @@ module.exports = function () {
                         if (_.size(data) < 1) return done(null, false);
                         else {
                             // we need to calculate the score of each tv show and then choose the best choice
-                            getTVScores(id, otherUserId, data, tvRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                            getTVScores(id, otherUserId, data, tvRecommandationService, userProfileService, tvCacheService, 0, function (err, data) {
                                 var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
                                 if (_.size(filteredData) < 1) return done(null, _.sample(data));
                                 else {
