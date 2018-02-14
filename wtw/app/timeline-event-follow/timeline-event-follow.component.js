@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _ = require("underscore");
-var TimelineEventFollowComponent = (function () {
+var TimelineEventFollowComponent = /** @class */ (function () {
     function TimelineEventFollowComponent() {
     }
     TimelineEventFollowComponent.prototype.ngOnInit = function () {
@@ -54,4 +54,3 @@ var TimelineEventFollowComponent = (function () {
     return TimelineEventFollowComponent;
 }());
 exports.TimelineEventFollowComponent = TimelineEventFollowComponent;
-//# sourceMappingURL=timeline-event-follow.component.js.map

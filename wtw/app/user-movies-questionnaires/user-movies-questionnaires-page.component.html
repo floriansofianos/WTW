@@ -18,7 +18,7 @@
                     <span *ngIf="category.type == 'star'"><star-rating-comp [rating]="category.name" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [size]="'medium'"></star-rating-comp></span>
                 </div>
                 <div class="category-movie-wall" *ngIf="category.values && category.values.length > 0">
-                    <tv-wall [movieIds]="category.values" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></tv-wall>
+                    <movie-wall [movieIds]="category.values" [lang]="lang" [config]="configuration" (notify)="onClickMovie($event)"></movie-wall>
                 </div>
             </div>
         </div>

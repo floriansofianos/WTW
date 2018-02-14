@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var TVQuestionnaireElementComponent = (function () {
+var TVQuestionnaireElementComponent = /** @class */ (function () {
     function TVQuestionnaireElementComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -126,4 +126,3 @@ var TVQuestionnaireElementComponent = (function () {
     return TVQuestionnaireElementComponent;
 }());
 exports.TVQuestionnaireElementComponent = TVQuestionnaireElementComponent;
-//# sourceMappingURL=tv-questionnaire-element.component.js.map

@@ -14,17 +14,19 @@ var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_recommandation_service_1 = require("../movie/movie-recommandation.service");
+var tv_recommandation_service_1 = require("../tv/tv-recommandation.service");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
-    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
+    function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, tvRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
         this.movieDBService = movieDBService;
         this.movieRecommandation = movieRecommandation;
+        this.tvRecommandation = tvRecommandation;
         this.movieQuestionnaireService = movieQuestionnaireService;
         this.translate = translate;
         this.languagesService = languagesService;
@@ -33,6 +35,8 @@ var UserWhatToWatchPageComponent = (function () {
     UserWhatToWatchPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formWTW = {};
+        this.formTVWTW = {};
+        this.isMovie = true;
         this.maxReleaseYear = new Date().getFullYear();
         var currentUser = this.authService.getCurrentUser();
         if (currentUser) {
@@ -43,6 +47,8 @@ var UserWhatToWatchPageComponent = (function () {
             this.showPlex = currentUser.plexServerId != undefined;
             this.formWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
             this.formWTW.maxRelease = new Date().getFullYear();
+            this.formTVWTW.minRelease = currentUser.yearOfBirth ? currentUser.yearOfBirth : new Date().getFullYear() - 50;
+            this.formTVWTW.maxRelease = new Date().getFullYear();
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
@@ -54,6 +60,7 @@ var UserWhatToWatchPageComponent = (function () {
         }
         this.lang = currentUser.lang;
         this.formWTW.isRuntimeChecked = false;
+        this.formTVWTW.isRuntimeChecked = false;
         this.socialService.getAllFriends().subscribe(function (response) {
             var allFriends = response.json();
             if (allFriends.length > 0) {
@@ -79,6 +86,15 @@ var UserWhatToWatchPageComponent = (function () {
                 }, function (error) {
                     _this.router.navigate(['error']);
                 });
+                _this.tvRecommandation.getAll().subscribe(function (response) {
+                    if (response.json().length > 0) {
+                        _this.recommandationTVIds = _.sample(_.map(response.json(), 'movieDBId'), 5);
+                    }
+                    else
+                        _this.noTVReco = true;
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
             }, function (error) {
                 _this.router.navigate(['error']);
             });
@@ -89,6 +105,10 @@ var UserWhatToWatchPageComponent = (function () {
     UserWhatToWatchPageComponent.prototype.onClickMovie = function (event) {
         this.isLoading = true;
         this.router.navigate(['/movie/' + event.movieId]);
+    };
+    UserWhatToWatchPageComponent.prototype.onClickTV = function (event) {
+        this.isLoading = true;
+        this.router.navigate(['/tvshow/' + event.movieId]);
     };
     UserWhatToWatchPageComponent.prototype.clickSearch = function () {
         var _this = this;
@@ -111,14 +131,34 @@ var UserWhatToWatchPageComponent = (function () {
             this.notValidReleaseDates = true;
         }
     };
+    UserWhatToWatchPageComponent.prototype.clickTVSearch = function () {
+        var _this = this;
+        if (this.formTVWTW.minRelease <= this.formTVWTW.maxRelease && this.formTVWTW.maxRelease <= new Date().getFullYear()) {
+            this.isLoading = true;
+            this.movieDBService.wtwTV(this.lang, this.formTVWTW.genreSelectValue, this.formTVWTW.isWatchlistChecked, this.formTVWTW.isRuntimeChecked, this.formTVWTW.runtimeLimit, this.formTVWTW.minRelease, this.formTVWTW.maxRelease, this.formTVWTW.countrySelectValue, this.formTVWTW.withFriend, this.formTVWTW.usePlex).subscribe(function (response) {
+                // load existing data regarding this movie for the current user
+                var id = response.json().id;
+                if (id)
+                    _this.router.navigate(['/tvshow/' + id]);
+                else {
+                    _this.isLoading = false;
+                    _this.noTVResults = true;
+                }
+            }, function (error) {
+                _this.router.navigate(['error']);
+            });
+        }
+        else {
+            this.notValidTVReleaseDates = true;
+        }
+    };
     UserWhatToWatchPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'user-what-to-watch-page.component.html',
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService, social_service_1.SocialService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, movieDB_service_1.MovieDBService, movie_recommandation_service_1.MovieRecommandationService, tv_recommandation_service_1.TVRecommandationService, movie_questionnaire_service_1.MovieQuestionnaireService, core_2.TranslateService, languages_service_1.LanguagesService, social_service_1.SocialService])
     ], UserWhatToWatchPageComponent);
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

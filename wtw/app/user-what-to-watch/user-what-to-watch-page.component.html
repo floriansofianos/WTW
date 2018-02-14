@@ -2,7 +2,10 @@
 <div class="content-container">
     <left-menu [rootPath]="'user/what-to-watch/'" [leftMenus]="[]"></left-menu>
     <div class="inner-content-container">
-        <div class="wtw-container" *ngIf="!movie && !isLoading">
+        <div class="wtw-container" *ngIf="isMovie && !isLoading">
+            <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
+            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie"></ui-switch>
+            <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
             <div class="login-form-container" style="width: 500px;margin: 0;">
                 <h1 class="wtw-title-container">
                     {{ 'WTW.WTW' | translate }}
@@ -70,11 +73,85 @@
                 </div>
             </div>
         </div>
+        <div class="wtw-container" *ngIf="!isMovie && !isLoading">
+            <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
+            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie" (ngModelChange)="onChange()"></ui-switch>
+            <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
+            <div class="login-form-container" style="width: 500px;margin: 0;">
+                <h1 class="wtw-title-container">
+                    {{ 'WTW.WTW' | translate }}
+                </h1>
+                <div class="wtw-form-content">
+                    <div class="wtw-form-field-container">
+                        <mat-form-field style="width: 200px; font-size: 17px;">
+                            <input matInput placeholder="{{ 'WTW.MIN_RELEASE' | translate }}" [(ngModel)]="formTVWTW.minRelease" type="number" min="1900" />
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-form-field style="width: 200px; font-size: 17px;">
+                            <input matInput placeholder="{{ 'WTW.MAX_RELEASE' | translate }}" [(ngModel)]="formTVWTW.maxRelease" type="number" min="1900" [max]="maxReleaseYear" />
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
+                            <mat-select placeholder="Genre" [(ngModel)]="formTVWTW.genreSelectValue">
+                                <mat-option *ngFor="let g of genres" [value]="g.id">
+                                    {{ g.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
+                            <mat-select placeholder="{{ 'WTW.LANGUAGE' | translate }}" [(ngModel)]="formTVWTW.countrySelectValue">
+                                <mat-option *ngFor="let c of languages" [value]="c.code">
+                                    {{ c.code }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-checkbox [(ngModel)]="formTVWTW.isRuntimeChecked">{{ 'WTW.RUNTIME_LIMIT' | translate }}</mat-checkbox>
+                    </div>
+                    <div class="wtw-form-field-container" *ngIf="formTVWTW.isRuntimeChecked">
+                        <mat-slider [thumbLabel]="true" min="5" max="60" step="1" value="45" [(ngModel)]="formTVWTW.runtimeLimit" [style.width.px]="250" [style.height.px]="40"></mat-slider>
+                        <div class="wtw-form-runtime-restriction">{{ 'WTW.RUNTIME_LIMIT_TV_EXPLANATION' | translate }}</div>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-checkbox [(ngModel)]="formTVWTW.isWatchlistChecked">{{ 'WTW.INCLUDE_TV_WATCHLIST' | translate }}</mat-checkbox>
+                    </div>
+                    <div class="wtw-form-field-container">
+                        <mat-checkbox [(ngModel)]="formTVWTW.usePlex">{{ 'WTW.ONLY_PLEX_TV' | translate }}</mat-checkbox>
+                    </div>
+                    <div class="wtw-form-field-container" *ngIf="showPlex">
+                        <mat-checkbox [(ngModel)]="formTVWTW.watchWithFriend">{{ 'WTW.WATCH_TV_WITH_FRIEND' | translate }}</mat-checkbox>
+                    </div>
+                    <div class="wtw-form-field-container" *ngIf="formTVWTW.watchWithFriend">
+                        <mat-form-field [style.fontSize.px]="14" [style.width.px]="250">
+                            <mat-select placeholder="{{ 'WTW.FRIEND' | translate }}" [(ngModel)]="formTVWTW.withFriend">
+                                <mat-option *ngFor="let f of friends" [value]="f.id">
+                                    {{ f.username }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="noTVResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
+                    <div *ngIf="notValidTVReleaseDates" class="wtw-error">{{ 'WTW.NOT_VALID_RELEASE_DATES' | translate }}</div>
+                    <wtw-button (click)="clickTVSearch()">{{ 'FORM.OK' | translate }}</wtw-button>
+                </div>
+            </div>
+        </div>
         <div class="personal-recommandations-container" *ngIf="recommandationIds && !movie && !isLoading">
             <div class="personal-recommandations-title">
                 {{ 'WTW.PERSONAL_RECO' | translate }}
             </div>
             <movie-wall [movieIds]="recommandationIds" [lang]="lang" [config]="configuration" [width]="150" (notify)="onClickMovie($event)"></movie-wall>
+        </div>
+        <div class="personal-recommandations-container" *ngIf="recommandationTVIds && !isLoading">
+            <div class="personal-recommandations-title">
+                {{ 'WTW.PERSONAL_RECO_TV' | translate }}
+            </div>
+            <tv-wall [movieIds]="recommandationTVIds" [lang]="lang" [config]="configuration" [width]="150" (notify)="onClickTV($event)"></tv-wall>
         </div>
         <div class="spinner-container" *ngIf="isLoading">
             <spinner></spinner>

@@ -28,6 +28,11 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
+    wtwTV(lang: string, genreId: number, useWatchlist: boolean, useRuntimeLimit: boolean, runtimeLimit: number, minRelease: number, maxRelease: number, languageSelected: boolean, friendId: number, usePlex: boolean) {
+        return this.http.get('/api/movieDBSearchTV/wtw', { params: { lang: lang, genreId: genreId, useWatchlist: useWatchlist, useRuntimeLimit: useRuntimeLimit, runtimeLimit: runtimeLimit, minRelease: minRelease, maxRelease: maxRelease, languageSelected: languageSelected, friendId: friendId, usePlex: usePlex } })
+            .catch(this.handleErrors);
+    }
+
     getMovie(id: number, lang: string) {
         return this.http.get('/api/movie', { params: { id: id, lang: lang} })
             .catch(this.handleErrors);
