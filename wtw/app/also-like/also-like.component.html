@@ -6,6 +6,12 @@
             <div class="also-like-user" *ngFor="let u of m.users" [routerLink]="['/user/' + u.id]"><i class="fa fa-user"></i>{{u.username}}</div>
         </div>
     </div>
+    <div *ngFor="let m of tvshows" class="also-like-movie-container">
+        <tv-wall-element [tvshow]="m.tvshow" [config]="config" [width]="150"></tv-wall-element>
+        <div class="also-like-users-container">
+            <div class="also-like-user" *ngFor="let u of m.users" [routerLink]="['/user/' + u.id]"><i class="fa fa-user"></i>{{u.username}}</div>
+        </div>
+    </div>
 </div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>

@@ -27,6 +27,8 @@ export class UserPageComponent {
     isCurrentUser: boolean;
     likeMovieIds: Array<any>;
     dislikeMovieIds: Array<any>;
+    likeTVShowIds: Array<any>;
+    dislikeTVShowIds: Array<any>;
     config: any;
     lang: string;
     userCountry: string;
@@ -62,6 +64,8 @@ export class UserPageComponent {
                         this.user = response.user;
                         this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
                         this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
+                        this.likeTVShowIds = _.map(_.filter(response.tvQuestionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
+                        this.dislikeTVShowIds = _.map(_.filter(response.tvQuestionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
                         this.countriesService.getAll().subscribe(response => {
                             let countriesList = response.json().countries;
                             let profileUser = this.user;
@@ -224,5 +228,9 @@ export class UserPageComponent {
 
     onClickMovie(event) {
         this.router.navigate(['/movie/' + event.movieId])
+    }
+
+    onClickTV(event) {
+        this.router.navigate(['/tvshow/' + event.movieId])
     }
 }

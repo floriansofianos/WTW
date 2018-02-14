@@ -45,4 +45,3 @@ exports.appRoutes = [
     { path: 'tvshow/:id', component: tvshow_component_1.TVShowPageComponent, canActivate: [can_activate_auth_1.CanActivateAuthGuard] },
     { path: '', component: home_page_component_1.HomePageComponent }
 ];
-//# sourceMappingURL=routes.js.map

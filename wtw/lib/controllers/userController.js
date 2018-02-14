@@ -145,7 +145,13 @@ var userController = function (userService, userProfileService) {
                     userService.getLikedDislikedMovies(req.params.userId, function (err, questionnaires) {
                         if (questionnaires) {
                             result.questionnaires = questionnaires;
-                            res.json(result);
+                            userService.getLikedDislikedTVShows(req.params.userId, function (err, questionnaires) {
+                                if (questionnaires) {
+                                    result.tvQuestionnaires = questionnaires;
+                                    res.json(result);
+                                }
+                                else return res.send(400);
+                            }
                         }
                         else return res.send(400);
                     });

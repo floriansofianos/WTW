@@ -3,10 +3,12 @@ var isAuthenticated = require('../middlewares/isAuthenticated');
 var userService = require('../helpers/userService')();
 var userProfileService = require('../helpers/userProfileService')();
 var movieQuestionnaireService = require('../helpers/movieQuestionnaireService')();
+var tvQuestionnaireService = require('../helpers/tvQuestionnaireService')();
 var timelineEventService = require('../helpers/timelineEventService')();
 var userController = require('../controllers/userController')(userService, userProfileService);
 var avatarController = require('../controllers/avatarController')();
 var movieQuestionnaireController = require('../controllers/movieQuestionnaireController')(movieQuestionnaireService, timelineEventService);
+var tvQuestionnaireController = require('../controllers/tvQuestionnaireController')(tvQuestionnaireService, timelineEventService);
 
 var userRoutes = function () {
     var userRouter = express.Router();
@@ -16,6 +18,9 @@ var userRoutes = function () {
 
     userRouter.route('/usersThatLiked')
         .get(isAuthenticated, movieQuestionnaireController.getUsersThatAlsoLiked);
+
+    userRouter.route('/usersThatTVLiked')
+        .get(isAuthenticated, tvQuestionnaireController.getUsersThatAlsoLiked);
 
     userRouter.route('/avatar')
         .post(isAuthenticated, avatarController.create)

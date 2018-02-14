@@ -38,6 +38,20 @@
         <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
     </div>
 </div>
+<div class="like-dislike-container" *ngIf="!isLoading">
+    <div class="questionnaires-container" *ngIf="likeTVShowIds && likeTVShowIds.length > 0">
+        <div class="questionnaires-title">
+            {{ 'HOME.USERLIKE' | translate }}
+        </div>
+        <tv-wall [movieIds]="likeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
+    </div>
+    <div class="questionnaires-container" *ngIf="dislikeTVShowIds && dislikeTVShowIds.length > 0">
+        <div class="questionnaires-title">
+            {{ 'HOME.USERDISLIKE' | translate }}
+        </div>
+        <tv-wall [movieIds]="dislikeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
+    </div>
+</div>
 <div class="spinner-container" *ngIf="isLoading">
     <spinner></spinner>
 </div>

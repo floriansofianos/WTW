@@ -251,7 +251,7 @@ var userService = function() {
             var otherUserProfiles = _.filter(profiles, function (p) { return p.userId == userId });
             _.each(currentUserProfiles, function (p) {
                 // Try to find the relevant profile on the other user
-                var otherUserProfile = _.find(otherUserProfiles, function (op) { return (p.genreId && op.genreId == p.genreId) || (p.castId && p.castId == op.castId) || (p.writerId && op.writerId == p.writerId) || (p.directorId && op.directorId == p.directorId) || (p.country && op.country == p.country) });
+                var otherUserProfile = _.find(otherUserProfiles, function (op) { return (p.genreId && op.genreId == p.genreId) || (p.castId && p.castId == op.castId) || (p.writerId && op.writerId == p.writerId) || (p.creatorId && op.creatorId == p.creatorId) || (p.directorId && op.directorId == p.directorId) || (p.country && op.country == p.country) });
                 if (otherUserProfile) {
                     distance.profiles.push({ profile: p, distance: Math.abs(p.score - otherUserProfile.score) });
                 }
@@ -270,6 +270,23 @@ var userService = function() {
     var getLikedDislikedMovies = function (userId, done) {
         var Op = sequelize.Op;
         models.MovieQuestionnaire.findAll({
+            where: {
+                userId: userId, isSeen: true, rating: { [Op.or]: [5, 4, 1] }
+            },
+            order: [
+                Sequelize.fn('RANDOM')
+            ],
+            limit: 20
+        }).then(questionnaires => {
+            done(null, questionnaires);
+        }).catch(function (err) {
+            done(err);
+        });
+    }
+
+    var getLikedDislikedTVShows = function (userId, done) {
+        var Op = sequelize.Op;
+        models.TVQuestionnaire.findAll({
             where: {
                 userId: userId, isSeen: true, rating: { [Op.or]: [5, 4, 1] }
             },
@@ -329,6 +346,7 @@ var userService = function() {
         searchUser: searchUser,
         getDistance: getDistance,
         getLikedDislikedMovies: getLikedDislikedMovies,
+        getLikedDislikedTVShows: getLikedDislikedTVShows,
         getAllFriends: getAllFriends
     }
 }

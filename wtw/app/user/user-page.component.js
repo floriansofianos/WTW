@@ -18,7 +18,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
 var _ = require("underscore");
-var UserPageComponent = (function () {
+var UserPageComponent = /** @class */ (function () {
     function UserPageComponent(authService, router, socialService, route, movieDBService, userService, countriesService) {
         this.authService = authService;
         this.router = router;
@@ -55,6 +55,8 @@ var UserPageComponent = (function () {
                         _this.user = response.user;
                         _this.likeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
                         _this.dislikeMovieIds = _.map(_.filter(response.questionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
+                        _this.likeTVShowIds = _.map(_.filter(response.tvQuestionnaires, function (q) { return q.rating >= 4; }), 'movieDBId');
+                        _this.dislikeTVShowIds = _.map(_.filter(response.tvQuestionnaires, function (q) { return q.rating < 4; }), 'movieDBId');
                         _this.countriesService.getAll().subscribe(function (response) {
                             var countriesList = response.json().countries;
                             var profileUser = _this.user;
@@ -210,6 +212,9 @@ var UserPageComponent = (function () {
     UserPageComponent.prototype.onClickMovie = function (event) {
         this.router.navigate(['/movie/' + event.movieId]);
     };
+    UserPageComponent.prototype.onClickTV = function (event) {
+        this.router.navigate(['/tvshow/' + event.movieId]);
+    };
     UserPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -220,4 +225,3 @@ var UserPageComponent = (function () {
     return UserPageComponent;
 }());
 exports.UserPageComponent = UserPageComponent;
-//# sourceMappingURL=user-page.component.js.map

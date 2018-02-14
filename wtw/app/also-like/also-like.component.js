@@ -14,14 +14,16 @@ var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var AlsoLikeComponent = (function () {
+var AlsoLikeComponent = /** @class */ (function () {
     function AlsoLikeComponent(router, socialService, movieDBService) {
         this.router = router;
         this.socialService = socialService;
         this.movieDBService = movieDBService;
         this.numberOfElements = 5;
         this.loadedElements = 0;
+        this.loadedTVElements = 0;
         this.movies = [];
+        this.tvshows = [];
         this.isLoading = true;
     }
     AlsoLikeComponent.prototype.ngOnInit = function () {
@@ -66,6 +68,44 @@ var AlsoLikeComponent = (function () {
                     _this.router.navigate(['error']);
                 });
             }
+            for (var i = 1; i <= _this.numberOfElements; i++) {
+                _this.socialService.getUsersThatAlsoTVLiked().subscribe(function (data) {
+                    if (data.json()) {
+                        data = data.json();
+                        if (!_.find(_this.tvshows, function (m) { return m.users[0].movieDBId == data[0].movieDBId; })) {
+                            _this.tvshows.push({ users: data });
+                        }
+                    }
+                    _this.loadedTVElements++;
+                    if (_this.loadedTVElements >= _this.numberOfElements) {
+                        // Load the movies
+                        var movieDBIds = [];
+                        _.each(_.map(_this.tvshows, 'users'), function (array) {
+                            movieDBIds.push(array[0].movieDBId);
+                        });
+                        if (movieDBIds.length < 1) {
+                            _this.isLoading = false;
+                        }
+                        else {
+                            _this.movieDBService.getTVShows(movieDBIds, _this.lang).subscribe(function (data) {
+                                if (data) {
+                                    data = data.json();
+                                    _.each(_this.tvshows, function (m) {
+                                        m.tvshow = _.find(data, function (d) { return d.id == m.users[0].movieDBId; });
+                                    });
+                                    _this.isLoading = false;
+                                }
+                                else
+                                    _this.router.navigate(['error']);
+                            }, function (error) {
+                                _this.router.navigate(['error']);
+                            });
+                        }
+                    }
+                }, function (error) {
+                    _this.router.navigate(['error']);
+                });
+            }
         }, function (error) {
             _this.router.navigate(['error']);
         });
@@ -85,4 +125,3 @@ var AlsoLikeComponent = (function () {
     return AlsoLikeComponent;
 }());
 exports.AlsoLikeComponent = AlsoLikeComponent;
-//# sourceMappingURL=also-like.component.js.map

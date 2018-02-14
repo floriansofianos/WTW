@@ -33,6 +33,11 @@ export class SocialService {
             .catch(this.handleErrors);
     }
 
+    getUsersThatAlsoTVLiked(): Observable<any> {
+        return this.http.get('/api/user/usersThatTVLiked')
+            .catch(this.handleErrors);
+    }
+
     addToFriend(id: number): Observable<any> {
         return this.http.post('/api/friend/' + id, { })
             .catch(this.handleErrors);

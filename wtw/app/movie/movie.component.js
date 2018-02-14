@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var movie_questionnaire_service_1 = require("./movie-questionnaire.service");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
-var MoviePageComponent = (function () {
+var MoviePageComponent = /** @class */ (function () {
     function MoviePageComponent(authService, router, movieDBService, route, movieQuestionnaireService, location) {
         this.authService = authService;
         this.router = router;
@@ -102,4 +102,3 @@ var MoviePageComponent = (function () {
     return MoviePageComponent;
 }());
 exports.MoviePageComponent = MoviePageComponent;
-//# sourceMappingURL=movie.component.js.map
