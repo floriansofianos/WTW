@@ -28,7 +28,7 @@ var userController = function (userService, userProfileService) {
             if (valid) {
                 userService.createUser(req.body, function (err, user) {
                     if (user) {
-                        postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337') + 'auth/verifyEmail?validationToken=' + user.emailValidationGuid);
+                        postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337/') + 'auth/verifyEmail?validationToken=' + user.emailValidationGuid);
                         res.json(userService.userToModelView(user));
                     }
                     else res.send(500);
@@ -62,7 +62,7 @@ var userController = function (userService, userProfileService) {
                     user.forgotPasswordGuid = token;
                     user.save().then(function (user, err) {
                         if (!err) {
-                            postmarkService.sendForgotPasswordEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337') + '/auth/changePassword?token=' + user.forgotPasswordGuid);
+                            postmarkService.sendForgotPasswordEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337/') + '/auth/changePassword?token=' + user.forgotPasswordGuid);
                             res.send({success: true});
                         }
                         else res.send(500);
@@ -114,7 +114,7 @@ var userController = function (userService, userProfileService) {
         if (req.query.email) {
             userService.getUserByEmail(req.query.email, function (err, user) {
                 if (user) {
-                    postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337') + '/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
+                    postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337/') + '/auth/verifyEmail?validationToken=' + user.emailValidationGuid);
                     res.json({success: true});
                 }
                 else return res.send(400);

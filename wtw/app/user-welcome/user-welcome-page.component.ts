@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
     template: `
 <top-menu [showButtons]="false" [showLogin]="false"></top-menu>
-<div class="content-container">
+<div class="content-container-welcome">
 <questionnaire [isFirstQuestionnaire]="true"></questionnaire>
 </div>
 <footer></footer>

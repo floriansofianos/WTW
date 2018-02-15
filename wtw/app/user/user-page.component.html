@@ -1,5 +1,5 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
-<div class="content-container">
+<div class="content-container-welcome">
     <div class="profile-card-container" *ngIf="!isLoading">
         <div class="profile-picture-container">
             <div class="profile-picture" *ngIf="photoData">
@@ -11,12 +11,12 @@
             <h2>{{ user.username }}</h2>
             <div class="country-container">{{ userCountry?.name }}</div>
             <div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
-                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">{{ 'REQUEST_FRIEND' | translate }}</div>
-                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">{{ 'UNFRIEND' | translate }}</div>
-                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">{{ 'FOLLOW' | translate }}</div>
-                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">{{ 'UNFOLLOW' | translate }}</div>
-                <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">{{ 'WAITING_RESPONSE' | translate }}</div>
-                <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">{{ 'ACCEPT_FRIEND' | translate }}</div>
+                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">{{ 'USER_PAGE.REQUEST_FRIEND' | translate }}</div>
+                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">{{ 'USER_PAGE.UNFRIEND' | translate }}</div>
+                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">{{ 'USER_PAGE.FOLLOW' | translate }}</div>
+                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">{{ 'USER_PAGE.UNFOLLOW' | translate }}</div>
+                <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">{{ 'USER_PAGE.WAITING_RESPONSE' | translate }}</div>
+                <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">{{ 'USER_PAGE.ACCEPT_FRIEND' | translate }}</div>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
     <span>{{ 'USER_HOME.NOT_ENOUGH_PROFILES' | translate }}</span>
     <a [routerLink]="['/user/movies/questionnaires']">{{ 'USER_HOME.GO_TO_QUESTIONNAIRES' | translate }}</a>
 </div>
-<div class="content-container">
+<div class="content-container-welcome">
     <div *ngIf="timelineEvents">
         <timeline [timelineEvents]="timelineEvents" [friends]="allFriends" [currentUserId]="currentUserId" [lang]="lang" [config]="config"></timeline>
     </div>
