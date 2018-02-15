@@ -3,10 +3,12 @@
     <span>{{ 'USER_HOME.NOT_ENOUGH_PROFILES' | translate }}</span>
     <a [routerLink]="['/user/movies/questionnaires']">{{ 'USER_HOME.GO_TO_QUESTIONNAIRES' | translate }}</a>
 </div>
-<div *ngIf="timelineEvents">
-    <timeline [timelineEvents]="timelineEvents" [friends]="allFriends" [currentUserId]="currentUserId" [lang]="lang" [config]="config"></timeline>
-</div>
-<div class="spinner-container" *ngIf="!timelineEvents">
-    <spinner></spinner>
+<div class="content-container">
+    <div *ngIf="timelineEvents">
+        <timeline [timelineEvents]="timelineEvents" [friends]="allFriends" [currentUserId]="currentUserId" [lang]="lang" [config]="config"></timeline>
+    </div>
+    <div class="spinner-container" *ngIf="!timelineEvents">
+        <spinner></spinner>
+    </div>
 </div>
 <footer></footer>

@@ -1,58 +1,60 @@
 <top-menu [showButtons]="true" [showLogin]="false" [selected]="'social'" [username]="username"></top-menu>
-<div class="profile-card-container" *ngIf="!isLoading">
-    <div class="profile-picture-container">
-        <div class="profile-picture" *ngIf="photoData">
-            <img [src]="photoData" style="height: 200px;" />
+<div class="content-container">
+    <div class="profile-card-container" *ngIf="!isLoading">
+        <div class="profile-picture-container">
+            <div class="profile-picture" *ngIf="photoData">
+                <img [src]="photoData" style="height: 200px;" />
+            </div>
+            <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
         </div>
-        <div class="no-picture-container" *ngIf="!photoData"><i class="fa fa-user"></i></div>
-    </div>
-    <div class="profile-information-container">
-        <h2>{{ user.username }}</h2>
-        <div class="country-container">{{ userCountry?.name }}</div>
-        <div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
-            <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">{{ 'REQUEST_FRIEND' | translate }}</div>
-            <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">{{ 'UNFRIEND' | translate }}</div>
-            <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">{{ 'FOLLOW' | translate }}</div>
-            <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">{{ 'UNFOLLOW' | translate }}</div>
-            <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">{{ 'WAITING_RESPONSE' | translate }}</div>
-            <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">{{ 'ACCEPT_FRIEND' | translate }}</div>
+        <div class="profile-information-container">
+            <h2>{{ user.username }}</h2>
+            <div class="country-container">{{ userCountry?.name }}</div>
+            <div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
+                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">{{ 'REQUEST_FRIEND' | translate }}</div>
+                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.isFriend" (click)="unfriend()">{{ 'UNFRIEND' | translate }}</div>
+                <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.following)" (click)="follow()">{{ 'FOLLOW' | translate }}</div>
+                <div class="button activated-button" *ngIf="!isPendingFriend && isFriend && friendship.following" (click)="unfollow()">{{ 'UNFOLLOW' | translate }}</div>
+                <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">{{ 'WAITING_RESPONSE' | translate }}</div>
+                <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">{{ 'ACCEPT_FRIEND' | translate }}</div>
+            </div>
         </div>
     </div>
-</div>
-<div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
-    <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
-        {{averageDistance | number:'1.0-1'}} %
-    </div>
-</div>
-<div class="like-dislike-container" *ngIf="!isLoading">
-    <div class="questionnaires-container" *ngIf="likeMovieIds && likeMovieIds.length > 0">
-        <div class="questionnaires-title">
-            {{ 'HOME.USERLIKE' | translate }}
+    <div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
+        <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
+            {{averageDistance | number:'1.0-1'}} %
         </div>
-        <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
     </div>
-    <div class="questionnaires-container" *ngIf="dislikeMovieIds && dislikeMovieIds.length > 0">
-        <div class="questionnaires-title">
-            {{ 'HOME.USERDISLIKE' | translate }}
+    <div class="like-dislike-container" *ngIf="!isLoading">
+        <div class="questionnaires-container" *ngIf="likeMovieIds && likeMovieIds.length > 0">
+            <div class="questionnaires-title">
+                {{ 'HOME.USERLIKE' | translate }}
+            </div>
+            <movie-wall [movieIds]="likeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
         </div>
-        <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
-    </div>
-</div>
-<div class="like-dislike-container" *ngIf="!isLoading">
-    <div class="questionnaires-container" *ngIf="likeTVShowIds && likeTVShowIds.length > 0">
-        <div class="questionnaires-title">
-            {{ 'HOME.USERLIKE' | translate }}
+        <div class="questionnaires-container" *ngIf="dislikeMovieIds && dislikeMovieIds.length > 0">
+            <div class="questionnaires-title">
+                {{ 'HOME.USERDISLIKE' | translate }}
+            </div>
+            <movie-wall [movieIds]="dislikeMovieIds" [lang]="lang" [config]="config" (notify)="onClickMovie($event)"></movie-wall>
         </div>
-        <tv-wall [movieIds]="likeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
     </div>
-    <div class="questionnaires-container" *ngIf="dislikeTVShowIds && dislikeTVShowIds.length > 0">
-        <div class="questionnaires-title">
-            {{ 'HOME.USERDISLIKE' | translate }}
+    <div class="like-dislike-container" *ngIf="!isLoading">
+        <div class="questionnaires-container" *ngIf="likeTVShowIds && likeTVShowIds.length > 0">
+            <div class="questionnaires-title">
+                {{ 'HOME.USERLIKE' | translate }}
+            </div>
+            <tv-wall [movieIds]="likeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
         </div>
-        <tv-wall [movieIds]="dislikeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
+        <div class="questionnaires-container" *ngIf="dislikeTVShowIds && dislikeTVShowIds.length > 0">
+            <div class="questionnaires-title">
+                {{ 'HOME.USERDISLIKE' | translate }}
+            </div>
+            <tv-wall [movieIds]="dislikeTVShowIds" [lang]="lang" [config]="config" (notify)="onClickTV($event)"></tv-wall>
+        </div>
     </div>
-</div>
-<div class="spinner-container" *ngIf="isLoading">
-    <spinner></spinner>
+    <div class="spinner-container" *ngIf="isLoading">
+        <spinner></spinner>
+    </div>
 </div>
 <footer></footer>

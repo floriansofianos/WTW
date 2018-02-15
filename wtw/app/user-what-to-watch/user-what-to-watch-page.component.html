@@ -3,13 +3,15 @@
     <left-menu [rootPath]="'user/what-to-watch/'" [leftMenus]="[]"></left-menu>
     <div class="inner-content-container">
         <div class="wtw-container" *ngIf="isMovie && !isLoading">
-            <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
-            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie"></ui-switch>
-            <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
             <div class="login-form-container" style="width: 500px;margin: 0;">
                 <h1 class="wtw-title-container">
                     {{ 'WTW.WTW' | translate }}
                 </h1>
+                <div class="tv-movie-switch">
+                    <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
+                    <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie"></ui-switch>
+                    <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
+                </div>
                 <div class="wtw-form-content">
                     <div class="wtw-form-field-container">
                         <mat-form-field style="width: 200px; font-size: 17px;">
@@ -74,13 +76,15 @@
             </div>
         </div>
         <div class="wtw-container" *ngIf="!isMovie && !isLoading">
-            <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
-            <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie" (ngModelChange)="onChange()"></ui-switch>
-            <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
             <div class="login-form-container" style="width: 500px;margin: 0;">
                 <h1 class="wtw-title-container">
                     {{ 'WTW.WTW' | translate }}
                 </h1>
+                <div class="tv-movie-switch">
+                    <span class="switch-answer">{{ 'FORM.TVSHOW' | translate }}</span>
+                    <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="isMovie"></ui-switch>
+                    <span class="switch-answer">{{ 'FORM.MOVIE' | translate }}</span>
+                </div>
                 <div class="wtw-form-content">
                     <div class="wtw-form-field-container">
                         <mat-form-field style="width: 200px; font-size: 17px;">

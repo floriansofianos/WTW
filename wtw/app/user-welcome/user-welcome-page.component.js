@@ -26,7 +26,7 @@ var UserWelcomePageComponent = /** @class */ (function () {
     };
     UserWelcomePageComponent = __decorate([
         core_1.Component({
-            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n<footer></footer>\n"
+            template: "\n<top-menu [showButtons]=\"false\" [showLogin]=\"false\"></top-menu>\n<div class=\"content-container\">\n<questionnaire [isFirstQuestionnaire]=\"true\"></questionnaire>\n</div>\n<footer></footer>\n"
         }),
         __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
     ], UserWelcomePageComponent);

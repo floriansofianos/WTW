@@ -151,7 +151,7 @@ var userController = function (userService, userProfileService) {
                                     res.json(result);
                                 }
                                 else return res.send(400);
-                            }
+                            });
                         }
                         else return res.send(400);
                     });

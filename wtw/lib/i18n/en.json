@@ -41,7 +41,7 @@
             "PASSWORD_NOT_NULL": "The password is mandatory.",
             "EMAIL_TAKEN": "This email address is already used.",
             "USERNAME_TAKEN": "This username has already been taken.",
-            "PASSWORD_NOT_STRONG": "Your password should be at least 8 characters long."
+            "PASSWORD_NOT_STRONG": "Your password should be at least 8 characters long"
         }
     },
     "FIRST_QUESTIONNAIRE": {
@@ -66,6 +66,7 @@
         "LOGOUT": "Logout",
         "HOME": "Home",
         "MOVIES": "Movies",
+        "TVSHOWS": "TV Shows",
         "SOCIAL": "Social",
         "USERPROFILE": "My Profile"
     },
@@ -74,23 +75,30 @@
         "QUESTIONNAIRE": "Questionnaire",
         "WATCHLIST": "Watchlist"
     },
-  "MOVIE_QUESTIONNAIRE": {
-    "CAST": "Cast",
-    "AVAILABLE_ON_PLEX": "Available on Plex",
-    "DIRECTOR": "Director",
-    "WRITER": "Writer",
-    "QUESTION_SEEN": "Have you seen that movie?",
-    "WOULD_LIKE_SEE": "Would you like to see this movie?",
-    "HOW_RATE": "How would you rate this movie?",
-    "POOR": "Poor",
-    "AVERAGE": "Average",
-    "GOOD": "Good",
-    "VERYGOOD": "Very Good",
-    "MASTERPIECE": "Masterpiece"
-  },
+    "MOVIE_QUESTIONNAIRE": {
+        "CAST": "Cast",
+        "AVAILABLE_ON_PLEX": "Available on Plex",
+        "DIRECTOR": "Director",
+        "WRITER": "Writer",
+        "CREATOR": "Executive Producer",
+        "QUESTION_SEEN": "Have you seen this movie?",
+        "WOULD_LIKE_SEE": "Would you like to see this movie?",
+        "HOW_RATE": "How would you rate this movie?",
+        "POOR": "Poor",
+        "AVERAGE": "Average",
+        "GOOD": "Good",
+        "VERYGOOD": "Very Good",
+        "MASTERPIECE": "Masterpiece"
+    },
+    "TV_QUESTIONNAIRE": {
+        "QUESTION_SEEN": "Have you seen this TV show?",
+        "WOULD_LIKE_SEE": "Would you like to see this TV show?",
+        "HOW_RATE": "How would you rate this TV show?"
+    },
     "MOVIES": {
         "HOME": {
             "RATE_THIS_MOVIE": "Rate or add to wishlist.",
+            "RATE_THIS_TVSHOW": "Rate or add to wishlist.",
             "NO_RESULT": "No result"
         }
     },
@@ -99,38 +107,43 @@
         "HISTORY": "History",
         "NOT_WANT_TO_SEE": "You don't want to see"
     },
-  "WTW": {
-    "PERSONAL_RECO": "Here are some personal recommandations for you:",
-    "WTW": "Find something to watch.",
-    "LANGUAGE": "Language",
-    "MIN_RELEASE": "Minimum release year",
-    "MAX_RELEASE": "Maximum release year",
-    "RUNTIME_LIMIT": "Add a runtime limit to my search",
-    "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
-    "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
-    "GRADE_HELP": "This percentage represents the likelihood you have to like this movie. If we cannot calculate it, you will see a question mark.",
-    "LOVE_DIRECTOR": "You love movies directed by",
-    "LOVE_WRITER": "You love movies written by",
-    "LOVE_GENRE": "You love the movie genre",
-    "LOVE_ACTOR": "You love movies with",
-    "LIKE_DIRECTOR": "You like movies directed by",
-    "LIKE_WRITER": "You like movies written by",
-    "LIKE_GENRE": "You like the movie genre",
-    "LIKE_ACTOR": "You like movies with",
-    "DISLIKE_DIRECTOR": "You dislike movies directed by",
-    "DISLIKE_WRITER": "You dislike movies written by",
-    "DISLIKE_GENRE": "You dislike the movie genre",
-    "DISLIKE_ACTOR": "You dislike movies with",
-    "HATE_DIRECTOR": "You hate movies directed by",
-    "HATE_WRITER": "You hate movies written by",
-    "HATE_GENRE": "You hate the movie genre",
-    "HATE_ACTOR": "You hate movies with",
-    "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
-    "ONLY_NOW_PLAYING": "Only show movies now playing in theaters",
-    "FRIEND": "Friend",
-    "WATCH_WITH_FRIEND": "Watch this movie with a friend",
-    "ONLY_PLEX_MOVIES":  "Only show movies available on Plex"
-  },
+    "WTW": {
+        "PERSONAL_RECO": "Here are some personal movies recommandations for you:",
+        "PERSONAL_RECO_TV": "Here are some personal tv recommandations for you:",
+        "WTW": "Find something to watch.",
+        "LANGUAGE": "Language",
+        "MIN_RELEASE": "Minimum release year",
+        "MAX_RELEASE": "Maximum release year",
+        "RUNTIME_LIMIT": "Add a runtime limit to my search",
+        "RUNTIME_LIMIT_EXPLANATION": "The movie found will not be longer than this value in minutes",
+        "RUNTIME_LIMIT_TV_EXPLANATION": "The episodes will not be longer than this value in minutes",
+        "INCLUDE_WATCHLIST": "Add all the movies from my watchlist in the results",
+        "INCLUDE_TV_WATCHLIST": "Add all the tv shows from my watchlist in the results",
+        "GRADE_HELP": "This percentage represents the likelihood you have to like this movie. If we cannot calculate it, you will see a question mark.",
+        "LOVE_DIRECTOR": "You love movies directed by",
+        "LOVE_WRITER": "You love movies written by",
+        "LOVE_GENRE": "You love the movie genre",
+        "LOVE_ACTOR": "You love movies with",
+        "LIKE_DIRECTOR": "You like movies directed by",
+        "LIKE_WRITER": "You like movies written by",
+        "LIKE_GENRE": "You like the movie genre",
+        "LIKE_ACTOR": "You like movies with",
+        "DISLIKE_DIRECTOR": "You dislike movies directed by",
+        "DISLIKE_WRITER": "You dislike movies written by",
+        "DISLIKE_GENRE": "You dislike the movie genre",
+        "DISLIKE_ACTOR": "You dislike movies with",
+        "HATE_DIRECTOR": "You hate movies directed by",
+        "HATE_WRITER": "You hate movies written by",
+        "HATE_GENRE": "You hate the movie genre",
+        "HATE_ACTOR": "You hate movies with",
+        "NOT_VALID_RELEASE_DATES": "The selected release years are not correct: the minimum should be smaller than the maximum.",
+        "ONLY_NOW_PLAYING": "Only show movies now playing in theaters",
+        "FRIEND": "Friend",
+        "WATCH_WITH_FRIEND": "Watch this movie with a friend",
+        "WATCH_TV_WITH_FRIEND": "Watch this tv show with a friend",
+        "ONLY_PLEX_MOVIES": "Only show movies available on Plex",
+        "ONLY_PLEX_TV": "Only show tv shows available on Plex"
+    },
     "FORM": {
         "OK": "OK",
         "CANCEL": "Cancel",
@@ -144,7 +157,9 @@
         "YES": "Yes",
         "NO": "No",
         "UPLOAD": "Upload",
-        "YEAR_OF_BIRTH": "Year of birth"
+        "YEAR_OF_BIRTH": "Year of birth",
+        "MOVIE": "Movie",
+        "TVSHOW": "TV Show"
     },
     "FORGOT_PWD": {
         "TITLE": "Reset your password",
@@ -162,11 +177,11 @@
         "FRIEND_REQUEST_ACCEPTED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been accepted.",
         "FRIEND_REQUEST_REFUSED": "Your friend request to <a href=\"/user/{{userId}}\">{{username}}</a> has been refused."
     },
-  "SOCIAL": {
-    "ACCEPT_FRIEND": "Accept",
-    "REFUSE_FRIEND": "Refuse",
-    "FIND_FRIENDS": "Find friends using their username or email."
-  },
+    "SOCIAL": {
+        "ACCEPT_FRIEND": "Accept",
+        "REFUSE_FRIEND": "Refuse",
+        "FIND_FRIENDS": "Find friends using their username or email."
+    },
     "USER_PAGE": {
         "REQUEST_FRIEND": "Request Friend",
         "UNFRIEND": "Unfriend",
@@ -189,30 +204,30 @@
         "10": "Nov.",
         "11": "Dec."
     },
-  "TIME": {
-    "AT": "at"
-  },
-  "TIMELINE": {
-    "TITLE_RATE_MOVIE": "Rate Movie",
-    "TITLE_FOLLOW": "Follow",
-    "TITLE_FRIEND": "Friend",
-    "BODY_FRIEND": " friend with ",
-    "YOU": "You",
-    "YOU_LOWER_FOLLOW": "you",
-    "YOU_LOWER_FRIEND": "you",
-    "IS_FOLLOWING": " is following ",
-    "ARE_FOLLOWING": " are following ",
-    "IS_FRIEND": " is friend with ",
-    "ARE_FRIEND": " are friend with ",
-    "BODY_MOVIE_USER_NOT_SEE": " does not want to see this movie.",
-    "BODY_MOVIE_ADDED_TO_WATCHLIST": " added this movie to the watchlist.",
-    "BODY_MOVIE_YOU_ADDED_TO_WATCHLIST": " added this movie to your watchlist.",
-    "BODY_MOVIE_YOU_NOT_SEE": " do not want to see this movie.",
-    "BODY_RATE_MOVIE": " rated this movie:",
-    "BODY_YOU_RATE_MOVIE": " rated this movie:"
-  },
-  "USER_HOME": {
-    "NOT_ENOUGH_PROFILES": "We do not have enough information to give you appropriate recommandations.",
-    "GO_TO_QUESTIONNAIRES": "Please answer more questionnaires."
-  }
+    "TIME": {
+        "AT": "at"
+    },
+    "TIMELINE": {
+        "TITLE_RATE_MOVIE": "Rate Movie",
+        "TITLE_FOLLOW": "Follow",
+        "TITLE_FRIEND": "Friend",
+        "BODY_FRIEND": " friend with ",
+        "YOU": "You",
+        "YOU_LOWER_FOLLOW": "you",
+        "YOU_LOWER_FRIEND": "you",
+        "IS_FOLLOWING": " is following ",
+        "ARE_FOLLOWING": " are following ",
+        "IS_FRIEND": " is friend with ",
+        "ARE_FRIEND": " are friend with ",
+        "BODY_MOVIE_USER_NOT_SEE": " does not want to see this movie.",
+        "BODY_MOVIE_ADDED_TO_WATCHLIST": " added this movie to the watchlist.",
+        "BODY_MOVIE_YOU_ADDED_TO_WATCHLIST": " added this movie to your watchlist.",
+        "BODY_MOVIE_YOU_NOT_SEE": " do not want to see this movie.",
+        "BODY_RATE_MOVIE": " rated this movie:",
+        "BODY_YOU_RATE_MOVIE": " rated this movie:"
+    },
+    "USER_HOME": {
+        "NOT_ENOUGH_PROFILES": "We do not have enough information to give you appropriate recommandations.",
+        "GO_TO_QUESTIONNAIRES": "Please answer more questionnaires."
+    }
 }
