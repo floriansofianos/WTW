@@ -7,7 +7,8 @@
             <div class="timeline-item" *ngFor="let e of timelineEvents">
                 <div class="timeline-img"></div>
                 <div class="timeline-content">
-                    <h2 *ngIf="e.type == 0">{{ 'TIMELINE.TITLE_RATE_MOVIE' | translate }}</h2>
+                    <h2 *ngIf="e.type == 0 && !e.variables.isTV">{{ 'TIMELINE.TITLE_RATE_MOVIE' | translate }}</h2>
+                    <h2 *ngIf="e.type == 0 && e.variables.isTV">{{ 'TIMELINE.TITLE_RATE_TV' | translate }}</h2>
                     <h2 *ngIf="e.type == 1">{{ 'TIMELINE.TITLE_FOLLOW' | translate }}</h2>
                     <h2 *ngIf="e.type == 2">{{ 'TIMELINE.TITLE_FRIEND' | translate }}</h2>
                     <div class="date">{{ e.createdAt | date:'dd' }} {{ 'MONTHS.' + getMonth(e.createdAt) | translate }} {{ 'TIME.AT' | translate }} {{ e.createdAt | date:'HH:mm' }}</div>
