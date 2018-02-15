@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var social_service_1 = require("./social.service");
-var SocialPageComponent = /** @class */ (function () {
+var SocialPageComponent = (function () {
     function SocialPageComponent(authService, router, socialService) {
         this.authService = authService;
         this.router = router;
@@ -50,6 +50,12 @@ var SocialPageComponent = /** @class */ (function () {
             _this.router.navigate(['error']);
         });
     };
+    SocialPageComponent.prototype.keyDownFunction = function (event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.clickSearch();
+        }
+    };
     SocialPageComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -60,3 +66,4 @@ var SocialPageComponent = /** @class */ (function () {
     return SocialPageComponent;
 }());
 exports.SocialPageComponent = SocialPageComponent;
+//# sourceMappingURL=social-page.component.js.map

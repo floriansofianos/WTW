@@ -49,4 +49,11 @@ export class SocialPageComponent {
             }
         );
     }
+
+    keyDownFunction(event) {
+        if (event.keyCode == 13) {
+            // Enter pressed
+            this.clickSearch();
+        }
+    }
 }

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var TimelineService = /** @class */ (function () {
+var TimelineService = (function () {
     function TimelineService(http) {
         this.http = http;
     }
@@ -30,3 +30,4 @@ var TimelineService = /** @class */ (function () {
     return TimelineService;
 }());
 exports.TimelineService = TimelineService;
+//# sourceMappingURL=timeline.service.js.map

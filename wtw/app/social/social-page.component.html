@@ -9,7 +9,7 @@
             <div class="wtw-form-content">
                 <div class="wtw-form-field-container">
                     <mat-form-field [style.fontSize.px]="17" [style.margin-top.px]="10" [style.width.px]="350">
-                        <input matInput id="search" [(ngModel)]="search" type="text" placeholder="{{ 'FORM.SEARCH' | translate }}" />
+                        <input matInput id="search" [(ngModel)]="search" type="text" placeholder="{{ 'FORM.SEARCH' | translate }}" (keydown)="keyDownFunction($event)" />
                     </mat-form-field>
                 </div>
                 <div *ngIf="noResults" class="wtw-error">{{ 'CAST.NO_RESULTS' | translate }}</div>
