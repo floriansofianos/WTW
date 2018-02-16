@@ -24,7 +24,7 @@
     </div>
     <div class="question-block thank-you-block" [@areaState]="'active'" *ngIf="states[2] && questionAnswered >= questionsToAnswer">
         <h1><i class="fa fa-check-circle-o" aria-hidden="true"></i>{{ 'FIRST_QUESTIONNAIRE.DONE' | translate }}</h1>
-        <div><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
+        <div><a routerLink="/user/tvshows/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
     </div>
 </div>
 <div class="absolute-spinner" *ngIf="showSpinner && questionAnswered < questionsToAnswer">
