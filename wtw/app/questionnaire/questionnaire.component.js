@@ -123,7 +123,11 @@ var QuestionnaireComponent = (function () {
         });
     };
     QuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
+        if (data.skipMovie) {
+            this.movieSkip();
+        }
+        else
+            this.movieQuestionnaire = data;
     };
     QuestionnaireComponent.prototype.moviePrevious = function () {
         this.showSpinner = true;

@@ -57,7 +57,11 @@ var TVQuestionnaireComponent = (function () {
         });
     };
     TVQuestionnaireComponent.prototype.tvQuestionnaireChange = function (data) {
-        this.tvQuestionnaire = data;
+        if (data.skipTV) {
+            this.tvSkip();
+        }
+        else
+            this.tvQuestionnaire = data;
     };
     TVQuestionnaireComponent.prototype.tvPrevious = function () {
         this.showSpinner = true;

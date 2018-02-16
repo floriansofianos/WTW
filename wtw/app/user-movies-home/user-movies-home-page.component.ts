@@ -89,7 +89,7 @@ export class UserMoviesHomePageComponent {
             this.searchContainerState = 'searched';
             this.loadingSearch = true;
             this.searchResultsLoaded = 'notLoaded'
-            this.movieDBService.search(this.search).subscribe(
+            this.movieDBService.search(this.search, this.lang).subscribe(
                 data => {
                     this.searchResults = data.json();
                     if (this.searchResults.length < 1) {

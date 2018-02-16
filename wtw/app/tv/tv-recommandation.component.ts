@@ -128,4 +128,10 @@ export class TVRecommandationComponent {
             clickSave: true
         });
     }
+
+    tvSkip() {
+        this.notify.emit({
+            skipTV: true
+        })
+    }
 }

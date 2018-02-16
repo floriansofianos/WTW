@@ -146,6 +146,7 @@
     },
     "FORM": {
         "OK": "OK",
+        "DONT_KNOW": "Je ne sais pas",
         "CANCEL": "Annuler",
         "REQUIRED": "Obligatoire",
         "SAVE": "Sauvegarder",

@@ -89,6 +89,11 @@ var MovieQuestionnaireComponent = (function () {
             _this.labelRating = res;
         });
     };
+    MovieQuestionnaireComponent.prototype.movieSkip = function () {
+        this.notify.emit({
+            skipMovie: true
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)

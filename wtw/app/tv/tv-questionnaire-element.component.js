@@ -95,6 +95,11 @@ var TVQuestionnaireElementComponent = (function () {
             _this.labelRating = res;
         });
     };
+    TVQuestionnaireElementComponent.prototype.tvSkip = function () {
+        this.notify.emit({
+            skipTV: true
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)

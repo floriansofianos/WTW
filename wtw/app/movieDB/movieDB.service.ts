@@ -13,13 +13,13 @@ export class MovieDBService {
             .catch(this.handleErrors);
     }
 
-    search(s: string) {
-        return this.http.get('/api/movieDBSearch', { params: { search: s } })
+    search(s: string, lang: string) {
+        return this.http.get('/api/movieDBSearch', { params: { search: s, lang: lang } })
             .catch(this.handleErrors);
     }
 
-    searchTV(s: string) {
-        return this.http.get('/api/movieDBSearchTV', { params: { search: s } })
+    searchTV(s: string, lang: string) {
+        return this.http.get('/api/movieDBSearchTV', { params: { search: s, lang: lang } })
             .catch(this.handleErrors);
     }
 

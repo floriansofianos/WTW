@@ -160,7 +160,10 @@ export class QuestionnaireComponent {
     }
 
     movieQuestionnaireChange(data) {
-        this.movieQuestionnaire = data;
+        if (data.skipMovie) {
+            this.movieSkip();
+        }
+        else this.movieQuestionnaire = data;
     }
 
     moviePrevious() {

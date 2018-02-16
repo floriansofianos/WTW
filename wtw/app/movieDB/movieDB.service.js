@@ -20,12 +20,12 @@ var MovieDBService = (function () {
         return this.http.get('/api/movieDBConfiguration')
             .catch(this.handleErrors);
     };
-    MovieDBService.prototype.search = function (s) {
-        return this.http.get('/api/movieDBSearch', { params: { search: s } })
+    MovieDBService.prototype.search = function (s, lang) {
+        return this.http.get('/api/movieDBSearch', { params: { search: s, lang: lang } })
             .catch(this.handleErrors);
     };
-    MovieDBService.prototype.searchTV = function (s) {
-        return this.http.get('/api/movieDBSearchTV', { params: { search: s } })
+    MovieDBService.prototype.searchTV = function (s, lang) {
+        return this.http.get('/api/movieDBSearchTV', { params: { search: s, lang: lang } })
             .catch(this.handleErrors);
     };
     MovieDBService.prototype.wtw = function (lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, nowPlaying, languageSelected, friendId, usePlex) {

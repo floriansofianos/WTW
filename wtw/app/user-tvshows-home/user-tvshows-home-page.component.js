@@ -59,7 +59,7 @@ var UserTVShowsHomePageComponent = (function () {
             this.searchContainerState = 'searched';
             this.loadingSearch = true;
             this.searchResultsLoaded = 'notLoaded';
-            this.movieDBService.searchTV(this.search).subscribe(function (data) {
+            this.movieDBService.searchTV(this.search, this.lang).subscribe(function (data) {
                 _this.searchResults = data.json();
                 if (_this.searchResults.length < 1) {
                 }

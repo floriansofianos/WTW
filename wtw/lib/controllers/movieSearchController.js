@@ -1,7 +1,7 @@
 ﻿var movieSearchController = function (movieDBService, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, userService) {
     var search = function (req, res) {
-        if (req.query.search) {
-            movieDBService.search(req.query.search, function (err, result) {
+        if (req.query.search && req.query.lang) {
+            movieDBService.search(req.query.search, req.query.lang, function (err, result) {
                 if (!err) res.json(result.results);
                 else res.send(500);
             });

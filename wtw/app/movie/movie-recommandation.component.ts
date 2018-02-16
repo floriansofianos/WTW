@@ -129,4 +129,10 @@ export class MovieRecommandationComponent {
             clickSave: true
         });
     }
+
+    movieSkip() {
+        this.notify.emit({
+            skipMovie: true
+        })
+    }
 }

@@ -70,16 +70,22 @@
                             <div *ngIf="movieSeen" class="movie-question">
                                 <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.HOW_RATE' | translate }}</div>
                                 <star-rating-comp (onRatingChange)="onRatingChange($event)" [rating]="seenValue" [hoverEnabled]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [labelPosition]="'bottom'" [labelText]="labelRating" [size]="'large'"></star-rating-comp>
+                                <div>
+                                    <wtw-button (click)="movieSkip()">{{ 'FORM.DONT_KNOW' | translate }}</wtw-button>
+                                </div>
                             </div>
                             <div *ngIf="!movieSeen" class="movie-question">
                                 <div class="movie-question-text">{{ 'MOVIE_QUESTIONNAIRE.WOULD_LIKE_SEE' | translate }}</div>
                                 <span class="switch-answer">{{ 'FORM.NO' | translate }}</span>
                                 <ui-switch switchColor="#2f3238" color="#08073c" [(ngModel)]="wantToWatch" (ngModelChange)="onChange()"></ui-switch>
                                 <span class="switch-answer">{{ 'FORM.YES' | translate }}</span>
+                                <div>
+                                    <wtw-button (click)="movieSkip()">{{ 'FORM.DONT_KNOW' | translate }}</wtw-button>
+                                </div>
                             </div>
                             <wtw-button (click)="clickSave()" *ngIf="!saving">{{ 'FORM.SAVE' | translate }}</wtw-button>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

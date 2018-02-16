@@ -86,7 +86,10 @@ export class TVQuestionnaireComponent {
     }
 
     tvQuestionnaireChange(data) {
-        this.tvQuestionnaire = data;
+        if (data.skipTV) {
+            this.tvSkip();
+        }
+        else this.tvQuestionnaire = data;
     }
 
     tvPrevious() {

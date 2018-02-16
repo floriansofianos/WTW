@@ -68,7 +68,11 @@ var MoviePageComponent = (function () {
         });
     };
     MoviePageComponent.prototype.movieQuestionnaireChange = function (data) {
-        this.movieQuestionnaire = data;
+        if (data.skipMovie) {
+            this.back();
+        }
+        else
+            this.movieQuestionnaire = data;
     };
     MoviePageComponent.prototype.movieQuestionnaireSave = function (event) {
         this.confirm();

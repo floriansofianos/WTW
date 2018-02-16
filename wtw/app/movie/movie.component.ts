@@ -80,7 +80,10 @@ export class MoviePageComponent {
     }
 
     movieQuestionnaireChange(data) {
-        this.movieQuestionnaire = data;
+        if (data.skipMovie) {
+            this.back();
+        }
+        else this.movieQuestionnaire = data;
     }
 
     movieQuestionnaireSave(event) {

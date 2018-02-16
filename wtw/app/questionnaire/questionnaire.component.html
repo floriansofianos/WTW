@@ -63,4 +63,7 @@
         <div *ngIf="!isFirstQuestionnaire"><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
     </div>
 </div>
+<div class="absolute-spinner" *ngIf="showSpinner && questionAnswered < questionsToAnswer">
+    <spinner></spinner>
+</div>
 

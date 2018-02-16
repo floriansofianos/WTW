@@ -106,4 +106,10 @@ export class TVQuestionnaireElementComponent {
             this.labelRating = res;
         });
     }
+
+    tvSkip() {
+        this.notify.emit({
+            skipTV: true
+        })
+    }
 }

@@ -1,7 +1,7 @@
 ﻿var tvSearchController = function (movieDBService, tvQuestionnaireService, tvCacheService, userProfileService, tvRecommandationService, userService) {
     var search = function (req, res) {
-        if (req.query.search) {
-            movieDBService.searchTV(req.query.search, function (err, result) {
+        if (req.query.search && req.query.lang) {
+            movieDBService.searchTV(req.query.search, req.query.lang, function (err, result) {
                 if (!err) res.json(result.results);
                 else res.send(500);
             });

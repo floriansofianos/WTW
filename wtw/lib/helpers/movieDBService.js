@@ -1520,8 +1520,8 @@ module.exports = function () {
         });
     }
 
-    var search = function (s, done) {
-        mdb.searchMovie({ query: s, include_adult: false }, (err, data) => {
+    var search = function (s, lang, done) {
+        mdb.searchMovie({ query: s, include_adult: false, language: lang }, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1529,8 +1529,8 @@ module.exports = function () {
         });
     }
 
-    var searchTV = function (s, done) {
-        mdb.searchTv({ query: s, include_adult: false }, (err, data) => {
+    var searchTV = function (s, lang, done) {
+        mdb.searchTv({ query: s, include_adult: false, language: lang }, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1647,7 +1647,11 @@ module.exports = function () {
                         getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
                             getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
                                 getTVShowCreditsFromMovieDB(data.data, function (err, data) {
-                                    retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                    getTVShowVideoFromMovieDB(data.movieDBId, 'en', function (err, data) {
+                                        getTVShowVideoFromMovieDB(data.movieDBId, 'fr', function (err, data) {
+                                            retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
+                                        });
+                                    });
                                 });
                             });
                         });

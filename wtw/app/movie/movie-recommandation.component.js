@@ -111,6 +111,11 @@ var MovieRecommandationComponent = (function () {
             clickSave: true
         });
     };
+    MovieRecommandationComponent.prototype.movieSkip = function () {
+        this.notify.emit({
+            skipMovie: true
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)

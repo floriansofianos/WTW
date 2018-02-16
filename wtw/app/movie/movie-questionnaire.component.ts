@@ -100,4 +100,10 @@ export class MovieQuestionnaireComponent {
             this.labelRating = res;
         });
     }
+
+    movieSkip() {
+        this.notify.emit({
+            skipMovie: true
+        })
+    }
 }
