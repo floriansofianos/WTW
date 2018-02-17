@@ -2,7 +2,7 @@
 var _ = require('underscore');
 var request = require('request');
 var parse = require('xml2js').parseString;
-var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
+var mdbHelper = require('../helpers/mdbHelper')();
 var models = require('../models');
 var moment = require('moment');
 
@@ -128,7 +128,7 @@ module.exports = function () {
                     }
                     else {
                         var imdbId = result.MediaContainer.Video[0].$.guid.replace('com.plexapp.agents.imdb://', '').split('?')[0];
-                        mdb.find({ id: imdbId, external_source: 'imdb_id' }, (err, data) => {
+                        mdbHelper.makeMovieDBRequest('find', { id: imdbId, external_source: 'imdb_id' }, (err, data) => {
 
                             if (err) return done(err, null);
                             else {
@@ -166,7 +166,7 @@ module.exports = function () {
                     }
                     else {
                         var theTVDBId = result.MediaContainer.Directory[0].$.guid.replace('com.plexapp.agents.thetvdb://', '').split('?')[0];
-                        mdb.find({ id: theTVDBId, external_source: 'tvdb_id' }, (err, data) => {
+                        mdbHelper.makeMovieDBRequest('find', { id: theTVDBId, external_source: 'tvdb_id' }, (err, data) => {
 
                             if (err) return done(err, null);
                             else {

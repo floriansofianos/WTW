@@ -1,4 +1,4 @@
-﻿var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
+﻿var mdbHelper = require('../helpers/mdbHelper')();
 var cache = require('memory-cache');
 var _ = require('underscore');
 
@@ -16,7 +16,7 @@ module.exports = function () {
             else {
                 var maxPage = cachedRequests[0].data.total_pages;
                 query.page = Math.min(maxPage, page);
-                mdb[method](query, function (err, data) {
+                mdbHelper.makeMovieDBRequest(method, query, function (err, data) {
                     if (err || !data) return done(err, null);
                     else {
                         // get rid of the page information in the query object
@@ -35,13 +35,13 @@ module.exports = function () {
         }
         else {
             // We are in the dark, we don't know how many pages we have -> make two requests: one without pages to get the paging and one with the page wanted.
-            mdb[method](query, function (err, data) {
+            mdbHelper.makeMovieDBRequest(method, query, function (err, data) {
                 if (err || !data) return done(err, null);
                 else {
                     // We have the total_pages
                     var maxPage = data.total_pages;
                     query.page = Math.min(maxPage, page);
-                    mdb[method](query, function (err, data) {
+                    mdbHelper.makeMovieDBRequest(method, query, function (err, data) {
                         if (err || !data) return done(err, null);
                         else {
                             // get rid of the page information in the query object

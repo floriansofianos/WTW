@@ -1,6 +1,6 @@
-﻿var mdb = require('moviedb')('d03322a5a892ce280f22234584618e9e');
-var library = require('../helpers/library')();
+﻿var library = require('../helpers/library')();
 var movieDBRequestHelper = require('../helpers/movieDBRequestHelper')();
+var mdbHelper = require('../helpers/mdbHelper')();
 var cache = require('memory-cache');
 var date = require('date-and-time');
 var _ = require('underscore');
@@ -82,14 +82,14 @@ module.exports = function () {
     };
 
     var getSimilarMovies = function (movieId, done) {
-        mdb.movieSimilar({ id: movieId }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('movieSimilar', { id: movieId }, (err, data) => {
             if (err) return done(err, null);
             else return done(null, data);
         });
     };
 
     var getSimilarTVShows = function (movieId, done) {
-        mdb.tvSimilar({ id: movieId }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('tvSimilar', { id: movieId }, (err, data) => {
             if (err) return done(err, null);
             else return done(null, data);
         });
@@ -249,7 +249,7 @@ module.exports = function () {
             query['with_original_language'] = language;
         }
 
-        mdb.discoverMovie(query, (err, data) => {
+        mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
                 getAllMovies(_.map(data.results, 'id'), lang, movieCacheService, function (err, data) {
@@ -1057,7 +1057,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
-        mdb.discoverMovie(query, (err, data) => {
+        mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1084,7 +1084,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
-        mdb.discoverMovie(query, (err, data) => {
+        mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1111,7 +1111,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
-        mdb.discoverMovie(query, (err, data) => {
+        mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1166,7 +1166,7 @@ module.exports = function () {
 
     /// Gets a movie from movieDB and sets the cache
     var getMovieFromMovieDB = function (id, lang, movieCache, done) {
-        mdb.movieInfo({ id: id, language: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('movieInfo', { id: id, language: lang }, (err, data) => {
             if (err) return done(err, null);
             var movie = data;
             if (!movieCache) {
@@ -1187,7 +1187,7 @@ module.exports = function () {
 
     /// Gets a tv show from movieDB and sets the cache
     var getTVShowFromMovieDB = function (id, lang, tvCache, done) {
-        mdb.tvInfo({ id: id, language: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('tvInfo', { id: id, language: lang }, (err, data) => {
             if (err) return done(err, null);
             var tvShow = data;
             if (!tvCache) {
@@ -1264,7 +1264,7 @@ module.exports = function () {
 
     /// Gets trailers from movieDB and sets the cache
     var getMovieTrailersFromMovieDB = function (id, trailersCache, done) {
-        mdb.movieVideos({ id: id }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('movieVideos', { id: id }, (err, data) => {
             if (err) return done(err, null);
             var trailers = data;
             if (!trailersCache) {
@@ -1325,7 +1325,7 @@ module.exports = function () {
 
     /// Gets trailers from movieDB and sets the cache
     var getMovieCreditsFromMovieDB = function (id, creditsCache, done) {
-        mdb.movieCredits({ id: id }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('movieCredits', { id: id }, (err, data) => {
             if (err) return done(err, null);
             var credits = data;
             if (!creditsCache) {
@@ -1423,7 +1423,7 @@ module.exports = function () {
     }
 
     var loadConfiguration = function (done) {
-        mdb.configuration({}, (err, data) => {
+        mdbHelper.makeMovieDBRequest('configuration', {}, (err, data) => {
             if (err) return done(err, null);
             else {
                 cache.put('movieDBConfiguration', data);
@@ -1433,7 +1433,7 @@ module.exports = function () {
     }
 
     var loadGenres = function (done) {
-        mdb.genreMovieList({}, (err, data) => {
+        mdbHelper.makeMovieDBRequest('genreMovieList', {}, (err, data) => {
             if (err) return done(err, null);
             else {
                 cache.put('movieDBGenres', data);
@@ -1474,7 +1474,7 @@ module.exports = function () {
     /// Gets cast from movieDB and sets the cache
     var getPeopleFromMovieDB = function (directorId, writerId, actorId, creatorId, lang, peopleCache, done) {
         var id = directorId ? directorId : (writerId ? writerId : (actorId ? actorId : creatorId));
-        mdb.personCombinedCredits({ id: id, lang: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('personCombinedCredits', { id: id, lang: lang }, (err, data) => {
             if (err) return done(err, null);
             if (directorId) data = getDirectors(data);
             if (writerId) data = getWriters(data);
@@ -1521,7 +1521,7 @@ module.exports = function () {
     }
 
     var search = function (s, lang, done) {
-        mdb.searchMovie({ query: s, include_adult: false, language: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('searchMovie', { query: s, include_adult: false, language: lang }, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1530,7 +1530,7 @@ module.exports = function () {
     }
 
     var searchTV = function (s, lang, done) {
-        mdb.searchTv({ query: s, include_adult: false, language: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('searchTv', { query: s, include_adult: false, language: lang }, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
@@ -1668,7 +1668,7 @@ module.exports = function () {
         // Start with the array of seasons
         var seasons = _.map(_.filter(tvShow.seasons, function (s) { return s.season_number > 0; }), function (s) { return s.episode_count; });
         var crew = _.map(tvShow.created_by, function (c) { return { job: "Creator", id: c.id, name: c.name }; });
-        mdb.tvCredits({ id: tvShow.id }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('tvCredits', { id: tvShow.id }, (err, data) => {
             if (err) return done(err, null);
             var cast = data.cast;
             // Now we need to improve the crew by searching episode by episode
@@ -1687,7 +1687,7 @@ module.exports = function () {
     }
 
     var getTVShowVideoFromMovieDB = function(movieDBId, lang, done) {
-        mdb.tvVideos({ id: movieDBId, language: lang }, (err, data) => {
+        mdbHelper.makeMovieDBRequest('tvVideos', { id: movieDBId, language: lang }, (err, data) => {
             if (err) return done(err, null);
             models.TVVideoCache.create({
                 movieDBId: movieDBId,
@@ -1711,18 +1711,20 @@ module.exports = function () {
                 getTVShowCrewFromMovieDB(id, seasons, crew, season + 1, 1, done);
             }
             else {
-                mdb.tvEpisodeCredits({ id: id, season_number: season + 1, episode_number: episode }, (err, data) => {
+                mdbHelper.makeMovieDBRequest('tvEpisodeCredits', { id: id, season_number: season + 1, episode_number: episode }, (err, data) => {
                     if (err) return done(err, null);
-                    console.log("TV Show Cache: Season: " + (season + 1) + "/" + seasons.length + ", Episode: " + episode);
-                    _.each(data.crew, function (c) {
-                        if (c.job == 'Writer' || c.job == 'Screenplay') {
-                            var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
-                            if (existingCrew) existingCrew.numberOfEpisodes++;
-                            else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id, profile_path: c.profile_path });
-                        }
-                    });
-                    // Next Episode
-                    getTVShowCrewFromMovieDB(id, seasons, crew, season, episode + 1, done);
+                    setTimeout(function () {
+                        console.log("TV Show Cache: Season: " + (season + 1) + "/" + seasons.length + ", Episode: " + episode);
+                        _.each(data.crew, function (c) {
+                            if (c.job == 'Writer' || c.job == 'Screenplay') {
+                                var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
+                                if (existingCrew) existingCrew.numberOfEpisodes++;
+                                else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id, profile_path: c.profile_path });
+                            }
+                        });
+                        // Next Episode
+                        getTVShowCrewFromMovieDB(id, seasons, crew, season, episode + 1, done);
+                    }, 500);
                 });
             }
         }
