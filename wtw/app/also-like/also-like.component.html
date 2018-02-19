@@ -1,4 +1,4 @@
-<div class="also-like-container" *ngIf="!isLoading">
+<div class="also-like-container" *ngIf="!isLoadingMovies && !isLoadingTVShows">
     <div class="also-like-title">{{ 'ALSO_LIKE.PEOPLE_ALSO_LIKE' | translate }}</div>
     <div *ngFor="let m of movies" class="also-like-movie-container">
         <movie-wall-element [movie]="m.movie" [config]="config" [width]="150"></movie-wall-element>
@@ -13,6 +13,6 @@
         </div>
     </div>
 </div>
-<div class="spinner-container" *ngIf="isLoading">
+<div class="spinner-container" *ngIf="isLoadingMovies || isLoadingTVShows">
     <spinner></spinner>
 </div>

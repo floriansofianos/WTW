@@ -14,7 +14,7 @@ var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var AlsoLikeComponent = (function () {
+var AlsoLikeComponent = /** @class */ (function () {
     function AlsoLikeComponent(router, socialService, movieDBService) {
         this.router = router;
         this.socialService = socialService;
@@ -24,7 +24,8 @@ var AlsoLikeComponent = (function () {
         this.loadedTVElements = 0;
         this.movies = [];
         this.tvshows = [];
-        this.isLoading = true;
+        this.isLoadingMovies = true;
+        this.isLoadingTVShows = true;
     }
     AlsoLikeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,7 +47,7 @@ var AlsoLikeComponent = (function () {
                             movieDBIds.push(array[0].movieDBId);
                         });
                         if (movieDBIds.length < 1) {
-                            _this.isLoading = false;
+                            _this.isLoadingMovies = false;
                         }
                         else {
                             _this.movieDBService.getMovies(movieDBIds, _this.lang).subscribe(function (data) {
@@ -55,7 +56,7 @@ var AlsoLikeComponent = (function () {
                                     _.each(_this.movies, function (m) {
                                         m.movie = _.find(data, function (d) { return d.id == m.users[0].movieDBId; });
                                     });
-                                    _this.isLoading = false;
+                                    _this.isLoadingMovies = false;
                                 }
                                 else
                                     _this.router.navigate(['error']);
@@ -84,7 +85,7 @@ var AlsoLikeComponent = (function () {
                             movieDBIds.push(array[0].movieDBId);
                         });
                         if (movieDBIds.length < 1) {
-                            _this.isLoading = false;
+                            _this.isLoadingTVShows = false;
                         }
                         else {
                             _this.movieDBService.getTVShows(movieDBIds, _this.lang).subscribe(function (data) {
@@ -93,7 +94,7 @@ var AlsoLikeComponent = (function () {
                                     _.each(_this.tvshows, function (m) {
                                         m.tvshow = _.find(data, function (d) { return d.id == m.users[0].movieDBId; });
                                     });
-                                    _this.isLoading = false;
+                                    _this.isLoadingTVShows = false;
                                 }
                                 else
                                     _this.router.navigate(['error']);
@@ -125,4 +126,3 @@ var AlsoLikeComponent = (function () {
     return AlsoLikeComponent;
 }());
 exports.AlsoLikeComponent = AlsoLikeComponent;
-//# sourceMappingURL=also-like.component.js.map

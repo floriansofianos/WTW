@@ -17,7 +17,8 @@ export class AlsoLikeComponent {
     loadedTVElements = 0;
     movies: Array<any> = [];
     tvshows: Array<any> = [];
-    isLoading: boolean = true;
+    isLoadingMovies: boolean = true;
+    isLoadingTVShows: boolean = true;
     config: any;
     width: 50;
 
@@ -42,7 +43,7 @@ export class AlsoLikeComponent {
                             movieDBIds.push(array[0].movieDBId);
                         });
                         if (movieDBIds.length < 1) {
-                            this.isLoading = false;
+                            this.isLoadingMovies = false;
                         }
                         else {
                             this.movieDBService.getMovies(movieDBIds, this.lang).subscribe(data => {
@@ -51,7 +52,7 @@ export class AlsoLikeComponent {
                                     _.each(this.movies, function (m) {
                                         m.movie = _.find(data, function (d) { return d.id == m.users[0].movieDBId; })
                                     })
-                                    this.isLoading = false;
+                                    this.isLoadingMovies = false;
                                 }
                                 else this.router.navigate(['error']);
                             },
@@ -81,7 +82,7 @@ export class AlsoLikeComponent {
                             movieDBIds.push(array[0].movieDBId);
                         });
                         if (movieDBIds.length < 1) {
-                            this.isLoading = false;
+                            this.isLoadingTVShows = false;
                         }
                         else {
                             this.movieDBService.getTVShows(movieDBIds, this.lang).subscribe(data => {
@@ -90,7 +91,7 @@ export class AlsoLikeComponent {
                                     _.each(this.tvshows, function (m) {
                                         m.tvshow = _.find(data, function (d) { return d.id == m.users[0].movieDBId; })
                                     })
-                                    this.isLoading = false;
+                                    this.isLoadingTVShows = false;
                                 }
                                 else this.router.navigate(['error']);
                             },

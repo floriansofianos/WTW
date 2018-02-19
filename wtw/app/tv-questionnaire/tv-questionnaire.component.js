@@ -18,7 +18,7 @@ var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var TVQuestionnaireComponent = (function () {
+var TVQuestionnaireComponent = /** @class */ (function () {
     function TVQuestionnaireComponent(authService, translate, router, tvQuestionnaireService, movieDBService, userTVQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
@@ -72,7 +72,7 @@ var TVQuestionnaireComponent = (function () {
         }
         else {
             this.tvshow = this.previousTVShows[this.tvIndex].tvshow;
-            this.tvQuestionnaireInit = this.previousTVShows[this.tvIndex].movieQuestionnaire;
+            this.tvQuestionnaireInit = this.previousTVShows[this.tvIndex].tvQuestionnaire;
             if (!this.tvQuestionnaireInit.isSkipped)
                 this.questionAnswered--;
         }
@@ -195,4 +195,3 @@ var TVQuestionnaireComponent = (function () {
     return TVQuestionnaireComponent;
 }());
 exports.TVQuestionnaireComponent = TVQuestionnaireComponent;
-//# sourceMappingURL=tv-questionnaire.component.js.map

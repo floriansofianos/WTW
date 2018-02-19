@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var UserWelcomePageComponent = (function () {
+var UserWelcomePageComponent = /** @class */ (function () {
     function UserWelcomePageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -33,4 +33,3 @@ var UserWelcomePageComponent = (function () {
     return UserWelcomePageComponent;
 }());
 exports.UserWelcomePageComponent = UserWelcomePageComponent;
-//# sourceMappingURL=user-welcome-page.component.js.map

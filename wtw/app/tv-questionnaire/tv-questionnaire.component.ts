@@ -101,7 +101,7 @@ export class TVQuestionnaireComponent {
         }
         else {
             this.tvshow = this.previousTVShows[this.tvIndex].tvshow;
-            this.tvQuestionnaireInit = this.previousTVShows[this.tvIndex].movieQuestionnaire;
+            this.tvQuestionnaireInit = this.previousTVShows[this.tvIndex].tvQuestionnaire;
             if (!this.tvQuestionnaireInit.isSkipped) this.questionAnswered--;
         }
         this.showSpinner = false;
