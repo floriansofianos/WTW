@@ -54,10 +54,10 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.isNowPlayingChecked">{{ 'WTW.ONLY_NOW_PLAYING' | translate }}</mat-checkbox>
                     </div>
-                    <div class="wtw-form-field-container">
+                    <div class="wtw-form-field-container" *ngIf="showPlex">
                         <mat-checkbox [(ngModel)]="formWTW.usePlex">{{ 'WTW.ONLY_PLEX_MOVIES' | translate }}</mat-checkbox>
                     </div>
-                    <div class="wtw-form-field-container" *ngIf="showPlex">
+                    <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formWTW.watchWithFriend">{{ 'WTW.WATCH_WITH_FRIEND' | translate }}</mat-checkbox>
                     </div>
                     <div class="wtw-form-field-container" *ngIf="formWTW.watchWithFriend">
@@ -124,10 +124,10 @@
                     <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formTVWTW.isWatchlistChecked">{{ 'WTW.INCLUDE_TV_WATCHLIST' | translate }}</mat-checkbox>
                     </div>
-                    <div class="wtw-form-field-container">
+                    <div class="wtw-form-field-container" *ngIf="showPlex">
                         <mat-checkbox [(ngModel)]="formTVWTW.usePlex">{{ 'WTW.ONLY_PLEX_TV' | translate }}</mat-checkbox>
                     </div>
-                    <div class="wtw-form-field-container" *ngIf="showPlex">
+                    <div class="wtw-form-field-container">
                         <mat-checkbox [(ngModel)]="formTVWTW.watchWithFriend">{{ 'WTW.WATCH_TV_WITH_FRIEND' | translate }}</mat-checkbox>
                     </div>
                     <div class="wtw-form-field-container" *ngIf="formTVWTW.watchWithFriend">
