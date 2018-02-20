@@ -1579,6 +1579,7 @@ module.exports = function () {
     var retrieveAndStoreTVShow = function (i, tvShows, page, totalPages, done) {
         if (i < tvShows.length) {
             var tvShow = tvShows[i];
+            if (!tvShow) retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
             models.TVShowInfoCache.findOne({ where: { movieDBId: tvShow.id } }).then(info => {
                 if (info && date.addMonths(info.updatedAt, 1) > new Date()) {
                     // already in DB skip info, get credits if necessary
