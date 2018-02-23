@@ -2,8 +2,10 @@ var express = require('express');
 var passport = require('passport');
 var userService = require('../helpers/userService')();
 var userProfileService = require('../helpers/userProfileService')();
+var library = require('../helpers/library')();
 var userController = require('../controllers/userController')(userService, userProfileService);
-var isAuthenticated = require('../middlewares/isAuthenticated')
+var isAuthenticated = require('../middlewares/isAuthenticated');
+var models = require('../models');
 
 var authRoutes = function () {
     var authRouter = express.Router();
@@ -56,6 +58,39 @@ var authRoutes = function () {
 
     authRouter.route('/newPassword')
         .get(userController.setNewPassword);
+
+    authRouter.route('/token').post(function (req, res) {
+        if (req.body.email && req.body.password) {
+            var email = req.body.email;
+            var password = req.body.password;
+            models.User.findOne({ where: { 'email': email } }).then(function (user) {
+
+                if (!user) {
+                    res.sendStatus(401);
+                }
+
+                if (!isValidPassword(user, password)) {
+                    res.sendStatus(401);
+                }
+
+                if (!user.emailValidated) {
+                    res.sendStatus(401);
+                }
+
+                // Authentication successful - send token
+                res.json({
+                    token: library.encodeJWT(user.id)
+                });
+
+            }).catch(function (err) {
+                res.sendStatus(500);
+            });
+        }
+    });
+
+    var isValidPassword = function (user, password) {
+        return models.User.validPassword(password, user.password);
+    }
 
     return authRouter;
 }

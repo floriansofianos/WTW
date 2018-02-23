@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var QuestionnaireService = /** @class */ (function () {
+var QuestionnaireService = (function () {
     function QuestionnaireService(http) {
         this.http = http;
     }
@@ -30,3 +30,4 @@ var QuestionnaireService = /** @class */ (function () {
     return QuestionnaireService;
 }());
 exports.QuestionnaireService = QuestionnaireService;
+//# sourceMappingURL=questionnaire.service.js.map

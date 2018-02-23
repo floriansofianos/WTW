@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var TVRecommandationService = /** @class */ (function () {
+var TVRecommandationService = (function () {
     function TVRecommandationService(http) {
         this.http = http;
     }
@@ -34,3 +34,4 @@ var TVRecommandationService = /** @class */ (function () {
     return TVRecommandationService;
 }());
 exports.TVRecommandationService = TVRecommandationService;
+//# sourceMappingURL=tv-recommandation.service.js.map
