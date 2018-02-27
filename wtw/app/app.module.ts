@@ -190,7 +190,7 @@ export function createTranslateLoader(http: Http) {
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,
-            useFactory: (authService: AuthService) => function () { return authService.load() },
+            useFactory: (authService: AuthService) => function () { return authService.load().catch(err => { console.log(err); }) },
             deps: [AuthService],
             multi: true
         }],

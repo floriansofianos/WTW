@@ -33,7 +33,7 @@ var authRoutes = function () {
         });
 
     authRouter.route('/current')
-        .get(function (req, res) {
+        .get(isAuthenticated, function (req, res) {
             res.json(userService.userToModelView(req.user));
         })
         .put(isAuthenticated, userController.updateUser);

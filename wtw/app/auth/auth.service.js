@@ -84,6 +84,8 @@ var AuthService = (function () {
         promise.then(function (response) {
             if (response._body !== '')
                 _this.setCurrentUser(response.json());
+        }).catch(function (err) {
+            console.log(err);
         });
         return promise;
     };

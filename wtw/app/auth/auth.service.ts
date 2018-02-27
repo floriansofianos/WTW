@@ -89,7 +89,9 @@ export class AuthService {
         let promise = this.http.get('/auth/current').toPromise();
         promise.then((response: any) => {
             if (response._body !== '') this.setCurrentUser(response.json());
-        });
+        }).catch(err => {
+                console.log(err);
+            });
         return promise;
     }
 }
