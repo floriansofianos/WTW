@@ -1,6 +1,7 @@
 ﻿var express = require('express');
 var movieDBService = require('../helpers/movieDBService')();
 var movieCacheService = require('../helpers/movieCacheService')();
+var isAuthenticated = require('../middlewares/isAuthenticated');
 var plexService = require('../helpers/plexService')();
 var movieController = require('../controllers/movieController')(movieDBService, movieCacheService, plexService);
 
@@ -12,7 +13,7 @@ var movieRoutes = function () {
         .get(movieController.get);
 
     movieRouter.route('/plex')
-        .get(movieController.checkPlex);
+        .get(isAuthenticated, movieController.checkPlex);
 
     return movieRouter;
 }
