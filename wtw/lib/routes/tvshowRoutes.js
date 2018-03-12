@@ -3,6 +3,7 @@ var movieDBService = require('../helpers/movieDBService')();
 var tvCacheService = require('../helpers/tvCacheService')();
 var plexService = require('../helpers/plexService')();
 var tvshowController = require('../controllers/tvshowController')(movieDBService, tvCacheService, plexService);
+var isAuthenticated = require('../middlewares/isAuthenticated');
 
 
 var tvshowRoutes = function () {
@@ -12,7 +13,7 @@ var tvshowRoutes = function () {
         .get(tvshowController.get);
 
     tvshowRouter.route('/plex')
-        .get(tvshowController.checkPlex);
+        .get(isAuthenticated, tvshowController.checkPlex);
 
     return tvshowRouter;
 }

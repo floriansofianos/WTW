@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var animations_1 = require("@angular/animations");
-var WtwButtonComponent = (function () {
+var WtwButtonComponent = /** @class */ (function () {
     function WtwButtonComponent() {
         this.state = 'normal';
     }
@@ -47,4 +47,3 @@ var WtwButtonComponent = (function () {
     return WtwButtonComponent;
 }());
 exports.WtwButtonComponent = WtwButtonComponent;
-//# sourceMappingURL=wtw.button.component.js.map

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var MovieDBService = (function () {
+var MovieDBService = /** @class */ (function () {
     function MovieDBService(http) {
         this.http = http;
     }
@@ -74,4 +74,3 @@ var MovieDBService = (function () {
     return MovieDBService;
 }());
 exports.MovieDBService = MovieDBService;
-//# sourceMappingURL=movieDB.service.js.map

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ErrorPageComponent = (function () {
+var ErrorPageComponent = /** @class */ (function () {
     function ErrorPageComponent() {
     }
     ErrorPageComponent = __decorate([
@@ -18,4 +18,3 @@ var ErrorPageComponent = (function () {
     return ErrorPageComponent;
 }());
 exports.ErrorPageComponent = ErrorPageComponent;
-//# sourceMappingURL=error-page.component.js.map

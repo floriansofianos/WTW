@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _ = require("underscore");
-var TimelineEventFriendComponent = (function () {
+var TimelineEventFriendComponent = /** @class */ (function () {
     function TimelineEventFriendComponent() {
     }
     TimelineEventFriendComponent.prototype.ngOnInit = function () {
@@ -54,4 +54,3 @@ var TimelineEventFriendComponent = (function () {
     return TimelineEventFriendComponent;
 }());
 exports.TimelineEventFriendComponent = TimelineEventFriendComponent;
-//# sourceMappingURL=timeline-event-friend.component.js.map
