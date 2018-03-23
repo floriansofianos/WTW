@@ -70,11 +70,11 @@ var authRoutes = function () {
                 }
 
                 if (!isValidPassword(user, password)) {
-                    res.sendStatus(401);
+                    res.status(401).send('EMAIL_PASSWORD_INCORRECT');
                 }
 
                 if (!user.emailValidated) {
-                    res.sendStatus(401);
+                    res.status(500).send('EMAIL_NOT_VALIDATED');
                 }
 
                 // Authentication successful - send token
