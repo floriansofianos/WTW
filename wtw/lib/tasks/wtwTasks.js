@@ -955,10 +955,12 @@ var generateUserProfile = function (users, i, done) {
                                             });
                                         });
                                         _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                            var writers = movieDBService.getWriters(q.tvShowCredits.data);
-                                            _.each(writers, function (w) {
-                                                allWriters.push({ writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
-                                            });
+                                            if (q.tvShowCredits) {
+                                                var writers = movieDBService.getWriters(q.tvShowCredits.data);
+                                                _.each(writers, function (w) {
+                                                    allWriters.push({ writerId: w.id, name: w.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                });
+                                            }
                                         });
                                         var moviesGrouped = _.groupBy(allWriters, 'writerId');
                                         processMovieWriterGroups(moviesGrouped, u.id, function (err, res) {
@@ -973,10 +975,12 @@ var generateUserProfile = function (users, i, done) {
                                                 });
                                             });
                                             _.each(_.filter(tvQuestionnaires, function (q) { return !q.isSkipped }), function (q) {
-                                                var actors = movieDBService.getActors(q.tvShowCredits.data);
-                                                _.each(actors, function (a) {
-                                                    allActors.push({ castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
-                                                });
+                                                if (q.tvShowCredits) {
+                                                    var actors = movieDBService.getActors(q.tvShowCredits.data);
+                                                    _.each(actors, function (a) {
+                                                        allActors.push({ castId: a.id, name: a.name, score: getQuestionnaireScore(q), isSeen: q.isSeen });
+                                                    });
+                                                }
                                             });
                                             var moviesGrouped = _.groupBy(allActors, 'castId');
                                             processMovieActorGroups(moviesGrouped, u.id, function (err, res) {
