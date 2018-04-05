@@ -114,11 +114,15 @@ var movieQuestionnaireService = function() {
                 data.wantToSee = movieQuestionnaire.wantToSee;
                 data.isSkipped = movieQuestionnaire.isSkipped;
                 data.save().then(questionnaire => {
-                    userService.setUserProfileRefresh(userId, true, function(err, res) {
-                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
+                    userService.setUserProfileRefresh(userId, true, function (err, res) {
+                        if (err) return done(err);
+                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                            if (err) return done(err);
                             movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                                if (err) return done(err);
                                 if (!questionnaire.isSkipped) {
                                     timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
+                                        if (err) return done(err);
                                         done(null, questionnaire);
                                     });
                                 }
@@ -137,11 +141,15 @@ var movieQuestionnaireService = function() {
                     wantToSee: movieQuestionnaire.wantToSee,
                     isSkipped: movieQuestionnaire.isSkipped
                 }).then(questionnaire => {
-                    userService.setUserProfileRefresh(userId, true, function(err, res) {
-                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function(err, res) {
-                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function(err, res) {
+                    userService.setUserProfileRefresh(userId, true, function (err, res) {
+                        if (err) return done(err);
+                        userQuestionnaireService.deleteQuestionnaire(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                            if (err) return done(err);
+                            movieRecommandationService.deleteRecommandation(userId, movieQuestionnaire.movieDBId, function (err, res) {
+                                if (err) return done(err);
                                 if (!questionnaire.isSkipped) {
                                     timelineEventService.create(userId, 0, { questionnaire: questionnaire }, function (err, res) {
+                                        if (err) return done(err);
                                         done(null, questionnaire);
                                     });
                                 }

@@ -56,11 +56,13 @@ var tvRecommandationService = function() {
     };
 
     var getScore = function(userId, movieDBId, userProfileService, tvCacheService, done) {
-        userProfileService.getAll(userId, function(err, profiles) {
+        userProfileService.getAll(userId, function (err, profiles) {
+            if (err) return done(err);
             // filter out irrelevant profiles
             profiles = _.filter(profiles, function(p) { return p.scoreRelevance > 75 });
             // Get the selected movie
-            tvCacheService.get(movieDBId, function(err, selectedTVShow) {
+            tvCacheService.get(movieDBId, function (err, selectedTVShow) {
+                if (err) return done(err);
                 // filter the relevant profiles
                 var creatorIds = _.map(selectedTVShow.tvShowInfo.created_by, 'id');
                 var genreIds = _.map(selectedTVShow.tvShowInfo.genres, 'id');

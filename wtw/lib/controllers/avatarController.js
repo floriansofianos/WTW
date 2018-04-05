@@ -36,13 +36,13 @@ var avatarController = function () {
                     .quality(70)                 // set JPEG quality
                     .write(outputSmall); // save
             }).catch(function (err) {
-                console.error(err);
+                throw new Error(err);
             });
         });
 
         // log any errors that occur
         form.on('error', function (err) {
-            console.log('An error has occured: \n' + err);
+            throw new Error('An error has occured: \n' + err);
         });
 
         // once all the files have been uploaded, send a response to the client
@@ -61,6 +61,10 @@ var avatarController = function () {
             var filePath = path.join(appDir, '/avatars', '/' + req.params.userId, fileName);
             Jimp.read(filePath).then(function (img) {
                 img.getBase64('image/jpeg', function (err, data) {
+                    if (err) {
+                        res.sendStatus(500);
+                        throw new Error(err);
+                    }
                     res.send({ success: true, data: data });
                 });
             }).catch(function (err) {
@@ -76,8 +80,16 @@ var avatarController = function () {
         var fileNames = ["/profile-small.jpg", "/profile-big.jpg"];
         // delete small picture
         deleteFile(path.join(appDir, '/avatars', '/' + req.user.id, fileNames[0]), function (err, result) {
+            if (err) {
+                res.sendStatus(500);
+                throw new Error(err);
+            }
             // delete big picture
             deleteFile(path.join(appDir, '/avatars', '/' + req.user.id, fileNames[1]), function (err, result) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 res.send({ success: true });
             });
         });
@@ -93,7 +105,7 @@ var avatarController = function () {
                 // file does not exist
                 done(null, true);
             } else {
-                console.log('Some other error: ', err.code);
+                throw new Error(err);
                 done(null, true);
             }
         });

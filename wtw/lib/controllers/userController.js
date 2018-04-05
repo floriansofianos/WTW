@@ -6,8 +6,11 @@ var userController = function (userService, userProfileService) {
     var isUsernameAlreadyUsed = function (req, res) {
         if (req.query.username) {
             userService.getUserByUsername(req.query.username, function (err, user) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (!err) res.json({ username: req.query.username, isTaken: user != undefined });
-                else res.send(500);
             });
         }
         else res.send(400);
@@ -16,8 +19,11 @@ var userController = function (userService, userProfileService) {
     var isEmailAlreadyUsed = function (req, res) {
         if (req.query.email) {
             userService.getUserByEmail(req.query.email, function (err, user) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (!err) res.json({ email: req.query.email, isTaken: user != undefined });
-                else res.send(500);
             });
         }
         else res.send(400);
@@ -27,6 +33,10 @@ var userController = function (userService, userProfileService) {
         var userValidation = userService.validateUser(req.body, function (err, valid) {
             if (valid) {
                 userService.createUser(req.body, function (err, user) {
+                    if (err) {
+                        res.sendStatus(500);
+                        throw new Error(err);
+                    }
                     if (user) {
                         postmarkService.sendWelcomeEmail(user.lang, user.email, user.username, (process.env.URL ? process.env.URL : 'http://localhost:1337/') + 'auth/verifyEmail?validationToken=' + user.emailValidationGuid);
                         res.json(userService.userToModelView(user));
@@ -91,7 +101,11 @@ var userController = function (userService, userProfileService) {
 
     var updateUser = function (req, res, next) {
         userService.getUserById(req.user.id, function (err, user) {
-            if (!err) {
+            if (err) {
+                res.sendStatus(500);
+                throw new Error(err);
+            }
+            else {
                 if (req.body.lang) user.lang = req.body.lang;
                 if (req.body.yearOfBirth) user.yearOfBirth = req.body.yearOfBirth;
                 if (req.body.country) user.country = req.body.country;
@@ -99,14 +113,16 @@ var userController = function (userService, userProfileService) {
                 if (req.body.lastName) user.lastName = req.body.lastName;
                 if (req.body.firstQuestionnaireCompleted) user.firstQuestionnaireCompleted = req.body.firstQuestionnaireCompleted;
                 user.save().then(function (user, err) {
-                    if (!err) res.json(userService.userToModelView(req.user));
-                    else res.send(500);
+                    if (err) {
+                        res.sendStatus(500);
+                        throw new Error(err);
+                    }
+                    else res.json(userService.userToModelView(req.user));
                 })
                 .catch(function (err) {
                     next(err);
                 });
             }
-            else res.send(500);
         });
     }
 
@@ -126,6 +142,10 @@ var userController = function (userService, userProfileService) {
     var search = function (req, res) {
         if (req.query.search) {
             userService.searchUser(req.query.search, function (err, user) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (user) {
                     res.json(userService.userToModelView(user));
                 }
@@ -138,14 +158,26 @@ var userController = function (userService, userProfileService) {
     var getUserProfile = function (req, res) {
         if (req.params.userId) {
             userService.getUserById(req.params.userId, function (err, user) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (user) {
                     var result = {
                         user: userService.userToModelView(user)
                     };
                     userService.getLikedDislikedMovies(req.params.userId, function (err, questionnaires) {
+                        if (err) {
+                            res.sendStatus(500);
+                            throw new Error(err);
+                        }
                         if (questionnaires) {
                             result.questionnaires = questionnaires;
                             userService.getLikedDislikedTVShows(req.params.userId, function (err, questionnaires) {
+                                if (err) {
+                                    res.sendStatus(500);
+                                    throw new Error(err);
+                                }
                                 if (questionnaires) {
                                     result.tvQuestionnaires = questionnaires;
                                     res.json(result);
@@ -165,6 +197,10 @@ var userController = function (userService, userProfileService) {
     var getAllUserInformations = function (req, res) {
         if (req.query.userIds) {
             userService.getUserByIds(req.query.userIds, function (err, users) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (users) {
                     var result = {
                         users: _.map(users, function (u) { return userService.userToModelView(u); })
@@ -180,6 +216,10 @@ var userController = function (userService, userProfileService) {
     var getUserDistance = function (req, res) {
         if (req.params.userId) {
             userService.getDistance(req.user.id, req.params.userId, function (err, distance) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (distance) {
                     res.json(distance);
                 }
@@ -192,6 +232,10 @@ var userController = function (userService, userProfileService) {
     var getAllFriends = function (req, res) {
         if (req.user.id) {
             userService.getAllFriends(req.user.id, function (err, users) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (users) {
                     res.json(users);
                 }
@@ -204,6 +248,10 @@ var userController = function (userService, userProfileService) {
     var hasEnoughProfiles = function (req, res) {
         if (req.user.id) {
             userProfileService.hasEnoughProfiles(req.user.id, function (err, enough) {
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
                 if (enough) {
                     res.json(enough);
                 }

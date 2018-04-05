@@ -216,7 +216,6 @@
     <Content Include="lib\helpers\mdbHelper.js" />
     <Compile Include="lib\middlewares\clientErrorHandler.js" />
     <Compile Include="lib\middlewares\isAuthenticated.js" />
-    <Compile Include="lib\middlewares\logErrors.js" />
     <Compile Include="lib\middlewares\passport.js" />
     <Compile Include="lib\middlewares\passport.rememberme.strategy.js" />
     <Compile Include="lib\middlewares\passport.local.strategy.js" />

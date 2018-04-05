@@ -34,8 +34,7 @@ var movieRecommandationService = function() {
 
     var getScoreForUsers = function (userId, otherUserId, movieDBId, userProfileService, movieDBService, done) {
         if (otherUserId) {
-            getSco
-            re(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
+            getScore(userId, movieDBId, userProfileService, movieDBService, function (err, res) {
                 var userScore = res;
                 if (err) return done(err);
                 getScore(otherUserId, movieDBId, userProfileService, movieDBService, function (err, res) {
@@ -57,11 +56,13 @@ var movieRecommandationService = function() {
     };
 
     var getScore = function(userId, movieDBId, userProfileService, movieDBService, done) {
-        userProfileService.getAll(userId, function(err, profiles) {
+        userProfileService.getAll(userId, function (err, profiles) {
+            if (err) return done(err);
             // filter out irrelevant profiles
             profiles = _.filter(profiles, function(p) { return p.scoreRelevance > 75 });
             // Get the selected movie
-            movieDBService.getMovieWithAdditionalInfo(movieDBId, 'en', function(err, selectedMovie) {
+            movieDBService.getMovieWithAdditionalInfo(movieDBId, 'en', function (err, selectedMovie) {
+                if (err) return done(err);
                 // filter the relevant profiles
                 var directorIds = _.map(selectedMovie.directors, 'id');
                 var genreIds = _.map(selectedMovie.genres, 'id');

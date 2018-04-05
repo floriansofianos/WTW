@@ -73,7 +73,9 @@ export class UserProfilePageComponent {
             const formData = new FormData();
             formData.append("image", fileBrowser.files[0]);
             this.userService.uploadAvatar(formData).subscribe(res => {
-                this.updatePhoto();
+                setTimeout(() => {   
+                    this.updatePhoto();
+                }, 10000);
             },
                 error => {
                     this.router.navigate(['error']);

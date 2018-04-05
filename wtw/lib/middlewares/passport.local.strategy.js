@@ -34,7 +34,7 @@ module.exports = function () {
                 return done(null, user);
             }).catch(function (err) {
 
-                console.log("Error:", err);
+                throw new Error(err);
 
                 return done(null, false, {
                     message: 'Something went wrong with your Signin'

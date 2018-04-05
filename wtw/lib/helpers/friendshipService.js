@@ -14,6 +14,7 @@ var friendshipService = function () {
                         userService.getUserById(currentUserId, function (err, user) {
                             if (!err) {
                                 notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
+                                    if (err) return done(err);
                                     timelineEventService.create(userId, 1, { username: user.username, userId: user.id }, function (err, data) {
                                         if (!err) done(null, true);
                                         else done(err);
@@ -39,6 +40,7 @@ var friendshipService = function () {
                     userService.getUserById(currentUserId, function (err, user) {
                         if (!err) {
                             notificationService.create(userId, 0, { username: user.username, userId: user.id }, function (err, data) {
+                                if (err) return done(err);
                                 timelineEventService.create(userId, 1, { username: user.username, userId: user.id }, function (err, data) {
                                     if (!err) done(null, true);
                                     else done(err);
@@ -153,7 +155,9 @@ var friendshipService = function () {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
                                                             notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                if (err) return done(err);
                                                                 timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                                    if (err) return done(err);
                                                                     timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
                                                                         if (!err) done(null, true);
                                                                         else done(err);
@@ -183,12 +187,15 @@ var friendshipService = function () {
                                         isFriend: true
                                     }).then(data => {
                                         deletePendingFriendship(currentUserId, userId, function (err, result) {
+                                            if (err) return done(err);
                                             userService.getUserById(userId, function (err, user) {
                                                 if (!err) {
                                                     deleteFriendRequestNotification(notificationId, function (err, result) {
                                                         if (!err) {
                                                             notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                                if (err) return done(err);
                                                                 timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                                    if (err) return done(err);
                                                                     timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
                                                                         if (!err) done(null, true);
                                                                         else done(err);
@@ -227,12 +234,15 @@ var friendshipService = function () {
                                 isFriend: true
                             }).then(data => {
                                 deletePendingFriendship(currentUserId, userId, function (err, result) {
+                                    if (err) return done(err);
                                     userService.getUserById(userId, function (err, user) {
                                         if (!err) {
                                             deleteFriendRequestNotification(notificationId, function (err, result) {
                                                 if (!err) {
                                                     notificationService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
+                                                        if (err) return done(err);
                                                         timelineEventService.create(currentUserId, 2, { username: user.username, userId: user.id }, function (err, data) {
+                                                            if (err) return done(err);
                                                             timelineEventService.create(userId, 2, { username: currentUsername, userId: currentUserId }, function (err, data) {
                                                                 if (!err) done(null, true);
                                                                 else done(err);
@@ -269,6 +279,7 @@ var friendshipService = function () {
         var Op = sequelize.Op;
         if (currentUserId == userId) return done(null, false);
         deletePendingFriendship(currentUserId, userId, function (err, result) {
+            if (err) return done(err);
             userService.getUserById(currentUserId, function (err, user) {
                 if (!err) {
                     deleteFriendRequestNotification(notificationId, function (err, result) {

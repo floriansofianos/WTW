@@ -13,18 +13,21 @@ module.exports = function () {
             if (!plexServerMovie || moment(plexServerMovie.createdAt).add(1, 'days') < moment()) {
                 // Start by deleting all the server movies
                 deleteAllPlexServerMovies(plexServer.id, function (err, result) {
+                    if (err) return done(err);
                     var baseUrl = plexServer.url;
                     var plexToken = plexServer.token;
                     // Start by getting all the plex movies
                     request(baseUrl + '/library/sections/4/all?type=1&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
                         if (!error) {
                             parse(body, function (err, result) {
+                                if (err) return done(err);
                                 var allVideos = result.MediaContainer.Video;
                                 handlePlexServerMovie(baseUrl, plexToken, plexServer, allVideos, 0, function (err, result) {
                                     done(err, result);
                                 });
                             });
                         }
+                        else return done(error);
                     });
                 });
             }
@@ -43,18 +46,21 @@ module.exports = function () {
             if (!plexServerTVShow || moment(plexServerTVShow.createdAt).add(1, 'days') < moment()) {
                 // Start by deleting all the server tv shows
                 deleteAllPlexServerTVShows(plexServer.id, function (err, result) {
+                    if (err) return done(err);
                     var baseUrl = plexServer.url;
                     var plexToken = plexServer.token;
                     // Start by getting all the plex movies
                     request(baseUrl + '/library/sections/3/all?type=2&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
                         if (!error) {
                             parse(body, function (err, result) {
+                                if (err) return done(err);
                                 var allVideos = result.MediaContainer.Directory;
                                 handlePlexServerTVShow(baseUrl, plexToken, plexServer, allVideos, 0, function (err, result) {
                                     done(err, result);
                                 });
                             });
                         }
+                        else return done(error);
                     });
                 });
             }
@@ -118,10 +124,13 @@ module.exports = function () {
             var v = plexServerMovies[i];
             var metadataUrl = v.$.key;
             request(baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, function (error, response, body) {
+                if (error) return done(error);
                 parse(body, function (err, result) {
+                    if (err) return done(err);
                     if (result.MediaContainer.Video[0].$.guid.indexOf('themoviedb://') !== -1) {
                         var movieDBId = result.MediaContainer.Video[0].$.guid.replace('com.plexapp.agents.themoviedb://', '').split('?')[0];
                         createPlexServerMovieFromMovieId(plexServer.id, movieDBId, function (err, data) {
+                            if (err) return done(err);
                             // Handle next movie
                             handlePlexServerMovie(baseUrl, plexToken, plexServer, plexServerMovies, i + 1, done);
                         });
@@ -134,6 +143,7 @@ module.exports = function () {
                             else {
                                 if (data.movie_results[0]) {
                                     createPlexServerMovie(plexServer.id, data.movie_results[0], function (err, data) {
+                                        if (err) return done(err);
                                         // Handle next movie
                                         handlePlexServerMovie(baseUrl, plexToken, plexServer, plexServerMovies, i + 1, done);
                                     });
@@ -156,10 +166,13 @@ module.exports = function () {
             var v = plexServerTVShows[i];
             var metadataUrl = v.$.key.replace('/children', '');
             request(baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, function (error, response, body) {
+                if (error) return done(error);
                 parse(body, function (err, result) {
+                    if (err) return done(err);
                     if (result.MediaContainer.Directory[0].$.guid.indexOf('themoviedb://') !== -1) {
                         var movieDBId = result.MediaContainer.Directory[0].$.guid.replace('com.plexapp.agents.themoviedb://', '').split('?')[0];
                         createPlexServerTVShowFromMovieId(plexServer.id, movieDBId, function (err, data) {
+                            if (err) return done(err);
                             // Handle next movie
                             handlePlexServerTVShow(baseUrl, plexToken, plexServer, plexServerTVShows, i + 1, done);
                         });
@@ -172,6 +185,7 @@ module.exports = function () {
                             else {
                                 if (data.tv_results[0]) {
                                     createPlexServerTVShow(plexServer.id, data.tv_results[0], function (err, data) {
+                                        if (err) return done(err);
                                         // Handle next movie
                                         handlePlexServerTVShow(baseUrl, plexToken, plexServer, plexServerTVShows, i + 1, done);
                                     });

@@ -107,9 +107,11 @@ module.exports = function () {
 
     var wtw = function (id, country, lang, genreId, useWatchlist, nowPlaying, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, otherUserId, usePlexServer, plexServerId, movieQuestionnaireService, movieCacheService, userProfileService, movieRecommandationService, movieDBService, done) {
         movieQuestionnaireService.getAll(otherUserId, function (err, res) {
+            if (err) return done(err);
             var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
             var otherUserLovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
             movieQuestionnaireService.getAll(id, function (err, res) {
+                if (err) return done(err);
                 alreadyAnsweredMovieIds = alreadyAnsweredMovieIds.concat(_.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId'));
                 var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
                 if (otherUserId) {
@@ -119,10 +121,12 @@ module.exports = function () {
                 if (nowPlaying) {
                     // Only consider movies now playing in theaters
                     getNowPlayingMovies(country, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
+                        if (err) return done(err);
                         if (_.size(data) < 1) return done(null, false);
                         else {
                             // we need to calculate the score of each movie and then choose the best choice
                             getScores(id, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                                if (err) return done(err);
                                 var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
                                 if (_.size(filteredData) < 1) return done(null, _.sample(data));
                                 else {
@@ -137,10 +141,12 @@ module.exports = function () {
                 else if (usePlexServer && plexServerId) {
                     // Only consider movies in plex server
                     getAllPlexMovies(plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, movieCacheService, function (err, data) {
+                        if (err) return done(err);
                         if (_.size(data) < 1) return done(null, false);
                         else {
                             // we need to calculate the score of each movie and then choose the best choice
                             getScores(id, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, 0, function (err, data) {
+                                if (err) return done(err);
                                 var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
                                 if (_.size(filteredData) < 1) return done(null, _.sample(data));
                                 else {
@@ -154,14 +160,17 @@ module.exports = function () {
                 }
                 else if (useWatchlist) {
                     movieQuestionnaireService.getWatchlist(otherUserId, function (err, watchlist) {
+                        if (err) return done(err);
                         var otherUserWatchlist = _.map(watchlist, 'movieDBId');
                         movieQuestionnaireService.getWatchlist(id, function (err, watchlist) {
+                            if (err) return done(err);
                             var movieDBIds = _.map(watchlist, 'movieDBId');
                             if (otherUserId) {
                                 // Filter the watchlists to only get the movies in common
                                 movieDBIds = _.filter(movieDBIds, function (id) { return _.find(otherUserWatchlist, function (o) { return o == id }) != undefined; });
                             }
                             movieCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                                if (err) return done(err);
                                 data = _.map(data, 'data');
                                 // Get rid of duplicates
                                 data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -181,9 +190,11 @@ module.exports = function () {
 
     var wtwTV = function (id, country, lang, genreId, useWatchlist, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, languageSelected, otherUserId, usePlexServer, plexServerId, tvQuestionnaireService, tvCacheService, userProfileService, tvRecommandationService, movieDBService, done) {
         tvQuestionnaireService.getAll(otherUserId, function (err, res) {
+            if (err) return done(err);
             var alreadyAnsweredMovieIds = _.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId');
             var otherUserLovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
             tvQuestionnaireService.getAll(id, function (err, res) {
+                if (err) return done(err);
                 alreadyAnsweredMovieIds = alreadyAnsweredMovieIds.concat(_.map(_.filter(res, function (r) { return r.isSeen || (!r.wantToSee && !r.isSkipped) }), 'movieDBId'));
                 var lovedMovieIds = _.map(_.filter(res, function (r) { return r.isSeen && r.rating == 5; }), 'movieDBId');
                 if (otherUserId) {
@@ -193,10 +204,12 @@ module.exports = function () {
                 if (usePlexServer && plexServerId) {
                     // Only consider tv shows in plex server
                     getAllPlexTVShows(plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, languageSelected, alreadyAnsweredMovieIds, tvCacheService, function (err, data) {
+                        if (err) return done(err);
                         if (_.size(data) < 1) return done(null, false);
                         else {
                             // we need to calculate the score of each tv show and then choose the best choice
                             getTVScores(id, otherUserId, data, tvRecommandationService, userProfileService, tvCacheService, 0, function (err, data) {
+                                if (err) return done(err);
                                 var filteredData = _.filter(data, function (d) { return d.wtwScore.score > 50 });
                                 if (_.size(filteredData) < 1) return done(null, _.sample(data));
                                 else {
@@ -209,14 +222,17 @@ module.exports = function () {
                 }
                 else if (useWatchlist) {
                     tvQuestionnaireService.getWatchlist(otherUserId, function (err, watchlist) {
+                        if (err) return done(err);
                         var otherUserWatchlist = _.map(watchlist, 'movieDBId');
                         tvQuestionnaireService.getWatchlist(id, function (err, watchlist) {
+                            if (err) return done(err);
                             var movieDBIds = _.map(watchlist, 'movieDBId');
                             if (otherUserId) {
                                 // Filter the watchlists to only get the movies in common
                                 movieDBIds = _.filter(movieDBIds, function (id) { return _.find(otherUserWatchlist, function (o) { return o == id }) != undefined; });
                             }
                             tvCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                                if (err) return done(err);
                                 data = _.map(data, 'data');
                                 // Get rid of duplicates
                                 data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -253,6 +269,7 @@ module.exports = function () {
             if (err) return done(err, null);
             else {
                 getAllMovies(_.map(data.results, 'id'), lang, movieCacheService, function (err, data) {
+                    if (err) return done(err);
                     data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, null, null, null);
                     done(null, data);
                 });
@@ -263,6 +280,7 @@ module.exports = function () {
     var getAllPlexMovies = function (plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, movieCacheService, done) {
         models.PlexServerMovie.findAll({ where: { plexServerId: plexServerId } }).then(results => {
             getAllMovies(_.map(results, 'movieDBId'), lang, movieCacheService, function (err, data) {
+                if (err) return done(err);
                 data = filterMoviesForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
                 done(null, data);
             });
@@ -274,6 +292,7 @@ module.exports = function () {
     var getAllPlexTVShows = function (plexServerId, minRelease, maxRelease, lang, genreId, useRuntimeLimit, runtimeLimit, language, alreadyAnsweredMovieIds, tvCacheService, done) {
         models.PlexServerTVShow.findAll({ where: { plexServerId: plexServerId } }).then(results => {
             getAllTVShows(_.map(results, 'movieDBId'), lang, tvCacheService, function (err, data) {
+                if (err) return done(err);
                 data = filterTVShowsForWTW(data, genreId, useRuntimeLimit, runtimeLimit, alreadyAnsweredMovieIds, minRelease, maxRelease, language);
                 done(null, data);
             });
@@ -286,6 +305,7 @@ module.exports = function () {
         if (i < data.length) {
             var d = data[i];
             movieRecommandationService.getScoreForUsers(userId, otherUserId, d.id, userProfileService, movieDBService, function (err, res) {
+                if (err) return done(err);
                 d.wtwScore = res;
                 getScores(userId, otherUserId, data, movieRecommandationService, userProfileService, movieDBService, i + 1, done);
             });
@@ -297,6 +317,7 @@ module.exports = function () {
         if (i < data.length) {
             var d = data[i];
             tvRecommandationService.getScoreForUsers(userId, otherUserId, d.id, userProfileService, movieDBService, function (err, res) {
+                if (err) return done(err);
                 d.wtwScore = res;
                 getScores(userId, otherUserId, data, tvRecommandationService, userProfileService, movieDBService, i + 1, done);
             });
@@ -325,13 +346,16 @@ module.exports = function () {
     var findMovieWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, language, alreadyAnsweredMovieIds, otherUserId, movieCacheService, userProfileService, movieRecommandationService, lovedMovieIds, done) {
         // Start by looking at the reco
         movieRecommandationService.getAll(id, function (err, recos) {
+            if (err) return done(err);
             var movieDBIds = _.map(recos, 'movieDBId');
             movieRecommandationService.getAll(otherUserId, function (err, recos) {
+                if (err) return done(err);
                 if (recos.length > 0) {
                     // Only get the recos 
                     movieDBIds = _.filter(movieDBIds, function (id) { return _.find(recos, function (r) { return r.movieDBId == id }) != undefined });
                 }
                 movieCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                    if (err) return done(err);
                     data = _.map(data, 'data');
                     // Get rid of duplicates
                     data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -342,13 +366,16 @@ module.exports = function () {
                     // maybe some of the movies were not in the cache
                     var notFoundMovieIds = _.filter(movieDBIds, function (id) { return !_.find(data, function (d) { return d.id == id }) });
                     findMovieRelevantForWTW(notFoundMovieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, function (err, res) {
+                        if (err) return done(err);
                         if (res) return done(null, res);
                         else {
                             // Nothing? then try one of our favourite director - go more than 1 page in movieDB discover
                             // First get all profiles
                             userProfileService.getAll(id, function (err, profiles) {
+                                if (err) return done(err);
                                 // Add profiles of other user
                                 userProfileService.getAll(otherUserId, function (err, otherUserProfiles) {
+                                    if (err) return done(err);
                                     if (otherUserId) {
                                         // If we watch with friend, calculate a common profile between the 2 users
                                         var relevantOtherUserProfiles = _.filter(otherUserProfiles, function (oup) {
@@ -379,30 +406,37 @@ module.exports = function () {
                                         profiles = recalculatedProfiles;
                                     }
                                     findDirectorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                        if (err) return done(err);
                                         if (res) return done(null, res);
                                         else {
                                             // Nothing? try writer - go more than 1 page in movieDB discover
                                             findWriterWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                if (err) return done(err);
                                                 if (res) return done(null, res);
                                                 else {
                                                     // Nothing? what about favourite genre if not provided
                                                     findGenreWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                        if (err) return done(err);
                                                         if (res) return done(null, res);
                                                         else {
                                                             // Nothing? what about favourite actor
                                                             findActorWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                if (err) return done(err);
                                                                 if (res) return done(null, res);
                                                                 else {
                                                                     // Nothing? what about favourite actor
                                                                     findCountryWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                        if (err) return done(err);
                                                                         if (res) return done(null, res);
                                                                         else {
                                                                             // Nothing? Try find similar movies to loved movie
                                                                             findSimilarWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, function (err, res) {
+                                                                                if (err) return done(err);
                                                                                 if (res) return done(null, res);
                                                                                 else {
                                                                                     // Nothing? Try popular movie
                                                                                     findPopularWTWMovie(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                                        if (err) return done(err);
                                                                                         if (res) return done(null, res);
                                                                                         else {
                                                                                             // Nothing? Give up!
@@ -434,13 +468,16 @@ module.exports = function () {
     var findTVShowWithoutWishlist = function (id, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, certification, language, alreadyAnsweredMovieIds, otherUserId, tvCacheService, userProfileService, tvRecommandationService, lovedMovieIds, done) {
         // Start by looking at the reco
         tvRecommandationService.getAll(id, function (err, recos) {
+            if (err) return done(err);
             var movieDBIds = _.map(recos, 'movieDBId');
             tvRecommandationService.getAll(otherUserId, function (err, recos) {
+                if (err) return done(err);
                 if (recos.length > 0) {
                     // Only get the recos 
                     movieDBIds = _.filter(movieDBIds, function (id) { return _.find(recos, function (r) { return r.movieDBId == id }) != undefined });
                 }
                 tvCacheService.getAllInArrayWithLang(movieDBIds, lang, function (err, data) {
+                    if (err) return done(err);
                     data = _.map(data, 'data');
                     // Get rid of duplicates
                     data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -451,8 +488,10 @@ module.exports = function () {
                     // Nothing? then try one of our favourite tv creator
                     // First get all profiles
                     userProfileService.getAll(id, function (err, profiles) {
+                        if (err) return done(err);
                         // Add profiles of other user
                         userProfileService.getAll(otherUserId, function (err, otherUserProfiles) {
+                            if (err) return done(err);
                             if (otherUserId) {
                                 // If we watch with friend, calculate a common profile between the 2 users
                                 var relevantOtherUserProfiles = _.filter(otherUserProfiles, function (oup) {
@@ -483,30 +522,37 @@ module.exports = function () {
                                 profiles = recalculatedProfiles;
                             }
                             findCreatorWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                if (err) return done(err);
                                 if (res) return done(null, res);
                                 else {
                                     // Nothing? try writer
                                     findWriterWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
+                                        if (err) return done(err);
                                         if (res) return done(null, res);
                                         else {
                                             // Nothing? what about favourite genre if not provided
                                             findGenreWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                if (err) return done(err);
                                                 if (res) return done(null, res);
                                                 else {
                                                     // Nothing? what about favourite actor
                                                     findActorWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
+                                                        if (err) return done(err);
                                                         if (res) return done(null, res);
                                                         else {
                                                             // Nothing? what about favourite country
                                                             findCountryWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, function (err, res) {
+                                                                if (err) return done(err);
                                                                 if (res) return done(null, res);
                                                                 else {
                                                                     // Nothing? Try find similar movies to loved movie
                                                                     findSimilarWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, tvCacheService, function (err, res) {
+                                                                        if (err) return done(err);
                                                                         if (res) return done(null, res);
                                                                         else {
                                                                             // Nothing? Try popular movie
                                                                             findPopularWTWTVShow(profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, function (err, res) {
+                                                                                if (err) return done(err);
                                                                                 if (res) return done(null, res);
                                                                                 else {
                                                                                     // Nothing? Give up!
@@ -543,9 +589,11 @@ module.exports = function () {
 
     var findDirectorWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, directorId, page, done) {
         getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, language, certification, page, function (err, data) {
+            if (err) return done(err);
             if (data && data.results) {
                 var max_page = data.total_pages;
                 filterOutDirectorData(directorId, data, 0, function (err, res) {
+                    if (err) return done(err);
                     data = res;
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -565,6 +613,7 @@ module.exports = function () {
         if (i < data.results.length) {
             var d = data.results[i];
             isMovieDirector(d.id, directorId, function (err, res) {
+                if (err) return done(err);
                 if (!res) {
                     data.results = _.without(data.results, d);
                     filterOutDirectorData(directorId, data, i, done);
@@ -579,6 +628,7 @@ module.exports = function () {
         var favouriteCreator = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.creatorId }));
         if (favouriteCreator) {
             getTVShowsForCreatorQuestionnaire(favouriteCreator.creatorId, function (err, tvShows) {
+                if (err) return done(err);
                 if (tvShows.length > 0) {
                     return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
@@ -640,9 +690,11 @@ module.exports = function () {
 
     var findWriterWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, writerId, page, done) {
         getMoviesForWriterQuestionnaire(writerId, minRelease, maxRelease, language, certification, page, function (err, data) {
+            if (err) return done(err);
             if (data && data.results) {
                 var max_page = data.total_pages;
                 filterOutWriterData(writerId, data, 0, function (err, res) {
+                    if (err) return done(err);
                     data = res;
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -662,6 +714,7 @@ module.exports = function () {
         if (i < data.results.length) {
             var d = data.results[i];
             isMovieWriter(d.id, writerId, function (err, res) {
+                if (err) return done(err);
                 if (!res) {
                     data.results = _.without(data.results, d);
                     filterOutWriterData(writerId, data, i, done);
@@ -682,6 +735,7 @@ module.exports = function () {
         var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
         if (favouriteGenre) {
             getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -704,6 +758,7 @@ module.exports = function () {
         var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
         if (favouriteGenre) {
             getTVShowsForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.length > 0) {
                     return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
@@ -719,6 +774,7 @@ module.exports = function () {
         var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
         if (favouriteCountry) {
             getMoviesForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -737,6 +793,7 @@ module.exports = function () {
         var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
         if (favouriteCountry) {
             getTVShowsForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.length > 0) {
                     return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
                 }
@@ -750,6 +807,7 @@ module.exports = function () {
         var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
         if (favouriteActor) {
             getMoviesForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
                         return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -766,6 +824,7 @@ module.exports = function () {
         var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
         if (favouriteActor) {
             getTVShowsForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
+                if (err) return done(err);
                 if (data && data.length > 0) {
                     var movieDBIds = _.map(data, 'movieDBId');
                     tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
@@ -783,6 +842,7 @@ module.exports = function () {
 
     var findPopularWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         getPopularMovies(minRelease, maxRelease, language, certification, function (err, data) {
+            if (err) return done(err);
             if (data && data.results) {
                 if (data.results.length > 0) {
                     return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -795,6 +855,7 @@ module.exports = function () {
 
     var findPopularWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
         getPopularTVShows(minRelease, maxRelease, language, certification, function (err, data) {
+            if (err) return done(err);
             if (data.results && data.results.length > 0) {
                 var movieDBIds = _.map(data.results, 'id');
                 tvCacheService.getAllInArrayWithLang(movieDBIds, 'en', function (err, data) {
@@ -811,6 +872,7 @@ module.exports = function () {
     var findSimilarWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, done) {
         var movieId = _.sample(lovedMovieIds);
         getSimilarMovies(movieId, function (err, data) {
+            if (err) return done(err);
             if (data && data.results) {
                 if (data.results.length > 0) {
                     return findMovieRelevantForWTW(_.map(data.results, 'id'), lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -824,6 +886,7 @@ module.exports = function () {
     var findSimilarWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, lovedMovieIds, tvCacheService, done) {
         var movieId = _.sample(lovedMovieIds);
         getSimilarTVShows(movieId, function (err, data) {
+            if (err) return done(err);
             if (data && data.results) {
                 if (data.results.length > 0) {
                     var movieDBIds = _.map(data.results, 'id');
@@ -848,6 +911,7 @@ module.exports = function () {
             }
             else {
                 getMovie(id, lang, function (err, m) {
+                    if (err) return done(err);
                     if (!(new Date(m.release_date).getFullYear() >= minRelease) || !(new Date(m.release_date).getFullYear() <= maxRelease)) {
                         return findMovieRelevantForWTW(movieIds, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
                     }
@@ -907,6 +971,7 @@ module.exports = function () {
     var getAllMovies = function (movieIds, lang, movieCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         movieCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+            if (err) return done(err);
             data = _.map(data, 'data');
             // Get rid of duplicates
             data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -929,6 +994,7 @@ module.exports = function () {
     var getAllTVShows = function (movieIds, lang, tvCacheService, done) {
         if (movieIds.constructor !== Array) movieIds = [movieIds];
         tvCacheService.getAllInArrayWithLang(movieIds, lang, function (err, data) {
+            if (err) return done(err);
             data = _.map(data, 'data');
             // Get rid of duplicates
             data = _.map(_.groupBy(data, 'id'), function (g) {
@@ -1145,6 +1211,7 @@ module.exports = function () {
     /// Gets a movie from Cache or movieDB if not cached
     var getMovie = function (id, lang, done) {
         getMovieFromCache(id, lang, (err, movie) => {
+            if (err) return done(err);
             if (movie) {
                 if (date.addYears(movie.updatedAt, 1) > new Date()) return done(null, movie.data);
                 else {
@@ -1243,6 +1310,7 @@ module.exports = function () {
 
     var getMovieTrailer = function (id, done) {
         getMovieTrailersFromCache(id, (err, trailers) => {
+            if (err) return done(err);
             if (trailers) {
                 if (date.addYears(trailers.updatedAt, 1) > new Date()) return done(null, trailers.data);
                 else {
@@ -1304,6 +1372,7 @@ module.exports = function () {
 
     var getMovieCredits = function (id, done) {
         getMovieCreditsFromCache(id, (err, credits) => {
+            if (err) return done(err);
             if (credits) {
                 if (date.addYears(credits.updatedAt, 1) > new Date()) return done(null, credits.data);
                 else {
@@ -1452,6 +1521,7 @@ module.exports = function () {
 
     var getAlsoKnown = function (directorId, writerId, actorId, creatorId, lang, done) {
         getPeopleFromCache(directorId, writerId, actorId, creatorId, lang, (err, people) => {
+            if (err) return done(err);
             if (people) {
                 if (date.addMonths(people.updatedAt, 2) > new Date()) return done(null, people.data);
                 else {
@@ -1569,7 +1639,10 @@ module.exports = function () {
                 if (err) return done(err, null);
                 else {
                     var tvShows = data.results;
-                    retrieveAndStoreTVShow(0, tvShows, page, totalPages, function (err, data) { retrieveAndStoreTVShowsAtPage(data.page + 1, data.totalPages, done) });
+                    retrieveAndStoreTVShow(0, tvShows, page, totalPages, function (err, data) {
+                        if (err) return done(err);
+                        retrieveAndStoreTVShowsAtPage(data.page + 1, data.totalPages, done);
+                    });
                 }
             });
         }
@@ -1587,10 +1660,13 @@ module.exports = function () {
                         models.TVShowCreditsCache.findOne({ where: { movieDBId: tvShow.id } }).then(credits => {
                             if (!credits) {
                                 getTVShowCreditsFromMovieDB(info.data, function (err, data) {
+                                    if (err) return done(err);
                                     models.TVVideoCache.findOne({ where: { movieDBId: tvShow.id } }).then(videos => {
                                         if (!videos) {
                                             getTVShowVideoFromMovieDB(tvShow.id, 'en', function (err, data) {
+                                                if (err) return done(err);
                                                 getTVShowVideoFromMovieDB(tvShow.id, 'fr', function (err, data) {
+                                                    if (err) return done(err);
                                                     retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
                                                 });
                                             });
@@ -1605,7 +1681,9 @@ module.exports = function () {
                                 models.TVVideoCache.findOne({ where: { movieDBId: tvShow.id } }).then(videos => {
                                     if (!videos) {
                                         getTVShowVideoFromMovieDB(tvShow.id, 'en', function (err, data) {
+                                            if (err) return done(err);
                                             getTVShowVideoFromMovieDB(tvShow.id, 'fr', function (err, data) {
+                                                if (err) return done(err);
                                                 retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
                                             });
                                         });
@@ -1625,10 +1703,15 @@ module.exports = function () {
                                 models.TVShowCreditsCache.destroy({ where: { id: info.movieDBId } }).then(data => {
                                     models.TVVideoCache.destroy({ where: { id: info.movieDBId } }).then(data => {
                                         getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
+                                            if (err) return done(err);
                                             getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
+                                                if (err) return done(err);
                                                 getTVShowCreditsFromMovieDB(data.data, function (err, data) {
+                                                    if (err) return done(err);
                                                     getTVShowVideoFromMovieDB(data.movieDBId, 'en', function (err, data) {
+                                                        if (err) return done(err);
                                                         getTVShowVideoFromMovieDB(data.movieDBId, 'fr', function (err, data) {
+                                                            if (err) return done(err);
                                                             retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
                                                         });
                                                     });
@@ -1647,10 +1730,15 @@ module.exports = function () {
                         }
                         else {
                             getTVShowFromMovieDB(tvShow.id, 'en', null, function (err, data) {
+                                if (err) return done(err);
                                 getTVShowFromMovieDB(tvShow.id, 'fr', null, function (err, data) {
+                                    if (err) return done(err);
                                     getTVShowCreditsFromMovieDB(data.data, function (err, data) {
+                                        if (err) return done(err);
                                         getTVShowVideoFromMovieDB(data.movieDBId, 'en', function (err, data) {
+                                            if (err) return done(err);
                                             getTVShowVideoFromMovieDB(data.movieDBId, 'fr', function (err, data) {
+                                                if (err) return done(err);
                                                 retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
                                             });
                                         });
@@ -1676,6 +1764,7 @@ module.exports = function () {
             var cast = data.cast;
             // Now we need to improve the crew by searching episode by episode
             getTVShowCrewFromMovieDB(tvShow.id, seasons, crew, 0, 1, function (err, data) {
+                if (err) return done(err);
                 models.TVShowCreditsCache.create({
                     movieDBId: tvShow.id,
                     data: { cast: cast, crew: data }
@@ -1715,16 +1804,19 @@ module.exports = function () {
             }
             else {
                 mdbHelper.makeMovieDBRequest('tvEpisodeCredits', { id: id, season_number: season + 1, episode_number: episode }, (err, data) => {
-                    if (err) return done(err, null);
+                    // Sometimes the episode is missing data, just skip
+                    //if (err) return done(err, null);
                     setTimeout(function () {
                         console.log("TV Show Cache: Season: " + (season + 1) + "/" + seasons.length + ", Episode: " + episode);
-                        _.each(data.crew, function (c) {
-                            if (c.job == 'Writer' || c.job == 'Screenplay') {
-                                var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
-                                if (existingCrew) existingCrew.numberOfEpisodes++;
-                                else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id, profile_path: c.profile_path });
-                            }
-                        });
+                        if (data) {
+                            _.each(data.crew, function (c) {
+                                if (c.job == 'Writer' || c.job == 'Screenplay') {
+                                    var existingCrew = _.find(crew, function (p) { return p.id == c.id; });
+                                    if (existingCrew) existingCrew.numberOfEpisodes++;
+                                    else crew.push({ job: c.job, numberOfEpisodes: 1, name: c.name, id: c.id, profile_path: c.profile_path });
+                                }
+                            });
+                        }
                         // Next Episode
                         getTVShowCrewFromMovieDB(id, seasons, crew, season, episode + 1, done);
                     }, 500);

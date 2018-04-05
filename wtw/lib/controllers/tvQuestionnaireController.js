@@ -2,8 +2,11 @@
     var getAll = function (req, res) {
         if (req.user) {
             tvQuestionnaireService.getAll(req.user.id, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
+                else res.json(data);
             });
         }
         else res.send(400);
@@ -13,14 +16,20 @@
         if (req.user && req.params.id) {
             if (req.params.id == 'watchlist') {
                 tvQuestionnaireService.getWatchlist(req.user.id, function (err, data) {
-                    if (!err) res.json(data);
-                    else res.send(500);
+                    if (err) {
+                        res.sendStatus(500);
+                        throw new Error(err);
+                    }
+                    else res.json(data);
                 });
             }
             else {
                 tvQuestionnaireService.get(req.user.id, req.params.id, function (err, data) {
-                    if (!err) res.json(data);
-                    else res.send(500);
+                    if (err) {
+                        res.sendStatus(500);
+                        throw new Error(err);
+                    }
+                    else res.json(data);
                 });
             }
         }
@@ -29,16 +38,22 @@
 
     var getUsersThatAlsoLiked = function (req, res) {
         tvQuestionnaireService.getUsersThatAlsoLiked(req.user.id, function (err, data) {
-            if (!err) res.json(data);
-            else res.send(500);
+            if (err) {
+                res.sendStatus(500);
+                throw new Error(err);
+            }
+            else res.json(data);
         });
     }
 
     var createOrUpdate = function (req, res) {
         if (req.user) {
             tvQuestionnaireService.createOrUpdate(req.body, req.user.id, timelineEventService, function (err, data) {
-                if (!err) res.json(data);
-                else res.send(500);
+                if (err) {
+                    res.sendStatus(500);
+                    throw new Error(err);
+                }
+                else res.json(data);
             });
         }
         else res.send(400);

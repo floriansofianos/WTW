@@ -27,9 +27,7 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var expressSession = require('express-session');
 var bodyParser = require('body-parser');
-var logErrors = require('./lib/middlewares/logErrors');
 var clientErrorHandler = require('./lib/middlewares/clientErrorHandler');
-var winston = require('winston');
 var favicon = require('serve-favicon');
 var path = require('path');
 var movieDbService = require('./lib/helpers/movieDBService')();
@@ -38,19 +36,23 @@ var wtwTasks = require('./lib/tasks/wtwTasks');
 
 var port = process.env.port || 1337;
 
-winston.configure({
-    transports: [
-        new (winston.transports.File)({ filename: 'logFile.log' })
-    ]
-});
-
 //var tasksQueue = new Queue('background tasks');
 //tasksQueue.process(wtwTasks);
 //tasksQueue.add(null, { repeat: { cron: '* 0/5 * * * * *' } });
 //tasksQueue.add(null);
-wtwTasks(null, function () { });
+wtwTasks(null, function (err, res) {
+    if (err) throw new Error(err);
+});
 
 var app = express();
+var Raven = require('raven');
+// Must configure Raven before doing anything else with it
+Raven.config('https://f3d7634da1c7419e9dd0952e3f61168d:c7535f6053c544b4b1cfbddbaaa6bf9a@sentry.io/1093351', {
+    captureUnhandledRejections: true
+}).install();
+// The request handler must be the first middleware on the app
+app.use(Raven.requestHandler());
+
 
 // favicon
 app.use(favicon(path.join(__dirname, 'config', 'favicon.ico')));
@@ -172,12 +174,15 @@ app.get('/error', function (req, res) {
 });
 
 // Error handling
-app.use(logErrors);
+// The error handler must be before any other error middleware
+app.use(Raven.errorHandler());
 app.use(clientErrorHandler);
 
-movieDbService.loadConfiguration(function(err, data) {
+movieDbService.loadConfiguration(function (err, data) {
+    if (err) throw new Error(err);
     if (!err) {
-        movieDbService.loadGenres(function(err, data) {
+        movieDbService.loadGenres(function (err, data) {
+            if (err) throw new Error(err);
             if (!err) {
                 app.listen(port);
             }

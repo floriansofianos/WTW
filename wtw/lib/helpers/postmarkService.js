@@ -15,7 +15,7 @@ module.exports = function () {
             "To": to
         }, function (error, result) {
             if (error) {
-                console.error("Unable to send via postmark: " + error.message);
+                throw new Error("Unable to send via postmark: " + error.message);
                 return;
             }
             console.info("Sent to postmark for delivery")
@@ -36,7 +36,7 @@ module.exports = function () {
             "To": to
         }, function (error, result) {
             if (error) {
-                console.error("Unable to send via postmark: " + error.message);
+                throw new Error("Unable to send via postmark: " + error.message);
                 return;
             }
             console.info("Sent to postmark for delivery")
