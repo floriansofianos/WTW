@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserMoviesWatchlistPageComponent = (function () {
+var UserMoviesWatchlistPageComponent = /** @class */ (function () {
     function UserMoviesWatchlistPageComponent(authService, router, movieQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -47,10 +47,10 @@ var UserMoviesWatchlistPageComponent = (function () {
                 _this.movieIds = _.map(data.json(), 'movieDBId');
                 _this.loadingState = false;
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserMoviesWatchlistPageComponent.prototype.onClickMovie = function (event) {
@@ -66,4 +66,3 @@ var UserMoviesWatchlistPageComponent = (function () {
     return UserMoviesWatchlistPageComponent;
 }());
 exports.UserMoviesWatchlistPageComponent = UserMoviesWatchlistPageComponent;
-//# sourceMappingURL=user-movies-watchlist-page.component.js.map

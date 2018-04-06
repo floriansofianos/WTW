@@ -41,7 +41,7 @@ export class UserProfilePageComponent {
                 this.updatePhoto();
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             
         }
@@ -61,7 +61,7 @@ export class UserProfilePageComponent {
             this.isLoading = false;
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             }
         );
     }
@@ -78,7 +78,7 @@ export class UserProfilePageComponent {
                 }, 10000);
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 }
             );
         }
@@ -89,7 +89,7 @@ export class UserProfilePageComponent {
             this.updatePhoto();
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             }
         );
     }
@@ -100,7 +100,7 @@ export class UserProfilePageComponent {
             this.isLoading = false;
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             }
         );
     }

@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
 var social_service_1 = require("./social.service");
-var SocialPageComponent = (function () {
+var SocialPageComponent = /** @class */ (function () {
     function SocialPageComponent(authService, router, socialService) {
         this.authService = authService;
         this.router = router;
@@ -47,7 +47,7 @@ var SocialPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     SocialPageComponent.prototype.keyDownFunction = function (event) {
@@ -66,4 +66,3 @@ var SocialPageComponent = (function () {
     return SocialPageComponent;
 }());
 exports.SocialPageComponent = SocialPageComponent;
-//# sourceMappingURL=social-page.component.js.map

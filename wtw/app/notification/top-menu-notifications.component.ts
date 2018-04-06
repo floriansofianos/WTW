@@ -37,7 +37,7 @@ export class TopMenuNotificationsComponent {
             this.isLoading = false;
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -50,7 +50,7 @@ export class TopMenuNotificationsComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -63,7 +63,7 @@ export class TopMenuNotificationsComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

@@ -76,7 +76,7 @@ export class UserTVShowsHomePageComponent {
                 this.configuration = response.json();
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         }
         else {
@@ -99,7 +99,7 @@ export class UserTVShowsHomePageComponent {
                     this.searchResultsLoaded = 'loaded'
                 },
                 error => {
-                    this.router.navigate(['/error']);
+                    throw new Error(error);
                 }
             );
         }

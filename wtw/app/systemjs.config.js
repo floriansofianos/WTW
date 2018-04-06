@@ -61,7 +61,8 @@ var System;
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'ngx-modialog': 'npm:ngx-modialog/bundle/ngx-modialog.rollup.umd.min.js',
             'ngx-modialog/plugins/bootstrap': 'npm:ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.rollup.umd.min.js',
-            'libphonenumber-js': 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js'
+            'libphonenumber-js': 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js',
+            'raven-js': 'npm:raven-js'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -84,8 +85,10 @@ var System;
                 main: 'index.js'
             },
             'nouislider': { main: 'distribute/nouislider.js', defaultExtension: 'js' },
-            'ng2-nouislider': { main: 'src/nouislider.js', defaultExtension: 'js' }
+            'ng2-nouislider': { main: 'src/nouislider.js', defaultExtension: 'js' },
+            'raven-js': {
+                main: 'dist/raven.js'
+            }
         }
     });
 })(this);
-//# sourceMappingURL=systemjs.config.js.map

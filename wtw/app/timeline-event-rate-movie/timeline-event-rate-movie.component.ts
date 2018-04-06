@@ -35,7 +35,7 @@ export class TimelineEventRateMovieComponent {
                 this.isLoading = false;
             },
                 err => {
-                    this.router.navigate(['error']);
+                    throw new Error(err);
                 });
         }
         else {
@@ -44,7 +44,7 @@ export class TimelineEventRateMovieComponent {
                 this.isLoading = false;
             },
                 err => {
-                    this.router.navigate(['error']);
+                    throw new Error(err);
                 });
         }
         

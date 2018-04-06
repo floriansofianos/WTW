@@ -40,7 +40,7 @@ export class TimelineComponent {
                 this.isLoading = false;
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         }
         

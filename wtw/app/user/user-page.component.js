@@ -18,7 +18,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
 var _ = require("underscore");
-var UserPageComponent = (function () {
+var UserPageComponent = /** @class */ (function () {
     function UserPageComponent(authService, router, socialService, route, movieDBService, userService, countriesService) {
         this.authService = authService;
         this.router = router;
@@ -63,13 +63,13 @@ var UserPageComponent = (function () {
                             _this.userCountry = _.find(countriesList, function (c) { return c.code == profileUser.country; });
                             _this.updateFriendStatus();
                         }, function (error) {
-                            _this.router.navigate(['error']);
+                            throw new Error(error);
                         });
                     }
                     else
                         _this.router.navigate(['error']);
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
                 if (!_this.isCurrentUser) {
                     _this.socialService.getUserDistance(_this.id).subscribe(function (data) {
@@ -79,12 +79,12 @@ var UserPageComponent = (function () {
                         else
                             _this.router.navigate(['error']);
                     }, function (error) {
-                        _this.router.navigate(['error']);
+                        throw new Error(error);
                     });
                 }
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.updatePhoto = function () {
@@ -98,7 +98,7 @@ var UserPageComponent = (function () {
                 _this.photoData = null;
             _this.isLoading = false;
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.updateDistance = function (distance) {
@@ -131,14 +131,14 @@ var UserPageComponent = (function () {
                         else
                             _this.router.navigate(['error']);
                     }, function (error) {
-                        _this.router.navigate(['error']);
+                        throw new Error(error);
                     });
                 }
             }
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.requestFriend = function () {
@@ -151,7 +151,7 @@ var UserPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.follow = function () {
@@ -164,7 +164,7 @@ var UserPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.unfollow = function () {
@@ -177,7 +177,7 @@ var UserPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.unfriend = function () {
@@ -190,7 +190,7 @@ var UserPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.acceptFriendship = function () {
@@ -203,7 +203,7 @@ var UserPageComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserPageComponent.prototype.ngOnDestroy = function () {
@@ -225,4 +225,3 @@ var UserPageComponent = (function () {
     return UserPageComponent;
 }());
 exports.UserPageComponent = UserPageComponent;
-//# sourceMappingURL=user-page.component.js.map

@@ -99,7 +99,7 @@ export class MoviePageComponent {
             this.back();
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

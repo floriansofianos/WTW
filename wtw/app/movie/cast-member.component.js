@@ -15,7 +15,7 @@ var movie_questionnaire_service_1 = require("../movie/movie-questionnaire.servic
 var router_1 = require("@angular/router");
 var core_2 = require("@ngx-translate/core");
 var _ = require("underscore");
-var CastMemberComponent = (function () {
+var CastMemberComponent = /** @class */ (function () {
     function CastMemberComponent(modal, movieQuestionnaireService, router, translate) {
         this.modal = modal;
         this.movieQuestionnaireService = movieQuestionnaireService;
@@ -57,7 +57,7 @@ var CastMemberComponent = (function () {
                     .open();
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     CastMemberComponent.prototype.getPosterHtml = function (movie) {
@@ -129,4 +129,3 @@ var CastMemberComponent = (function () {
     return CastMemberComponent;
 }());
 exports.CastMemberComponent = CastMemberComponent;
-//# sourceMappingURL=cast-member.component.js.map

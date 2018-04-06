@@ -14,7 +14,7 @@ var auth_service_1 = require("../auth/auth.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var UserProfilePageComponent = (function () {
+var UserProfilePageComponent = /** @class */ (function () {
     function UserProfilePageComponent(authService, router, userService, countriesService) {
         this.authService = authService;
         this.router = router;
@@ -41,7 +41,7 @@ var UserProfilePageComponent = (function () {
                 };
                 _this.updatePhoto();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
         else {
@@ -60,7 +60,7 @@ var UserProfilePageComponent = (function () {
                 _this.photoData = null;
             _this.isLoading = false;
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserProfilePageComponent.prototype.upload = function () {
@@ -75,7 +75,7 @@ var UserProfilePageComponent = (function () {
                     _this.updatePhoto();
                 }, 10000);
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
     };
@@ -84,7 +84,7 @@ var UserProfilePageComponent = (function () {
         this.userService.deleteAvatar().subscribe(function (res) {
             _this.updatePhoto();
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserProfilePageComponent.prototype.save = function () {
@@ -93,7 +93,7 @@ var UserProfilePageComponent = (function () {
         this.authService.setUserProperties(this.profileForm).subscribe(function (res) {
             _this.isLoading = false;
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     __decorate([
@@ -110,4 +110,3 @@ var UserProfilePageComponent = (function () {
     return UserProfilePageComponent;
 }());
 exports.UserProfilePageComponent = UserProfilePageComponent;
-//# sourceMappingURL=user-profile-page.component.js.map

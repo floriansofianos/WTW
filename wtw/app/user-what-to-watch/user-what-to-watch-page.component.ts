@@ -65,7 +65,7 @@ export class UserWhatToWatchPageComponent {
                 this.configuration = response.json();
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         }
         else {
@@ -81,12 +81,12 @@ export class UserWhatToWatchPageComponent {
                     this.friends = response.json().users;
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             }
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
         this.movieDBService.getAllGenres().subscribe(response => {
             this.genres = response.json();
@@ -99,7 +99,7 @@ export class UserWhatToWatchPageComponent {
                     else this.noReco = true;
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
                 this.tvRecommandation.getAll().subscribe(response => {
                     if (response.json().length > 0) {
@@ -108,15 +108,15 @@ export class UserWhatToWatchPageComponent {
                     else this.noTVReco = true;
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
         
     }
@@ -144,7 +144,7 @@ export class UserWhatToWatchPageComponent {
                 }
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         }
         else {
@@ -165,7 +165,7 @@ export class UserWhatToWatchPageComponent {
                 }
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         }
         else {

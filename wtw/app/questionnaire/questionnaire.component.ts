@@ -118,11 +118,11 @@ export class QuestionnaireComponent {
                 this.questionAnswered++;
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -139,12 +139,12 @@ export class QuestionnaireComponent {
                 this.getNextAgeStep();
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 }); 
             else this.getNextAgeStep();
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -155,7 +155,7 @@ export class QuestionnaireComponent {
             this.showNextMovie();
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -195,7 +195,7 @@ export class QuestionnaireComponent {
                     this.showMovieFromAPIResponse(response);
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             }
             else {
@@ -212,7 +212,7 @@ export class QuestionnaireComponent {
             else this.showMovieFromAPIResponse(response);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -233,7 +233,7 @@ export class QuestionnaireComponent {
             this.showNextMovie();
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -263,7 +263,7 @@ export class QuestionnaireComponent {
                         this.showSpinner = false;
                     },
                         error => {
-                            this.router.navigate(['error']);
+                            throw new Error(error);
                         });
                 }
                 else {
@@ -275,7 +275,7 @@ export class QuestionnaireComponent {
             }
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
 
     }

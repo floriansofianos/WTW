@@ -105,7 +105,7 @@ export class TVShowPageComponent {
             this.back();
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

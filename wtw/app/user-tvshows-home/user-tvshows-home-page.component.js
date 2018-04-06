@@ -16,7 +16,7 @@ var movieDB_service_1 = require("../movieDB/movieDB.service");
 var core_2 = require("@ngx-translate/core");
 var animations_1 = require("@angular/animations");
 var tv_questionnaire_service_1 = require("../tv/tv-questionnaire.service");
-var UserTVShowsHomePageComponent = (function () {
+var UserTVShowsHomePageComponent = /** @class */ (function () {
     function UserTVShowsHomePageComponent(authService, router, movieDBService, translate, tvQuestionnaireService) {
         this.authService = authService;
         this.router = router;
@@ -46,7 +46,7 @@ var UserTVShowsHomePageComponent = (function () {
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
         else {
@@ -66,7 +66,7 @@ var UserTVShowsHomePageComponent = (function () {
                 _this.loadingSearch = false;
                 _this.searchResultsLoaded = 'loaded';
             }, function (error) {
-                _this.router.navigate(['/error']);
+                throw new Error(error);
             });
         }
     };
@@ -118,4 +118,3 @@ var UserTVShowsHomePageComponent = (function () {
     return UserTVShowsHomePageComponent;
 }());
 exports.UserTVShowsHomePageComponent = UserTVShowsHomePageComponent;
-//# sourceMappingURL=user-tvshows-home-page.component.js.map

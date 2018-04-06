@@ -38,7 +38,7 @@ export class UserHomePageComponent {
             this.notEnoughProfiles = !(response.json().enoughProfiles);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
 
         this.movieDBService.getMovieDBConfiguration().subscribe(response => {
@@ -49,15 +49,15 @@ export class UserHomePageComponent {
                     this.timelineEvents = response.json();
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 });
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
         
     }

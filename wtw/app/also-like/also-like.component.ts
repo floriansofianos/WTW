@@ -57,13 +57,13 @@ export class AlsoLikeComponent {
                                 else this.router.navigate(['error']);
                             },
                                 error => {
-                                    this.router.navigate(['error']);
+                                    throw new Error(error);
                                 });
                         }
                     }
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             }
             for (var i = 1; i <= this.numberOfElements; i++) {
@@ -102,12 +102,12 @@ export class AlsoLikeComponent {
                     }
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     });
             }
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 }

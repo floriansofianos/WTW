@@ -81,7 +81,7 @@ export class TVQuestionnaireComponent {
             this.showNextTVShow();
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -128,7 +128,7 @@ export class TVQuestionnaireComponent {
             else this.showTVShowFromAPIResponse(response);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -149,7 +149,7 @@ export class TVQuestionnaireComponent {
             this.showNextTVShow();
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
     }
 
@@ -181,7 +181,7 @@ export class TVQuestionnaireComponent {
             }
         },
         error => {
-            this.router.navigate(['error']);
+            throw new Error(error);
         });
 
     }

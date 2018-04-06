@@ -15,7 +15,7 @@ var core_2 = require("@ngx-translate/core");
 var social_service_1 = require("../social/social.service");
 var notification_service_1 = require("./notification.service");
 var _ = require("underscore");
-var TopMenuNotificationsComponent = (function () {
+var TopMenuNotificationsComponent = /** @class */ (function () {
     function TopMenuNotificationsComponent(router, translate, socialService, notificationService) {
         this.router = router;
         this.translate = translate;
@@ -40,7 +40,7 @@ var TopMenuNotificationsComponent = (function () {
             });
             _this.isLoading = false;
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     TopMenuNotificationsComponent.prototype.acceptFriend = function (userId, notificationId) {
@@ -53,7 +53,7 @@ var TopMenuNotificationsComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     TopMenuNotificationsComponent.prototype.refuseFriend = function (userId, notificationId) {
@@ -66,7 +66,7 @@ var TopMenuNotificationsComponent = (function () {
             else
                 _this.router.navigate(['error']);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     TopMenuNotificationsComponent.prototype.getMonth = function (createdAt) {
@@ -95,4 +95,3 @@ var TopMenuNotificationsComponent = (function () {
     return TopMenuNotificationsComponent;
 }());
 exports.TopMenuNotificationsComponent = TopMenuNotificationsComponent;
-//# sourceMappingURL=top-menu-notifications.component.js.map

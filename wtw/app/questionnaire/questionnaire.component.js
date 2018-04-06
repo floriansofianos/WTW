@@ -19,7 +19,7 @@ var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var QuestionnaireComponent = (function () {
+var QuestionnaireComponent = /** @class */ (function () {
     function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
@@ -84,10 +84,10 @@ var QuestionnaireComponent = (function () {
                 _this.showSpinner = false;
                 _this.questionAnswered++;
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     QuestionnaireComponent.prototype.agePrevious = function () {
@@ -104,12 +104,12 @@ var QuestionnaireComponent = (function () {
                     _this.authService.setUserProperty('country', _this.selectedCountry).subscribe(function (response) {
                         _this.getNextAgeStep();
                     }, function (error) {
-                        _this.router.navigate(['error']);
+                        throw new Error(error);
                     });
                 else
                     _this.getNextAgeStep();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
     };
     QuestionnaireComponent.prototype.getNextAgeStep = function () {
@@ -119,7 +119,7 @@ var QuestionnaireComponent = (function () {
             _this.questionAnswered++;
             _this.showNextMovie();
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     QuestionnaireComponent.prototype.movieQuestionnaireChange = function (data) {
@@ -159,7 +159,7 @@ var QuestionnaireComponent = (function () {
                 this.firstQuestionnaireService.getFirstQuestionnaireMovie(this.translate.currentLang).subscribe(function (response) {
                     _this.showMovieFromAPIResponse(response);
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }
             else {
@@ -176,7 +176,7 @@ var QuestionnaireComponent = (function () {
             else
                 _this.showMovieFromAPIResponse(response);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     QuestionnaireComponent.prototype.showMovieFromAPIResponse = function (response) {
@@ -197,7 +197,7 @@ var QuestionnaireComponent = (function () {
             this.movieQuestionnaireService.create(this.movieQuestionnaire).subscribe(function (response) {
                 _this.showNextMovie();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
     };
     QuestionnaireComponent.prototype.storePreviousMovie = function (isFirstSave) {
@@ -227,7 +227,7 @@ var QuestionnaireComponent = (function () {
                         _this.authService.setUserProperty('firstQuestionnaireCompleted', true).subscribe(function (response) {
                             _this.showSpinner = false;
                         }, function (error) {
-                            _this.router.navigate(['error']);
+                            throw new Error(error);
                         });
                     }
                     else {
@@ -237,7 +237,7 @@ var QuestionnaireComponent = (function () {
                     _this.showNextMovie();
                 }
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
     };
     QuestionnaireComponent.prototype.setStateActive = function (i) {
@@ -284,4 +284,3 @@ var QuestionnaireComponent = (function () {
     return QuestionnaireComponent;
 }());
 exports.QuestionnaireComponent = QuestionnaireComponent;
-//# sourceMappingURL=questionnaire.component.js.map

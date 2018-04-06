@@ -14,7 +14,7 @@ var router_1 = require("@angular/router");
 var social_service_1 = require("../social/social.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var AlsoLikeComponent = (function () {
+var AlsoLikeComponent = /** @class */ (function () {
     function AlsoLikeComponent(router, socialService, movieDBService) {
         this.router = router;
         this.socialService = socialService;
@@ -61,12 +61,12 @@ var AlsoLikeComponent = (function () {
                                 else
                                     _this.router.navigate(['error']);
                             }, function (error) {
-                                _this.router.navigate(['error']);
+                                throw new Error(error);
                             });
                         }
                     }
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }
             for (var i = 1; i <= _this.numberOfElements; i++) {
@@ -104,11 +104,11 @@ var AlsoLikeComponent = (function () {
                         }
                     }
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     __decorate([
@@ -126,4 +126,3 @@ var AlsoLikeComponent = (function () {
     return AlsoLikeComponent;
 }());
 exports.AlsoLikeComponent = AlsoLikeComponent;
-//# sourceMappingURL=also-like.component.js.map

@@ -49,12 +49,12 @@ export class UserTVWatchlistPageComponent {
                 this.loadingState = false;
             },
                 error => {
-                    this.router.navigate(['error']);
+                    throw new Error(error);
                 }
             );
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

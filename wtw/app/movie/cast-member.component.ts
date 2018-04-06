@@ -63,7 +63,7 @@ export class CastMemberComponent {
            
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

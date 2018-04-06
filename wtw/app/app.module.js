@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Raven = require("raven-js");
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -92,12 +93,26 @@ var social_service_1 = require("./social/social.service");
 var user_service_1 = require("./user/user.service");
 var notification_service_1 = require("./notification/notification.service");
 var timeline_service_1 = require("./timeline/timeline.service");
+Raven
+    .config('https://5832421d5761485a8f7694f3a36f67d9@sentry.io/1125392')
+    .install();
+var RavenErrorHandler = /** @class */ (function () {
+    function RavenErrorHandler(injector) {
+        this.injector = injector;
+    }
+    RavenErrorHandler.prototype.handleError = function (err) {
+        Raven.captureException(err.originalError || err);
+        this.injector.get(router_1.Router).navigate(['error']);
+    };
+    return RavenErrorHandler;
+}());
+exports.RavenErrorHandler = RavenErrorHandler;
 // AoT requires an exported function for factories
 function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -194,6 +209,7 @@ var AppModule = (function () {
                 notification_service_1.NotificationService,
                 timeline_service_1.TimelineService,
                 user_service_1.UserService,
+                { provide: core_3.ErrorHandler, useClass: RavenErrorHandler, deps: [core_3.Injector] },
                 can_activate_auth_1.CanActivateAuthGuard,
                 {
                     provide: core_3.APP_INITIALIZER,
@@ -207,4 +223,3 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map

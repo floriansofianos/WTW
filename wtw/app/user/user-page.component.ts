@@ -73,13 +73,13 @@ export class UserPageComponent {
                             this.updateFriendStatus();
                         },
                             error => {
-                                this.router.navigate(['error']);
+                                throw new Error(error);
                             });
                     }
                     else this.router.navigate(['error']);
                 },
                     error => {
-                        this.router.navigate(['error']);
+                        throw new Error(error);
                     }
                 );
                 if (!this.isCurrentUser) {
@@ -90,14 +90,14 @@ export class UserPageComponent {
                         else this.router.navigate(['error']);
                     },
                         error => {
-                            this.router.navigate(['error']);
+                            throw new Error(error);
                         }
                     );
                 }
             });
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
 
     }
@@ -112,7 +112,7 @@ export class UserPageComponent {
             this.isLoading = false;
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             }
         );
     }
@@ -146,14 +146,14 @@ export class UserPageComponent {
                         else this.router.navigate(['error']);
                     },
                         error => {
-                            this.router.navigate(['error']);
+                            throw new Error(error);
                         })
                 }
             }
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -166,7 +166,7 @@ export class UserPageComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -179,7 +179,7 @@ export class UserPageComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -192,7 +192,7 @@ export class UserPageComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -205,7 +205,7 @@ export class UserPageComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 
@@ -218,7 +218,7 @@ export class UserPageComponent {
             else this.router.navigate(['error']);
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 

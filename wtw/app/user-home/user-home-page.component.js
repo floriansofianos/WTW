@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var timeline_service_1 = require("../timeline/timeline.service");
 var user_service_1 = require("../user/user.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
-var UserHomePageComponent = (function () {
+var UserHomePageComponent = /** @class */ (function () {
     function UserHomePageComponent(authService, router, timelineService, userService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -40,7 +40,7 @@ var UserHomePageComponent = (function () {
         this.userService.hasEnoughProfiles().subscribe(function (response) {
             _this.notEnoughProfiles = !(response.json().enoughProfiles);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
         this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
             _this.config = response.json();
@@ -49,13 +49,13 @@ var UserHomePageComponent = (function () {
                 _this.timelineService.get(0).subscribe(function (response) {
                     _this.timelineEvents = response.json();
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserHomePageComponent = __decorate([
@@ -68,4 +68,3 @@ var UserHomePageComponent = (function () {
     return UserHomePageComponent;
 }());
 exports.UserHomePageComponent = UserHomePageComponent;
-//# sourceMappingURL=user-home-page.component.js.map

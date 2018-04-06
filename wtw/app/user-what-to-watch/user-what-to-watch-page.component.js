@@ -20,7 +20,7 @@ var core_2 = require("@ngx-translate/core");
 var languages_service_1 = require("../languages/languages.service");
 var social_service_1 = require("../social/social.service");
 var _ = require("underscore");
-var UserWhatToWatchPageComponent = (function () {
+var UserWhatToWatchPageComponent = /** @class */ (function () {
     function UserWhatToWatchPageComponent(authService, router, movieDBService, movieRecommandation, tvRecommandation, movieQuestionnaireService, translate, languagesService, socialService) {
         this.authService = authService;
         this.router = router;
@@ -52,7 +52,7 @@ var UserWhatToWatchPageComponent = (function () {
             this.movieDBService.getMovieDBConfiguration().subscribe(function (response) {
                 _this.configuration = response.json();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
         else {
@@ -67,11 +67,11 @@ var UserWhatToWatchPageComponent = (function () {
                 _this.socialService.getUserProfiles(_.map(allFriends, function (f) { return f.friendUserId; })).subscribe(function (response) {
                     _this.friends = response.json().users;
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
         this.movieDBService.getAllGenres().subscribe(function (response) {
             _this.genres = response.json();
@@ -84,7 +84,7 @@ var UserWhatToWatchPageComponent = (function () {
                     else
                         _this.noReco = true;
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
                 _this.tvRecommandation.getAll().subscribe(function (response) {
                     if (response.json().length > 0) {
@@ -93,13 +93,13 @@ var UserWhatToWatchPageComponent = (function () {
                     else
                         _this.noTVReco = true;
                 }, function (error) {
-                    _this.router.navigate(['error']);
+                    throw new Error(error);
                 });
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     UserWhatToWatchPageComponent.prototype.onClickMovie = function (event) {
@@ -124,7 +124,7 @@ var UserWhatToWatchPageComponent = (function () {
                     _this.noResults = true;
                 }
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
         else {
@@ -145,7 +145,7 @@ var UserWhatToWatchPageComponent = (function () {
                     _this.noTVResults = true;
                 }
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
         }
         else {
@@ -162,4 +162,3 @@ var UserWhatToWatchPageComponent = (function () {
     return UserWhatToWatchPageComponent;
 }());
 exports.UserWhatToWatchPageComponent = UserWhatToWatchPageComponent;
-//# sourceMappingURL=user-what-to-watch-page.component.js.map

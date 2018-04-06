@@ -27,7 +27,7 @@ export class MovieWallComponent {
             this.dataLoaded = true;
         },
         err => {
-            this.router.navigate(['error']);
+            throw new Error(err);
         });
     }
 

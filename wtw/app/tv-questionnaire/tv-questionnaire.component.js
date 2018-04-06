@@ -18,7 +18,7 @@ var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var TVQuestionnaireComponent = (function () {
+var TVQuestionnaireComponent = /** @class */ (function () {
     function TVQuestionnaireComponent(authService, translate, router, tvQuestionnaireService, movieDBService, userTVQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
@@ -53,7 +53,7 @@ var TVQuestionnaireComponent = (function () {
             _this.questionAnswered++;
             _this.showNextTVShow();
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     TVQuestionnaireComponent.prototype.tvQuestionnaireChange = function (data) {
@@ -100,7 +100,7 @@ var TVQuestionnaireComponent = (function () {
             else
                 _this.showTVShowFromAPIResponse(response);
         }, function (error) {
-            _this.router.navigate(['error']);
+            throw new Error(error);
         });
     };
     TVQuestionnaireComponent.prototype.showTVShowFromAPIResponse = function (response) {
@@ -121,7 +121,7 @@ var TVQuestionnaireComponent = (function () {
             this.tvQuestionnaireService.create(this.tvQuestionnaire).subscribe(function (response) {
                 _this.showNextTVShow();
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
     };
     TVQuestionnaireComponent.prototype.storePreviousTVShow = function (isFirstSave) {
@@ -152,7 +152,7 @@ var TVQuestionnaireComponent = (function () {
                     _this.showNextTVShow();
                 }
             }, function (error) {
-                _this.router.navigate(['error']);
+                throw new Error(error);
             });
     };
     TVQuestionnaireComponent.prototype.setStateActive = function (i) {
@@ -195,4 +195,3 @@ var TVQuestionnaireComponent = (function () {
     return TVQuestionnaireComponent;
 }());
 exports.TVQuestionnaireComponent = TVQuestionnaireComponent;
-//# sourceMappingURL=tv-questionnaire.component.js.map

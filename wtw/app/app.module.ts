@@ -1,10 +1,11 @@
-﻿import { HttpModule, Http } from "@angular/http";
+﻿import Raven = require('raven-js');
+import { HttpModule, Http } from "@angular/http";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule, MatInputModule, MatCheckboxModule, MatSelectModule, MatSliderModule, MatTooltipModule } from '@angular/material'
@@ -12,7 +13,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { APP_INITIALIZER } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, Injector } from '@angular/core';
 
 import { appRoutes } from './routes';
 
@@ -88,6 +89,20 @@ import { SocialService } from './social/social.service';
 import { UserService } from './user/user.service';
 import { NotificationService } from './notification/notification.service';
 import { TimelineService } from './timeline/timeline.service';
+
+Raven
+    .config('https://5832421d5761485a8f7694f3a36f67d9@sentry.io/1125392')
+    .install();
+
+export class RavenErrorHandler implements ErrorHandler {
+
+    constructor(private injector: Injector) { }
+
+    handleError(err: any): void {
+        Raven.captureException(err.originalError || err);
+        this.injector.get(Router).navigate(['error']);
+    }
+}
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -187,6 +202,7 @@ export function createTranslateLoader(http: Http) {
         NotificationService,
         TimelineService,
         UserService,
+        { provide: ErrorHandler, useClass: RavenErrorHandler, deps: [Injector] },
         CanActivateAuthGuard,
         {
             provide: APP_INITIALIZER,

@@ -26,7 +26,7 @@ export class TopMenuComponent {
             this.notificationCount -= response.json()[0];
         },
             error => {
-                this.router.navigate(['error']);
+                throw new Error(error);
             });
     }
 }
