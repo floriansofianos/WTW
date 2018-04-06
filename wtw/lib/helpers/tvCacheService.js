@@ -59,7 +59,8 @@ var tvCacheService = function() {
         models.TVShowInfoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvShowInfo => {
             models.TVShowCreditsCache.findOne({ where: { movieDBId: id } }).then(tvShowCredits => {
                 models.TVVideoCache.findOne({ where: { movieDBId: id, lang: lang } }).then(tvVideo => {
-                    done(null, { tvShowInfo: tvShowInfo.data, tvShowCredits: tvShowCredits.data, trailers: tvVideo.data });
+                    var trailersData = tvVideo ? tvVideo.data : null;
+                    done(null, { tvShowInfo: tvShowInfo.data, tvShowCredits: tvShowCredits.data, trailers: trailersData });
                 }).catch(function (err) {
                     done(err);
                 });
