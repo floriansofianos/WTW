@@ -13,7 +13,7 @@
             </div>
             <div *ngFor="let category of categories" class="category-container">
                 <div class="questionnaire-separator"></div>
-                <div class="category-title">
+                <div class="category-title" *ngIf="category.values && category.values.length > 0">
                     <span *ngIf="category.type == 'text'">{{ category.name | translate }}</span>
                     <span *ngIf="category.type == 'star'"><star-rating-comp [rating]="category.name" [readOnly]="true" [step]="1" [starType]="'icon'" [numOfStars]="5" [size]="'medium'"></star-rating-comp></span>
                 </div>
