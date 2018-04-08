@@ -18,16 +18,83 @@ module.exports = function () {
     // 1: Follow
     // 2: Friend
     var create = function (userId, type, variables, done) {
-        models.TimelineEvent.create({
-            userId: userId,
-            type: type,
-            variables: variables,
-            isShared: true
-        }).then(event => {
-            done(null, event);
-        }).catch(function (err) {
-            done(err);
-        });
+        if (type == 0 && variables.isTV) {
+            // First check if we do not have the same event already
+            models.TimelineEvent.findAll({
+                where: {
+                    userId: userId, type: type, variables: {
+                        questionnaire: {
+                            movieDBId: variables.questionnaire.movieDBId, rating: variables.questionnaire.rating, isSeen: variables.questionnaire.isSeen,
+                            wantToSee: variables.questionnaire.wantToSee
+                        },
+                        isTV: variables.isTV
+                    }
+                }
+            }).then(results => {
+                if (results.length < 1) {
+                    models.TimelineEvent.create({
+                        userId: userId,
+                        type: type,
+                        variables: variables,
+                        isShared: true
+                    }).then(event => {
+                        done(null, event);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+                else {
+                    done(null, results[0]);
+                }
+            })
+                .catch(function (err) {
+                    done(err);
+                });
+        }
+        else if (type == 0) {
+            // First check if we do not have the same event already
+            models.TimelineEvent.findAll({
+                where: {
+                    userId: userId, type: type, variables: {
+                        questionnaire: {
+                            movieDBId: variables.questionnaire.movieDBId, rating: variables.questionnaire.rating, isSeen: variables.questionnaire.isSeen,
+                            wantToSee: variables.questionnaire.wantToSee
+                        }
+                    }
+                }
+            }).then(results => {
+                if (results.length < 1) {
+                    models.TimelineEvent.create({
+                        userId: userId,
+                        type: type,
+                        variables: variables,
+                        isShared: true
+                    }).then(event => {
+                        done(null, event);
+                    }).catch(function (err) {
+                        done(err);
+                    });
+                }
+                else {
+                    done(null, results[0]);
+                }
+            })
+                .catch(function (err) {
+                    done(err);
+                });
+        }
+        else {
+            models.TimelineEvent.create({
+                userId: userId,
+                type: type,
+                variables: variables,
+                isShared: true
+            }).then(event => {
+                done(null, event);
+            }).catch(function (err) {
+                done(err);
+            });
+        }
     }
 
     return {
