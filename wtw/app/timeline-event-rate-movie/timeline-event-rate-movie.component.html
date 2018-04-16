@@ -1,4 +1,6 @@
 <div class="card-container" *ngIf="!isLoading">
+    <img class="background-img" src="{{ config.images.base_url }}{{ config.images.backdrop_sizes[3] }}{{ movie.backdrop_path }}" *ngIf="!isTV && movie.backdrop_path" />
+    <img class="background-img" src="{{ config.images.base_url }}{{ config.images.backdrop_sizes[3] }}{{ movie.tvShowInfo.backdrop_path }}" *ngIf="isTV && movie.tvShowInfo.backdrop_path" />
     <div class="movie-poster-container" *ngIf="!isTV">
         <img width="150" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ movie.poster_path }}" *ngIf="movie.poster_path" />
         <div *ngIf="!movie.poster_path" class="movie-poster-placeholder" [style.width.px]="150" [style.height.px]="225">
