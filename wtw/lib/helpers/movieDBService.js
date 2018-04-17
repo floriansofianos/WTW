@@ -1035,6 +1035,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        query['with_runtime.gte'] = 70;
         movieDBRequestHelper.makeRequest('discoverMovie', library.randomInt(1, 20), query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -1096,6 +1097,7 @@ module.exports = function () {
             query['certification_country'] = 'US';
             query['certification.lte'] = certification;
         }
+        query['with_runtime.gte'] = 70;
         movieDBRequestHelper.makeRequest('discoverMovie', library.randomInt(1, 5), query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -1123,6 +1125,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -1150,6 +1153,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -1177,6 +1181,7 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
             else {
