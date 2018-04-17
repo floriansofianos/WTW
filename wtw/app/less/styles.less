@@ -1239,7 +1239,6 @@ wtw-button {
 
         .timeline-content {
             float: right;
-            padding: 40px 30px 10px 30px;
 
             .date {
                 right: auto;
@@ -1271,10 +1270,11 @@ wtw-button {
 .timeline-content {
     position: relative;
     width: 45%;
-    padding: 10px 30px;
     border-radius: 4px;
-    background: #efefef;
-    box-shadow: 0 20px 25px -15px rgba(0, 0, 0, .3);
+    background: #26292e;
+    min-height: 150px;
+    box-shadow: 0 20px 25px -15px rgba(0, 0, 0, .5);
+    overflow: hidden;
 
     h2 {
         color: #000;
@@ -1294,6 +1294,7 @@ wtw-button {
 
     p {
         color: #675f5f;
+        margin-bottom: 0px;
     }
 }
 
@@ -1348,6 +1349,7 @@ blockquote {
     top: 0;
     right: 0;
     color: #fff;
+    z-index: 999;
 }
 
 .timeline-container {
@@ -1356,6 +1358,7 @@ blockquote {
 
 .movie-title-container {
     vertical-align: top;
+    background-color: #26292e;
     font-size: 20px;
     font-weight: 600;
     display: inline-block;
@@ -1442,4 +1445,42 @@ blockquote {
     .movie-poster-container {
         box-shadow: 2px 2px 1px #0e0e0e;
     }
+}
+
+.card-content {
+    position: relative;
+    top: 55px;
+    padding-bottom: 65px;
+    padding-left: 10px;
+    z-index: 99;
+    min-height: 100px;
+}
+
+.rate-timeline-container {
+    color: #fff;
+    font-weight: bold;
+}
+
+timeline-event-friend {
+    .card-container {
+        padding-top: 55px;
+        padding-left: 15px;
+        padding-bottom: 10px;
+        color: white;
+    }
+}
+
+timeline-event-follow {
+    .card-container {
+        padding-top: 55px;
+        padding-left: 15px;
+        padding-bottom: 10px;
+        color: white;
+    }
+}
+
+.rate-movie-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
