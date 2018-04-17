@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var router_1 = require("@angular/router");
 var _ = require("underscore");
-var TimelineEventRateMovieComponent = (function () {
+var TimelineEventRateMovieComponent = /** @class */ (function () {
     function TimelineEventRateMovieComponent(movieDBService, router) {
         this.movieDBService = movieDBService;
         this.router = router;
@@ -81,4 +81,3 @@ var TimelineEventRateMovieComponent = (function () {
     return TimelineEventRateMovieComponent;
 }());
 exports.TimelineEventRateMovieComponent = TimelineEventRateMovieComponent;
-//# sourceMappingURL=timeline-event-rate-movie.component.js.map

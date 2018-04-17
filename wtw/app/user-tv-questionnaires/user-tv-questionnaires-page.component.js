@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var tv_questionnaire_service_1 = require("../tv/tv-questionnaire.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var _ = require("underscore");
-var UserTVQuestionnairesPageComponent = (function () {
+var UserTVQuestionnairesPageComponent = /** @class */ (function () {
     function UserTVQuestionnairesPageComponent(authService, router, tvQuestionnaireService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -83,4 +83,3 @@ var UserTVQuestionnairesPageComponent = (function () {
     return UserTVQuestionnairesPageComponent;
 }());
 exports.UserTVQuestionnairesPageComponent = UserTVQuestionnairesPageComponent;
-//# sourceMappingURL=user-tv-questionnaires-page.component.js.map

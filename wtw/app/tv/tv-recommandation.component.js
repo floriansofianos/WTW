@@ -15,7 +15,7 @@ var core_2 = require("@ngx-translate/core");
 var router_1 = require("@angular/router");
 var tv_recommandation_service_1 = require("./tv-recommandation.service");
 var _ = require("underscore");
-var TVRecommandationComponent = (function () {
+var TVRecommandationComponent = /** @class */ (function () {
     function TVRecommandationComponent(domSanitizer, translate, tvRecommandationService, router) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -155,4 +155,3 @@ var TVRecommandationComponent = (function () {
     return TVRecommandationComponent;
 }());
 exports.TVRecommandationComponent = TVRecommandationComponent;
-//# sourceMappingURL=tv-recommandation.component.js.map

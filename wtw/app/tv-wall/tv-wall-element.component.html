@@ -1,6 +1,6 @@
 <div class="movie-container" (mouseup)="onMouseUp()" (mouseout)="onMouseOut()" (mouseover)="onMouseOver()">
     <img width="{{width}}" src="{{ config.images.base_url }}{{ config.images.poster_sizes[3] }}{{ tvshow.poster_path }}" [@posterState]="state" *ngIf="tvshow.poster_path" />
-    <div *ngIf="!tvshow.poster_path" class="movie-poster-placeholder" [style.width.px]="width" [style.height.px]="height">
+    <div *ngIf="!tvshow.poster_path" class="movie-poster-placeholder" [style.width.px]="width" [style.height.px]="height" [@posterState]="state">
         <i [style.font-size.px]="fontSize" [style.margin-top.px]="marginTop" [style.margin-left.px]="10" class="fa fa-film"></i>
     </div>
     <div class="movie-title" [style.width.px]="width" [@titleState]="state">{{ tvshow.name }}</div>

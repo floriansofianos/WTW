@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var _ = require("underscore");
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
     }
@@ -96,4 +96,3 @@ var AuthService = (function () {
     return AuthService;
 }());
 exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map

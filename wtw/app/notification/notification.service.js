@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
-var NotificationService = (function () {
+var NotificationService = /** @class */ (function () {
     function NotificationService(http) {
         this.http = http;
     }
@@ -34,4 +34,3 @@ var NotificationService = (function () {
     return NotificationService;
 }());
 exports.NotificationService = NotificationService;
-//# sourceMappingURL=notification.service.js.map

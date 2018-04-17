@@ -15,7 +15,7 @@ var core_2 = require("@ngx-translate/core");
 var social_service_1 = require("../social/social.service");
 var notification_service_1 = require("./notification.service");
 var _ = require("underscore");
-var TopMenuNotificationsComponent = (function () {
+var TopMenuNotificationsComponent = /** @class */ (function () {
     function TopMenuNotificationsComponent(router, translate, socialService, notificationService) {
         this.router = router;
         this.translate = translate;
@@ -95,4 +95,3 @@ var TopMenuNotificationsComponent = (function () {
     return TopMenuNotificationsComponent;
 }());
 exports.TopMenuNotificationsComponent = TopMenuNotificationsComponent;
-//# sourceMappingURL=top-menu-notifications.component.js.map
