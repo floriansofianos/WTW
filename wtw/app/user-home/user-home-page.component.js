@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var timeline_service_1 = require("../timeline/timeline.service");
 var user_service_1 = require("../user/user.service");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
-var UserHomePageComponent = /** @class */ (function () {
+var UserHomePageComponent = (function () {
     function UserHomePageComponent(authService, router, timelineService, userService, movieDBService) {
         this.authService = authService;
         this.router = router;
@@ -68,3 +68,4 @@ var UserHomePageComponent = /** @class */ (function () {
     return UserHomePageComponent;
 }());
 exports.UserHomePageComponent = UserHomePageComponent;
+//# sourceMappingURL=user-home-page.component.js.map

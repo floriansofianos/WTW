@@ -6,7 +6,7 @@
                     res.sendStatus(500);
                     throw new Error(err);
                 }
-                else res.json(result);
+                else res.json(result.results);
             });
         }
         else res.send(400);

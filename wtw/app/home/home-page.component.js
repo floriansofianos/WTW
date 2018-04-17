@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var router_1 = require("@angular/router");
-var HomePageComponent = /** @class */ (function () {
+var HomePageComponent = (function () {
     function HomePageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -34,3 +34,4 @@ var HomePageComponent = /** @class */ (function () {
     return HomePageComponent;
 }());
 exports.HomePageComponent = HomePageComponent;
+//# sourceMappingURL=home-page.component.js.map
