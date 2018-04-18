@@ -349,7 +349,7 @@ var generateGenreQuestionnaire = function (genreIds, questionnaires, userQuestio
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
@@ -416,7 +416,7 @@ var handleData = function (allMovies, questionnaires, userQuestionnaires, userId
 var handleTVData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i].data;
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && new Date(m.first_air_date) < new Date()) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && new Date(m.first_air_date) < new Date() && m.vote_count >= getVoteCountLimit(questionnaires.length)) {
             userTVQuestionnaireService.create(userId, m.id, function (err, data) {
                 if (err) return done(err);
                 handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
@@ -425,6 +425,25 @@ var handleTVData = function (allMovies, questionnaires, userQuestionnaires, user
         else handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
     }
     else done(null, true);
+}
+
+var getVoteCountLimit = function (numberOfQuestionnaires) {
+    if (numberOfQuestionnaires < 100) {
+        return 2000;
+    }
+    else if (numberOfQuestionnaires < 200) {
+        return 1000;
+    }
+    else if (numberOfQuestionnaires < 300) {
+        return 500
+    }
+    else if (numberOfQuestionnaires < 600) {
+        return 100
+    }
+    else if (numberOfQuestionnaires < 2000) {
+        return 25;
+    }
+    return 0;
 }
 
 var handleDataRecommandations = function (allMovies, questionnaires, movieRecommandations, userId, i, limitAdd, done) {
@@ -444,7 +463,7 @@ var handleDataRecommandations = function (allMovies, questionnaires, movieRecomm
 var handleDataTVRecommandations = function (allTVShows, questionnaires, movieRecommandations, userId, i, limitAdd, done) {
     if (i < allTVShows.length) {
         var t = allTVShows[i].data;
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == t.id }) && !_.find(movieRecommandations, function (q) { return q.movieDBId == t.id; }) && limitAdd > 0 && new Date(t.first_air_date) < new Date()) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == t.id }) && !_.find(movieRecommandations, function (q) { return q.movieDBId == t.id; }) && limitAdd > 0 && new Date(t.first_air_date) < new Date() && t.vote_count >= getVoteCountLimit(questionnaires.length)) {
             tvRecommandationService.create(userId, t.id, function (err, data) {
                 if (err) return done(err);
                 handleDataTVRecommandations(allTVShows, questionnaires, movieRecommandations, userId, i + 1, limitAdd - 1, done);
@@ -459,7 +478,7 @@ var generateDirectorQuestionnaire = function (directorIds, questionnaires, userQ
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, null, certification, 1, function (err, data) {
+        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, null, certification, 1, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
@@ -484,7 +503,7 @@ var generateDirectorRecommandations = function (directorIds, questionnaires, mov
     if (i < directorIds.length) {
         var directorId = directorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, null, certification, 1, function (err, data) {
+        movieDBService.getMoviesForDirectorQuestionnaire(directorId, null, null, null, certification, 1, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 movieDBService.filterOutDirectorData(directorId, data, 0, function (err, res) {
@@ -599,7 +618,7 @@ var generateWriterRecommandations = function (writerIds, questionnaires, movieRe
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, null, certification, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, null, certification, 1, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
@@ -624,7 +643,7 @@ var generateGenreRecommandations = function (genreIds, questionnaires, movieReco
     if (i < genreIds.length) {
         var genreId = genreIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForGenreQuestionnaire(genreId, null, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 3, function (err, res) {
@@ -642,7 +661,7 @@ var generateActorRecommandations = function (actorIds, questionnaires, movieReco
     if (i < actorIds.length) {
         var actorId = actorIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(actorId, null, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(actorId, null, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
@@ -660,7 +679,7 @@ var generateCountryRecommandations = function (countries, questionnaires, movieR
     if (i < countries.length) {
         var country = countries[i];
         // get movieDB movies
-        movieDBService.getMoviesForCountryQuestionnaire(country, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForCountryQuestionnaire(country, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleDataRecommandations(data.results, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
@@ -768,7 +787,7 @@ var generateWriterQuestionnaire = function (writerIds, questionnaires, userQuest
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB movies
-        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, null, certification, 1, function (err, data) {
+        movieDBService.getMoviesForWriterQuestionnaire(writerId, null, null, null, certification, 1, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 movieDBService.filterOutWriterData(writerId, data, 0, function (err, res) {
@@ -813,7 +832,7 @@ var generateActorQuestionnaire = function (castIds, questionnaires, userQuestion
     if (castIds.length < 1) done(null, true);
     else {
         // get movieDB movies
-        movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForActorQuestionnaire(castIds, null, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
@@ -847,7 +866,7 @@ var generateCountryQuestionnaire = function (countries, questionnaires, userQues
     if (i < countries.length) {
         var country = countries[i];
         // get movieDB movies
-        movieDBService.getMoviesForCountryQuestionnaire(country, null, null, certification, function (err, data) {
+        movieDBService.getMoviesForCountryQuestionnaire(country, null, null, certification, questionnaires.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 handleData(data.results, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {

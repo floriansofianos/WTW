@@ -96,7 +96,7 @@ var timeline_service_1 = require("./timeline/timeline.service");
 Raven
     .config('https://5832421d5761485a8f7694f3a36f67d9@sentry.io/1125392')
     .install();
-var RavenErrorHandler = /** @class */ (function () {
+var RavenErrorHandler = (function () {
     function RavenErrorHandler(injector) {
         this.injector = injector;
     }
@@ -112,7 +112,7 @@ function createTranslateLoader(http) {
     return new http_loader_1.TranslateHttpLoader(http, './i18n/', '.json');
 }
 exports.createTranslateLoader = createTranslateLoader;
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -223,3 +223,4 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

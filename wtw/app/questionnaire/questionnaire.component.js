@@ -19,7 +19,7 @@ var animations_1 = require("@angular/animations");
 var movieDB_service_1 = require("../movieDB/movieDB.service");
 var countries_service_1 = require("../countries/countries.service");
 var router_1 = require("@angular/router");
-var QuestionnaireComponent = /** @class */ (function () {
+var QuestionnaireComponent = (function () {
     function QuestionnaireComponent(authService, translate, router, firstQuestionnaireService, movieQuestionnaireService, movieDBService, userQuestionnaireService, countriesService) {
         this.authService = authService;
         this.translate = translate;
@@ -284,3 +284,4 @@ var QuestionnaireComponent = /** @class */ (function () {
     return QuestionnaireComponent;
 }());
 exports.QuestionnaireComponent = QuestionnaireComponent;
+//# sourceMappingURL=questionnaire.component.js.map

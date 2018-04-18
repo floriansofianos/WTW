@@ -588,7 +588,7 @@ module.exports = function () {
     }
 
     var findDirectorWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, directorId, page, done) {
-        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, language, certification, page, function (err, data) {
+        getMoviesForDirectorQuestionnaire(directorId, minRelease, maxRelease, language, certification, page, alreadyAnsweredMovieIds.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 var max_page = data.total_pages;
@@ -689,7 +689,7 @@ module.exports = function () {
     }
 
     var findWriterWTWMovieOnPage = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, writerId, page, done) {
-        getMoviesForWriterQuestionnaire(writerId, minRelease, maxRelease, language, certification, page, function (err, data) {
+        getMoviesForWriterQuestionnaire(writerId, minRelease, maxRelease, language, certification, page, alreadyAnsweredMovieIds.length, function (err, data) {
             if (err) return done(err);
             if (data && data.results) {
                 var max_page = data.total_pages;
@@ -734,7 +734,7 @@ module.exports = function () {
         var seenCountAverage = numberOfGenres == 0 ? 0 : (seenCountForGenres / numberOfGenres);
         var favouriteGenre = _.sample(_.filter(filteredProfiles, function (p) { return (p.score > 80 || ((p.seenCount - seenCountAverage) > (seenCountAverage / 2) && p.score > 40)); }));
         if (favouriteGenre) {
-            getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, function (err, data) {
+            getMoviesForGenreQuestionnaire(favouriteGenre.genreId, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds.length, function (err, data) {
                 if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
@@ -773,7 +773,7 @@ module.exports = function () {
         if (language) return done(null, false);
         var favouriteCountry = _.sample(_.filter(profiles, function (p) { return ((p.scoreRelevance > 60 && p.score > 60) || (p.seenCount > 10 && p.country != 'en')) && p.country }));
         if (favouriteCountry) {
-            getMoviesForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, function (err, data) {
+            getMoviesForCountryQuestionnaire(favouriteCountry.country, minRelease, maxRelease, certification, alreadyAnsweredMovieIds.length, function (err, data) {
                 if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
@@ -806,7 +806,7 @@ module.exports = function () {
     var findActorWTWMovie = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, done) {
         var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
         if (favouriteActor) {
-            getMoviesForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
+            getMoviesForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds.length, function (err, data) {
                 if (err) return done(err);
                 if (data && data.results) {
                     if (data.results.length > 0) {
@@ -940,6 +940,11 @@ module.exports = function () {
     var findTVShowRelevantForWTW = function (tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i, done) {
         if (i < tvShows.length) {
             var tvShow = tvShows[i].data;
+
+            if (tvShow.vote_count < getVoteCountLimit(alreadyAnsweredMovieIds.length)) {
+                return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
+            }
+
             if (_.contains(alreadyAnsweredMovieIds, tvShow.id)) {
                 return findTVShowRelevantForWTW(tvShows, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, i + 1, done);
             }
@@ -1017,7 +1022,7 @@ module.exports = function () {
         else done(null, data);
     }
 
-    var getMoviesForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, done) {
+    var getMoviesForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, numberOfQuestionnaires, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_genres = genreId;
         if (minRelease || maxRelease) {
@@ -1036,12 +1041,34 @@ module.exports = function () {
             query['with_original_language'] = language;
         }
         query['with_runtime.gte'] = 70;
+        if (numberOfQuestionnaires) {
+            query['vote_count.gte'] = getVoteCountLimit(numberOfQuestionnaires);
+        }
         movieDBRequestHelper.makeRequest('discoverMovie', library.randomInt(1, 20), query, (err, data) => {
             if (err) return done(err, null);
             else {
                 return done(null, data);
             }
         });
+    }
+
+    var getVoteCountLimit = function (numberOfQuestionnaires) {
+        if (numberOfQuestionnaires < 100) {
+            return 2000;
+        }
+        else if (numberOfQuestionnaires < 200) {
+            return 1000;
+        }
+        else if (numberOfQuestionnaires < 300) {
+            return 500
+        }
+        else if (numberOfQuestionnaires < 600) {
+            return 100
+        }
+        else if (numberOfQuestionnaires < 2000) {
+            return 25;
+        }
+        return 0;
     }
 
     var getTVShowsForGenreQuestionnaire = function (genreId, minRelease, maxRelease, language, certification, done) {
@@ -1082,7 +1109,7 @@ module.exports = function () {
             });
     }
 
-    var getMoviesForCountryQuestionnaire = function (country, minRelease, maxRelease, certification, done) {
+    var getMoviesForCountryQuestionnaire = function (country, minRelease, maxRelease, certification, numberOfQuestionnaires, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_original_language = country;
         if (minRelease || maxRelease) {
@@ -1098,6 +1125,9 @@ module.exports = function () {
             query['certification.lte'] = certification;
         }
         query['with_runtime.gte'] = 70;
+        if (numberOfQuestionnaires) {
+            query['vote_count.gte'] = getVoteCountLimit(numberOfQuestionnaires);
+        }
         movieDBRequestHelper.makeRequest('discoverMovie', library.randomInt(1, 5), query, (err, data) => {
             if (err) return done(err, null);
             else {
@@ -1106,7 +1136,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, language, certification, page, done) {
+    var getMoviesForDirectorQuestionnaire = function (directorId, minRelease, maxRelease, language, certification, page, numberOfQuestionnaires, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = directorId;
         query.page = page;
@@ -1125,6 +1155,9 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        if (numberOfQuestionnaires) {
+            query['vote_count.gte'] = getVoteCountLimit(numberOfQuestionnaires);
+        }
         query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
@@ -1134,7 +1167,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForWriterQuestionnaire = function (writerId, minRelease, maxRelease, language, certification, page, done) {
+    var getMoviesForWriterQuestionnaire = function (writerId, minRelease, maxRelease, language, certification, page, numberOfQuestionnaires, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         query.with_crew = writerId;
         query.page = page;
@@ -1153,6 +1186,9 @@ module.exports = function () {
         if (language) {
             query['with_original_language'] = language;
         }
+        if (numberOfQuestionnaires) {
+            query['vote_count.gte'] = getVoteCountLimit(numberOfQuestionnaires);
+        }
         query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {
             if (err) return done(err, null);
@@ -1162,7 +1198,7 @@ module.exports = function () {
         });
     }
 
-    var getMoviesForActorQuestionnaire = function (castIds, minRelease, maxRelease, language, certification, done) {
+    var getMoviesForActorQuestionnaire = function (castIds, minRelease, maxRelease, language, certification, numberOfQuestionnaires, done) {
         var query = JSON.parse(JSON.stringify(questionnaireQuery));
         var allCastIds = _.reduce(castIds, function (memo, c) { memo + (memo == '' ? '' : ',') + c });
         query.with_cast = allCastIds;
@@ -1180,6 +1216,9 @@ module.exports = function () {
         }
         if (language) {
             query['with_original_language'] = language;
+        }
+        if (numberOfQuestionnaires) {
+            query['vote_count.gte'] = getVoteCountLimit(numberOfQuestionnaires);
         }
         query['with_runtime.gte'] = 70;
         mdbHelper.makeMovieDBRequest('discoverMovie', query, (err, data) => {

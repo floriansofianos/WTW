@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@ngx-translate/core");
-var MovieQuestionnaireComponent = /** @class */ (function () {
+var MovieQuestionnaireComponent = (function () {
     function MovieQuestionnaireComponent(domSanitizer, translate) {
         var _this = this;
         this.domSanitizer = domSanitizer;
@@ -125,3 +125,4 @@ var MovieQuestionnaireComponent = /** @class */ (function () {
     return MovieQuestionnaireComponent;
 }());
 exports.MovieQuestionnaireComponent = MovieQuestionnaireComponent;
+//# sourceMappingURL=movie-questionnaire.component.js.map
