@@ -422,7 +422,15 @@ var handleTVData = function (allMovies, questionnaires, userQuestionnaires, user
                 handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
             });
         }
-        else handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
+        else {
+            if (i % 1000 === 0) {
+                setTimeout(function () {
+                    handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
+                }, 0);
+            } else {
+                handleTVData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd, done);
+            }
+        }
     }
     else done(null, true);
 }
@@ -546,7 +554,7 @@ var generateWriterTVRecommandations = function (writerIds, questionnaires, movie
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB tv shows
-        movieDBService.getTVShowsForWriterQuestionnaire(writerId, function (err, data) {
+        movieDBService.getTVShowsForWriterQuestionnaire(writerId, tvCacheService, function (err, data) {
             if (err) return done(err);
             if (data && data.length > 0) {
                 handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 1, function (err, res) {
@@ -812,7 +820,7 @@ var generateTVWriterQuestionnaire = function (writerIds, questionnaires, userQue
     if (i < writerIds.length) {
         var writerId = writerIds[i];
         // get movieDB tv shows
-        movieDBService.getTVShowsForWriterQuestionnaire(writerId, function (err, data) {
+        movieDBService.getTVShowsForWriterQuestionnaire(writerId, tvCacheService, function (err, data) {
             if (err) return done(err);
             if (data && data.length > 0) {
                 handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 2, function (err, res) {
@@ -887,7 +895,7 @@ var generateTVCountryQuestionnaire = function (countries, questionnaires, userQu
         movieDBService.getTVShowsForCountryQuestionnaire(country, null, null, certification, function (err, data) {
             if (err) return done(err);
             if (data && data.length) {
-                handleData(data, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
+                handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 3, function (err, res) {
                     if (err) return done(err);
                     generateTVCountryQuestionnaire(countries, questionnaires, userQuestionnaires, certification, userId, i + 1, done);
                 });

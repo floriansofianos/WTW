@@ -651,7 +651,7 @@ module.exports = function () {
     var findWriterWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
         var favouriteWriter = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 60 && p.writerId }));
         if (favouriteWriter) {
-            getTVShowsForWriterQuestionnaire(favouriteWriter.writerId, function (err, data) {
+            getTVShowsForWriterQuestionnaire(favouriteWriter.writerId, tvCacheService, function (err, data) {
                 if (err) done(err);
                 else {
                     return findTVShowRelevantForWTW(data, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, alreadyAnsweredMovieIds, 0, done)
@@ -661,8 +661,8 @@ module.exports = function () {
         else done(null, false);
     }
 
-    var getTVShowsForWriterQuestionnaire = function (writerId, done) {
-        models.sequelize.query("SELECT * FROM \"TVShowCreditsCache\" WHERE \"lang\" = 'en' and data->'crew' @> '[{\"id\":" + writerId + "}]'", { type: sequelize.QueryTypes.SELECT })
+    var getTVShowsForWriterQuestionnaire = function (writerId, tvCacheService, done) {
+        models.sequelize.query("SELECT * FROM \"TVShowCreditsCaches\" WHERE data->'crew' @> '[{\"id\":" + writerId + "}]'", { type: sequelize.QueryTypes.SELECT })
             .then(tvShowCredits => {
                 if (tvShowCredits.length > 0) {
                     var movieDBIds = _.map(tvShowCredits, 'movieDBId');
@@ -1091,7 +1091,7 @@ module.exports = function () {
     }
 
     var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, done) {
-        models.sequelize.query("SELECT * FROM \"TVShowCreditsCache\" WHERE \"lang\" = 'en' and data->'cast' @> '[{\"id\":" + castId + "}]'", { type: sequelize.QueryTypes.SELECT })
+        models.sequelize.query("SELECT * FROM \"TVShowCreditsCaches\" WHERE data->'cast' @> '[{\"id\":" + castId + "}]'", { type: sequelize.QueryTypes.SELECT })
             .then(tvShowCredits => {
                 if (tvShowCredits.length > 0) {
                     var movieDBIds = _.map(tvShowCredits, 'movieDBId');
