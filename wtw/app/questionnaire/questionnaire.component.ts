@@ -212,6 +212,7 @@ export class QuestionnaireComponent {
             }
             else if (response.json().noResult) {
                 this.showNoResults = true;
+                this.showSpinner = false;
             }
             else this.showMovieFromAPIResponse(response);
         },

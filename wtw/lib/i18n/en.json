@@ -53,7 +53,8 @@
         "HOMEPAGE": "homepage",
         "WELCOME_MESSAGE": "Please answer those few questions. They will help us create your personal recommandations.",
         "LOCATION": "Where do you live?",
-        "COUNTRY": "Country"
+        "COUNTRY": "Country",
+        "NO_RESULTS":  "We don't have any questionnaires for you at the moment. Please come back in a few minutes."
     },
     "CAST": {
         "ALSO_KNOWN": "Also known for:",

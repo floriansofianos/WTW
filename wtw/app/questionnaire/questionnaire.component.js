@@ -175,6 +175,7 @@ var QuestionnaireComponent = (function () {
             }
             else if (response.json().noResult) {
                 _this.showNoResults = true;
+                _this.showSpinner = false;
             }
             else
                 _this.showMovieFromAPIResponse(response);

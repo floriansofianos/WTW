@@ -1,4 +1,4 @@
-<div class="top-right">
+<div class="top-right" *ngIf="!showNoResults">
     <div class="progress-bar-container"><mat-progress-bar [color]="'#08073c'" [mode]="'determinate'" [value]="(questionAnswered / questionsToAnswer) * 100"></mat-progress-bar></div>
     <div class="text-centered">{{ questionAnswered }}/{{questionsToAnswer}}</div>
 </div>
@@ -62,7 +62,7 @@
         <div *ngIf="isFirstQuestionnaire">{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}<a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a></div>
         <div *ngIf="!isFirstQuestionnaire"><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
     </div>
-    <div *ngIf="showNoResults">NO RESULTS!!!!</div>
+    <div *ngIf="showNoResults">{{ 'FIRST_QUESTIONNAIRE.NO_RESULTS' | translate }}</div>
 </div>
 <div class="absolute-spinner" *ngIf="showSpinner && questionAnswered < questionsToAnswer">
     <spinner></spinner>
