@@ -402,7 +402,7 @@ var generateTVCreatorQuestionnaire = function (creatorIds, questionnaires, userQ
 var handleData = function (allMovies, questionnaires, userQuestionnaires, userId, i, limitAdd, done) {
     if (i < allMovies.length) {
         var m = allMovies[i];
-        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && !m.video && new Date(m.release_date) < new Date() && m.runtime >= 70) {
+        if (!_.find(questionnaires, function (q) { return q.movieDBId == m.id }) && !_.find(userQuestionnaires, function (q) { return q.movieDBId == m.id; }) && limitAdd > 0 && !m.video && new Date(m.release_date) < new Date() && (!m.runtime || m.runtime >= 70)) {
             userQuestionnaireService.create(userId, m.id, function (err, data) {
                 if (err) return done(err);
                 handleData(allMovies, questionnaires, userQuestionnaires, userId, i + 1, limitAdd - 1, done);
