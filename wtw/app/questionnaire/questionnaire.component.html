@@ -62,6 +62,7 @@
         <div *ngIf="isFirstQuestionnaire">{{ 'FIRST_QUESTIONNAIRE.GO_TO' | translate }}<a routerLink="/user/home">{{ 'FIRST_QUESTIONNAIRE.HOMEPAGE' | translate }}</a></div>
         <div *ngIf="!isFirstQuestionnaire"><a routerLink="/user/movies/dummyQuestionnaires">{{ 'FIRST_QUESTIONNAIRE.CONTINUE' | translate }}</a></div>
     </div>
+    <div *ngIf="showNoResults">NO RESULTS!!!!</div>
 </div>
 <div class="absolute-spinner" *ngIf="showSpinner && questionAnswered < questionsToAnswer">
     <spinner></spinner>

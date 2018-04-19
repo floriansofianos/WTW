@@ -58,6 +58,7 @@ export class QuestionnaireComponent {
     yearOfBirth: number;
     countriesList: any;
     selectedCountry: any;
+    showNoResults: boolean;
 
     ngOnInit() {
         let currentUser = this.authService.getCurrentUser();
@@ -208,6 +209,9 @@ export class QuestionnaireComponent {
         this.userQuestionnaireService.get(this.translate.currentLang).subscribe(response => {
             if (response.json().reload) {
                 this.getMovieQuestionnaireFromUserQuestionnaire();
+            }
+            else if (response.json().noResult) {
+                this.showNoResults = true;
             }
             else this.showMovieFromAPIResponse(response);
         },
