@@ -142,7 +142,8 @@
         "WATCH_WITH_FRIEND": "Regarder un film avec un ami",
         "WATCH_TV_WITH_FRIEND": "Regarder une série avec un ami",
         "ONLY_PLEX_MOVIES": "Uniquement utiliser les films disponibles sur Plex",
-        "ONLY_PLEX_TV":  "Uniquement utiliser les séries disponibles sur Plex"
+        "ONLY_PLEX_TV": "Uniquement utiliser les séries disponibles sur Plex",
+        "GRADE_USER_HELP":  "Représente la compatibilité entre vos deux profils. Si nous ne pouvons pas déterminer ce chiffre, il sera remplacé par un point d'interrogation."
     },
     "FORM": {
         "OK": "OK",

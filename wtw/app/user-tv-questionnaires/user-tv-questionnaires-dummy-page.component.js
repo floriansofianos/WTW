@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var DummyUserTVQuestionnairesComponent = (function () {
+var DummyUserTVQuestionnairesComponent = /** @class */ (function () {
     function DummyUserTVQuestionnairesComponent(router) {
         this.router = router;
     }
@@ -27,4 +27,3 @@ var DummyUserTVQuestionnairesComponent = (function () {
     return DummyUserTVQuestionnairesComponent;
 }());
 exports.DummyUserTVQuestionnairesComponent = DummyUserTVQuestionnairesComponent;
-//# sourceMappingURL=user-tv-questionnaires-dummy-page.component.js.map

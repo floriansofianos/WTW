@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var FooterComponent = (function () {
+var FooterComponent = /** @class */ (function () {
     function FooterComponent() {
     }
     FooterComponent = __decorate([
@@ -20,4 +20,3 @@ var FooterComponent = (function () {
     return FooterComponent;
 }());
 exports.FooterComponent = FooterComponent;
-//# sourceMappingURL=footer.component.js.map

@@ -17,7 +17,7 @@ var tv_questionnaire_service_1 = require("./tv-questionnaire.service");
 var router_2 = require("@angular/router");
 var common_1 = require("@angular/common");
 var _ = require("underscore");
-var TVShowPageComponent = (function () {
+var TVShowPageComponent = /** @class */ (function () {
     function TVShowPageComponent(authService, router, movieDBService, route, tvQuestionnaireService, location) {
         this.authService = authService;
         this.router = router;
@@ -112,4 +112,3 @@ var TVShowPageComponent = (function () {
     return TVShowPageComponent;
 }());
 exports.TVShowPageComponent = TVShowPageComponent;
-//# sourceMappingURL=tvshow.component.js.map

@@ -142,7 +142,8 @@
         "WATCH_WITH_FRIEND": "Watch this movie with a friend",
         "WATCH_TV_WITH_FRIEND": "Watch this tv show with a friend",
         "ONLY_PLEX_MOVIES": "Only show movies available on Plex",
-        "ONLY_PLEX_TV": "Only show tv shows available on Plex"
+        "ONLY_PLEX_TV": "Only show tv shows available on Plex",
+        "GRADE_USER_HELP":  "Represents the compatibility between your two profiles. If we cannot calculate it, you will see a question mark."
     },
     "FORM": {
         "OK": "OK",

@@ -9,6 +9,11 @@
         </div>
         <div class="profile-information-container">
             <h2>{{ user.username }}</h2>
+            <div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
+                <div class="reco-grading-container" matTooltip="{{ 'WTW.GRADE_USER_HELP' | translate }}">
+                    {{averageDistance | number:'1.0-1'}} %
+                </div>
+            </div>
             <div class="country-container">{{ userCountry?.name }}</div>
             <div class="social-buttons-container" *ngIf="!isLoading && !isCurrentUser">
                 <div class="button" *ngIf="!isPendingFriend && (!isFriend || !friendship.isFriend)" (click)="requestFriend()">{{ 'USER_PAGE.REQUEST_FRIEND' | translate }}</div>
@@ -18,11 +23,6 @@
                 <div class="button not-clickable" *ngIf="isPendingFriend && !isPendingFriendForMe">{{ 'USER_PAGE.WAITING_RESPONSE' | translate }}</div>
                 <div class="button" *ngIf="isPendingFriend && isPendingFriendForMe" (click)="acceptFriendship()">{{ 'USER_PAGE.ACCEPT_FRIEND' | translate }}</div>
             </div>
-        </div>
-    </div>
-    <div class="grade-column" *ngIf="averageDistance && !isCurrentUser">
-        <div class="reco-grading-container" [ngClass]="{ 'good-grade': averageDistance > 60, 'bad-grade': averageDistance < 60 }" matTooltip="{{ 'WTW.GRADE_HELP' | translate }}">
-            {{averageDistance | number:'1.0-1'}} %
         </div>
     </div>
     <div class="like-dislike-container" *ngIf="!isLoading">
