@@ -6,7 +6,7 @@
                     res.sendStatus(500);
                     throw new Error(err);
                 }
-                if (!err && result.movieDBId) {
+                if (!err && result && result.movieDBId) {
                     // Check that we did not already answer this
                     movieQuestionnaireService.get(req.user.id, result.movieDBId, function (err, data) {
                         if (err) {
@@ -35,6 +35,9 @@
                             }
                         }
                     });
+                }
+                else if (!result && !err) {
+                    res.json({ noResult: true });
                 }
                 else res.send(500);
             });

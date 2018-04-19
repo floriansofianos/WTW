@@ -823,7 +823,7 @@ module.exports = function () {
     var findActorWTWTVShow = function (profiles, lang, genreId, useRuntimeLimit, runtimeLimit, minRelease, maxRelease, language, certification, alreadyAnsweredMovieIds, tvCacheService, done) {
         var favouriteActor = _.sample(_.filter(profiles, function (p) { return p.scoreRelevance > 60 && p.score > 80 && p.castId }));
         if (favouriteActor) {
-            getTVShowsForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, function (err, data) {
+            getTVShowsForActorQuestionnaire(favouriteActor.castId, minRelease, maxRelease, language, certification, tvCacheService, function (err, data) {
                 if (err) return done(err);
                 if (data && data.length > 0) {
                     var movieDBIds = _.map(data, 'movieDBId');
@@ -1090,7 +1090,7 @@ module.exports = function () {
             });
     }
 
-    var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, done) {
+    var getTVShowsForActorQuestionnaire = function (castId, minRelease, maxRelease, language, certification, tvCacheService, done) {
         models.sequelize.query("SELECT * FROM \"TVShowCreditsCaches\" WHERE data->'cast' @> '[{\"id\":" + castId + "}]'", { type: sequelize.QueryTypes.SELECT })
             .then(tvShowCredits => {
                 if (tvShowCredits.length > 0) {

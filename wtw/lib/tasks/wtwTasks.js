@@ -590,7 +590,7 @@ var generateActorTVRecommandations = function (actorIds, questionnaires, movieRe
     if (i < actorIds.length) {
         var actorId = actorIds[i];
         // get movieDB tv shows
-        movieDBService.getTVShowsForActorQuestionnaire(actorId, null, null, null, certification, function (err, data) {
+        movieDBService.getTVShowsForActorQuestionnaire(actorId, null, null, null, certification, tvCacheService, function (err, data) {
             if (err) return done(err);
             if (data && data.length > 0) {
                 handleDataTVRecommandations(data, questionnaires, movieRecommandations, userId, 0, 2, function (err, res) {
@@ -857,7 +857,7 @@ var generateTVActorQuestionnaire = function (castIds, questionnaires, userQuesti
     if (castIds.length < 1) done(null, true);
     else {
         // get movieDB tv shows
-        movieDBService.getTVShowsForActorQuestionnaire(castIds[Math.floor(Math.random() * castIds.length)], null, null, null, certification, function (err, data) {
+        movieDBService.getTVShowsForActorQuestionnaire(castIds[Math.floor(Math.random() * castIds.length)], null, null, null, certification, tvCacheService, function (err, data) {
             if (err) return done(err);
             if (data && data.length > 0) {
                 handleTVData(data, questionnaires, userQuestionnaires, userId, 0, 1, function (err, res) {
