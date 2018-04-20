@@ -13,13 +13,15 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("../auth/auth.service");
 var user_service_1 = require("../user/user.service");
 var countries_service_1 = require("../countries/countries.service");
+var core_2 = require("@ngx-translate/core");
 var router_1 = require("@angular/router");
-var UserProfilePageComponent = /** @class */ (function () {
-    function UserProfilePageComponent(authService, router, userService, countriesService) {
+var UserProfilePageComponent = (function () {
+    function UserProfilePageComponent(authService, router, userService, countriesService, translate) {
         this.authService = authService;
         this.router = router;
         this.userService = userService;
         this.countriesService = countriesService;
+        this.translate = translate;
     }
     UserProfilePageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,6 +33,9 @@ var UserProfilePageComponent = /** @class */ (function () {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.translate.get('USER_PROFILE.DELETE_CONFIRM').subscribe(function (res) {
+                _this.labelDeleteConfirm = res;
+            });
             this.countriesService.getAll().subscribe(function (response) {
                 _this.countriesList = response.json().countries;
                 _this.profileForm = {
@@ -81,11 +86,13 @@ var UserProfilePageComponent = /** @class */ (function () {
     };
     UserProfilePageComponent.prototype.delete = function () {
         var _this = this;
-        this.userService.deleteAvatar().subscribe(function (res) {
-            _this.updatePhoto();
-        }, function (error) {
-            throw new Error(error);
-        });
+        if (confirm(this.labelDeleteConfirm)) {
+            this.userService.deleteAvatar().subscribe(function (res) {
+                _this.updatePhoto();
+            }, function (error) {
+                throw new Error(error);
+            });
+        }
     };
     UserProfilePageComponent.prototype.save = function () {
         var _this = this;
@@ -105,8 +112,9 @@ var UserProfilePageComponent = /** @class */ (function () {
             moduleId: module.id,
             templateUrl: 'user-profile-page.component.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, user_service_1.UserService, countries_service_1.CountriesService])
+        __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, user_service_1.UserService, countries_service_1.CountriesService, core_2.TranslateService])
     ], UserProfilePageComponent);
     return UserProfilePageComponent;
 }());
 exports.UserProfilePageComponent = UserProfilePageComponent;
+//# sourceMappingURL=user-profile-page.component.js.map

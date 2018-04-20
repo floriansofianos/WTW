@@ -2,6 +2,7 @@
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import { CountriesService } from '../countries/countries.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
 
@@ -17,9 +18,10 @@ export class UserProfilePageComponent {
     photoData: any;
     countriesList: Array<any>;
     profileForm: any;
+    labelDeleteConfirm: string;
     @ViewChild('fileInput') fileInput;
 
-    constructor(private authService: AuthService, private router: Router, private userService: UserService, private countriesService: CountriesService) { }
+    constructor(private authService: AuthService, private router: Router, private userService: UserService, private countriesService: CountriesService, private translate: TranslateService) { }
 
     ngOnInit() {
         this.isLoading = true;
@@ -30,6 +32,9 @@ export class UserProfilePageComponent {
                 this.router.navigate(['/user/welcome']);
             }
             this.username = currentUser.username;
+            this.translate.get('USER_PROFILE.DELETE_CONFIRM').subscribe((res: string) => {
+                this.labelDeleteConfirm = res;
+            });
             this.countriesService.getAll().subscribe(response => {
                 this.countriesList = response.json().countries;
                 this.profileForm = {
@@ -85,13 +90,15 @@ export class UserProfilePageComponent {
     }
 
     delete() {
-        this.userService.deleteAvatar().subscribe(res => {
-            this.updatePhoto();
-        },
-            error => {
-                throw new Error(error);
-            }
-        );
+        if (confirm(this.labelDeleteConfirm)) {
+            this.userService.deleteAvatar().subscribe(res => {
+                this.updatePhoto();
+            },
+                error => {
+                    throw new Error(error);
+                }
+            );
+        }
     }
 
     save() {

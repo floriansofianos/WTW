@@ -1,1 +1,157 @@
-﻿[{"code":  "ar"},{"code":  "bs"},{"code":  "cs"},{"code":  "zh"},{"code":  "da"},{"code":  "de"},{"code":  "nl"},{"code":  "el"},{"code":  "en"},{"code":  "fi"},{"code":  "fr"},{"code":  "hi"},{"code":  "hu"},{"code":  "is"},{"code":  "id"},{"code":  "it"},{"code":  "ja"},{"code":  "ko"},{"code":  "mk"},{"code":  "mn"},{"code":  "no"},{"code":  "pl"},{"code":  "pt"},{"code":  "ro"},{"code":  "ru"},{"code":  "es"},{"code":  "sv"},{"code":  "th"},{"code":  "tr"},{"code":  "uk"},{"code":  "vi"}]
+﻿[
+    {
+        "fr": "Arabe",
+        "en": "Arabic",
+        "code": "ar"
+    },
+    {
+        "fr": "Bosnien",
+        "en": "Bosnian",
+        "code": "bs"
+    },
+    {
+        "fr": "Tchèque",
+        "en": "Czech",
+        "code": "cs"
+    },
+    {
+        "fr": "Chinois",
+        "en": "Chinese",
+        "code": "zh"
+    },
+    {
+        "fr": "Danois",
+        "en": "Danish",
+        "code": "da"
+    },
+    {
+        "fr": "Allemand",
+        "en": "German",
+        "code": "de"
+    },
+    {
+        "fr": "Néerlandais",
+        "en": "Dutch",
+        "code": "nl"
+    },
+    {
+        "fr": "Grec",
+        "en": "Greek",
+        "code": "el"
+    },
+    {
+        "fr": "Anglais",
+        "en": "English",
+        "code": "en"
+    },
+    {
+        "fr": "Finnois",
+        "en": "Finnish",
+        "code": "fi"
+    },
+    {
+        "fr": "Français",
+        "en": "French",
+        "code": "fr"
+    },
+    {
+        "fr": "Hindi",
+        "en": "Hindi",
+        "code": "hi"
+    },
+    {
+        "fr": "Hongrois",
+        "en": "Hungarian",
+        "code": "hu"
+    },
+    {
+        "fr": "Islandais",
+        "en": "Icelandic",
+        "code": "is"
+    },
+    {
+        "fr": "Indonésien",
+        "en": "Indonesian",
+        "code": "id"
+    },
+    {
+        "fr": "Italien",
+        "en": "Italian",
+        "code": "it"
+    },
+    {
+        "fr": "Japonais",
+        "en": "Japanese",
+        "code": "ja"
+    },
+    {
+        "fr": "Coréen",
+        "en": "Korean",
+        "code": "ko"
+    },
+    {
+        "fr": "Macédonien",
+        "en": "Macedonian",
+        "code": "mk"
+    },
+    {
+        "fr": "Mongol",
+        "en": "Mongolian",
+        "code": "mn"
+    },
+    {
+        "fr": "Norvégien",
+        "en": "Norwegian",
+        "code": "no"
+    },
+    {
+        "fr": "Polonais",
+        "en": "Polish",
+        "code": "pl"
+    },
+    {
+        "fr": "Portugais",
+        "en": "Portuguese",
+        "code": "pt"
+    },
+    {
+        "fr": "Roumain",
+        "en": "Romanian",
+        "code": "ro"
+    },
+    {
+        "fr": "Russe",
+        "en": "Russian",
+        "code": "ru"
+    },
+    {
+        "fr": "Espagnol",
+        "en": "Spanish",
+        "code": "es"
+    },
+    {
+        "fr": "Suédois",
+        "en": "Swedish",
+        "code": "sv"
+    },
+    {
+        "fr": "Thaï",
+        "en": "Thai",
+        "code": "th"
+    },
+    {
+        "fr": "Turc",
+        "en": "Turkish",
+        "code": "tr"
+    },
+    {
+        "fr": "Ukrainien",
+        "en": "Ukrainian",
+        "code": "uk"
+    },
+    {
+        "fr": "Vietnamien",
+        "en": "Viêt Namese",
+        "code": "vi"
+    }
+]
