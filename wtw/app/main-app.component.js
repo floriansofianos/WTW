@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var core_2 = require("@ngx-translate/core");
 var auth_service_1 = require("./auth/auth.service");
+var ngx_device_detector_1 = require("ngx-device-detector");
 var MainAppComponent = (function () {
-    function MainAppComponent(translate, authService) {
+    function MainAppComponent(translate, authService, deviceService) {
         this.translate = translate;
         this.authService = authService;
+        this.deviceService = deviceService;
         var currentUser = this.authService.getCurrentUser();
         if (currentUser)
             translate.use(currentUser.lang);
@@ -23,15 +25,21 @@ var MainAppComponent = (function () {
             var browserLang = translate.getBrowserLang();
             translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
         }
+        this.checkDeviceAndRedirect();
     }
+    MainAppComponent.prototype.checkDeviceAndRedirect = function () {
+        if (this.deviceService.isMobile() || this.deviceService.isTablet())
+            window.location.href = 'https://mobile.whatowatch.net';
+    };
     MainAppComponent = __decorate([
         core_1.Component({
             selector: 'main-app',
             template: "\n<router-outlet></router-outlet>\n"
         }),
-        __metadata("design:paramtypes", [core_2.TranslateService, auth_service_1.AuthService])
+        __metadata("design:paramtypes", [core_2.TranslateService, auth_service_1.AuthService, typeof (_a = typeof ngx_device_detector_1.DeviceDetectorService !== "undefined" && ngx_device_detector_1.DeviceDetectorService) === "function" && _a || Object])
     ], MainAppComponent);
     return MainAppComponent;
+    var _a;
 }());
 exports.MainAppComponent = MainAppComponent;
 //# sourceMappingURL=main-app.component.js.map

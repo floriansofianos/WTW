@@ -21,6 +21,7 @@ var angular_star_rating_1 = require("angular-star-rating");
 var ngx_modialog_1 = require("ngx-modialog");
 var bootstrap_1 = require("ngx-modialog/plugins/bootstrap");
 var ngx_infinite_scroll_1 = require("ngx-infinite-scroll");
+var ngx_device_detector_1 = require("ngx-device-detector");
 var core_3 = require("@angular/core");
 var routes_1 = require("./routes");
 var main_app_component_1 = require("./main-app.component");
@@ -135,6 +136,7 @@ var AppModule = (function () {
                 ng2_nouislider_1.NouisliderModule,
                 angular_star_rating_1.StarRatingModule,
                 ngx_modialog_1.ModalModule.forRoot(),
+                ngx_device_detector_1.DeviceDetectorModule.forRoot(),
                 bootstrap_1.BootstrapModalModule,
                 core_2.TranslateModule.forRoot({
                     loader: {

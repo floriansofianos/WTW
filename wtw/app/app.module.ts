@@ -13,6 +13,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { APP_INITIALIZER, ErrorHandler, Injector } from '@angular/core';
 
 import { appRoutes } from './routes';
@@ -128,6 +129,7 @@ export function createTranslateLoader(http: Http) {
         NouisliderModule,
         StarRatingModule,
         ModalModule.forRoot(),
+        DeviceDetectorModule.forRoot(),
         BootstrapModalModule,
         TranslateModule.forRoot({
             loader: {

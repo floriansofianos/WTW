@@ -62,7 +62,8 @@ let System: any
             'ngx-modialog': 'npm:ngx-modialog/bundle/ngx-modialog.rollup.umd.min.js',
             'ngx-modialog/plugins/bootstrap': 'npm:ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.rollup.umd.min.js',
             'libphonenumber-js': 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js',
-            'raven-js': 'npm:raven-js'
+            'raven-js': 'npm:raven-js',
+            'ngx-device-detector': 'npm:ngx-device-detector/ngx-device-detector.umd.js'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
