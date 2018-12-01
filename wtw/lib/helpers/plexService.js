@@ -17,7 +17,7 @@ module.exports = function () {
                     var baseUrl = plexServer.url;
                     var plexToken = plexServer.token;
                     // Start by getting all the plex movies
-                    request(baseUrl + '/library/sections/4/all?type=1&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
+                    request({ url: baseUrl + '/library/sections/4/all?type=1&includeCollections=1&X-Plex-Token=' + plexToken, rejectUnauthorized: false }, function (error, response, body) {
                         if (!error) {
                             parse(body, function (err, result) {
                                 if (err) return done(err);
@@ -50,7 +50,7 @@ module.exports = function () {
                     var baseUrl = plexServer.url;
                     var plexToken = plexServer.token;
                     // Start by getting all the plex movies
-                    request(baseUrl + '/library/sections/3/all?type=2&includeCollections=1&X-Plex-Token=' + plexToken, function (error, response, body) {
+                    request({ url: baseUrl + '/library/sections/3/all?type=2&includeCollections=1&X-Plex-Token=' + plexToken, rejectUnauthorized: false }, function (error, response, body) {
                         if (!error) {
                             parse(body, function (err, result) {
                                 if (err) return done(err);
@@ -123,7 +123,7 @@ module.exports = function () {
         if (i < plexServerMovies.length) {
             var v = plexServerMovies[i];
             var metadataUrl = v.$.key;
-            request(baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, function (error, response, body) {
+            request({ url: baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, rejectUnauthorized: false }, function (error, response, body) {
                 if (error) return done(error);
                 parse(body, function (err, result) {
                     if (err) return done(err);
@@ -165,7 +165,7 @@ module.exports = function () {
         if (i < plexServerTVShows.length) {
             var v = plexServerTVShows[i];
             var metadataUrl = v.$.key.replace('/children', '');
-            request(baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, function (error, response, body) {
+            request({ url: baseUrl + metadataUrl + '?X-Plex-Token=' + plexToken, rejectUnauthorized: false }, function (error, response, body) {
                 if (error) return done(error);
                 parse(body, function (err, result) {
                     if (err) return done(err);
@@ -228,7 +228,7 @@ module.exports = function () {
                 done(err);
             });
     }
-    
+
     return {
         updateAllPlexMovies: updateAllPlexMovies,
         updateAllPlexTVShows: updateAllPlexTVShows,
