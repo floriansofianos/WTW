@@ -1257,7 +1257,7 @@ module.exports = function () {
         getMovieFromCache(id, lang, (err, movie) => {
             if (err) return done(err);
             if (movie) {
-                if (date.addYears(movie.updatedAt, 1) > new Date()) return done(null, movie.data);
+                if (date.addYears(movie.updatedAt, 3) > new Date()) return done(null, movie.data);
                 else {
                     getMovieFromMovieDB(id, lang, movie, (err, movie) => {
                         if (err) return done(err, null);
@@ -1356,7 +1356,7 @@ module.exports = function () {
         getMovieTrailersFromCache(id, (err, trailers) => {
             if (err) return done(err);
             if (trailers) {
-                if (date.addYears(trailers.updatedAt, 1) > new Date()) return done(null, trailers.data);
+                if (date.addYears(trailers.updatedAt, 3) > new Date()) return done(null, trailers.data);
                 else {
                     getMovieTrailersFromMovieDB(id, trailers, (err, trailers) => {
                         if (err) return done(err, null);
@@ -1418,7 +1418,7 @@ module.exports = function () {
         getMovieCreditsFromCache(id, (err, credits) => {
             if (err) return done(err);
             if (credits) {
-                if (date.addYears(credits.updatedAt, 1) > new Date()) return done(null, credits.data);
+                if (date.addYears(credits.updatedAt, 3) > new Date()) return done(null, credits.data);
                 else {
                     getMovieCreditsFromMovieDB(id, credits, (err, credits) => {
                         if (err) return done(err, null);
@@ -1567,7 +1567,7 @@ module.exports = function () {
         getPeopleFromCache(directorId, writerId, actorId, creatorId, lang, (err, people) => {
             if (err) return done(err);
             if (people) {
-                if (date.addMonths(people.updatedAt, 2) > new Date()) return done(null, people.data);
+                if (date.addMonths(people.updatedAt, 3) > new Date()) return done(null, people.data);
                 else {
                     getPeopleFromMovieDB(directorId, writerId, actorId, creatorId, lang, people, (err, people) => {
                         if (err) return done(err, null);
@@ -1699,7 +1699,7 @@ module.exports = function () {
             if (!tvShow) retrieveAndStoreTVShow(i + 1, tvShows, page, totalPages, done);
             else {
                 models.TVShowInfoCache.findOne({ where: { movieDBId: tvShow.id } }).then(info => {
-                    if (info && date.addMonths(info.updatedAt, 1) > new Date()) {
+                    if (info && date.addYears(info.updatedAt, 1) > new Date()) {
                         // already in DB skip info, get credits if necessary
                         models.TVShowCreditsCache.findOne({ where: { movieDBId: tvShow.id } }).then(credits => {
                             if (!credits) {
